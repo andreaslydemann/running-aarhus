@@ -1,0 +1,37 @@
+{
+  "name": "running-aarhus",
+  "main": "node_modules/expo/AppEntry.js",
+  "scripts": {
+    "start": "expo start",
+    "eject": "expo eject",
+    "android": "expo android",
+    "ios": "expo ios"
+  },
+  "dependencies": {
+    "@expo/vector-icons": "^10.0.0",
+    "color": "^3.1.0",
+    "expo": "^32.0.6",
+    "i18n-js": "^3.2.1",
+    "native-base": "^2.12.1",
+    "react": "^16.8.4",
+    "react-native": "^0.57.8",
+    "react-navigation": "^3.3.2",
+    "react-redux": "^6.0.1"
+  },
+  "devDependencies": {
+    "@types/color": "^3.0.0",
+    "@types/expo": "^32.0.7",
+    "@types/i18n-js": "^3.0.1",
+    "@types/react": "^16.8.8",
+    "@types/react-native": "^0.57.40",
+    "@types/react-navigation": "^3.0.5",
+    "@types/react-redux": "^7.0.3",
+    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-preset-expo": "^5.0.0",
+    "prettier": "1.16.4",
+    "redux-devtools-extension": "^2.13.8",
+    "tslint-config-prettier": "1.18.0",
+    "typescript": "^3.3.3333"
+  },
+  "private": true
+}
