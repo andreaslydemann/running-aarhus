@@ -1,4 +1,4 @@
-import { Action } from "./interfaces";
+import { Action } from "./common";
 
 export const COUNTER_TYPES = {
   INCREMENT: "INCREMENT",

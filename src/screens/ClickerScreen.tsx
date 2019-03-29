@@ -1,7 +1,7 @@
 import { Clicker, AppHeader } from "components";
 import { Content, Container } from "native-base";
 import { CounterState } from "reducers/states";
-import { Action } from "actions/interfaces";
+import { Action } from "actions/common";
 import * as Actions from "actions";
 import React, { Dispatch } from "react";
 import { connect } from "react-redux";

@@ -1,5 +1,5 @@
 import { CounterState } from "./states";
-import { Action } from "actions/interfaces";
+import { Action } from "actions/common";
 import { COUNTER_TYPES } from "actions";
 
 let initialState: CounterState = {
