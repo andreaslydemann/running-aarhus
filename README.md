@@ -1,13 +1,6 @@
 # Running Aarhus
 
-A simple way to share your running plans in Aarhus (Denmark) that others can join, built with [React-Native](https://github.com/facebook/react-native), using the following tools:
-
-- **Expo**
-- **TypeScript**
-- **Redux**
-- **React Navigation**
-- **Native Base**
-- **i18n**
+A simple way to share your running plans in Aarhus (Denmark) that others can join, built with [React-Native](https://github.com/facebook/react-native).
 
 ---
 
@@ -34,4 +27,4 @@ yarn start
 
 If you find a bug, feel free to open an issue or submit a pull request.
 
-New ideas are always welcome. If you want to add a feature, let me know by opening an issue or messaging me on [Twitter](https://twitter.com/andreaslydemann).
+If you want to add a feature, let me know by opening an issue or messaging me on [Twitter](https://twitter.com/andreaslydemann).
