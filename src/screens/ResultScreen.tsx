@@ -1,8 +1,8 @@
-import { AppHeader } from "components";
 import { AsyncStorage } from "react-native";
 import { Content, Container, Text, Button } from "native-base";
 import React from "react";
 import i18n from "i18n-js";
+import { ScreenTitle } from "components";
 
 interface Props {
   navigation: { navigate: (screen: string) => void };
@@ -20,8 +20,8 @@ export default class ResultScreen extends React.Component<Props> {
 
   render(): JSX.Element {
     return (
-      <Container>
-        <AppHeader headerText={i18n.t("resultHeader")} />
+      <Container style={{ paddingTop: 40, flex: 1 }}>
+        <ScreenTitle title={i18n.t("resultHeader")} />
 
         <Content padder>
           <Button onPress={this.signOut}>
