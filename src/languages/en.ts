@@ -3,6 +3,6 @@ export const en = {
   decrement: "Decrement",
   increment: "Increment",
   number: "The number {{someValue}} is nice!",
-  resultHeader: "Result",
+  scheduleTitle: "Schedule",
   showResult: "Show Result"
 };

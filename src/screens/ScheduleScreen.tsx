@@ -8,7 +8,7 @@ interface Props {
   navigation: { navigate: (screen: string) => void };
 }
 
-export default class ResultScreen extends React.Component<Props> {
+export default class ScheduleScreen extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
   }
@@ -21,7 +21,7 @@ export default class ResultScreen extends React.Component<Props> {
   render(): JSX.Element {
     return (
       <Container style={{ paddingTop: 40, flex: 1 }}>
-        <ScreenTitle title={i18n.t("resultHeader")} />
+        <ScreenTitle title={i18n.t("scheduleTitle")} />
 
         <Content padder>
           <Button onPress={this.signOut}>

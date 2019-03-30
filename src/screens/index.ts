@@ -1,5 +1,5 @@
 import AuthLoadingScreen from "./AuthLoadingScreen";
 import SignInScreen from "./SignInScreen";
-import ResultScreen from "./ResultScreen";
+import ScheduleScreen from "./ScheduleScreen";
 
-export { AuthLoadingScreen, SignInScreen, ResultScreen };
+export { AuthLoadingScreen, SignInScreen, ScheduleScreen };

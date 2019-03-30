@@ -3,6 +3,6 @@ export const da = {
   decrement: "Dekrementér",
   increment: "Inkrementér",
   number: "Tallet {{someValue}} er fint!",
-  resultHeader: "Resultat",
+  scheduleTitle: "Tidsplan",
   showResult: "Vis Resultat"
 };
