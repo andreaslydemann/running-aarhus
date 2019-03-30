@@ -5,16 +5,19 @@ import {
   createSwitchNavigator
 } from "react-navigation";
 import {
-  AuthLoadingScreen,
-  SignInScreen,
-  ScheduleScreen,
-  SettingsScreen
-} from "screens";
+  ScheduleStack,
+  PlanningStack,
+  PastStack,
+  SettingsStack
+} from "navigation";
+import { AuthLoadingScreen, SignInScreen } from "screens";
 
 // https://github.com/janhesters/ReactNative-ComplexNavigation/blob/master/app/navigation/Navigator.tsx
 const AppTabBar = createBottomTabNavigator({
-  Schedule: ScheduleScreen,
-  Settings: SettingsScreen
+  Schedule: ScheduleStack,
+  Planning: PlanningStack,
+  Past: PastStack,
+  Settings: SettingsStack
 });
 
 const AuthStack = createStackNavigator(

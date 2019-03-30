@@ -1,3 +1,4 @@
 import ScreenTitle from "./ScreenTitle";
+import IconWithBadge from "./IconWithBadge";
 
-export { ScreenTitle };
+export { ScreenTitle, IconWithBadge };
