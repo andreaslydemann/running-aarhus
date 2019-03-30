@@ -13,12 +13,24 @@ import {
 import { AuthLoadingScreen, SignInScreen } from "screens";
 
 // https://github.com/janhesters/ReactNative-ComplexNavigation/blob/master/app/navigation/Navigator.tsx
-const AppTabBar = createBottomTabNavigator({
-  Schedule: ScheduleStack,
-  Planning: PlanningStack,
-  Past: PastStack,
-  Settings: SettingsStack
-});
+const AppTabBar = createBottomTabNavigator(
+  {
+    Schedule: ScheduleStack,
+    Planning: PlanningStack,
+    Past: PastStack,
+    Settings: SettingsStack
+  },
+  {
+    tabBarOptions: {
+      activeTintColor: "white",
+      inactiveTintColor: "#8183a5",
+      showLabel: true,
+      style: {
+        backgroundColor: "#42446f"
+      }
+    }
+  }
+);
 
 const AuthStack = createStackNavigator(
   { SignIn: SignInScreen },
