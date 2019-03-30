@@ -1,4 +1,5 @@
 import { Container } from "native-base";
+import { StyleSheet } from "react-native";
 import React from "react";
 import i18n from "i18n-js";
 import { ScreenTitle } from "components";
@@ -8,15 +9,18 @@ interface Props {
 }
 
 export default class ScheduleScreen extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   render(): JSX.Element {
     return (
-      <Container style={{ paddingTop: 40, flex: 1 }}>
+      <Container style={styles.container}>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 40,
+    flex: 1
+  }
+});

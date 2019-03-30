@@ -1,16 +1,20 @@
-import { Content, Container, Button, Text } from "native-base";
+import { Container, Button, Text } from "native-base";
+import { StyleSheet } from "react-native";
 import { Action } from "actions/common";
 import * as actions from "actions";
 import { AuthState } from "reducers/states";
 import React from "react";
 import { connect } from "react-redux";
+import i18n from "i18n-js";
 
 interface PropsConnectedState {
   token: string;
 }
+
 interface PropsConnectedDispatcher {
   facebookSignIn: () => Action<void>;
 }
+
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: { navigate: (screen: string) => void };
 }
@@ -32,9 +36,9 @@ class SignInScreen extends React.Component<Props> {
 
   render(): JSX.Element {
     return (
-      <Container style={{ justifyContent: "center", alignSelf: "center" }}>
+      <Container style={styles.container}>
         <Button onPress={this.signIn}>
-          <Text>Sign in</Text>
+          <Text>{i18n.t("signIn")}</Text>
         </Button>
       </Container>
     );
@@ -55,3 +59,10 @@ export default connect(
   mapStateToProps,
   actions
 )(SignInScreen as React.ComponentClass<Props>);
+
+const styles = StyleSheet.create({
+  container: {
+    justifyContent: "center",
+    alignSelf: "center"
+  }
+});

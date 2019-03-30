@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Animated, Text, Easing, View } from "react-native";
+import { Animated, Easing, StyleSheet, View, Text } from "react-native";
 
 interface Props {
   title: string;
@@ -8,10 +8,6 @@ interface Props {
 }
 
 export default class extends Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   state = {
     AppearAnim: new Animated.Value(0)
   };
@@ -39,48 +35,37 @@ export default class extends Component<Props> {
     const BackgroundText = Animated.createAnimatedComponent(Text);
 
     return (
-      <View
-        style={[
-          {
-            paddingVertical: 0,
-            paddingHorizontal: 25,
-            overflow: "visible",
-            height: 80
-          },
-          style
-        ]}
-      >
+      <View style={[styles.container, style]}>
         {!noBackgroundText && (
           <BackgroundText
-            style={[
-              { left, opacity },
-              {
-                position: "absolute",
-                marginLeft: 25,
-                marginRight: 0,
-                marginTop: -20,
-                fontSize: 100,
-                color: "#aaaaaa",
-                fontWeight: "bold"
-              }
-            ]}
+            style={[{ left, opacity }, styles.backgroundText]}
             numberOfLines={1}
             ellipsizeMode="clip"
           >
             {title}
           </BackgroundText>
         )}
-        <Text
-          style={{
-            fontSize: 30,
-            color: "#eee",
-            fontWeight: "bold",
-            marginTop: 15
-          }}
-        >
-          {title}
-        </Text>
+        <Text style={styles.title}>{title}</Text>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingVertical: 0,
+    paddingHorizontal: 25,
+    overflow: "visible",
+    height: 80
+  },
+  backgroundText: {
+    position: "absolute",
+    marginLeft: 25,
+    marginRight: 0,
+    marginTop: -20,
+    fontSize: 100,
+    color: "#aaaaaa",
+    fontWeight: "bold"
+  },
+  title: { fontSize: 30, color: "#eee", fontWeight: "bold", marginTop: 15 }
+});

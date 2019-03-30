@@ -1,4 +1,4 @@
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, StyleSheet } from "react-native";
 import { Content, Container, Text, Button } from "native-base";
 import React from "react";
 import i18n from "i18n-js";
@@ -9,10 +9,6 @@ interface Props {
 }
 
 export default class SettingsScreen extends React.Component<Props> {
-  constructor(props: Props) {
-    super(props);
-  }
-
   signOut = async () => {
     await AsyncStorage.clear();
     this.props.navigation.navigate("Auth");
@@ -20,15 +16,22 @@ export default class SettingsScreen extends React.Component<Props> {
 
   render(): JSX.Element {
     return (
-      <Container style={{ paddingTop: 40, flex: 1 }}>
+      <Container style={styles.container}>
         <ScreenTitle title={i18n.t("settingsTitle")} />
 
         <Content padder>
           <Button onPress={this.signOut}>
-            <Text>Sign out</Text>
+            <Text>{i18n.t("signOut")}</Text>
           </Button>
         </Content>
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: 40,
+    flex: 1
+  }
+});
