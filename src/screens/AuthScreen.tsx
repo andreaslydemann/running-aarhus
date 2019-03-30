@@ -29,7 +29,7 @@ class AuthScreen extends React.Component<Props> {
   render(): JSX.Element {
     return (
       <Container>
-        <AppHeader headerText={i18n.t("clickerHeader")} />
+        <AppHeader headerText={i18n.t("authHeader")} />
         <Content padder />
       </Container>
     );

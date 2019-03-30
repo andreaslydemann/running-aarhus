@@ -1,5 +1,5 @@
 export const en = {
-  clickerHeader: "Clicker",
+  authHeader: "Auth",
   decrement: "Decrement",
   increment: "Increment",
   number: "The number {{someValue}} is nice!",

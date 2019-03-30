@@ -1,5 +1,5 @@
 export const da = {
-  clickerHeader: "Klikker",
+  authHeader: "Auth",
   decrement: "Dekrementér",
   increment: "Inkrementér",
   number: "Tallet {{someValue}} er fint!",
