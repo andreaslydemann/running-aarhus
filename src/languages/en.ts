@@ -1,3 +1,4 @@
 export const en = {
-  scheduleTitle: "Schedule"
+  scheduleTitle: "Schedule",
+  settingsTitle: "Settings"
 };

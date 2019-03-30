@@ -1,17 +1,21 @@
-import { AuthLoadingScreen, SignInScreen, ScheduleScreen } from "screens";
 import {
+  AuthLoadingScreen,
+  SignInScreen,
+  ScheduleScreen,
+  SettingsScreen
+} from "screens";
+import {
+  createBottomTabNavigator,
   createStackNavigator,
   createAppContainer,
   createSwitchNavigator
 } from "react-navigation";
 
 // https://github.com/janhesters/ReactNative-ComplexNavigation/blob/master/app/navigation/Navigator.tsx
-const AppStack = createStackNavigator(
-  { Schedule: ScheduleScreen },
-  {
-    headerMode: "none"
-  }
-);
+const AppTabMenu = createBottomTabNavigator({
+  Schedule: ScheduleScreen,
+  Settings: SettingsScreen
+});
 
 const AuthStack = createStackNavigator(
   { SignIn: SignInScreen },
@@ -24,7 +28,7 @@ export default createAppContainer(
   createSwitchNavigator(
     {
       AuthLoading: AuthLoadingScreen,
-      App: AppStack,
+      App: AppTabMenu,
       Auth: AuthStack
     },
     {

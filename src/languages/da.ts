@@ -1,3 +1,4 @@
 export const da = {
-  scheduleTitle: "Tidsplan"
+  scheduleTitle: "Tidsplan",
+  settingsTitle: "Indstillinger"
 };

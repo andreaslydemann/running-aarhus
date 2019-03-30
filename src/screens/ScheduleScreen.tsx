@@ -1,5 +1,4 @@
-import { AsyncStorage } from "react-native";
-import { Content, Container, Text, Button } from "native-base";
+import { Container } from "native-base";
 import React from "react";
 import i18n from "i18n-js";
 import { ScreenTitle } from "components";
@@ -13,21 +12,10 @@ export default class ScheduleScreen extends React.Component<Props> {
     super(props);
   }
 
-  signOut = async () => {
-    await AsyncStorage.clear();
-    this.props.navigation.navigate("Auth");
-  };
-
   render(): JSX.Element {
     return (
       <Container style={{ paddingTop: 40, flex: 1 }}>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
-
-        <Content padder>
-          <Button onPress={this.signOut}>
-            <Text>Sign out</Text>
-          </Button>
-        </Content>
       </Container>
     );
   }
