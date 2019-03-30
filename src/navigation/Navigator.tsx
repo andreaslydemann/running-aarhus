@@ -1,15 +1,34 @@
-import { createStackNavigator, createAppContainer } from "react-navigation";
-import { SignInScreen, ResultScreen } from "screens";
+import { AuthLoadingScreen, SignInScreen, ResultScreen } from "screens";
+import {
+  createStackNavigator,
+  createAppContainer,
+  createSwitchNavigator
+} from "react-navigation";
 
 // https://github.com/janhesters/ReactNative-ComplexNavigation/blob/master/app/navigation/Navigator.tsx
-const RootStack = createStackNavigator(
-  { SignInScreen, ResultScreen },
+const AppStack = createStackNavigator(
+  { Result: ResultScreen },
   {
-    initialRouteName: "SignInScreen",
     headerMode: "none"
   }
 );
 
-const Navigator = createAppContainer(RootStack);
+const AuthStack = createStackNavigator(
+  { SignIn: SignInScreen },
+  {
+    headerMode: "none"
+  }
+);
 
-export default Navigator;
+export default createAppContainer(
+  createSwitchNavigator(
+    {
+      AuthLoading: AuthLoadingScreen,
+      App: AppStack,
+      Auth: AuthStack
+    },
+    {
+      initialRouteName: "AuthLoading"
+    }
+  )
+);
