@@ -1,8 +1,9 @@
 import { AppHeader } from "components";
 import { Content, Container } from "native-base";
 import { Action } from "actions/common";
-import * as Actions from "actions";
+import * as actions from "actions";
 import React from "react";
+import { AsyncStorage } from "react-native";
 import { connect } from "react-redux";
 import i18n from "i18n-js";
 
@@ -17,9 +18,10 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: { navigate: (screen: string) => void };
 }
 
-class AuthScreen extends React.Component<Props> {
+class LoginScreen extends React.Component<Props> {
   componentDidMount() {
     this.props.facebookLogin();
+    AsyncStorage.removeItem("fb_token");
   }
 
   onShowResultPress = () => {
@@ -38,5 +40,5 @@ class AuthScreen extends React.Component<Props> {
 
 export default connect(
   null,
-  Actions
-)(AuthScreen as React.ComponentClass<Props>);
+  actions
+)(LoginScreen as React.ComponentClass<Props>);
