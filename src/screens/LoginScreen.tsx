@@ -18,7 +18,7 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: { navigate: (screen: string) => void };
 }
 
-class LoginScreen extends React.Component<Props> {
+class SignInScreen extends React.Component<Props> {
   componentDidMount() {
     this.props.facebookLogin();
     this.onAuthComplete(this.props);
@@ -62,4 +62,4 @@ const mapStateToProps = ({
 export default connect(
   mapStateToProps,
   actions
-)(LoginScreen as React.ComponentClass<Props>);
+)(SignInScreen as React.ComponentClass<Props>);
