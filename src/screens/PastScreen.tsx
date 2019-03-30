@@ -1,8 +1,7 @@
-import { Container } from "native-base";
 import { StyleSheet } from "react-native";
 import React from "react";
 import i18n from "i18n-js";
-import { ScreenTitle } from "components";
+import { ScreenTitle, ScreenBackground } from "components";
 
 interface Props {
   navigation: { navigate: (screen: string) => void };
@@ -11,9 +10,9 @@ interface Props {
 export default class PastScreen extends React.Component<Props> {
   render(): JSX.Element {
     return (
-      <Container style={styles.container}>
+      <ScreenBackground style={styles.container}>
         <ScreenTitle title={i18n.t("pastTitle")} />
-      </Container>
+      </ScreenBackground>
     );
   }
 }

@@ -1,6 +1,5 @@
-import { Container, Content, Spinner } from "native-base";
 import React from "react";
-import { AsyncStorage } from "react-native";
+import { AsyncStorage, ActivityIndicator, StatusBar, View } from "react-native";
 
 interface Props {
   navigation: { navigate: (screen: string) => void };
@@ -19,11 +18,10 @@ export default class AuthLoadingScreen extends React.Component<Props> {
 
   render() {
     return (
-      <Container>
-        <Content padder>
-          <Spinner />
-        </Content>
-      </Container>
+      <View>
+        <ActivityIndicator />
+        <StatusBar />
+      </View>
     );
   }
 }

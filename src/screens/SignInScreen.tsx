@@ -1,5 +1,4 @@
-import { Container, Button, Text } from "native-base";
-import { StyleSheet } from "react-native";
+import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
 import { Action } from "actions/common";
 import * as actions from "actions";
 import { AuthState } from "reducers/states";
@@ -36,11 +35,11 @@ class SignInScreen extends React.Component<Props> {
 
   render(): JSX.Element {
     return (
-      <Container style={styles.container}>
-        <Button onPress={this.signIn}>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={this.signIn}>
           <Text>{i18n.t("signIn")}</Text>
-        </Button>
-      </Container>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
