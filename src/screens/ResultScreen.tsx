@@ -1,55 +1,34 @@
-import { Result, AppHeader } from "components";
-import { Content, Container } from "native-base";
-import { CounterState } from "reducers/states";
+import { AppHeader } from "components";
+import { AsyncStorage } from "react-native";
+import { Content, Container, Text, Button } from "native-base";
 import React from "react";
-import { connect } from "react-redux";
 import i18n from "i18n-js";
 
-interface PropsConnectedState {
-  value: number;
+interface Props {
+  navigation: { navigate: (screen: string) => void };
 }
 
-interface Props extends PropsConnectedState {
-  navigation: { goBack: () => void };
-}
-
-class ResultScreen extends React.Component<Props> {
+export default class ResultScreen extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
   }
 
-  onLeftButtonPress = () => {
-    this.props.navigation.goBack();
+  signOut = async () => {
+    await AsyncStorage.clear();
+    this.props.navigation.navigate("Auth");
   };
 
   render(): JSX.Element {
     return (
       <Container>
-        <AppHeader
-          showBackButton={true}
-          headerText={i18n.t("resultHeader")}
-          leftButtonPress={this.onLeftButtonPress}
-        />
+        <AppHeader headerText={i18n.t("resultHeader")} />
 
         <Content padder>
-          <Result value={this.props.value} />
+          <Button onPress={this.signOut}>
+            <Text>Sign out</Text>
+          </Button>
         </Content>
       </Container>
     );
   }
 }
-
-const mapStateToProps = ({
-  counter
-}: {
-  counter: CounterState;
-}): PropsConnectedState => {
-  return {
-    value: counter.value
-  };
-};
-
-export default connect(
-  mapStateToProps,
-  null
-)(ResultScreen as React.ComponentClass<Props>);

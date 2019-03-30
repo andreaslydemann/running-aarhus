@@ -9,10 +9,10 @@ interface Props {
 export default class AuthLoadingScreen extends React.Component<Props> {
   constructor(props: Props) {
     super(props);
-    this.bootstrapAsync();
+    this.bootstrap();
   }
 
-  bootstrapAsync = async () => {
+  bootstrap = async () => {
     const userToken = await AsyncStorage.getItem("fb_token");
     this.props.navigation.navigate(userToken ? "App" : "Auth");
   };

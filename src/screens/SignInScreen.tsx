@@ -1,5 +1,5 @@
 import { AppHeader } from "components";
-import { Content, Container } from "native-base";
+import { Content, Container, Button, Text } from "native-base";
 import { Action } from "actions/common";
 import * as actions from "actions";
 import { AuthState } from "reducers/states";
@@ -12,38 +12,36 @@ interface PropsConnectedState {
   token: string;
 }
 interface PropsConnectedDispatcher {
-  facebookLogin: () => Action<void>;
+  facebookSignIn: () => Action<void>;
 }
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: { navigate: (screen: string) => void };
 }
 
 class SignInScreen extends React.Component<Props> {
-  componentDidMount() {
-    this.props.facebookLogin();
-    this.onAuthComplete(this.props);
-    //AsyncStorage.removeItem("fb_token");
-  }
-
   componentWillReceiveProps(nextProps: Props) {
     this.onAuthComplete(nextProps);
   }
 
   onAuthComplete(props: Props) {
     if (props.token) {
-      this.props.navigation.navigate("Schedule");
+      this.props.navigation.navigate("App");
     }
   }
 
-  onShowResultPress = () => {
-    this.props.navigation.navigate("ResultScreen");
+  signIn = () => {
+    this.props.facebookSignIn();
   };
 
   render(): JSX.Element {
     return (
       <Container>
         <AppHeader headerText={i18n.t("authHeader")} />
-        <Content padder />
+        <Content padder>
+          <Button transparent onPress={this.signIn}>
+            <Text>Sign in</Text>
+          </Button>
+        </Content>
       </Container>
     );
   }
