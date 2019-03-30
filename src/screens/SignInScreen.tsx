@@ -1,10 +1,11 @@
-import { StyleSheet, View, TouchableOpacity, Text } from "react-native";
+import { View, TouchableOpacity, Text } from "react-native";
 import { Action } from "actions/common";
 import * as actions from "actions";
 import { AuthState } from "reducers/states";
 import React from "react";
 import { connect } from "react-redux";
 import i18n from "i18n-js";
+import { styled } from "theme";
 
 interface PropsConnectedState {
   token: string;
@@ -35,11 +36,11 @@ class SignInScreen extends React.Component<Props> {
 
   render(): JSX.Element {
     return (
-      <View style={styles.container}>
+      <Wrapper>
         <TouchableOpacity onPress={this.signIn}>
           <Text>{i18n.t("signIn")}</Text>
         </TouchableOpacity>
-      </View>
+      </Wrapper>
     );
   }
 }
@@ -59,9 +60,8 @@ export default connect(
   actions
 )(SignInScreen as React.ComponentClass<Props>);
 
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "center",
-    alignSelf: "center"
-  }
-});
+const Wrapper = styled(View)`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
