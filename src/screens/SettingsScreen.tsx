@@ -11,6 +11,7 @@ interface Props {
 
 export default class SettingsScreen extends React.Component<Props> {
   signOut = async () => {
+    console.log("helll");
     await AsyncStorage.clear();
     this.props.navigation.navigate("Auth");
   };
@@ -21,11 +22,10 @@ export default class SettingsScreen extends React.Component<Props> {
         <ContentWrapper>
           <ScreenTitle title={i18n.t("settingsTitle")} />
           <SectionsWrapper>
-            <Section>
-              <TouchableOpacity onPress={this.signOut}>
-                <Text>{i18n.t("signOut")}</Text>
-              </TouchableOpacity>
+            <Section top bottom onPress={this.signOut}>
+              <SectionTitle>{i18n.t("signOut")}</SectionTitle>
             </Section>
+            <Credits>{i18n.t("credits")}</Credits>
           </SectionsWrapper>
         </ContentWrapper>
       </Wrapper>
@@ -33,12 +33,18 @@ export default class SettingsScreen extends React.Component<Props> {
   }
 }
 
+interface ButtonProps {
+  top?: boolean;
+  bottom?: boolean;
+  disabled?: boolean;
+}
+
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
+  padding: 40px 0 0 0;
 `;
 
 const ContentWrapper = styled(SafeAreaView)`
-  padding-top: 30px;
   flex: 1;
 `;
 
@@ -47,16 +53,16 @@ const SectionsWrapper = styled.ScrollView`
   margin-top: 30px;
 `;
 
-const Section = styled.TouchableOpacity`
+const Section = styled.TouchableOpacity<ButtonProps>`
   background: ${({ theme }) => theme.primary};
   padding: 22px;
   height: 70px;
-  ${(props: any) =>
+  ${props =>
     props.top &&
     `
       border-top-right-radius: 8px;
       border-top-left-radius: 8px;
-    `} ${(props: any) =>
+    `} ${props =>
     props.bottom &&
     `
       border-bottom-left-radius: 8px;
@@ -66,7 +72,7 @@ const Section = styled.TouchableOpacity`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  ${(props: any) => props.disabled && `opacity: 0.3;`};
+  ${props => props.disabled && `opacity: 0.3;`};
 `;
 
 const SectionTitle = styled.Text`

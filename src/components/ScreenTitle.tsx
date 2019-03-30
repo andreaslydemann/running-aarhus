@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Animated, Easing, StyleSheet, View, Text } from "react-native";
+import { Animated, Easing, Text } from "react-native";
+import { styled } from "theme";
 
 interface Props {
   title: string;
@@ -32,40 +33,42 @@ export default class extends Component<Props> {
       outputRange: [0, 0.3]
     });
 
-    const BackgroundText = Animated.createAnimatedComponent(Text);
-
     return (
-      <View style={[styles.container, style]}>
+      <Wrapper style={style}>
         {!noBackgroundText && (
           <BackgroundText
-            style={[{ left, opacity }, styles.backgroundText]}
+            style={{ left, opacity }}
             numberOfLines={1}
             ellipsizeMode="clip"
           >
             {title}
           </BackgroundText>
         )}
-        <Text style={styles.title}>{title}</Text>
-      </View>
+        <MainText>{title}</MainText>
+      </Wrapper>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingVertical: 0,
-    paddingHorizontal: 25,
-    overflow: "visible",
-    height: 80
-  },
-  backgroundText: {
-    position: "absolute",
-    marginLeft: 25,
-    marginRight: 0,
-    marginTop: -20,
-    fontSize: 100,
-    color: "#aaaaaa",
-    fontWeight: "bold"
-  },
-  title: { fontSize: 30, color: "#eee", fontWeight: "bold", marginTop: 15 }
-});
+const Wrapper = styled.View`
+  padding: 0 25px;
+  overflow: visible;
+  height: 80px;
+`;
+
+const MainText = styled.Text`
+  font-size: 30px;
+  color: #eee;
+  font-weight: bold;
+  margin-top: 15px;
+`;
+
+const BackgroundText = styled(Animated.createAnimatedComponent(Text))`
+  position: absolute;
+  left: 25px;
+  right: 0;
+  top: -20px;
+  font-size: 100px;
+  color: #aaaaaa;
+  font-weight: bold;
+`;

@@ -4,5 +4,6 @@ export const en = {
   scheduleTitle: "Schedule",
   settingsTitle: "Settings",
   signIn: "Sign in",
-  signOut: "Sign out"
+  signOut: "Sign out",
+  credits: "2019 - Running Aarhus"
 };

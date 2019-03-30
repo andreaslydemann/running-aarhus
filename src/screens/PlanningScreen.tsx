@@ -1,7 +1,7 @@
-import { StyleSheet } from "react-native";
 import React from "react";
 import i18n from "i18n-js";
 import { ScreenTitle, ScreenBackground } from "components";
+import { styled } from "theme";
 
 interface Props {
   navigation: { navigate: (screen: string) => void };
@@ -10,16 +10,14 @@ interface Props {
 export default class PlanningScreen extends React.Component<Props> {
   render(): JSX.Element {
     return (
-      <ScreenBackground style={styles.container}>
+      <Wrapper>
         <ScreenTitle title={i18n.t("planningTitle")} />
-      </ScreenBackground>
+      </Wrapper>
     );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 40,
-    flex: 1
-  }
-});
+const Wrapper = styled(ScreenBackground)`
+  flex: 1;
+  padding: 40px 0 0 0;
+`;

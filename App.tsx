@@ -7,7 +7,7 @@ import { Localization } from "expo";
 import strings from "languages";
 import { theme } from "theme";
 import i18n from "i18n-js";
-
+import { StatusBar } from "react-native";
 i18n.fallbacks = true;
 i18n.translations = strings;
 i18n.locale = Localization.locale;
@@ -19,7 +19,10 @@ export default class App extends Component {
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <Navigator />
+          <>
+            <StatusBar barStyle="light-content" />
+            <Navigator />
+          </>
         </ThemeProvider>
       </Provider>
     );

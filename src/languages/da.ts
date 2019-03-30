@@ -4,5 +4,6 @@ export const da = {
   scheduleTitle: "Tidsplan",
   settingsTitle: "Indstillinger",
   signIn: "Log ind",
-  signOut: "Log ud"
+  signOut: "Log ud",
+  credits: "2019 - Running Aarhus"
 };
