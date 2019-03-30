@@ -12,7 +12,7 @@ export const facebookLogin = (): Action<void> => {
   };
 };
 
-export const facebookLoginSuccess = (token: any): Action<any> => {
+export const facebookLoginSuccess = (token: string): Action<string> => {
   return {
     type: AUTH_TYPES.FACEBOOK_LOGIN_SUCCESS,
     payload: token
