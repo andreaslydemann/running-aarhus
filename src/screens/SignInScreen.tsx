@@ -1,12 +1,9 @@
-import { AppHeader } from "components";
 import { Content, Container, Button, Text } from "native-base";
 import { Action } from "actions/common";
 import * as actions from "actions";
 import { AuthState } from "reducers/states";
 import React from "react";
-//import { AsyncStorage } from "react-native";
 import { connect } from "react-redux";
-import i18n from "i18n-js";
 
 interface PropsConnectedState {
   token: string;
@@ -35,13 +32,10 @@ class SignInScreen extends React.Component<Props> {
 
   render(): JSX.Element {
     return (
-      <Container>
-        <AppHeader headerText={i18n.t("authHeader")} />
-        <Content padder>
-          <Button transparent onPress={this.signIn}>
-            <Text>Sign in</Text>
-          </Button>
-        </Content>
+      <Container style={{ justifyContent: "center", alignSelf: "center" }}>
+        <Button onPress={this.signIn}>
+          <Text>Sign in</Text>
+        </Button>
       </Container>
     );
   }
