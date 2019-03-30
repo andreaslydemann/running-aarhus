@@ -1,11 +1,11 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
-import { ClickerScreen, ResultScreen } from "screens";
+import { AuthScreen, ResultScreen } from "screens";
 
 // https://github.com/janhesters/ReactNative-ComplexNavigation/blob/master/app/navigation/Navigator.tsx
 const RootStack = createStackNavigator(
-  { ClickerScreen, ResultScreen },
+  { AuthScreen, ResultScreen },
   {
-    initialRouteName: "ClickerScreen",
+    initialRouteName: "AuthScreen",
     headerMode: "none"
   }
 );

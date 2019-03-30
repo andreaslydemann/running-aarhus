@@ -6,7 +6,7 @@ export const AUTH_TYPES = {
   FACEBOOK_LOGIN_FAILURE: "FACEBOOK_LOGIN_FAILURE"
 };
 
-export const facebookLoginRequest = (): Action<void> => {
+export const facebookLogin = (): Action<void> => {
   return {
     type: AUTH_TYPES.FACEBOOK_LOGIN_REQUEST
   };

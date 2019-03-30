@@ -1,4 +1,4 @@
-import ClickerScreen from "./ClickerScreen";
+import AuthScreen from "./AuthScreen";
 import ResultScreen from "./ResultScreen";
 
-export { ClickerScreen, ResultScreen };
+export { AuthScreen, ResultScreen };

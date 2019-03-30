@@ -17,7 +17,7 @@ function* facebookLogin() {
   if (token) {
     yield put(facebookLoginSuccess(token));
   } else {
-    startFacebookLoginFlow();
+    yield call(startFacebookLoginFlow);
   }
 }
 
