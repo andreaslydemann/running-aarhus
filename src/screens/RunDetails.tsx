@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { styled } from "theme";
-import { ScrollView } from "react-native";
+import { ScrollView, Platform } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { HeaderBack, Button, ScreenBackground } from "components";
 
@@ -114,7 +114,7 @@ export default class extends Component<Props> {
               <Row>
                 <ButtonWrapper>
                   <LinkButton
-                    icon="ios-map"
+                    icon={Platform.OS === "ios" ? "ios-map" : "md-map"}
                     type="blue"
                     onPress={() => this.openMap(location)}
                   />

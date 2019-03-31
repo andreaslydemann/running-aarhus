@@ -1,4 +1,5 @@
 import React from "react";
+import { Platform } from "react-native";
 import { styled } from "theme";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -31,7 +32,15 @@ export default ({ ScreenTitle, navigateBack }: Props) => {
   return (
     <Wrapper>
       <BackArrowWrapper onPress={navigateBack}>
-        <Ionicons name="ios-arrow-round-back" size={40} color="white" />
+        <Ionicons
+          name={
+            Platform.OS === "ios"
+              ? "ios-arrow-round-back"
+              : "md-arrow-round-back"
+          }
+          size={40}
+          color="white"
+        />
       </BackArrowWrapper>
       <Title>{ScreenTitle}</Title>
     </Wrapper>
