@@ -4,6 +4,7 @@ import React from "react";
 import i18n from "i18n-js";
 import { ScreenTitle, ScreenBackground } from "components";
 import { styled } from "theme";
+import firebase from "firebase";
 
 interface Props {
   navigation: { navigate: (screen: string) => void };
@@ -12,7 +13,7 @@ interface Props {
 export default class SettingsScreen extends React.Component<Props> {
   signOut = async () => {
     await AsyncStorage.clear();
-    this.props.navigation.navigate("Auth");
+    await firebase.auth().signOut();
   };
 
   render(): JSX.Element {

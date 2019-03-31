@@ -10,11 +10,11 @@ import {
   PastStack,
   SettingsStack
 } from "navigation";
-import { AuthLoadingScreen, SignInScreen } from "screens";
+import { SignInScreen } from "screens";
 import TabBar from "components/TabBar";
 import { theme } from "theme";
+import React, { Component } from "react";
 
-// https://github.com/janhesters/ReactNative-ComplexNavigation/blob/master/app/navigation/Navigator.tsx
 const AppTabBar = createBottomTabNavigator(
   {
     Schedule: ScheduleStack,
@@ -42,15 +42,24 @@ const AuthStack = createStackNavigator(
   }
 );
 
-export default createAppContainer(
-  createSwitchNavigator(
-    {
-      AuthLoading: AuthLoadingScreen,
-      App: AppTabBar,
-      Auth: AuthStack
-    },
-    {
-      initialRouteName: "AuthLoading"
-    }
-  )
-);
+interface Props {
+  isAuthenticated: boolean;
+}
+
+export default class Navigator extends Component<Props> {
+  render() {
+    const AppNavigator = createAppContainer(
+      createSwitchNavigator(
+        {
+          App: AppTabBar,
+          Auth: AuthStack
+        },
+        {
+          initialRouteName: this.props.isAuthenticated ? "App" : "Auth"
+        }
+      )
+    );
+
+    return <AppNavigator />;
+  }
+}
