@@ -40,10 +40,10 @@ interface ButtonProps {
 
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
-  padding: 40px 0 0 0;
 `;
 
 const ContentWrapper = styled(SafeAreaView)`
+  padding-top: 30px 0;
   flex: 1;
 `;
 

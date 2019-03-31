@@ -19,5 +19,5 @@ export default class PlanningScreen extends React.Component<Props> {
 
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
-  padding: 40px 0 0 0;
+  padding: 44px 0 0 0;
 `;
