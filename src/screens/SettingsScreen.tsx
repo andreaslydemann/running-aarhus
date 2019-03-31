@@ -1,4 +1,4 @@
-import { AsyncStorage, Text, TouchableOpacity } from "react-native";
+import { AsyncStorage } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import React from "react";
 import i18n from "i18n-js";
@@ -11,7 +11,6 @@ interface Props {
 
 export default class SettingsScreen extends React.Component<Props> {
   signOut = async () => {
-    console.log("helll");
     await AsyncStorage.clear();
     this.props.navigation.navigate("Auth");
   };

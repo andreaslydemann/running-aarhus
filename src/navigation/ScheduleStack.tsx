@@ -11,6 +11,7 @@ const ScheduleStack = createStackNavigator(
 );
 
 ScheduleStack.navigationOptions = {
+  tabBarLabel: "scheduleTitle",
   tabBarIcon: ({ tintColor }: TabScene) => (
     <Ionicons name={"ios-list"} size={25} color={tintColor} />
   ),

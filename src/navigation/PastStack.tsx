@@ -11,6 +11,7 @@ const PastStack = createStackNavigator(
 );
 
 PastStack.navigationOptions = {
+  tabBarLabel: "pastTitle",
   tabBarIcon: ({ tintColor }: TabScene) => (
     <Ionicons
       name={"ios-checkmark-circle-outline"}

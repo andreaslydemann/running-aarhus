@@ -11,6 +11,7 @@ import {
   SettingsStack
 } from "navigation";
 import { AuthLoadingScreen, SignInScreen } from "screens";
+import TabBar from "components/TabBar";
 import { theme } from "theme";
 
 // https://github.com/janhesters/ReactNative-ComplexNavigation/blob/master/app/navigation/Navigator.tsx
@@ -22,6 +23,7 @@ const AppTabBar = createBottomTabNavigator(
     Settings: SettingsStack
   },
   {
+    tabBarComponent: TabBar,
     tabBarOptions: {
       activeTintColor: "white",
       inactiveTintColor: theme.inactiveTint,

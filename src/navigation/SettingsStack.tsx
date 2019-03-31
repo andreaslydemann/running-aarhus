@@ -11,6 +11,7 @@ const SettingsStack = createStackNavigator(
 );
 
 SettingsStack.navigationOptions = {
+  tabBarLabel: "settingsTitle",
   tabBarIcon: ({ tintColor }: TabScene) => (
     <Ionicons name={"ios-options"} size={25} color={tintColor} />
   ),

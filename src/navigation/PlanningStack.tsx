@@ -11,6 +11,7 @@ const PlanningStack = createStackNavigator(
 );
 
 PlanningStack.navigationOptions = {
+  tabBarLabel: "planningTitle",
   tabBarIcon: ({ tintColor }: TabScene) => (
     <Ionicons name={"ios-add-circle-outline"} size={25} color={tintColor} />
   ),
