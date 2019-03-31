@@ -8,12 +8,15 @@ import strings from "languages";
 import { theme } from "theme";
 import i18n from "i18n-js";
 import { StatusBar } from "react-native";
+import firebase from "firebase";
+import { config } from "constants/firebase_config";
 
 i18n.fallbacks = true;
 i18n.translations = strings;
 i18n.locale = Localization.locale;
 
 const store = configureStore();
+firebase.initializeApp(config);
 
 export default class App extends Component {
   render() {

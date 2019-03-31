@@ -1,26 +1,26 @@
 import { Action } from "./common";
 
 export const AUTH_TYPES = {
-  FACEBOOK_SIGN_IN_REQUEST: "FACEBOOK_SIGN_IN_REQUEST",
-  FACEBOOK_SIGN_IN_SUCCESS: "FACEBOOK_SIGN_IN_SUCCESS",
-  FACEBOOK_SIGN_IN_FAILURE: "FACEBOOK_SIGN_IN_FAILURE"
+  SIGN_IN_REQUEST: "SIGN_IN_REQUEST",
+  SIGN_IN_SUCCESS: "SIGN_IN_SUCCESS",
+  SIGN_IN_FAILURE: "SIGN_IN_FAILURE"
 };
 
-export const facebookSignIn = (): Action<void> => {
+export const signIn = (): Action<void> => {
   return {
-    type: AUTH_TYPES.FACEBOOK_SIGN_IN_REQUEST
+    type: AUTH_TYPES.SIGN_IN_REQUEST
   };
 };
 
-export const facebookSignInSuccess = (token: string): Action<string> => {
+export const signInSuccess = (token: string): Action<string> => {
   return {
-    type: AUTH_TYPES.FACEBOOK_SIGN_IN_SUCCESS,
+    type: AUTH_TYPES.SIGN_IN_SUCCESS,
     payload: token
   };
 };
 
-export const facebookSignInFailure = (): Action<void> => {
+export const signInFailure = (): Action<void> => {
   return {
-    type: AUTH_TYPES.FACEBOOK_SIGN_IN_FAILURE
+    type: AUTH_TYPES.SIGN_IN_FAILURE
   };
 };

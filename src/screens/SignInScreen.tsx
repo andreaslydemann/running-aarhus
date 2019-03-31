@@ -12,7 +12,7 @@ interface PropsConnectedState {
 }
 
 interface PropsConnectedDispatcher {
-  facebookSignIn: () => Action<void>;
+  signIn: () => Action<void>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -31,7 +31,7 @@ class SignInScreen extends React.Component<Props> {
   }
 
   signIn = () => {
-    this.props.facebookSignIn();
+    this.props.signIn();
   };
 
   render(): JSX.Element {

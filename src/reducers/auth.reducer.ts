@@ -8,9 +8,9 @@ let initialState: AuthState = {
 
 export default function(state: AuthState = initialState, action: Action<any>) {
   switch (action.type) {
-    case AUTH_TYPES.FACEBOOK_SIGN_IN_SUCCESS:
+    case AUTH_TYPES.SIGN_IN_SUCCESS:
       return { token: action.payload };
-    case AUTH_TYPES.FACEBOOK_SIGN_IN_FAILURE:
+    case AUTH_TYPES.SIGN_IN_FAILURE:
       return { token: "" };
     default:
       return state;
