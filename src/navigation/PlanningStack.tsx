@@ -1,10 +1,10 @@
 import { createStackNavigator, TabScene } from "react-navigation";
-import { PlanningScreen } from "screens";
+import { PlanningScreen, RunDetails } from "screens";
 import { Ionicons } from "@expo/vector-icons";
 import React from "react";
 
 const PlanningStack = createStackNavigator(
-  { PlanningScreen },
+  { PlanningScreen, RunDetails },
   {
     headerMode: "none"
   }
@@ -13,10 +13,10 @@ const PlanningStack = createStackNavigator(
 PlanningStack.navigationOptions = {
   tabBarLabel: "planningTitle",
   tabBarIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"ios-add-circle-outline"} size={25} color={tintColor} />
+    <Ionicons name={"ios-add-circle-outline"} size={22} color={tintColor} />
   ),
   drawerIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"md-add-circle-outline"} size={25} color={tintColor} />
+    <Ionicons name={"md-add-circle-outline"} size={22} color={tintColor} />
   )
 };
 

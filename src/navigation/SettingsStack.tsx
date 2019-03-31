@@ -13,10 +13,10 @@ const SettingsStack = createStackNavigator(
 SettingsStack.navigationOptions = {
   tabBarLabel: "settingsTitle",
   tabBarIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"ios-options"} size={25} color={tintColor} />
+    <Ionicons name={"ios-options"} size={22} color={tintColor} />
   ),
   drawerIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"md-options"} size={25} color={tintColor} />
+    <Ionicons name={"md-options"} size={22} color={tintColor} />
   )
 };
 

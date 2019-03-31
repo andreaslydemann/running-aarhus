@@ -15,14 +15,14 @@ PastStack.navigationOptions = {
   tabBarIcon: ({ tintColor }: TabScene) => (
     <Ionicons
       name={"ios-checkmark-circle-outline"}
-      size={25}
+      size={22}
       color={tintColor}
     />
   ),
   drawerIcon: ({ tintColor }: TabScene) => (
     <Ionicons
       name={"md-checkmark-circle-outline"}
-      size={25}
+      size={22}
       color={tintColor}
     />
   )

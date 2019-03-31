@@ -51,7 +51,7 @@ const TabBar = ({
             >
               {renderIcon({ route, focused: isRouteActive, tintColor })}
 
-              <Text style={{ color: tintColor }}>
+              <Text style={{ color: tintColor, fontSize: 12 }}>
                 {i18n.t(getLabelText({ route }))}
               </Text>
             </TouchableOpacity>
