@@ -1,5 +1,6 @@
 import React from "react";
 import { AsyncStorage, ActivityIndicator, View } from "react-native";
+import { FACEBOOK_TOKEN } from "constants";
 
 interface Props {
   navigation: { navigate: (screen: string) => void };
@@ -12,7 +13,7 @@ export default class AuthLoadingScreen extends React.Component<Props> {
   }
 
   bootstrap = async () => {
-    const userToken = await AsyncStorage.getItem("fb_token");
+    const userToken = await AsyncStorage.getItem(FACEBOOK_TOKEN);
     this.props.navigation.navigate(userToken ? "App" : "Auth");
   };
 

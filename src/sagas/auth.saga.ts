@@ -6,13 +6,14 @@ import {
 } from "actions";
 import { AsyncStorage } from "react-native";
 import { Facebook } from "expo";
+import { FACEBOOK_APP_ID, FACEBOOK_TOKEN } from "constants";
 
 export default function* authSaga() {
   yield all([takeEvery(AUTH_TYPES.FACEBOOK_SIGN_IN_REQUEST, facebookSignIn)]);
 }
 
 function* facebookSignIn() {
-  let token = yield call(AsyncStorage.getItem, "fb_token");
+  let token = yield call(AsyncStorage.getItem, FACEBOOK_TOKEN);
 
   if (token) {
     yield put(facebookSignInSuccess(token));
@@ -24,7 +25,7 @@ function* facebookSignIn() {
 function* startfacebookSignInFlow() {
   let { type, token } = yield call(
     Facebook.logInWithReadPermissionsAsync,
-    "2292488901028008",
+    FACEBOOK_APP_ID,
     { permissions: ["public_profile"] }
   );
 
@@ -32,6 +33,6 @@ function* startfacebookSignInFlow() {
     return yield put(facebookSignInFailure());
   }
 
-  yield call(AsyncStorage.setItem, "fb_token", token);
+  yield call(AsyncStorage.setItem, FACEBOOK_TOKEN, token);
   yield put(facebookSignInSuccess(token));
 }
