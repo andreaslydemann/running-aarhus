@@ -27,7 +27,6 @@ export default class App extends Component<void, State> {
     firebase.initializeApp(config);
 
     firebase.auth().onAuthStateChanged(async user => {
-      console.log("hello ", user);
       this.setState({ ...this.state, isAuthorized: !!user });
 
       if (!user) {
