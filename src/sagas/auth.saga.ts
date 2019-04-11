@@ -2,8 +2,13 @@ import { call, put, takeEvery, all } from "redux-saga/effects";
 import { AUTH_TYPES, signInSuccess, signInFailure } from "actions";
 import { AsyncStorage } from "react-native";
 import { Facebook } from "expo";
-import { FACEBOOK_TOKEN, FACEBOOK_APP_ID } from "constants";
+import {
+  FACEBOOK_TOKEN,
+  FACEBOOK_APP_ID,
+  RUNNING_AARHUS_FUNCTIONS_URL
+} from "constants";
 import firebase from "firebase";
+import axios from "axios";
 
 export default function* authSaga() {
   yield all([takeEvery(AUTH_TYPES.SIGN_IN_REQUEST, signIn)]);
@@ -21,14 +26,52 @@ function* signIn() {
 
 function* firebaseSignIn(token: string) {
   const credential = yield firebase.auth.FacebookAuthProvider.credential(token);
-
+  let userData;
   try {
-    yield firebase.auth().signInAndRetrieveDataWithCredential(credential);
-    yield call(AsyncStorage.setItem, FACEBOOK_TOKEN, token);
-    yield put(signInSuccess(token));
+    userData = yield firebase
+      .auth()
+      .signInAndRetrieveDataWithCredential(credential);
+
+    const {
+      additionalUserInfo: { isNewUser, profile }
+    } = userData;
+
+    const picture = profile.picture ? profile.picture.data.url : "";
+
+    if (isNewUser) {
+      const userInfo = {
+        id: profile.id,
+        firstName: profile.first_name,
+        lastName: profile.last_name,
+        email: profile.email,
+        pictureUrl: picture
+      };
+
+      yield call(saveUserInfo, userInfo);
+    }
   } catch (error) {
     return yield put(signInFailure());
   }
+
+  yield call(AsyncStorage.setItem, FACEBOOK_TOKEN, token);
+  yield put(signInSuccess(token));
+}
+
+type userInfo = {
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  pictureUrl: string;
+};
+
+function* saveUserInfo(userInfo: userInfo) {
+  let { currentUser } = yield firebase.auth();
+  const idToken = yield currentUser.getIdToken();
+
+  yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/saveUserInfo`, userInfo, {
+    headers: { Authorization: "Bearer " + idToken }
+  });
 }
 
 function* startFacebookSignInFlow() {
