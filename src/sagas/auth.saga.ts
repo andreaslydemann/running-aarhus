@@ -17,11 +17,25 @@ export default function* authSaga() {
 function* signIn() {
   let token = yield call(AsyncStorage.getItem, FACEBOOK_TOKEN);
 
+  setAuthHeaders();
+
   if (token) {
     yield put(signInSuccess(token));
   } else {
     yield call(startFacebookSignInFlow);
   }
+}
+
+function setAuthHeaders() {
+  axios.interceptors.request.use(
+    async config => {
+      config.headers.token = await firebase.auth().currentUser.getIdToken();
+      return config;
+    },
+    error => {
+      return Promise.reject(error);
+    }
+  );
 }
 
 function* firebaseSignIn(token: string) {
@@ -47,7 +61,10 @@ function* firebaseSignIn(token: string) {
         pictureUrl: picture
       };
 
-      yield call(saveUserInfo, userInfo);
+      yield axios.post(
+        `${RUNNING_AARHUS_FUNCTIONS_URL}/saveUserInfo`,
+        userInfo
+      );
     }
   } catch (error) {
     return yield put(signInFailure());
@@ -55,23 +72,6 @@ function* firebaseSignIn(token: string) {
 
   yield call(AsyncStorage.setItem, FACEBOOK_TOKEN, token);
   yield put(signInSuccess(token));
-}
-
-type userInfo = {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  pictureUrl: string;
-};
-
-function* saveUserInfo(userInfo: userInfo) {
-  let { currentUser } = yield firebase.auth();
-  const idToken = yield currentUser.getIdToken();
-
-  yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/saveUserInfo`, userInfo, {
-    headers: { Authorization: "Bearer " + idToken }
-  });
 }
 
 function* startFacebookSignInFlow() {
