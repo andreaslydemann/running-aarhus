@@ -1,3 +1,3 @@
-export * from "./RootState";
-export * from "./AuthState";
-export * from "./RunsState";
+export * from "./root.state";
+export * from "./auth.state";
+export * from "./run.state";

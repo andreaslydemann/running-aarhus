@@ -1,6 +1,6 @@
 import { Action } from "./common";
 
-export const RUNS_TYPES = {
+export const RUN_TYPES = {
   GET_SCHEDULED_RUNS_REQUEST: "GET_SCHEDULED_RUNS_REQUEST",
   GET_SCHEDULED_RUNS_SUCCESS: "GET_SCHEDULED_RUNS_SUCCESS",
   GET_SCHEDULED_RUNS_FAILURE: "GET_SCHEDULED_RUNS_FAILURE"
@@ -8,13 +8,13 @@ export const RUNS_TYPES = {
 
 export const getScheduledRuns = (): Action<void> => {
   return {
-    type: RUNS_TYPES.GET_SCHEDULED_RUNS_REQUEST
+    type: RUN_TYPES.GET_SCHEDULED_RUNS_REQUEST
   };
 };
 
 export const getScheduledRunsSuccess = (runs: any): Action<any> => {
   return {
-    type: RUNS_TYPES.GET_SCHEDULED_RUNS_SUCCESS,
+    type: RUN_TYPES.GET_SCHEDULED_RUNS_SUCCESS,
     payload: runs
   };
 };

@@ -11,10 +11,11 @@ import { styled } from "theme";
 import { Action } from "actions/common";
 import * as actions from "actions";
 import { connect } from "react-redux";
-import { RunsState } from "reducers/states";
+import { RunState } from "reducers/states";
+import { RunModel } from "reducers/models";
 
 interface PropsConnectedState {
-  scheduledRuns: any;
+  scheduledRuns: RunModel[];
 }
 
 interface PropsConnectedDispatcher {
@@ -43,7 +44,7 @@ class ScheduleScreen extends React.Component<Props> {
         <ScreenTitle title={i18n.t("scheduleTitle")} />
         <FlatList
           data={this.props.scheduledRuns}
-          keyExtractor={item => item.id.toString()}
+          keyExtractor={(item: RunModel) => item.id}
           renderItem={({ item }) => (
             <PushableWrapper onPress={() => this.navigateToDetails(item)}>
               <RunCard data={item} />
@@ -64,13 +65,9 @@ class ScheduleScreen extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = ({
-  runs
-}: {
-  runs: RunsState;
-}): PropsConnectedState => {
+const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
   return {
-    scheduledRuns: runs.scheduledRuns
+    scheduledRuns: run.scheduledRuns
   };
 };
 

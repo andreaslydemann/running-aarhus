@@ -47,7 +47,7 @@ const Desc = styled.Text<DescProps>`
 `;
 
 export default ({ data }: { data: any }) => {
-  const time = new Date(data.netstamp * 1000);
+  const time = new Date(data.date * 1000);
   return (
     <Wrapper>
       <Row>
