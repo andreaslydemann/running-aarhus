@@ -5,7 +5,7 @@ import {
   ScreenTitle,
   ScreenBackground,
   PushableWrapper,
-  PlanningCard,
+  RunCard,
   Button
 } from "components";
 import { styled } from "theme";
@@ -42,7 +42,7 @@ export default class PlanningScreen extends React.Component<Props> {
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
             <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-              <PlanningCard data={item} />
+              <RunCard data={item} />
             </PushableWrapper>
           )}
           ListFooterComponent={() => (

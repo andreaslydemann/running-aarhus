@@ -1,6 +1,7 @@
-import { takeEvery, all } from "redux-saga/effects";
+import { put, takeEvery, all } from "redux-saga/effects";
 import { RUNS_TYPES } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
+import { getScheduledRunsSuccess } from "actions";
 import firebase from "firebase";
 import axios from "axios";
 
@@ -18,14 +19,14 @@ function* getScheduledRuns() {
       throw Error("Current user not found.");
     }
 
-    yield axios.get(
+    const { data } = yield axios.get(
       `${RUNNING_AARHUS_FUNCTIONS_URL}/getScheduledRuns?userId=${
         currentUser.uid
       }`
     );
+
+    yield put(getScheduledRunsSuccess(data));
   } catch (error) {
     //return yield put(signInFailure());
   }
-
-  //yield put(signInSuccess(token));
 }

@@ -1,3 +1,3 @@
 export type RunsState = {
-  token: string;
+  scheduledRuns: any;
 };

@@ -3,15 +3,13 @@ import { RunsState } from "./states";
 import { RUNS_TYPES } from "actions";
 
 let initialState: RunsState = {
-  token: ""
+  scheduledRuns: null
 };
 
 export default function(state: RunsState = initialState, action: Action<any>) {
   switch (action.type) {
     case RUNS_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
-      return { token: action.payload };
-    case RUNS_TYPES.GET_SCHEDULED_RUNS_FAILURE:
-      return { token: "" };
+      return { scheduledRuns: action.payload };
     default:
       return state;
   }

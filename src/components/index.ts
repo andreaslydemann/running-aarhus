@@ -1,7 +1,7 @@
 import ScreenTitle from "./ScreenTitle";
 import ScreenBackground from "./ScreenBackground";
 import PushableWrapper from "./PushableWrapper";
-import PlanningCard from "./PlanningCard";
+import RunCard from "./RunCard";
 import Button from "./Button";
 import HeaderBack from "./HeaderBack";
 
@@ -9,7 +9,7 @@ export {
   ScreenTitle,
   ScreenBackground,
   PushableWrapper,
-  PlanningCard,
+  RunCard,
   Button,
   HeaderBack
 };

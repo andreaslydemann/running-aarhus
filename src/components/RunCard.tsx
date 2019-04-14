@@ -65,10 +65,10 @@ export default ({ data }: { data: any }) => {
             </>
           )}
         </DateWrapper>
-        <Label numberOfLines={2} text={data.label} />
+        <Label numberOfLines={2} text={data.notes} />
       </Row>
       <Desc bold>{data.name}</Desc>
-      <Desc numberOfLines={1}>{data.location}</Desc>
+      <Desc numberOfLines={1}>hello</Desc>
     </Wrapper>
   );
 };

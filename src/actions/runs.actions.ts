@@ -11,3 +11,10 @@ export const getScheduledRuns = (): Action<void> => {
     type: RUNS_TYPES.GET_SCHEDULED_RUNS_REQUEST
   };
 };
+
+export const getScheduledRunsSuccess = (runs: any): Action<any> => {
+  return {
+    type: RUNS_TYPES.GET_SCHEDULED_RUNS_SUCCESS,
+    payload: runs
+  };
+};
