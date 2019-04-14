@@ -29,7 +29,12 @@ function* signIn() {
 function setAuthHeaders() {
   axios.interceptors.request.use(
     async config => {
-      config.headers.token = await firebase.auth().currentUser.getIdToken();
+      const currentUser = firebase.auth().currentUser;
+
+      if (currentUser) {
+        config.headers.token = await currentUser.getIdToken();
+      }
+
       return config;
     },
     error => {
@@ -52,7 +57,7 @@ function* firebaseSignIn(token: string) {
 
     const picture = profile.picture ? profile.picture.data.url : "";
 
-    if (isNewUser) {
+    if (!isNewUser) {
       const userInfo = {
         id: profile.id,
         firstName: profile.first_name,
