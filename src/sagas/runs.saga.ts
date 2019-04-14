@@ -12,7 +12,7 @@ export default function* runsSaga() {
 
 function* getScheduledRuns() {
   try {
-    let { currentUser } = firebase.auth();
+    const currentUser = firebase.auth().currentUser;
 
     if (!currentUser) {
       throw Error("Current user not found.");

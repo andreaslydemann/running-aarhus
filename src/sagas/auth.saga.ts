@@ -17,30 +17,11 @@ export default function* authSaga() {
 function* signIn() {
   let token = yield call(AsyncStorage.getItem, FACEBOOK_TOKEN);
 
-  setAuthHeaders();
-
   if (token) {
     yield put(signInSuccess(token));
   } else {
     yield call(startFacebookSignInFlow);
   }
-}
-
-function setAuthHeaders() {
-  axios.interceptors.request.use(
-    async config => {
-      const currentUser = firebase.auth().currentUser;
-
-      if (currentUser) {
-        config.headers.token = await currentUser.getIdToken();
-      }
-
-      return config;
-    },
-    error => {
-      return Promise.reject(error);
-    }
-  );
 }
 
 function* firebaseSignIn(token: string) {
@@ -52,14 +33,15 @@ function* firebaseSignIn(token: string) {
       .signInAndRetrieveDataWithCredential(credential);
 
     const {
-      additionalUserInfo: { isNewUser, profile }
+      additionalUserInfo: { isNewUser, profile },
+      user: { uid }
     } = userData;
 
     const picture = profile.picture ? profile.picture.data.url : "";
 
     if (!isNewUser) {
       const userInfo = {
-        id: profile.id,
+        id: uid,
         firstName: profile.first_name,
         lastName: profile.last_name,
         email: profile.email,

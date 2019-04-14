@@ -9,7 +9,8 @@ import { theme } from "theme";
 import i18n from "i18n-js";
 import { StatusBar, AsyncStorage } from "react-native";
 import firebase from "firebase";
-import { config } from "constants/firebase_config";
+import { config } from "constants";
+import axios from "axios";
 
 i18n.fallbacks = true;
 i18n.translations = strings;
@@ -27,20 +28,27 @@ export default class App extends Component<void, State> {
     firebase.initializeApp(config);
 
     firebase.auth().onAuthStateChanged(async user => {
-      this.setState({ ...this.state, isAuthorized: !!user });
-
-      if (!user) {
+      if (user) {
+        this.setAuthHeaders(user);
+      } else {
         await AsyncStorage.clear();
       }
-    });
 
-    this.bootstrap();
+      this.setState({ isReady: true, isAuthorized: !!user });
+    });
   }
 
-  bootstrap = async () => {
-    const userToken = await AsyncStorage.getItem("fb_token");
-    this.setState({ isReady: true, isAuthorized: !!userToken });
-  };
+  setAuthHeaders(user: firebase.User) {
+    axios.interceptors.request.use(
+      async config => {
+        config.headers.token = await user.getIdToken();
+        return config;
+      },
+      error => {
+        return Promise.reject(error);
+      }
+    );
+  }
 
   render() {
     const store = configureStore();

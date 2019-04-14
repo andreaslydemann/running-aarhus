@@ -16,6 +16,7 @@ export default class PastScreen extends React.Component<Props> {
       console.log(token);
     }
   }
+
   render(): JSX.Element {
     return (
       <Wrapper>

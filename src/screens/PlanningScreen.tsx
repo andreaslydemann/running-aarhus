@@ -16,6 +16,7 @@ interface Props {
 
 export default class PlanningScreen extends React.Component<Props> {
   navigateToDetails(data: any) {
+    console.log(data);
     this.props.navigation.navigate("RunDetails");
   }
 
