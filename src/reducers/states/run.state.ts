@@ -1,5 +1,5 @@
-import { Run } from "../models";
+import { RunModel } from "../models";
 
 export type RunState = {
-  scheduledRuns: Run;
+  scheduledRuns: RunModel;
 };

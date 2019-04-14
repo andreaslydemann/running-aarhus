@@ -1,5 +1,5 @@
 import { AuthState } from "./auth.state";
-import { RunState } from "./RunState";
+import { RunState } from "./run.state";
 
 export interface RootState {
   auth: AuthState;
