@@ -17,82 +17,35 @@ import { TabBar } from "components/common";
 import { theme } from "theme";
 import React, { Component } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { TABS, TABBAR_ICONS } from "constants";
 
 const ScheduleStack = createStackNavigator(
   { ScheduleScreen },
-  {
-    headerMode: "none"
-  }
+  { headerMode: "none" }
 );
-
-ScheduleStack.navigationOptions = {
-  tabBarLabel: "scheduleTitle",
-  tabBarIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"ios-list"} size={22} color={tintColor} />
-  ),
-  drawerIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"md-list"} size={22} color={tintColor} />
-  )
-};
-
 const PlanningStack = createStackNavigator(
   { PlanningScreen, RunDetails },
-  {
-    headerMode: "none"
-  }
+  { headerMode: "none" }
 );
-
-PlanningStack.navigationOptions = {
-  tabBarLabel: "planningTitle",
-  tabBarIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"ios-add-circle-outline"} size={22} color={tintColor} />
-  ),
-  drawerIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"md-add-circle-outline"} size={22} color={tintColor} />
-  )
-};
-
-const PastStack = createStackNavigator(
-  { PastScreen },
-  {
-    headerMode: "none"
-  }
-);
-
-PastStack.navigationOptions = {
-  tabBarLabel: "pastTitle",
-  tabBarIcon: ({ tintColor }: TabScene) => (
-    <Ionicons
-      name={"ios-checkmark-circle-outline"}
-      size={22}
-      color={tintColor}
-    />
-  ),
-  drawerIcon: ({ tintColor }: TabScene) => (
-    <Ionicons
-      name={"md-checkmark-circle-outline"}
-      size={22}
-      color={tintColor}
-    />
-  )
-};
-
+const PastStack = createStackNavigator({ PastScreen }, { headerMode: "none" });
 const SettingsStack = createStackNavigator(
   { SettingsScreen },
-  {
-    headerMode: "none"
-  }
+  { headerMode: "none" }
 );
 
-SettingsStack.navigationOptions = {
-  tabBarLabel: "settingsTitle",
-  tabBarIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"ios-options"} size={22} color={tintColor} />
-  ),
-  drawerIcon: ({ tintColor }: TabScene) => (
-    <Ionicons name={"md-options"} size={22} color={tintColor} />
-  )
+const options = (label: string, icon: string) => {
+  return {
+    tabBarLabel: label,
+    tabBarIcon: ({ tintColor }: TabScene) => (
+      <Ionicons name={icon} size={22} color={tintColor} />
+    )
+  };
 };
+
+ScheduleStack.navigationOptions = options(TABS.Schedule, TABBAR_ICONS.Schedule);
+PlanningStack.navigationOptions = options(TABS.Planning, TABBAR_ICONS.Planning);
+PastStack.navigationOptions = options(TABS.Past, TABBAR_ICONS.Past);
+SettingsStack.navigationOptions = options(TABS.Settings, TABBAR_ICONS.Settings);
 
 const AppTabBar = createBottomTabNavigator(
   {

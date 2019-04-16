@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Provider } from "react-redux";
 import { configureStore } from "utils";
 import { ThemeProvider } from "styled-components";
-import Navigator from "Navigator";
+import Navigator from "navigation";
 import { Localization, AppLoading } from "expo";
 import strings from "languages";
 import { theme } from "theme";
