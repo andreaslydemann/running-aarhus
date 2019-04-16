@@ -6,7 +6,7 @@ import {
   ScreenBackground,
   PushableWrapper,
   RunCard
-} from "components";
+} from "components/common";
 import { styled } from "theme";
 import { Action } from "actions/common";
 import * as actions from "actions";

@@ -7,7 +7,7 @@ import {
   PushableWrapper,
   RunCard,
   Button
-} from "components";
+} from "components/common";
 import { styled } from "theme";
 
 interface Props {

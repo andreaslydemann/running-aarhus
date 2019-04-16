@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { styled } from "theme";
 import { ScrollView, Platform } from "react-native";
 import { SafeAreaView } from "react-navigation";
-import { HeaderBack, Button, ScreenBackground } from "components";
+import { HeaderBack, Button, ScreenBackground } from "components/common";
 
 const Wrapper = styled(ScreenBackground)`
   flex: 1;

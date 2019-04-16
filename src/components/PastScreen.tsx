@@ -1,6 +1,6 @@
 import React from "react";
 import i18n from "i18n-js";
-import { ScreenTitle, ScreenBackground } from "components";
+import { ScreenTitle, ScreenBackground } from "components/common";
 import { styled } from "theme";
 import firebase from "firebase";
 
