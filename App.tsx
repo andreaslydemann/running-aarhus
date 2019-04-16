@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Provider } from "react-redux";
 import { configureStore } from "utils";
 import { ThemeProvider } from "styled-components";
-import Navigator from "navigation";
+import Navigation from "navigation";
 import { Localization, AppLoading } from "expo";
 import strings from "languages";
 import { theme } from "theme";
@@ -60,7 +60,7 @@ export default class App extends Component<void, State> {
         <ThemeProvider theme={theme}>
           <>
             <StatusBar barStyle="light-content" />
-            <Navigator isAuthenticated={this.state.isAuthorized} />
+            <Navigation isAuthenticated={this.state.isAuthorized} />
           </>
         </ThemeProvider>
       </Provider>

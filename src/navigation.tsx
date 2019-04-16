@@ -76,9 +76,9 @@ interface Props {
   isAuthenticated: boolean;
 }
 
-export default class Navigator extends Component<Props> {
+export default class extends Component<Props> {
   render() {
-    const Navigator = createAppContainer(
+    const Navigation = createAppContainer(
       createSwitchNavigator(
         {
           App: AppTabBar,
@@ -90,6 +90,6 @@ export default class Navigator extends Component<Props> {
       )
     );
 
-    return <Navigator />;
+    return <Navigation />;
   }
 }
