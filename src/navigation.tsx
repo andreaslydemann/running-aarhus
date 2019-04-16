@@ -69,9 +69,7 @@ const AppTabBar = createBottomTabNavigator(
 
 const AuthStack = createStackNavigator(
   { SignIn: SignInScreen },
-  {
-    headerMode: "none"
-  }
+  { headerMode: "none" }
 );
 
 interface Props {
