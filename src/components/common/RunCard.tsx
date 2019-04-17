@@ -1,7 +1,7 @@
 import React from "react";
 import { styled } from "theme";
-import { LinearGradient } from "expo";
 import Label from "./Label";
+import { View } from "react-native";
 
 const Wrapper = styled.View`
   background: ${({ theme }) => theme.primary};
@@ -11,22 +11,10 @@ const Wrapper = styled.View`
   padding-right: 15px;
 `;
 
-const DateWrapper = styled(LinearGradient)`
-  border-radius: 6px;
-  width: 50px;
-  align-items: center;
-  justify-content: center;
-  height: 50px;
-`;
-
-interface DayProps {
-  large?: boolean;
-}
-
-const Day = styled.Text<DayProps>`
+const Day = styled.Text`
   color: white;
   font-weight: bold;
-  font-size: ${({ large }) => (large ? 20 : 13)}px;
+  font-size: 13px;
 `;
 
 const Row = styled.View`
@@ -47,28 +35,19 @@ const Desc = styled.Text<DescProps>`
 `;
 
 export default ({ data }: { data: any }) => {
-  const time = new Date(data.date * 1000);
+  const time = new Date(data.date._seconds * 1000);
+
   return (
     <Wrapper>
       <Row>
-        <DateWrapper
-          colors={["#ffb39d", "#ff43bb"]}
-          start={[0.0, 0.25]}
-          end={[0.5, 1.0]}
-        >
-          {data.netstamp === 0 ? (
-            <Day>TBD</Day>
-          ) : (
-            <>
-              <Day>{time.getDate()}</Day>
-              <Day>{time.getMonth()}</Day>
-            </>
-          )}
-        </DateWrapper>
-        <Label numberOfLines={2} text={data.notes} />
+        <View>
+          <Day>{time.toDateString()}</Day>
+          <Day>17:30 - 18:00</Day>
+        </View>
+        <Label numberOfLines={2} text={data.cancelled ? "Afmeldt" : "Tilmeldt"} />
       </Row>
       <Desc bold>{data.name}</Desc>
-      <Desc numberOfLines={1}>hello</Desc>
+      <Desc numberOfLines={1}>Kennedy Street</Desc>
     </Wrapper>
   );
 };

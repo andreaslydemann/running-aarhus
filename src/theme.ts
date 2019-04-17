@@ -3,15 +3,15 @@ import baseStyled, {
 } from "styled-components/native";
 
 export const theme = {
-  primary: "#0B4526",
-  darkShade: "#04381C",
-  darkAccent: "#002310",
-  activeTint: "white",
-  inactiveTint: "#4E916D",
-  info: "#232525",
-  success: "#5e9850",
-  warning: "#db8818",
-  danger: "#f44336"
+  primary: "#002B39",
+  darkShade: "#065D6F",
+  darkAccent: "#043C47",
+  activeTint: "#FFFFFF",
+  inactiveTint: "#809DA2",
+  info: "#E8F1F2",
+  success: "#88D498",
+  warning: "#F77F00",
+  danger: "#D62828"
 };
 
 export type Theme = typeof theme;

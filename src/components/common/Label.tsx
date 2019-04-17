@@ -9,7 +9,7 @@ const Wrapper = styled(LinearGradient)`
 `;
 
 const LabelText = styled.Text`
-  color: #8183a5;
+  color: #fff;
   font-weight: bold;
 `;
 
@@ -20,7 +20,7 @@ export default ({
   text: string;
   numberOfLines: number;
 }) => (
-  <Wrapper colors={["#3a3a63", "#2c2f52"]} start={[0.0, 0.0]} end={[1.0, 0.0]}>
+  <Wrapper colors={["#1481BA", "#0F5E88"]} start={[0.0, 0.0]} end={[1.0, 0.0]}>
     <LabelText numberOfLines={numberOfLines}>{text}</LabelText>
   </Wrapper>
 );

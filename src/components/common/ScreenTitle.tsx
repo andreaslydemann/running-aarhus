@@ -58,7 +58,7 @@ const Wrapper = styled.View`
 
 const MainText = styled.Text`
   font-size: 30px;
-  color: #eee;
+  color: #fff;
   font-weight: bold;
   margin-top: 15px;
 `;
@@ -69,6 +69,6 @@ const BackgroundText = styled(Animated.createAnimatedComponent(Text))`
   right: 0;
   top: -20px;
   font-size: 100px;
-  color: #aaaaaa;
+  color: #77A6B0;
   font-weight: bold;
 `;
