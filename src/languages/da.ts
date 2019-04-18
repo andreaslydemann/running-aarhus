@@ -1,9 +1,23 @@
 export const da = {
+  cancelled: "Aflyst",
   pastTitle: "Historik",
   planningTitle: "Planlæg",
   scheduleTitle: "Tidsplan",
   settingsTitle: "Indstillinger",
   signIn: "Log ind",
+  signedUp: "Tilmeldt",
   signOut: "Log ud",
-  credits: "2019 - Running Aarhus"
+  credits: "2019 - Running Aarhus",
+  jan: "Januar",
+  feb: "Februar",
+  mar: "Marts",
+  apr: "April",
+  may: "Maj",
+  jun: "Juni",
+  jul: "Juli",
+  aug: "August",
+  sep: "September",
+  oct: "Oktober",
+  nov: "November",
+  dec: "December"
 };

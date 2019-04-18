@@ -17,6 +17,21 @@ const TABBAR_ICONS = {
   Settings: "ios-options"
 };
 
+export const MONTHS = [
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "oct",
+  "sep",
+  "nov",
+  "dec"
+];
+
 export {
   TABBAR_ICONS,
   TABS,

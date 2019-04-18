@@ -2,6 +2,9 @@ import React from "react";
 import { styled } from "theme";
 import Label from "./Label";
 import { View } from "react-native";
+import { MONTHS } from "constants";
+import i18n from "i18n-js";
+import { Localization } from "expo";
 
 const Wrapper = styled.View`
   background: ${({ theme }) => theme.primary};
@@ -35,16 +38,35 @@ const Desc = styled.Text<DescProps>`
 `;
 
 export default ({ data }: { data: any }) => {
-  const time = new Date(data.date._seconds * 1000);
+  const date = new Date(data.date);
+  const startTimeString = date.toLocaleTimeString(Localization.locale, {
+    hour12: false,
+    hour: "numeric",
+    minute: "numeric"
+  });
+
+  date.setMinutes(date.getMinutes() + data.durationInMins);
+  const endTimeString = date.toLocaleTimeString(Localization.locale, {
+    hour12: false,
+    hour: "numeric",
+    minute: "numeric"
+  });
 
   return (
     <Wrapper>
       <Row>
         <View>
-          <Day>{time.toDateString()}</Day>
-          <Day>17:30 - 18:00</Day>
+          <Day>
+            {date.getDate()} {i18n.t(MONTHS[date.getMonth()])}
+          </Day>
+          <Day>
+            {startTimeString} - {endTimeString}
+          </Day>
         </View>
-        <Label numberOfLines={2} text={data.cancelled ? "Afmeldt" : "Tilmeldt"} />
+        <Label
+          numberOfLines={2}
+          text={data.cancelled ? i18n.t("cancelled") : i18n.t("signedUp")}
+        />
       </Row>
       <Desc bold>{data.name}</Desc>
       <Desc numberOfLines={1}>Kennedy Street</Desc>

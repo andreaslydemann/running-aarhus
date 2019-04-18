@@ -1,9 +1,23 @@
 export const en = {
+  cancelled: "Cancelled",
   pastTitle: "Past",
   planningTitle: "Planning",
   scheduleTitle: "Schedule",
   settingsTitle: "Settings",
   signIn: "Sign in",
   signOut: "Sign out",
-  credits: "2019 - Running Aarhus"
+  signedUp: "Signed up",
+  credits: "2019 - Running Aarhus",
+  jan: "January",
+  feb: "February",
+  mar: "March",
+  apr: "April",
+  may: "May",
+  jun: "June",
+  jul: "July",
+  aug: "August",
+  sep: "September",
+  oct: "October",
+  nov: "November",
+  dec: "December"
 };
