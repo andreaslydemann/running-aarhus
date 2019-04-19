@@ -1,9 +1,11 @@
 export const en = {
   cancelled: "Cancelled",
+  currentLocation: "Current location",
   pastTitle: "Past",
   planningTitle: "Planning",
   scheduleTitle: "Schedule",
   settingsTitle: "Settings",
+  searchLocation: "Search for location",
   signIn: "Sign in",
   signOut: "Sign out",
   signedUp: "Signed up",

@@ -9,9 +9,10 @@ import {
   ScheduleScreen,
   SignInScreen,
   PlanningScreen,
-  RunDetails,
   PastScreen,
-  SettingsScreen
+  RunDetails,
+  SettingsScreen,
+  MapScreen
 } from "components";
 import { TabBar } from "components/common";
 import { theme } from "theme";
@@ -27,11 +28,28 @@ const PlanningStack = createStackNavigator(
   { PlanningScreen, RunDetails },
   { headerMode: "none" }
 );
-const PastStack = createStackNavigator({ PastScreen }, { headerMode: "none" });
+const PastStack = createStackNavigator(
+  { PastScreen, MapScreen },
+  { headerMode: "none" }
+);
 const SettingsStack = createStackNavigator(
   { SettingsScreen },
   { headerMode: "none" }
 );
+
+const hideTabBar = ({ navigation }: any) => {
+  let tabBarVisible = true;
+  let routeName = navigation.state.routes[navigation.state.index].routeName;
+
+  if (routeName == "MapScreen") {
+    tabBarVisible = false;
+  }
+
+  return {
+    ...options(TABS.Past, TABBAR_ICONS.Past),
+    tabBarVisible
+  };
+};
 
 const options = (label: string, icon: string) => {
   return {
@@ -44,8 +62,8 @@ const options = (label: string, icon: string) => {
 
 ScheduleStack.navigationOptions = options(TABS.Schedule, TABBAR_ICONS.Schedule);
 PlanningStack.navigationOptions = options(TABS.Planning, TABBAR_ICONS.Planning);
-PastStack.navigationOptions = options(TABS.Past, TABBAR_ICONS.Past);
 SettingsStack.navigationOptions = options(TABS.Settings, TABBAR_ICONS.Settings);
+PastStack.navigationOptions = hideTabBar;
 
 const AppTabBar = createBottomTabNavigator(
   {

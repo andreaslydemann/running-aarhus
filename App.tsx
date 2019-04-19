@@ -4,16 +4,16 @@ import { configureStore } from "utils";
 import { ThemeProvider } from "styled-components";
 import Navigation from "navigation";
 import { Localization, AppLoading } from "expo";
-import strings from "languages";
+import languages from "languages";
 import { theme } from "theme";
 import i18n from "i18n-js";
 import { StatusBar, AsyncStorage } from "react-native";
 import firebase from "firebase";
-import { config } from "constants";
+import { FIREBASE_ACCOUNT } from "constants";
 import axios from "axios";
 
 i18n.fallbacks = true;
-i18n.translations = strings;
+i18n.translations = languages;
 i18n.locale = Localization.locale;
 
 interface State {
@@ -25,7 +25,7 @@ export default class App extends Component<void, State> {
   state = { isReady: false, isAuthorized: false };
 
   componentDidMount() {
-    firebase.initializeApp(config);
+    firebase.initializeApp(FIREBASE_ACCOUNT);
 
     firebase.auth().onAuthStateChanged(async user => {
       if (user) {

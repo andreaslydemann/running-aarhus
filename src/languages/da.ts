@@ -1,9 +1,11 @@
 export const da = {
   cancelled: "Aflyst",
+  currentLocation: "Nuværende placering",
   pastTitle: "Historik",
   planningTitle: "Planlæg",
   scheduleTitle: "Tidsplan",
   settingsTitle: "Indstillinger",
+  searchLocation: "Søg efter placering",
   signIn: "Log ind",
   signedUp: "Tilmeldt",
   signOut: "Log ud",

@@ -1,4 +1,7 @@
-import { config, RUNNING_AARHUS_FUNCTIONS_URL } from "./config/firebase_config";
+import {
+  FIREBASE_ACCOUNT,
+  RUNNING_AARHUS_FUNCTIONS_URL
+} from "./config/firebase_config";
 
 const FACEBOOK_APP_ID = "2292488901028008";
 const FACEBOOK_TOKEN = "fb_token";
@@ -17,7 +20,7 @@ const TABBAR_ICONS = {
   Settings: "ios-options"
 };
 
-export const MONTHS = [
+const MONTHS = [
   "jan",
   "feb",
   "mar",
@@ -33,10 +36,11 @@ export const MONTHS = [
 ];
 
 export {
+  MONTHS,
   TABBAR_ICONS,
   TABS,
   FACEBOOK_TOKEN,
   FACEBOOK_APP_ID,
-  config,
+  FIREBASE_ACCOUNT,
   RUNNING_AARHUS_FUNCTIONS_URL
 };

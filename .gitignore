@@ -2,6 +2,8 @@
 .DS_Store
 .expo/*
 firebase_config.*
+places_config.*
+
 **/.firebaserc
 __tests__/__snapshots__
 *~
