@@ -5,6 +5,7 @@ import ScheduleScreen from "./ScheduleScreen";
 import SettingsScreen from "./SettingsScreen";
 import RunDetails from "./RunDetails";
 import MapScreen from "./MapScreen";
+import CreateRunScreen from "./CreateRunScreen";
 
 export {
   SignInScreen,
@@ -13,5 +14,6 @@ export {
   ScheduleScreen,
   SettingsScreen,
   RunDetails,
-  MapScreen
+  MapScreen,
+  CreateRunScreen
 };

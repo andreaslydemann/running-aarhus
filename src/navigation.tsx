@@ -12,7 +12,8 @@ import {
   PastScreen,
   RunDetails,
   SettingsScreen,
-  MapScreen
+  MapScreen,
+  CreateRunScreen
 } from "components";
 import { TabBar } from "components/common";
 import { theme } from "theme";
@@ -24,32 +25,30 @@ const ScheduleStack = createStackNavigator(
   { ScheduleScreen },
   { headerMode: "none" }
 );
-const PlanningStack = createStackNavigator(
+
+const FindRunStack = createStackNavigator(
   { PlanningScreen, RunDetails },
   { headerMode: "none" }
 );
-const PastStack = createStackNavigator(
-  { PastScreen, MapScreen },
+
+const CreateRunStack = createStackNavigator(
+  { CreateRunScreen, MapScreen },
   { headerMode: "none" }
 );
+
+const PlanningStack = createStackNavigator(
+  {
+    FindRun: FindRunStack,
+    CreateRun: CreateRunStack
+  },
+  { headerMode: "none", mode: "modal" }
+);
+
+const PastStack = createStackNavigator({ PastScreen }, { headerMode: "none" });
 const SettingsStack = createStackNavigator(
   { SettingsScreen },
   { headerMode: "none" }
 );
-
-const hideTabBar = ({ navigation }: any) => {
-  let tabBarVisible = true;
-  let routeName = navigation.state.routes[navigation.state.index].routeName;
-
-  if (routeName == "MapScreen") {
-    tabBarVisible = false;
-  }
-
-  return {
-    ...options(TABS.Past, TABBAR_ICONS.Past),
-    tabBarVisible
-  };
-};
 
 const options = (label: string, icon: string) => {
   return {
@@ -61,9 +60,14 @@ const options = (label: string, icon: string) => {
 };
 
 ScheduleStack.navigationOptions = options(TABS.Schedule, TABBAR_ICONS.Schedule);
-PlanningStack.navigationOptions = options(TABS.Planning, TABBAR_ICONS.Planning);
 SettingsStack.navigationOptions = options(TABS.Settings, TABBAR_ICONS.Settings);
-PastStack.navigationOptions = hideTabBar;
+PastStack.navigationOptions = options(TABS.Past, TABBAR_ICONS.Past);
+PlanningStack.navigationOptions = ({ navigation }: any) => {
+  return {
+    ...options(TABS.Planning, TABBAR_ICONS.Planning),
+    tabBarVisible: navigation.state.index === 0
+  };
+};
 
 const AppTabBar = createBottomTabNavigator(
   {

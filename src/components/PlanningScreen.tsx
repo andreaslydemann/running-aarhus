@@ -76,7 +76,7 @@ export default class PlanningScreen extends React.Component<Props> {
           <ActionButton.Item
             buttonColor="#9b59b6"
             title="New Task"
-            onPress={() => console.log("notes tapped!")}
+            onPress={() => this.props.navigation.navigate("CreateRun")}
           >
             <Ionicons name={"ios-list"} size={22} color={"#fff"} />
           </ActionButton.Item>

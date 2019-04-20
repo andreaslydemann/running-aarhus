@@ -24,23 +24,20 @@ const BackArrowWrapper = styled.TouchableOpacity`
 `;
 
 interface Props {
+  isModal?: boolean;
   ScreenTitle: string;
   navigateBack: () => void;
 }
 
-export default ({ ScreenTitle, navigateBack }: Props) => {
+export default ({ ScreenTitle, navigateBack, isModal }: Props) => {
+  const iconName = isModal
+    ? `${Platform.OS}-close`
+    : `${Platform.OS}-arrow-round-back`;
+
   return (
     <Wrapper>
       <BackArrowWrapper onPress={navigateBack}>
-        <Ionicons
-          name={
-            Platform.OS === "ios"
-              ? "ios-arrow-round-back"
-              : "md-arrow-round-back"
-          }
-          size={40}
-          color="white"
-        />
+        <Ionicons name={iconName} size={40} color="white" />
       </BackArrowWrapper>
       <Title>{ScreenTitle}</Title>
     </Wrapper>

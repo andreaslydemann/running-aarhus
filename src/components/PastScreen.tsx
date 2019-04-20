@@ -2,7 +2,6 @@ import React from "react";
 import i18n from "i18n-js";
 import { ScreenTitle, ScreenBackground } from "components/common";
 import { styled } from "theme";
-import { Text, TouchableOpacity } from "react-native";
 //import firebase from "firebase";
 
 interface Props {
@@ -22,11 +21,6 @@ export default class PastScreen extends React.Component<Props> {
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("pastTitle")} />
-        <TouchableOpacity
-          onPress={() => this.props.navigation.navigate("MapScreen")}
-        >
-          <Text>Open map</Text>
-        </TouchableOpacity>
       </Wrapper>
     );
   }

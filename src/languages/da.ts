@@ -2,6 +2,7 @@ export const da = {
   cancelled: "Aflyst",
   currentLocation: "Nuværende placering",
   pastTitle: "Historik",
+  createRunTitle: "Opret løb",
   planningTitle: "Planlæg",
   scheduleTitle: "Tidsplan",
   settingsTitle: "Indstillinger",
