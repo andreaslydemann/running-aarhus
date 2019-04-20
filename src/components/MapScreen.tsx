@@ -59,6 +59,25 @@ class MapScreen extends React.Component<void, State> {
     };
   }
 
+  getColors() {
+    let missingColors =
+      this.state.polylines[0].coordinates.length - COLORS.length;
+    const colorsPerRound = Math.floor(missingColors / COLORS.length - 1);
+
+    return COLORS.reduce((arr, b, i) => {
+      const colorArray = [...arr, b];
+
+      if (missingColors > 0 && i < COLORS.length - 1) {
+        for (let i = 0; i < colorsPerRound; i++) {
+          colorArray.push("#00000000");
+          missingColors--;
+        }
+      }
+
+      return colorArray;
+    }, []);
+  }
+
   resetState() {
     this.setState({
       region: {
@@ -239,7 +258,7 @@ class MapScreen extends React.Component<void, State> {
               key={polyline.id}
               coordinates={polyline.coordinates}
               strokeColor="#000"
-              strokeColors={COLORS}
+              strokeColors={this.getColors()}
               fillColor="rgba(255,0,0,0.5)"
               strokeWidth={2}
             />
