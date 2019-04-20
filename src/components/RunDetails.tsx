@@ -4,68 +4,6 @@ import { ScrollView, Platform } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { HeaderBack, Button, ScreenBackground } from "components/common";
 
-const Wrapper = styled(ScreenBackground)`
-  flex: 1;
-`;
-
-const DetailsWrapper = styled.View`
-  background: ${({ theme }) => theme.primary};
-  margin: 25px;
-  border-radius: 20px;
-  padding: 20px;
-  overflow: hidden;
-  flex: 1;
-  justify-content: flex-end;
-`;
-
-const ContentWrapper = styled(SafeAreaView)`
-  flex: 1;
-`;
-
-const SectionTitle = styled.Text`
-  color: white;
-  font-weight: bold;
-`;
-
-const InfoText = styled.Text`
-  color: white;
-  font-size: 16px;
-  margin-bottom: 15px;
-  margin-left: 5px;
-`;
-
-const DescText = styled.Text`
-  color: white;
-  text-align: justify;
-  margin: 25px;
-`;
-
-const LinksWrapper = styled.View`
-  margin: 20px;
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 15px;
-`;
-
-const LinkButton = styled(Button)`
-  width: 80%;
-`;
-
-const ButtonLabel = styled.Text`
-  color: #bbb;
-  margin: 3px;
-`;
-
-const ButtonWrapper = styled.View`
-  flex: 1;
-  align-items: center;
-`;
-
 interface Props {
   navigation: { goBack: () => void };
 }
@@ -128,3 +66,65 @@ export default class extends Component<Props> {
     );
   }
 }
+
+const Wrapper = styled(ScreenBackground)`
+  flex: 1;
+`;
+
+const DetailsWrapper = styled.View`
+  background: ${({ theme }) => theme.primary};
+  margin: 25px;
+  border-radius: 20px;
+  padding: 20px;
+  overflow: hidden;
+  flex: 1;
+  justify-content: flex-end;
+`;
+
+const ContentWrapper = styled(SafeAreaView)`
+  flex: 1;
+`;
+
+const SectionTitle = styled.Text`
+  color: white;
+  font-weight: bold;
+`;
+
+const InfoText = styled.Text`
+  color: white;
+  font-size: 16px;
+  margin-bottom: 15px;
+  margin-left: 5px;
+`;
+
+const DescText = styled.Text`
+  color: white;
+  text-align: justify;
+  margin: 25px;
+`;
+
+const LinksWrapper = styled.View`
+  margin: 20px;
+`;
+
+const Row = styled.View`
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+`;
+
+const LinkButton = styled(Button)`
+  width: 80%;
+`;
+
+const ButtonLabel = styled.Text`
+  color: #bbb;
+  margin: 3px;
+`;
+
+const ButtonWrapper = styled.View`
+  flex: 1;
+  align-items: center;
+`;

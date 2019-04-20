@@ -3,41 +3,6 @@ import { styled } from "theme";
 import { LinearGradient } from "expo";
 import { Ionicons } from "@expo/vector-icons";
 
-interface TouchableWrapperProps {
-  shadow: string;
-}
-
-const TouchableWrapper = styled.TouchableOpacity<TouchableWrapperProps>`
-  shadow-opacity: 0.75;
-  shadow-radius: 5px;
-  shadow-color: ${({ shadow }) => shadow};
-  shadow-offset: 0px 0px;
-  margin: 0 5px;
-  border-radius: 10px;
-  background: ${({ theme }) => theme.primary};
-  ${({ disabled }) => disabled && "opacity: 0.3;"};
-`;
-
-const Wrapper = styled(LinearGradient)`
-  border-radius: 10px;
-  padding: 15px 30px;
-  align-items: center;
-  justify-content: center;
-  flex-direction: row;
-`;
-
-interface TitleProps {
-  fontSize: number;
-}
-
-const Title = styled.Text<TitleProps>`
-  color: #efefef;
-  font-size: ${props => props.fontSize};
-  font-weight: bold;
-  margin-left: 10px;
-  text-align: center;
-`;
-
 const TYPES = {
   primary: {
     gradient: ["#6b2afd", "#5e15ea"],
@@ -91,3 +56,38 @@ export default ({
     </Wrapper>
   </TouchableWrapper>
 );
+
+interface TouchableWrapperProps {
+  shadow: string;
+}
+
+const TouchableWrapper = styled.TouchableOpacity<TouchableWrapperProps>`
+  shadow-opacity: 0.75;
+  shadow-radius: 5px;
+  shadow-color: ${({ shadow }) => shadow};
+  shadow-offset: 0px 0px;
+  margin: 0 5px;
+  border-radius: 10px;
+  background: ${({ theme }) => theme.primary};
+  ${({ disabled }) => disabled && "opacity: 0.3;"};
+`;
+
+const Wrapper = styled(LinearGradient)`
+  border-radius: 10px;
+  padding: 15px 30px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+`;
+
+interface TitleProps {
+  fontSize: number;
+}
+
+const Title = styled.Text<TitleProps>`
+  color: #efefef;
+  font-size: ${props => props.fontSize};
+  font-weight: bold;
+  margin-left: 10px;
+  text-align: center;
+`;

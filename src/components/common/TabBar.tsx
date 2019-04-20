@@ -85,7 +85,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center"
   },
-  tabButton: { flex: 1, justifyContent: "center", alignItems: "center" }
+  tabButton: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  }
 });
 
 export default TabBar;

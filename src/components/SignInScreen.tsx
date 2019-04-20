@@ -90,6 +90,7 @@ const StyledImage = styled.Image`
 interface BottomProps {
   isAndroid: boolean;
 }
+
 const Bottom = styled.View<BottomProps>`
   flex: 1;
   justify-content: flex-end;

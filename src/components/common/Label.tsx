@@ -2,17 +2,6 @@ import React from "react";
 import { styled } from "theme";
 import { LinearGradient } from "expo";
 
-const Wrapper = styled(LinearGradient)`
-  border-radius: 10px;
-  padding: 10px 15px;
-  margin: 0 10px;
-`;
-
-const LabelText = styled.Text`
-  color: #fff;
-  font-weight: bold;
-`;
-
 export default ({
   text,
   numberOfLines = 1
@@ -24,3 +13,14 @@ export default ({
     <LabelText numberOfLines={numberOfLines}>{text}</LabelText>
   </Wrapper>
 );
+
+const Wrapper = styled(LinearGradient)`
+  border-radius: 10px;
+  padding: 10px 15px;
+  margin: 0 10px;
+`;
+
+const LabelText = styled.Text`
+  color: #fff;
+  font-weight: bold;
+`;

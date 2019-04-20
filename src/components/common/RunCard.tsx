@@ -6,37 +6,6 @@ import { MONTHS } from "constants";
 import i18n from "i18n-js";
 import { Localization } from "expo";
 
-const Wrapper = styled.View`
-  background: ${({ theme }) => theme.primary};
-  margin: 20px;
-  border-radius: 15px;
-  padding: 20px;
-  padding-right: 15px;
-`;
-
-const Day = styled.Text`
-  color: white;
-  font-weight: bold;
-  font-size: 13px;
-`;
-
-const Row = styled.View`
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-`;
-
-interface DescProps {
-  bold?: boolean;
-}
-
-const Desc = styled.Text<DescProps>`
-  color: white;
-  font-size: 15px;
-  ${({ bold }) => bold && "font-weight: bold;"} margin-top: 5px;
-`;
-
 export default ({ data }: { data: any }) => {
   const date = new Date(data.date);
   const startTimeString = date.toLocaleTimeString(Localization.locale, {
@@ -73,3 +42,34 @@ export default ({ data }: { data: any }) => {
     </Wrapper>
   );
 };
+
+const Wrapper = styled.View`
+  background: ${({ theme }) => theme.primary};
+  margin: 20px;
+  border-radius: 15px;
+  padding: 20px;
+  padding-right: 15px;
+`;
+
+const Day = styled.Text`
+  color: white;
+  font-weight: bold;
+  font-size: 13px;
+`;
+
+const Row = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+interface DescProps {
+  bold?: boolean;
+}
+
+const Desc = styled.Text<DescProps>`
+  color: white;
+  font-size: 15px;
+  ${({ bold }) => bold && "font-weight: bold;"} margin-top: 5px;
+`;

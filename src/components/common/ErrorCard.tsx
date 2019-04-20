@@ -4,27 +4,6 @@ import { Animated, View, Easing } from "react-native";
 import Button from "./Button";
 import { Ionicons } from "@expo/vector-icons";
 
-const Wrapper = styled(Animated.createAnimatedComponent(View))`
-    background: ${({ theme }) => theme.cardBackground};
-    margin: 25px;
-    border-radius: 20px
-    align-items: center;
-    padding: 20px;
-`;
-
-const Title = styled.Text`
-  color: white;
-  font-weight: bold;
-  font-size: 22px;
-  margin: 20px 0 10px 0;
-`;
-
-const Subtitle = styled.Text`
-  color: white;
-  font-size: 15px;
-  margin: 10px 0 20px 0;
-`;
-
 interface Props {
   onPress: () => void;
 }
@@ -67,3 +46,24 @@ export default class extends Component<Props> {
     );
   }
 }
+
+const Wrapper = styled(Animated.createAnimatedComponent(View))`
+    background: ${({ theme }) => theme.cardBackground};
+    margin: 25px;
+    border-radius: 20px
+    align-items: center;
+    padding: 20px;
+`;
+
+const Title = styled.Text`
+  color: white;
+  font-weight: bold;
+  font-size: 22px;
+  margin: 20px 0 10px 0;
+`;
+
+const Subtitle = styled.Text`
+  color: white;
+  font-size: 15px;
+  margin: 10px 0 20px 0;
+`;
