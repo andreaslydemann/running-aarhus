@@ -1,5 +1,7 @@
 import React from "react";
 import { FlatList, RefreshControl, ActivityIndicator } from "react-native";
+import ActionButton from "react-native-action-button";
+import { Ionicons } from "@expo/vector-icons";
 import i18n from "i18n-js";
 import {
   ScreenTitle,
@@ -70,6 +72,29 @@ export default class PlanningScreen extends React.Component<Props> {
             />
           }
         />
+        <ActionButton offsetY={100} buttonColor="#1481BA">
+          <ActionButton.Item
+            buttonColor="#9b59b6"
+            title="New Task"
+            onPress={() => console.log("notes tapped!")}
+          >
+            <Ionicons name={"ios-list"} size={22} color={"#fff"} />
+          </ActionButton.Item>
+          <ActionButton.Item
+            buttonColor="#3498db"
+            title="Notifications"
+            onPress={() => {}}
+          >
+            <Ionicons name={"ios-list"} size={22} color={"#fff"} />
+          </ActionButton.Item>
+          <ActionButton.Item
+            buttonColor="#1abc9c"
+            title="All Tasks"
+            onPress={() => {}}
+          >
+            <Ionicons name={"ios-list"} size={22} color={"#fff"} />
+          </ActionButton.Item>
+        </ActionButton>
       </Wrapper>
     );
   }

@@ -8,6 +8,7 @@
     "ios": "expo ios"
   },
   "dependencies": {
+    "@expo/vector-icons": "^10.0.0",
     "axios": "^0.18.0",
     "color": "^3.1.0",
     "expo": "^32.0.6",
@@ -15,11 +16,11 @@
     "i18n-js": "^3.2.1",
     "react": "^16.8.4",
     "react-native": "^0.57.8",
+    "react-native-action-button": "^2.8.5",
     "react-navigation": "^3.3.2",
     "react-redux": "^6.0.1",
     "redux-saga": "^1.0.2",
-    "styled-components": "^4.2.0",
-    "@expo/vector-icons": "^10.0.0"
+    "styled-components": "^4.2.0"
   },
   "devDependencies": {
     "@types/color": "^3.0.0",
@@ -32,10 +33,10 @@
     "@types/styled-components": "^4.1.12",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-preset-expo": "^5.0.0",
+    "prettier": "1.16.4",
     "redux-devtools-extension": "^2.13.8",
     "tslint-config-prettier": "1.18.0",
-    "typescript": "^3.3.3333",
-    "prettier": "1.16.4"
+    "typescript": "^3.3.3333"
   },
   "private": true
 }
