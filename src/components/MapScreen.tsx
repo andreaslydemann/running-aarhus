@@ -275,6 +275,26 @@ class MapScreen extends React.Component<void, State> {
               )}
             </TouchableOpacity>
           )}
+          {(this.state.startMarker || this.state.endMarker) && (
+            <TouchableOpacity
+              onPress={() =>
+                this.state.editing ? this.undoLine() : this.resetState()
+              }
+              style={[styles.bubble, styles.button]}
+            >
+              {this.state.editing ? (
+                <Text>Undo</Text>
+              ) : (
+                <Text>Clear route</Text>
+              )}
+            </TouchableOpacity>
+          )}
+        </View>
+        <View style={styles.textContainer}>
+          <Text>
+            The yellow markers have a higher zIndex and appear above other
+            markers.
+          </Text>
         </View>
       </View>
     );
@@ -310,6 +330,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginVertical: 20,
     backgroundColor: "transparent"
+  },
+  textContainer: {
+    backgroundColor: "white",
+    borderRadius: 4,
+    marginHorizontal: 40,
+    marginVertical: 20,
+    padding: 10
   },
   back: {
     position: "absolute",
