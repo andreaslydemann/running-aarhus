@@ -19,10 +19,8 @@
     "updates": {
       "fallbackToCacheTimeout": 0
     },
-    "assetBundlePatterns": [
-      "assets/*"
-    ],
     "ios": {
+      "bundleIdentifier": "com.andreaslydemann.runningaarhus",
       "supportsTablet": true
     },
     "description": "",
