@@ -26,7 +26,7 @@ export default ({ ScreenTitle, navigateBack, isModal }: Props) => {
 
 const Wrapper = styled.View`
   width: 100%;
-  height: 60px;
+  height: 30px;
   align-items: center;
   flex-direction: row;
 `;

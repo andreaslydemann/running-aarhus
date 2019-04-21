@@ -72,7 +72,7 @@ export default class PlanningScreen extends React.Component<Props> {
             />
           }
         />
-        <ActionButton offsetY={100} buttonColor="#1481BA">
+        <ActionButton offsetY={115} buttonColor="#1481BA">
           <ActionButton.Item
             buttonColor="#9b59b6"
             title="New Task"

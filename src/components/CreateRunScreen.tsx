@@ -38,7 +38,12 @@ export default class CreateRunScreen extends React.Component<Props> {
         <ScrollWrapper>
           <TextInput
             inputText={"hello"}
-            onChangeText={text => console.log(text)}
+            onChangeText={(text: string) => console.log(text)}
+          />
+          <TextInput
+            isTextArea={true}
+            inputText={"hello"}
+            onChangeText={(text: string) => console.log(text)}
           />
 
           <Section top>
