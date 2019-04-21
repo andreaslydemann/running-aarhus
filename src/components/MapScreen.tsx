@@ -6,20 +6,21 @@ import {
   Dimensions,
   TouchableOpacity
 } from "react-native";
-
-import { MapView, PROVIDER_DEFAULT } from "expo";
+import { MapView } from "expo";
 
 // @ts-ignore
-const { Marker, Polyline } = MapView;
+const { Marker, Polyline, PROVIDER_DEFAULT } = MapView;
 const { width, height } = Dimensions.get("window");
 const ASPECT_RATIO = width / height;
 const LATITUDE = 56.1501;
 const LONGITUDE = 10.1861;
 const LATITUDE_DELTA = 0.1222;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-let id = 0;
 const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
-const COLORS = [
+const START_MARKER_COLOR = "#238C23";
+const END_MARKER_COLOR = "#00007f";
+const SPACING_COLOR = "#00000000";
+const LINE_COLORS = [
   "#238C23",
   "#537f35",
   "#a6b267",
@@ -28,6 +29,11 @@ const COLORS = [
   "#00007f"
 ];
 
+interface Coordinate {
+  latitude: number;
+  longitude: number;
+}
+
 interface State {
   region: {
     latitude: number;
@@ -35,14 +41,29 @@ interface State {
     latitudeDelta: number;
     longitudeDelta: number;
   };
-  polylines: any;
-  editing: any;
+  polylines: Coordinate[];
   startMarker: any;
   endMarker: any;
 }
 
-class MapScreen extends React.Component<void, State> {
-  constructor(props) {
+interface Props {
+  navigation: { goBack: () => void };
+}
+
+interface MapScreen {
+  map: {
+    fitToCoordinates: (
+      coordinates: any,
+      options: {
+        edgePadding: any;
+        animated: boolean;
+      }
+    ) => void;
+  };
+}
+
+class MapScreen extends React.Component<Props, State> {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -52,24 +73,22 @@ class MapScreen extends React.Component<void, State> {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA
       },
-      polylines: [],
-      editing: null,
       startMarker: null,
-      endMarker: null
+      endMarker: null,
+      polylines: []
     };
   }
 
   getColors() {
-    let missingColors =
-      this.state.polylines[0].coordinates.length - COLORS.length;
-    const colorsPerRound = Math.floor(missingColors / COLORS.length - 1);
+    let missingColors = this.state.polylines.length - LINE_COLORS.length;
+    const colorsPerRound = Math.floor(missingColors / LINE_COLORS.length - 1);
 
-    return COLORS.reduce((arr, b, i) => {
+    return LINE_COLORS.reduce((arr: string[], b: string, i: number) => {
       const colorArray = [...arr, b];
 
-      if (missingColors > 0 && i < COLORS.length - 1) {
+      if (missingColors > 0 && i < LINE_COLORS.length - 1) {
         for (let i = 0; i < colorsPerRound; i++) {
-          colorArray.push("#00000000");
+          colorArray.push(SPACING_COLOR);
           missingColors--;
         }
       }
@@ -86,141 +105,107 @@ class MapScreen extends React.Component<void, State> {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA
       },
-      polylines: [],
-      editing: null,
       startMarker: null,
-      endMarker: null
+      endMarker: null,
+      polylines: []
     });
   }
 
   undoLine() {
-    if (this.state.editing.coordinates.length === 1) {
+    const { polylines } = this.state;
+
+    if (polylines.length === 1) {
       this.resetState();
-    } else if (this.state.editing.coordinates.length > 1) {
-      console.log(this.state);
-      const popped = this.state.editing.coordinates.slice(0, -1);
-      console.log(popped);
+    } else if (polylines.length > 1) {
       this.setState({
-        ...this.state,
-        editing: {
-          id: id++,
-          coordinates: popped
-        }
+        polylines: polylines.slice(0, -1)
       });
     }
-    console.log(this.state.editing);
   }
 
   setMarker(e: any) {
-    if (!this.state.startMarker) {
+    const { startMarker, endMarker, polylines } = this.state;
+
+    if (!startMarker) {
       this.setState({
-        ...this.state,
         startMarker: {
           coordinate: e.nativeEvent.coordinate,
-          key: id++,
-          color: "#238C23"
+          color: START_MARKER_COLOR
         },
-        editing: {
-          id: id++,
-          coordinates: [e.nativeEvent.coordinate]
-        }
+        polylines: [e.nativeEvent.coordinate]
       });
-    } else if (!this.state.endMarker) {
-      this.setState({
-        ...this.state,
-        endMarker: {
-          coordinate: e.nativeEvent.coordinate,
-          key: id++,
-          color: "#00007f"
-        }
-      });
-
-      const { polylines, editing } = this.state;
-      const theend = {
-        ...editing,
-        coordinates: [...editing.coordinates, e.nativeEvent.coordinate]
-      };
+    } else if (!endMarker) {
       this.setState(
         {
-          polylines: [...polylines, theend],
-          editing: null
+          endMarker: {
+            coordinate: e.nativeEvent.coordinate,
+            color: END_MARKER_COLOR
+          },
+          polylines: [...polylines, e.nativeEvent.coordinate]
         },
-        () => this.focus()
+        () => this.focusOnRoute()
       );
     }
   }
 
-  focus() {
-    const latitudes = this.state.polylines[0].coordinates.map(
-      line => line.latitude
-    );
+  focusOnRoute() {
+    const { polylines } = this.state;
+
+    const latitudes = polylines.map(line => line.latitude);
     const minLatitude = Math.min(...latitudes);
     const maxLatitude = Math.max(...latitudes);
 
-    const longitudes = this.state.polylines[0].coordinates.map(
-      line => line.longitude
-    );
+    const longitudes = polylines.map(line => line.longitude);
     const minLongitude = Math.min(...longitudes);
     const maxLongitude = Math.max(...longitudes);
 
-    const minObj = { latitude: minLatitude, longitude: minLongitude };
-    const maxObj = { latitude: maxLatitude, longitude: maxLongitude };
+    const coordinates = [
+      { latitude: minLatitude, longitude: minLongitude },
+      { latitude: maxLatitude, longitude: maxLongitude }
+    ];
 
-    console.log(minObj, maxObj);
-
-    this.map.fitToCoordinates([minObj, maxObj], {
+    this.map.fitToCoordinates(coordinates, {
       edgePadding: DEFAULT_PADDING,
       animated: true
     });
   }
 
-  onPanDrag(e) {
-    if (!this.state.startMarker || this.state.endMarker) {
+  onDrawLine(e: any) {
+    const { startMarker, endMarker, polylines } = this.state;
+
+    if (!startMarker || endMarker) {
       return;
     }
-    const { editing } = this.state;
-    if (!editing) {
+
+    if (!polylines.length) {
       this.setState({
-        editing: {
-          id: id++,
-          coordinates: [e.nativeEvent.coordinate]
-        }
+        polylines: [e.nativeEvent.coordinate]
       });
     } else {
       this.setState({
-        editing: {
-          ...editing,
-          coordinates: [...editing.coordinates, e.nativeEvent.coordinate]
-        }
+        polylines: [...polylines, e.nativeEvent.coordinate]
       });
     }
   }
 
-  onStartMarkerPress(e) {
-    if (!this.state.endMarker && this.state.editing.coordinates.length > 1) {
-      this.setState({
-        ...this.state,
+  onStartMarkerPress(e: any) {
+    const { endMarker, polylines } = this.state;
+
+    if (endMarker || polylines.length <= 1) {
+      return;
+    }
+
+    this.setState(
+      {
         startMarker: null,
         endMarker: {
           coordinate: e.nativeEvent.coordinate,
-          key: id++,
-          color: "#00007f"
-        }
-      });
-
-      const { polylines, editing } = this.state;
-      const theend = {
-        ...editing,
-        coordinates: [...editing.coordinates, e.nativeEvent.coordinate]
-      };
-      this.setState(
-        {
-          polylines: [...polylines, theend],
-          editing: null
+          color: END_MARKER_COLOR
         },
-        () => this.focus()
-      );
-    }
+        polylines: [...polylines, e.nativeEvent.coordinate]
+      },
+      () => this.focusOnRoute()
+    );
   }
 
   render() {
@@ -229,53 +214,37 @@ class MapScreen extends React.Component<void, State> {
         <MapView
           provider={PROVIDER_DEFAULT}
           style={styles.map}
-          ref={ref => {
+          ref={(ref: any) => {
             this.map = ref;
           }}
           initialRegion={this.state.region}
-          onPress={e => this.onPanDrag(e)}
+          onPress={e => this.onDrawLine(e)}
           onLongPress={e => this.setMarker(e)}
         >
           {this.state.startMarker && (
             <Marker
-              identifier="startMarker"
-              key={this.state.startMarker.key}
               coordinate={this.state.startMarker.coordinate}
               pinColor={this.state.startMarker.color}
-              onSelect={e => this.onStartMarkerPress(e)}
+              onSelect={(e: any) => this.onStartMarkerPress(e)}
             />
           )}
           {this.state.endMarker && (
             <Marker
-              identifier="endMarker"
-              key={this.state.endMarker.key}
               coordinate={this.state.endMarker.coordinate}
               pinColor={this.state.endMarker.color}
             />
           )}
-          {this.state.polylines.map(polyline => (
-            <Polyline
-              key={polyline.id}
-              coordinates={polyline.coordinates}
-              strokeColor="#000"
-              strokeColors={this.getColors()}
-              fillColor="rgba(255,0,0,0.5)"
-              strokeWidth={2}
-            />
-          ))}
-          {this.state.editing && (
-            <Polyline
-              key="editingPolyline"
-              coordinates={this.state.editing.coordinates}
-              strokeColor="#F00"
-              fillColor="rgba(255,0,0,0.5)"
-              strokeWidth={2}
-            />
-          )}
+          <Polyline
+            coordinates={this.state.polylines}
+            strokeColor="#F00"
+            strokeColors={this.state.endMarker ? this.getColors() : undefined}
+            fillColor="rgba(255,0,0,0.5)"
+            strokeWidth={2}
+          />
         </MapView>
         <TouchableOpacity
           style={styles.back}
-          onPress={() => this.props.navigation.pop()}
+          onPress={() => this.props.navigation.goBack()}
         >
           <Text style={{ fontWeight: "bold", fontSize: 30 }}>&larr;</Text>
         </TouchableOpacity>
@@ -283,11 +252,11 @@ class MapScreen extends React.Component<void, State> {
           {(this.state.startMarker || this.state.endMarker) && (
             <TouchableOpacity
               onPress={() =>
-                this.state.editing ? this.undoLine() : this.resetState()
+                !this.state.endMarker ? this.undoLine() : this.resetState()
               }
               style={[styles.bubble, styles.button]}
             >
-              {this.state.editing ? (
+              {!this.state.endMarker ? (
                 <Text>Undo</Text>
               ) : (
                 <Text>Clear route</Text>
@@ -297,11 +266,11 @@ class MapScreen extends React.Component<void, State> {
           {(this.state.startMarker || this.state.endMarker) && (
             <TouchableOpacity
               onPress={() =>
-                this.state.editing ? this.undoLine() : this.resetState()
+                !this.state.endMarker ? this.undoLine() : this.resetState()
               }
               style={[styles.bubble, styles.button]}
             >
-              {this.state.editing ? (
+              {!this.state.endMarker ? (
                 <Text>Undo</Text>
               ) : (
                 <Text>Clear route</Text>
@@ -334,10 +303,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingVertical: 12,
     borderRadius: 20
-  },
-  latlng: {
-    width: 200,
-    alignItems: "stretch"
   },
   button: {
     width: 80,
