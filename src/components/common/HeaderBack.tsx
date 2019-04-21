@@ -10,9 +10,11 @@ interface Props {
 }
 
 export default ({ ScreenTitle, navigateBack, isModal }: Props) => {
+  const iconTheme = Platform.OS === "ios" ? "ios" : "md";
+
   const iconName = isModal
-    ? `${Platform.OS}-close`
-    : `${Platform.OS}-arrow-round-back`;
+    ? `${iconTheme}-close`
+    : `${iconTheme}-arrow-round-back`;
 
   return (
     <Wrapper>

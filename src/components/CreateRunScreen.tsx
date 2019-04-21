@@ -8,7 +8,7 @@ import {
   Section
 } from "components/common";
 import { styled } from "theme";
-import { TouchableOpacity, Switch } from "react-native";
+import { TouchableOpacity, Switch, Platform } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
@@ -37,19 +37,21 @@ export default class CreateRunScreen extends React.Component<Props> {
         />
         <ScrollWrapper>
           <TextInput
-            inputText={"hello"}
+            value={""}
+            placeholder={"Intervals 2x5"}
             onChangeText={(text: string) => console.log(text)}
           />
           <TextInput
-            isTextArea={true}
-            inputText={"hello"}
+            value={""}
+            placeholder={"Provide some information about this run"}
             onChangeText={(text: string) => console.log(text)}
+            isTextArea={true}
           />
 
           <Section top>
-            <SectionTitle>Notify me</SectionTitle>
+            <SectionTitle>Use average tempo</SectionTitle>
             <Switch
-              value={true}
+              value={false}
               onValueChange={() => console.log("switched")}
             />
           </Section>
@@ -63,7 +65,11 @@ export default class CreateRunScreen extends React.Component<Props> {
               onPress={() => console.log("pressed")}
               hitSlop={touchableHitSlop}
             >
-              <Ionicons name="ios-minus" size={18} color="#fff" />
+              <Ionicons
+                name={Platform.OS === "ios" ? "ios-remove" : "md-remove"}
+                size={18}
+                color="#fff"
+              />
             </TouchableOpacity>
             <SectionTitle>4.05 min/km</SectionTitle>
             <TouchableOpacity
@@ -71,7 +77,11 @@ export default class CreateRunScreen extends React.Component<Props> {
               onPress={() => console.log("pressed")}
               hitSlop={touchableHitSlop}
             >
-              <Ionicons name="plus" size={18} color="#fff" />
+              <Ionicons
+                name={Platform.OS === "ios" ? "ios-add" : "md-add"}
+                size={18}
+                color="#fff"
+              />
             </TouchableOpacity>
           </Section>
 
@@ -80,7 +90,7 @@ export default class CreateRunScreen extends React.Component<Props> {
             bottom
             onPress={() => this.props.navigation.navigate("MapScreen")}
           >
-            <SectionTitle>{i18n.t("signOut")}</SectionTitle>
+            <SectionTitle>Set route</SectionTitle>
           </Section>
 
           <SectionHeader>Details</SectionHeader>

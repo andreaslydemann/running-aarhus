@@ -280,10 +280,7 @@ class MapScreen extends React.Component<Props, State> {
           )}
         </View>
         <View style={styles.textContainer}>
-          <Text>
-            The yellow markers have a higher zIndex and appear above other
-            markers.
-          </Text>
+          <Text>Meeting location:</Text>
         </View>
       </View>
     );

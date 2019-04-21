@@ -1,5 +1,5 @@
 import React from "react";
-import { styled } from "theme";
+import { styled, theme } from "theme";
 
 const Wrapper = styled.View`
   padding: 15px 20px;
@@ -24,19 +24,23 @@ const StyledInput = styled.TextInput<TextInputProps>`
 `;
 
 interface Props {
-  isTextArea?: boolean;
-  placeholder?: string;
-  inputText: string;
+  value: string;
   onChangeText: (text: string) => void;
+  placeholder?: string;
+  isTextArea?: boolean;
 }
 
 const TextInput = (props: Props) => {
-  const { inputText, placeholder, onChangeText, isTextArea = false } = props;
+  const { value, placeholder, onChangeText, isTextArea = false } = props;
 
   return (
     <Wrapper>
       <StyledInput
+        value={value}
+        placeholder={placeholder}
+        placeholderTextColor={theme.inactiveTint}
         multiline={isTextArea}
+        onChangeText={onChangeText}
         numberOfLines={isTextArea ? 5 : 1}
         isTextArea={isTextArea}
       />
