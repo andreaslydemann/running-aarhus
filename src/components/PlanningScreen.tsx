@@ -75,22 +75,8 @@ export default class PlanningScreen extends React.Component<Props> {
         <ActionButton offsetY={115} buttonColor="#1481BA">
           <ActionButton.Item
             buttonColor="#9b59b6"
-            title="New Task"
+            title="Create run"
             onPress={() => this.props.navigation.navigate("CreateRun")}
-          >
-            <Ionicons name={"ios-list"} size={22} color={"#fff"} />
-          </ActionButton.Item>
-          <ActionButton.Item
-            buttonColor="#3498db"
-            title="Notifications"
-            onPress={() => {}}
-          >
-            <Ionicons name={"ios-list"} size={22} color={"#fff"} />
-          </ActionButton.Item>
-          <ActionButton.Item
-            buttonColor="#1abc9c"
-            title="All Tasks"
-            onPress={() => {}}
           >
             <Ionicons name={"ios-list"} size={22} color={"#fff"} />
           </ActionButton.Item>
