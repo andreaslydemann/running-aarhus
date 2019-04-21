@@ -2,7 +2,7 @@ import { AsyncStorage } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import React from "react";
 import i18n from "i18n-js";
-import { ScreenTitle, ScreenBackground } from "components/common";
+import { ScreenTitle, ScreenBackground, Section } from "components/common";
 import { styled } from "theme";
 import firebase from "firebase";
 
@@ -33,12 +33,6 @@ export default class SettingsScreen extends React.Component<Props> {
   }
 }
 
-interface ButtonProps {
-  top?: boolean;
-  bottom?: boolean;
-  disabled?: boolean;
-}
-
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
 `;
@@ -51,28 +45,6 @@ const ContentWrapper = styled(SafeAreaView)`
 const SectionsWrapper = styled.ScrollView`
   padding: 0 25px;
   margin-top: 30px;
-`;
-
-const Section = styled.TouchableOpacity<ButtonProps>`
-  background: ${({ theme }) => theme.primary};
-  padding: 22px;
-  height: 70px;
-  ${props =>
-    props.top &&
-    `
-      border-top-right-radius: 8px;
-      border-top-left-radius: 8px;
-    `} ${props =>
-    props.bottom &&
-    `
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
-      margin-bottom: 22px;
-    `} margin-top: 1px;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  ${props => props.disabled && `opacity: 0.3;`};
 `;
 
 const SectionTitle = styled.Text`
