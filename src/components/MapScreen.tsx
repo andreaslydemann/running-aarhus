@@ -236,10 +236,11 @@ class MapScreen extends React.Component<Props, State> {
           )}
           <Polyline
             coordinates={this.state.polylines}
-            strokeColor="#F00"
+            strokeColor="rgba(0,0,200,0.5)"
             strokeColors={this.state.endMarker ? this.getColors() : undefined}
             fillColor="rgba(255,0,0,0.5)"
             strokeWidth={2}
+            lineDashPattern={!this.state.endMarker ? [20, 5] : null}
           />
         </MapView>
         <TouchableOpacity
