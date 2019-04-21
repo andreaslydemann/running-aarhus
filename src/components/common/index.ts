@@ -5,6 +5,7 @@ import RunCard from "./RunCard";
 import Button from "./Button";
 import HeaderBack from "./HeaderBack";
 import TabBar from "./TabBar";
+import TextInput from "./TextInput";
 
 export {
   ScreenTitle,
@@ -13,5 +14,6 @@ export {
   RunCard,
   Button,
   HeaderBack,
-  TabBar
+  TabBar,
+  TextInput
 };

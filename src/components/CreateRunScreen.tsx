@@ -1,6 +1,6 @@
 import React from "react";
 import i18n from "i18n-js";
-import { ScreenBackground, HeaderBack } from "components/common";
+import { ScreenBackground, HeaderBack, TextInput } from "components/common";
 import { styled } from "theme";
 import { Text, TouchableOpacity } from "react-native";
 
@@ -23,6 +23,10 @@ export default class CreateRunScreen extends React.Component<Props> {
         <TouchableOpacity
           onPress={() => this.props.navigation.navigate("MapScreen")}
         >
+          <TextInput
+            inputText={"hello"}
+            onChangeText={text => console.log(text)}
+          />
           <Text>Open map</Text>
         </TouchableOpacity>
       </Wrapper>
