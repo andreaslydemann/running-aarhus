@@ -8,6 +8,7 @@ import TabBar from "./TabBar";
 import TextInput from "./TextInput";
 import Section from "./Section";
 import RunDetailsCard from "./RunDetailsCard";
+import BottomButton from "./BottomButton";
 
 export {
   ScreenTitle,
@@ -19,5 +20,6 @@ export {
   TabBar,
   TextInput,
   Section,
-  RunDetailsCard
+  RunDetailsCard,
+  BottomButton
 };

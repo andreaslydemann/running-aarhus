@@ -5,7 +5,8 @@ import {
   HeaderBack,
   TextInput,
   RunDetailsCard,
-  Section
+  Section,
+  BottomButton
 } from "components/common";
 import { styled } from "theme";
 import { TouchableOpacity, Switch, Platform } from "react-native";
@@ -35,7 +36,7 @@ export default class CreateRunScreen extends React.Component<Props> {
           ScreenTitle={i18n.t("createRunTitle")}
           isModal={true}
         />
-        <ScrollWrapper>
+        <ScrollWrapper contentContainerStyle={{ paddingBottom: 20 }}>
           <TextInput
             value={""}
             placeholder={"Intervals 2x5"}
@@ -96,6 +97,13 @@ export default class CreateRunScreen extends React.Component<Props> {
           <SectionHeader>Details</SectionHeader>
           <RunDetailsCard meetingLocation={"Aarhus C"} distanceInKm={7.2} />
         </ScrollWrapper>
+
+        <BottomButton
+          onPress={() => {
+            console.log("clicked");
+          }}
+          title={"Gem"}
+        />
       </Wrapper>
     );
   }
@@ -114,7 +122,6 @@ const SectionHeader = styled.Text`
 
 const ScrollWrapper = styled.ScrollView`
   padding: 0 25px;
-  margin-top: 30px;
 `;
 
 const SectionTitle = styled.Text`

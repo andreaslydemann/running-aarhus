@@ -18,19 +18,18 @@ export default ({ ScreenTitle, navigateBack, isModal }: Props) => {
 
   return (
     <Wrapper>
-      <BackArrowWrapper onPress={navigateBack}>
+      <IconWrapper onPress={navigateBack}>
         <Ionicons name={iconName} size={40} color="white" />
-      </BackArrowWrapper>
+      </IconWrapper>
       <Title>{ScreenTitle}</Title>
     </Wrapper>
   );
 };
 
 const Wrapper = styled.View`
-  width: 100%;
-  height: 30px;
   align-items: center;
   flex-direction: row;
+  margin-top: 0px;
 `;
 
 const Title = styled.Text`
@@ -41,7 +40,7 @@ const Title = styled.Text`
   text-align: center;
 `;
 
-const BackArrowWrapper = styled.TouchableOpacity`
+const IconWrapper = styled.TouchableOpacity`
   width: 25%;
   align-items: center;
 `;
