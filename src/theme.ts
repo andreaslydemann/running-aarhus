@@ -11,7 +11,9 @@ export const theme = {
   info: "#E8F1F2",
   success: "#88D498",
   warning: "#F77F00",
-  danger: "#D62828"
+  danger: "#D62828",
+  actionGradient: ["#1481BA", "#0F5E88"],
+  actionShadow: "#0e3d5b"
 };
 
 export type Theme = typeof theme;

@@ -1,52 +1,23 @@
 import React from "react";
 import { styled } from "theme";
 import { LinearGradient } from "expo";
-
-const TYPES = {
-  primary: {
-    gradient: ["#1481BA", "#0F5E88"],
-    shadow: "#0e3d5b"
-  },
-  secondary: {
-    gradient: ["#3a3a63", "#2c2f53"],
-    shadow: "#2c2f53"
-  },
-  blue: {
-    gradient: ["#6e90fe", "#5cd7cd"],
-    shadow: "#6e90fe"
-  },
-  fire: {
-    gradient: ["#ffec2a", "#fa53d6"],
-    shadow: "#fa53d6"
-  },
-  red: {
-    gradient: ["#FEB692", "#EA5455"],
-    shadow: "#EA5455"
-  }
-};
+import { theme } from "theme";
 
 interface Props {
   title: string;
   onPress: () => void;
-  type?: string;
   disabled?: boolean;
   style?: any;
 }
 
-export default ({
-  title,
-  onPress,
-  type = "primary",
-  disabled = false,
-  style
-}: Props) => (
+export default ({ title, onPress, disabled = false, style }: Props) => (
   <TouchableWrapper
     style={style}
     onPress={onPress}
-    shadow={TYPES[type].shadow}
+    shadow={theme.actionShadow}
     disabled={disabled}
   >
-    <Wrapper colors={TYPES[type].gradient} start={[0.0, 0.0]} end={[1.0, 0.0]}>
+    <Wrapper colors={theme.actionGradient} start={[0.0, 0.0]} end={[1.0, 0.0]}>
       {title && <Title>{title}</Title>}
     </Wrapper>
   </TouchableWrapper>
@@ -73,7 +44,7 @@ const Wrapper = styled(LinearGradient)`
 `;
 
 const Title = styled.Text`
-  color: #efefef;
+  color: ${({ theme }) => theme.activeTint};
   margin-bottom: 20px;
   font-size: 22;
   font-weight: bold;
