@@ -6,7 +6,7 @@ import {
   TextInput,
   RunDetailsCard,
   Section,
-  BottomButton
+  SubmitButton
 } from "components/common";
 import { styled } from "theme";
 import { TouchableOpacity, Switch, Platform } from "react-native";
@@ -98,7 +98,7 @@ export default class CreateRunScreen extends React.Component<Props> {
           <RunDetailsCard meetingLocation={"Aarhus C"} distanceInKm={7.2} />
         </ScrollWrapper>
 
-        <BottomButton
+        <SubmitButton
           onPress={() => {
             console.log("clicked");
           }}
