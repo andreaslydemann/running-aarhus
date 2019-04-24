@@ -10,11 +10,12 @@ const Wrapper = styled.View`
 const Title = styled.Text`
   color: ${({ theme }) => theme.activeTint};
   font-weight: bold;
-  margin-bottom: 5px;
+  margin: 5px 0;
 `;
 
 const Subtitle = styled.Text`
   color: ${({ theme }) => theme.activeTint};
+  margin: 2px 0;
 `;
 
 interface Props {

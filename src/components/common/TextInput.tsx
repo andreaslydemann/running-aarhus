@@ -5,7 +5,7 @@ const Wrapper = styled.View`
   padding: 15px 20px;
   border-radius: 6px;
   font-size: 20px;
-  margin: 20px 0px;
+  margin-bottom: 20px;
   background: ${({ theme }) => theme.primary};
   flex-direction: row;
   align-items: center;

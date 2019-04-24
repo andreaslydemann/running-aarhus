@@ -47,7 +47,7 @@ export default class CreateRunScreen extends React.Component<Props> {
             mode="datetime"
             format="DD-MM-YYYY"
             minDate={new Date()}
-            style={{ width: "95%" }}
+            style={{ width: "95%", marginBottom: 20 }}
             cancelBtnText={"Cancel"}
             confirmBtnText={"Ok"}
             iconComponent={
@@ -59,10 +59,9 @@ export default class CreateRunScreen extends React.Component<Props> {
             }
             customStyles={{
               dateInput: {
-                borderRadius: 6,
-                borderColor: "#003755",
                 backgroundColor: theme.primary,
-                borderWidth: 1,
+                borderRadius: 6,
+                borderWidth: 0,
                 marginRight: 10
               },
               dateText: {
@@ -127,7 +126,6 @@ export default class CreateRunScreen extends React.Component<Props> {
             <SectionTitle>Set route</SectionTitle>
           </Section>
 
-          <SectionHeader>Details</SectionHeader>
           <RunDetailsCard meetingLocation={"Aarhus C"} distanceInKm={7.2} />
         </ScrollWrapper>
 
@@ -145,12 +143,6 @@ export default class CreateRunScreen extends React.Component<Props> {
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
   padding: 44px 0 0 0;
-`;
-
-const SectionHeader = styled.Text`
-  color: #eee;
-  font-size: 16px;
-  font-weight: bold;
 `;
 
 const ScrollWrapper = styled.ScrollView`

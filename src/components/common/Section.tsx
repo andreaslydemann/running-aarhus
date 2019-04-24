@@ -8,19 +8,19 @@ interface ButtonProps {
 
 const Section = styled.TouchableOpacity<ButtonProps>`
   background: ${({ theme }) => theme.primary};
-  padding: 22px;
+  padding: 20px;
   height: 70px;
   ${props =>
     props.top &&
     `
-      border-top-right-radius: 8px;
-      border-top-left-radius: 8px;
+      border-top-right-radius: 6px;
+      border-top-left-radius: 6px;
     `} ${props =>
     props.bottom &&
     `
-      border-bottom-left-radius: 8px;
-      border-bottom-right-radius: 8px;
-      margin-bottom: 22px;
+      border-bottom-left-radius: 6px;
+      border-bottom-right-radius: 6px;
+      margin-bottom: 20px;
     `} margin-top: 1px;
   flex-direction: row;
   justify-content: space-between;
