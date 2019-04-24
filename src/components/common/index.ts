@@ -1,25 +1,11 @@
-import ScreenTitle from "./ScreenTitle";
-import ScreenBackground from "./ScreenBackground";
-import PushableWrapper from "./PushableWrapper";
-import RunCard from "./RunCard";
-import Button from "./Button";
-import Header from "./Header";
-import TabBar from "./TabBar";
-import TextInput from "./TextInput";
-import Section from "./Section";
-import RunDetailsCard from "./RunDetailsCard";
-import BottomButton from "./BottomButton";
-
-export {
-  ScreenTitle,
-  ScreenBackground,
-  PushableWrapper,
-  RunCard,
-  Button,
-  Header,
-  TabBar,
-  TextInput,
-  Section,
-  RunDetailsCard,
-  BottomButton
-};
+export { default as Section } from "./Section";
+export { default as TabBar } from "./TabBar";
+export { default as PushableWrapper } from "./PushableWrapper";
+export { default as RunCard } from "./RunCard";
+export { default as Button } from "./Button";
+export { default as ScreenBackground } from "./ScreenBackground";
+export { default as RunDetailsCard } from "./RunDetailsCard";
+export { default as BottomButton } from "./BottomButton";
+export { default as ScreenTitle } from "./ScreenTitle";
+export { default as Header } from "./Header";
+export { default as TextInput } from "./TextInput";
