@@ -2,7 +2,7 @@ import React from "react";
 import i18n from "i18n-js";
 import {
   ScreenBackground,
-  HeaderBack,
+  Header,
   TextInput,
   RunDetailsCard,
   Section,
@@ -31,7 +31,7 @@ export default class CreateRunScreen extends React.Component<Props> {
 
     return (
       <Wrapper>
-        <HeaderBack
+        <Header
           navigateBack={() => this.props.navigation.goBack(null)}
           ScreenTitle={i18n.t("createRunTitle")}
           isModal={true}

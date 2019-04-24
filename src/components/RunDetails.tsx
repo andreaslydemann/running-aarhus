@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { styled } from "theme";
 import { ScrollView, Platform } from "react-native";
 import { SafeAreaView } from "react-navigation";
-import { HeaderBack, Button, ScreenBackground } from "components/common";
+import { Header, Button, ScreenBackground } from "components/common";
 
 interface Props {
   navigation: { goBack: () => void };
@@ -29,7 +29,7 @@ export default class extends Component<Props> {
     return (
       <Wrapper>
         <ContentWrapper>
-          <HeaderBack
+          <Header
             ScreenTitle={run.name}
             navigateBack={() => this.props.navigation.goBack()}
           />
