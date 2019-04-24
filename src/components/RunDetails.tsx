@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { styled } from "theme";
-import { ScrollView, Platform } from "react-native";
+import { ScrollView } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { Header, Button, ScreenBackground } from "components/common";
+import { THEME_PREFIX } from "theme";
 
 interface Props {
   navigation: { goBack: () => void };
@@ -52,7 +53,7 @@ export default class extends Component<Props> {
               <Row>
                 <ButtonWrapper>
                   <LinkButton
-                    icon={Platform.OS === "ios" ? "ios-map" : "md-map"}
+                    icon={`${THEME_PREFIX}-map`}
                     type="blue"
                     onPress={() => this.openMap(location)}
                   />
@@ -86,19 +87,19 @@ const ContentWrapper = styled(SafeAreaView)`
 `;
 
 const SectionTitle = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
   font-weight: bold;
 `;
 
 const InfoText = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
   font-size: 16px;
   margin-bottom: 15px;
   margin-left: 5px;
 `;
 
 const DescText = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
   text-align: justify;
   margin: 25px;
 `;

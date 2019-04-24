@@ -48,7 +48,7 @@ const SectionsWrapper = styled.ScrollView`
 `;
 
 const SectionTitle = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
 `;
 
 const Credits = styled.Text`

@@ -52,7 +52,7 @@ const Wrapper = styled.View`
 `;
 
 const Day = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
   font-weight: bold;
   font-size: 13px;
 `;
@@ -69,7 +69,7 @@ interface DescProps {
 }
 
 const Desc = styled.Text<DescProps>`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
   font-size: 15px;
   ${({ bold }) => bold && "font-weight: bold;"} margin-top: 5px;
 `;

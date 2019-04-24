@@ -56,14 +56,14 @@ const Wrapper = styled(Animated.createAnimatedComponent(View))`
 `;
 
 const Title = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
   font-weight: bold;
   font-size: 22px;
   margin: 20px 0 10px 0;
 `;
 
 const Subtitle = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
   font-size: 15px;
   margin: 10px 0 20px 0;
 `;

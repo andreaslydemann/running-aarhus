@@ -79,7 +79,7 @@ const AppTabBar = createBottomTabNavigator(
   {
     tabBarComponent: TabBar,
     tabBarOptions: {
-      activeTintColor: "white",
+      activeTintColor: theme.activeTint,
       inactiveTintColor: theme.inactiveTint,
       showLabel: true,
       style: {

@@ -8,8 +8,8 @@ import {
   Section,
   SubmitButton
 } from "components/common";
-import { styled } from "theme";
-import { TouchableOpacity, Switch, Platform } from "react-native";
+import { styled, theme, THEME_PREFIX } from "theme";
+import { TouchableOpacity, Switch } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
@@ -67,7 +67,7 @@ export default class CreateRunScreen extends React.Component<Props> {
               hitSlop={touchableHitSlop}
             >
               <Ionicons
-                name={Platform.OS === "ios" ? "ios-remove" : "md-remove"}
+                name={`${THEME_PREFIX}-remove`}
                 size={18}
                 color="#fff"
               />
@@ -79,9 +79,9 @@ export default class CreateRunScreen extends React.Component<Props> {
               hitSlop={touchableHitSlop}
             >
               <Ionicons
-                name={Platform.OS === "ios" ? "ios-add" : "md-add"}
+                name={`${THEME_PREFIX}-add`}
                 size={18}
-                color="#fff"
+                color={theme.activeTint}
               />
             </TouchableOpacity>
           </Section>
@@ -125,5 +125,5 @@ const ScrollWrapper = styled.ScrollView`
 `;
 
 const SectionTitle = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
 `;

@@ -8,13 +8,13 @@ const Wrapper = styled.View`
 `;
 
 const Title = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
   font-weight: bold;
   margin-bottom: 5px;
 `;
 
 const Subtitle = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
 `;
 
 interface Props {

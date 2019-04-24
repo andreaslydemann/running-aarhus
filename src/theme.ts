@@ -1,6 +1,9 @@
 import baseStyled, {
   ReactNativeStyledInterface
 } from "styled-components/native";
+import { Platform } from "react-native";
+
+export const THEME_PREFIX = Platform.OS === "ios" ? "ios" : "md";
 
 export const theme = {
   primary: "#002B39",

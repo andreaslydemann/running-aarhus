@@ -56,7 +56,7 @@ const Center = styled.View`
   height: 24px;
   width: 24px;
   border-radius: 12px;
-  background: white;
+  background: ${({ theme }) => theme.activeTint};
 `;
 
 const OrbitLine = styled.View`
@@ -66,14 +66,14 @@ const OrbitLine = styled.View`
   align-items: center;
   justify-content: center;
   border-width: 2px;
-  border-color: white;
+  border-color: ${({ theme }) => theme.activeTint};
 `;
 
 const Moon = styled.View`
   height: 14px;
   width: 14px;
   border-radius: 7px;
-  background: white;
+  background: ${({ theme }) => theme.activeTint};
   position: absolute;
   left: 34px;
   top: 0;

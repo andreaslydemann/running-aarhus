@@ -1,7 +1,7 @@
 import React from "react";
-import { Platform } from "react-native";
-import { styled } from "theme";
+import { styled, theme } from "theme";
 import { Ionicons } from "@expo/vector-icons";
+import { THEME_PREFIX } from "theme";
 
 interface Props {
   isModal?: boolean;
@@ -10,16 +10,14 @@ interface Props {
 }
 
 export default ({ ScreenTitle, navigateBack, isModal }: Props) => {
-  const iconTheme = Platform.OS === "ios" ? "ios" : "md";
-
   const iconName = isModal
-    ? `${iconTheme}-close`
-    : `${iconTheme}-arrow-round-back`;
+    ? `${THEME_PREFIX}-close`
+    : `${THEME_PREFIX}-arrow-round-back`;
 
   return (
     <Wrapper>
       <IconWrapper onPress={navigateBack}>
-        <Ionicons name={iconName} size={40} color="white" />
+        <Ionicons name={iconName} size={40} color={theme.activeTint} />
       </IconWrapper>
       <Title>{ScreenTitle}</Title>
     </Wrapper>
@@ -33,7 +31,7 @@ const Wrapper = styled.View`
 `;
 
 const Title = styled.Text`
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
   font-size: 20px;
   font-weight: bold;
   width: 50%;
