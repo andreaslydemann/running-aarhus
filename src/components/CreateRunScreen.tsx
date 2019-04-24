@@ -10,6 +10,7 @@ import {
 } from "components/common";
 import { styled, theme, THEME_PREFIX } from "theme";
 import { TouchableOpacity, Switch } from "react-native";
+import DatePicker from "react-native-datepicker";
 import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
@@ -36,7 +37,39 @@ export default class CreateRunScreen extends React.Component<Props> {
           ScreenTitle={i18n.t("createRunTitle")}
           isModal={true}
         />
-        <ScrollWrapper contentContainerStyle={{ paddingBottom: 20 }}>
+        <ScrollWrapper contentContainerStyle={{ paddingVertical: 20 }}>
+          <DatePicker
+            date={new Date()}
+            onDateChange={() => {
+              console.log("hello");
+            }}
+            is24Hour={true}
+            mode="datetime"
+            format="DD-MM-YYYY"
+            minDate={new Date()}
+            style={{ width: "95%" }}
+            cancelBtnText={"Cancel"}
+            confirmBtnText={"Ok"}
+            iconComponent={
+              <Ionicons
+                size={22}
+                color={"#fff"}
+                name={`${THEME_PREFIX}-calendar`}
+              />
+            }
+            customStyles={{
+              dateInput: {
+                borderRadius: 6,
+                borderColor: "#003755",
+                backgroundColor: theme.primary,
+                borderWidth: 1,
+                marginRight: 10
+              },
+              dateText: {
+                color: theme.activeTint
+              }
+            }}
+          />
           <TextInput
             value={""}
             placeholder={"Intervals 2x5"}
