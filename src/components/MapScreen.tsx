@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  StyleSheet,
-  View,
-  Text,
-  Dimensions,
-  TouchableOpacity
-} from "react-native";
+import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { MapView } from "expo";
+import { styled } from "../theme";
 
 // @ts-ignore
 const { Marker, Polyline, PROVIDER_DEFAULT } = MapView;
@@ -210,7 +205,7 @@ class MapScreen extends React.Component<Props, State> {
 
   render() {
     return (
-      <View style={styles.container}>
+      <View style={[styles.container, styles.map]}>
         <MapView
           provider={PROVIDER_DEFAULT}
           style={styles.map}
@@ -243,93 +238,76 @@ class MapScreen extends React.Component<Props, State> {
             lineDashPattern={!this.state.endMarker ? [20, 5] : null}
           />
         </MapView>
-        <TouchableOpacity
-          style={styles.back}
-          onPress={() => this.props.navigation.goBack()}
-        >
+        <BackButton onPress={() => this.props.navigation.goBack()}>
           <Text style={{ fontWeight: "bold", fontSize: 30 }}>&larr;</Text>
-        </TouchableOpacity>
-        <View style={styles.buttonContainer}>
+        </BackButton>
+        <ButtonWrapper>
           {(this.state.startMarker || this.state.endMarker) && (
-            <TouchableOpacity
+            <Button
               onPress={() =>
                 !this.state.endMarker ? this.undoLine() : this.resetState()
               }
-              style={[styles.bubble, styles.button]}
             >
               {!this.state.endMarker ? (
                 <Text>Undo</Text>
               ) : (
                 <Text>Clear route</Text>
               )}
-            </TouchableOpacity>
+            </Button>
           )}
-          {(this.state.startMarker || this.state.endMarker) && (
-            <TouchableOpacity
-              onPress={() =>
-                !this.state.endMarker ? this.undoLine() : this.resetState()
-              }
-              style={[styles.bubble, styles.button]}
-            >
-              {!this.state.endMarker ? (
-                <Text>Undo</Text>
-              ) : (
-                <Text>Clear route</Text>
-              )}
-            </TouchableOpacity>
-          )}
-        </View>
-        <View style={styles.textContainer}>
+        </ButtonWrapper>
+        <TextWrapper>
           <Text>Meeting location:</Text>
-        </View>
+        </TextWrapper>
       </View>
     );
   }
 }
 
+const ButtonWrapper = styled.View`
+  flex-direction: row;
+  margin-vertical: 20px;
+  background-color: transparent;
+`;
+
+const Button = styled.TouchableOpacity`
+  width: 80px;
+  padding-horizontal: 12px;
+  align-items: center;
+  margin-horizontal: 10px;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding-horizontal: 18px;
+  padding-vertical: 12px;
+  border-radius: 20px;
+`;
+
+const BackButton = styled.TouchableOpacity`
+  background-color: rgba(255, 255, 255, 0.4);
+  position: absolute;
+  top: 20px;
+  left: 12px;
+  width: 80px;
+  padding: 12px;
+  border-radius: 20px;
+  align-items: center;
+  justify-content: center;
+`;
+
+const TextWrapper = styled.View`
+  background-color: ${({ theme }) => theme.activeTint};
+  border-radius: 4px;
+  margin-horizontal: 40px;
+  margin-vertical: 20px;
+  padding: 10px;
+`;
+
 const styles = StyleSheet.create({
   container: {
-    ...StyleSheet.absoluteFillObject,
     justifyContent: "flex-end",
     alignItems: "center"
   },
   map: {
     ...StyleSheet.absoluteFillObject
-  },
-  bubble: {
-    backgroundColor: "rgba(255,255,255,0.7)",
-    paddingHorizontal: 18,
-    paddingVertical: 12,
-    borderRadius: 20
-  },
-  button: {
-    width: 80,
-    paddingHorizontal: 12,
-    alignItems: "center",
-    marginHorizontal: 10
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    marginVertical: 20,
-    backgroundColor: "transparent"
-  },
-  textContainer: {
-    backgroundColor: "white",
-    borderRadius: 4,
-    marginHorizontal: 40,
-    marginVertical: 20,
-    padding: 10
-  },
-  back: {
-    position: "absolute",
-    top: 20,
-    left: 12,
-    backgroundColor: "rgba(255,255,255,0.4)",
-    padding: 12,
-    borderRadius: 20,
-    width: 80,
-    alignItems: "center",
-    justifyContent: "center"
   }
 });
 

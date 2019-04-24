@@ -54,7 +54,6 @@ export default class extends Component<Props> {
                 <ButtonWrapper>
                   <LinkButton
                     icon={`${THEME_PREFIX}-map`}
-                    type="blue"
                     onPress={() => this.openMap(location)}
                   />
                   <ButtonLabel>Location</ButtonLabel>

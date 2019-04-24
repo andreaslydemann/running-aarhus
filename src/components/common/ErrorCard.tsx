@@ -41,7 +41,7 @@ export default class extends Component<Props> {
         <Ionicons name="exclamation" size={35} color="white" />
         <Title>Something's wrong</Title>
         <Subtitle>Error while fetching data</Subtitle>
-        <Button onPress={onPress} type="secondary" title="Retry" />
+        <Button onPress={onPress} title="Retry" />
       </Wrapper>
     );
   }
