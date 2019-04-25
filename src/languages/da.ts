@@ -11,6 +11,7 @@ export const da = {
   signedUp: "Tilmeldt",
   signOut: "Log ud",
   credits: "2019 - Running Aarhus",
+  dismiss: "Luk",
   jan: "Januar",
   feb: "Februar",
   mar: "Marts",

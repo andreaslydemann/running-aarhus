@@ -6,7 +6,8 @@ import {
   TextInput,
   RunDetailsCard,
   Section,
-  SubmitButton
+  SubmitButton,
+  Subtitle
 } from "components/common";
 import { styled, theme, THEME_PREFIX } from "theme";
 import { TouchableOpacity, Switch } from "react-native";
@@ -38,6 +39,7 @@ export default class CreateRunScreen extends React.Component<Props> {
           isModal={true}
         />
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 20 }}>
+          <Subtitle titleText={"Date and time"} showInfoIcon={false} />
           <DatePicker
             date={new Date()}
             onDateChange={() => {
@@ -69,11 +71,14 @@ export default class CreateRunScreen extends React.Component<Props> {
               }
             }}
           />
+          <Subtitle titleText={"Title"} showInfoIcon={false} />
           <TextInput
             value={""}
             placeholder={"Intervals 2x5"}
             onChangeText={(text: string) => console.log(text)}
           />
+
+          <Subtitle titleText={"Description"} showInfoIcon={false} />
           <TextInput
             value={""}
             placeholder={"Provide some information about this run"}
@@ -81,6 +86,14 @@ export default class CreateRunScreen extends React.Component<Props> {
             isTextArea={true}
           />
 
+          <Subtitle
+            titleText={"Average tempo"}
+            showInfoIcon={true}
+            dialogTitle={"Average tempo"}
+            dialogText={
+              "The average tempo is, in combination with the set route, used to estimate the time the run will be finished."
+            }
+          />
           <Section top>
             <SectionTitle>Use average tempo</SectionTitle>
             <Switch
@@ -118,6 +131,7 @@ export default class CreateRunScreen extends React.Component<Props> {
             </TouchableOpacity>
           </Section>
 
+          <Subtitle titleText={"Route"} showInfoIcon={false} />
           <Section
             top
             bottom
@@ -126,6 +140,7 @@ export default class CreateRunScreen extends React.Component<Props> {
             <SectionTitle>Set route</SectionTitle>
           </Section>
 
+          <Subtitle titleText={"Details"} showInfoIcon={false} />
           <RunDetailsCard meetingLocation={"Aarhus C"} distanceInKm={7.2} />
         </ScrollWrapper>
 
