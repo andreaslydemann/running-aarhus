@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { RootState } from "./states";
+import { RootState } from "types/states";
 import authReducer from "./auth.reducer";
 import runReducer from "./run.reducer";
 

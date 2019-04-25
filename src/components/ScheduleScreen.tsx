@@ -11,8 +11,8 @@ import { styled } from "theme";
 import { Action } from "actions/common";
 import * as actions from "actions";
 import { connect } from "react-redux";
-import { RunState } from "reducers/states";
-import { RunModel } from "reducers/models";
+import { RunState } from "types/states";
+import { RunModel } from "types/models";
 
 interface PropsConnectedState {
   scheduledRuns: RunModel[];

@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { MapView } from "expo";
-import { styled } from "../theme";
+import { styled } from "theme";
+import { Coordinate } from "types/common";
 
 // @ts-ignore
 const { Marker, Polyline, PROVIDER_DEFAULT } = MapView;
@@ -23,11 +24,6 @@ const LINE_COLORS = [
   "#004e8c",
   "#00007f"
 ];
-
-interface Coordinate {
-  latitude: number;
-  longitude: number;
-}
 
 interface State {
   region: {

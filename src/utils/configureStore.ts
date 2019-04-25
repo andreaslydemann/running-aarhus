@@ -1,7 +1,7 @@
 import { Store, createStore, applyMiddleware } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
 import createSagaMiddleware from "redux-saga";
-import { RootState } from "reducers/states";
+import { RootState } from "types/states";
 import reducers from "reducers";
 import sagas from "sagas";
 

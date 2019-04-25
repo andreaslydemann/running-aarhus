@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, Platform } from "react-native";
 import { Action } from "actions/common";
 import * as actions from "actions";
-import { AuthState } from "reducers/states";
+import { AuthState } from "types/states";
 import React from "react";
 import { connect } from "react-redux";
 import i18n from "i18n-js";

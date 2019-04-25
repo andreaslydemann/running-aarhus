@@ -1,5 +1,5 @@
 import { Action } from "actions/common";
-import { RunState } from "./states";
+import { RunState } from "types/states";
 import { RUN_TYPES } from "actions";
 
 let initialState: RunState = {

@@ -1,5 +1,5 @@
 import { Action } from "actions/common";
-import { AuthState } from "./states";
+import { AuthState } from "types/states";
 import { AUTH_TYPES } from "actions";
 
 let initialState: AuthState = {
