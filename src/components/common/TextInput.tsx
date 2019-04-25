@@ -1,11 +1,51 @@
 import React from "react";
 import { styled, theme } from "theme";
 
+interface Props {
+  value: string;
+  onChangeText: (text: string) => void;
+  placeholder?: string;
+  isTextArea?: boolean;
+  errorText?: string;
+}
+
+const TextInput = (props: Props) => {
+  const {
+    value,
+    placeholder,
+    onChangeText,
+    isTextArea = false,
+    errorText
+  } = props;
+
+  return (
+    <BottomMargin>
+      <Wrapper>
+        <StyledInput
+          value={value}
+          placeholder={placeholder}
+          placeholderTextColor={theme.inactiveTint}
+          multiline={isTextArea}
+          onChangeText={onChangeText}
+          numberOfLines={isTextArea ? 5 : 1}
+          isTextArea={isTextArea}
+        />
+      </Wrapper>
+      {errorText && <ErrorText>{errorText}</ErrorText>}
+    </BottomMargin>
+  );
+};
+
+export default TextInput;
+
+const BottomMargin = styled.View`
+  margin-bottom: 20px;
+`;
+
 const Wrapper = styled.View`
   padding: 15px 20px;
   border-radius: 6px;
   font-size: 20px;
-  margin-bottom: 20px;
   background: ${({ theme }) => theme.primary};
   flex-direction: row;
   align-items: center;
@@ -23,29 +63,10 @@ const StyledInput = styled.TextInput<TextInputProps>`
   height: ${props => (props.isTextArea ? "100px" : "36px")};
 `;
 
-interface Props {
-  value: string;
-  onChangeText: (text: string) => void;
-  placeholder?: string;
-  isTextArea?: boolean;
-}
-
-const TextInput = (props: Props) => {
-  const { value, placeholder, onChangeText, isTextArea = false } = props;
-
-  return (
-    <Wrapper>
-      <StyledInput
-        value={value}
-        placeholder={placeholder}
-        placeholderTextColor={theme.inactiveTint}
-        multiline={isTextArea}
-        onChangeText={onChangeText}
-        numberOfLines={isTextArea ? 5 : 1}
-        isTextArea={isTextArea}
-      />
-    </Wrapper>
-  );
-};
-
-export default TextInput;
+const ErrorText = styled.Text`
+  color: ${({ theme }) => theme.danger};
+  font-weight: bold;
+  font-size: 14px;
+  padding-top: 3px;
+  padding-left: 20px;
+`;
