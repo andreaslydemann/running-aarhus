@@ -21,7 +21,7 @@ const LINE_COLORS = [
   "#537f35",
   "#a6b267",
   "#e59c5d",
-  "#004e8c",
+  "#6b5d8c",
   "#00007f"
 ];
 
@@ -227,10 +227,9 @@ class MapScreen extends React.Component<Props, State> {
           )}
           <Polyline
             coordinates={this.state.polylines}
-            strokeColor="rgba(0,0,200,0.5)"
+            strokeColor="rgba(0,0,0,0.5)"
             strokeColors={this.state.endMarker ? this.getColors() : undefined}
-            fillColor="rgba(255,0,0,0.5)"
-            strokeWidth={2}
+            strokeWidth={this.state.endMarker ? 2 : 1}
             lineDashPattern={!this.state.endMarker ? [20, 5] : null}
           />
         </MapView>
