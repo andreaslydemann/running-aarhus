@@ -1,15 +1,50 @@
-import { styled } from "../../theme";
+import React from "react";
+import { styled } from "theme";
+import { TouchableOpacity } from "react-native";
 
 interface ButtonProps {
   top?: boolean;
   bottom?: boolean;
   disabled?: boolean;
+  touchable?: boolean;
+  onPress?: () => void;
+  children?: Element | Element[];
+  style?: any;
 }
 
-const Section = styled.TouchableOpacity<ButtonProps>`
+export default ({
+  top,
+  bottom,
+  disabled = false,
+  touchable = false,
+  children,
+  onPress,
+  style
+}: ButtonProps) => {
+  const renderContent = () => {
+    return (
+      <Content
+        top={top}
+        bottom={bottom}
+        disabled={disabled}
+        style={style}
+        onPress={onPress}
+      >
+        {children}
+      </Content>
+    );
+  };
+
+  return touchable ? (
+    <TouchableOpacity>{renderContent()}</TouchableOpacity>
+  ) : (
+    renderContent()
+  );
+};
+
+const Content = styled.View<ButtonProps>`
   background: ${({ theme }) => theme.primary};
   padding: 20px;
-  height: 70px;
   ${props =>
     props.top &&
     `
@@ -20,11 +55,9 @@ const Section = styled.TouchableOpacity<ButtonProps>`
     `
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
-    `} margin-top: 1px;
+    `} margin-top: 3px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   ${props => props.disabled && `opacity: 0.3;`};
 `;
-
-export default Section;

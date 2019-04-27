@@ -1,11 +1,6 @@
 import React from "react";
+import { View } from "react-native";
 import { styled } from "theme";
-
-const Wrapper = styled.View`
-  background: ${({ theme }) => theme.primary};
-  padding: 20px;
-  border-radius: 6px;
-`;
 
 const Title = styled.Text`
   color: ${({ theme }) => theme.activeTint};
@@ -32,7 +27,7 @@ const RunDetailsCard = ({
   if (!(meetingLocation && distanceInKm)) return null;
 
   return (
-    <Wrapper>
+    <View>
       <Title>Mødested</Title>
       <Subtitle>{meetingLocation}</Subtitle>
       <Title>Distance</Title>
@@ -41,7 +36,7 @@ const RunDetailsCard = ({
         <Title>Sluttidspunkt</Title>,
         <Subtitle>{estimatedEndTime}</Subtitle>
       ]}
-    </Wrapper>
+    </View>
   );
 };
 

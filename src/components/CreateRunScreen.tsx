@@ -77,13 +77,14 @@ export default class CreateRunScreen extends React.Component<Props> {
           "The average tempo is, in combination with the set route, used to estimate the time the run will be finished."
         }
       />,
-      <Section top>
+      <Section top touchable>
         <SectionTitle>Use average tempo</SectionTitle>
         <Switch value={false} onValueChange={() => console.log("switched")} />
       </Section>,
       <Section
         bottom
         disabled={true}
+        touchable
         style={{ justifyContent: "space-around" }}
       >
         <TouchableOpacity
@@ -110,6 +111,8 @@ export default class CreateRunScreen extends React.Component<Props> {
   }
 
   render(): JSX.Element {
+    const showRunDetails = true;
+
     return (
       <Wrapper>
         <Header
@@ -118,7 +121,7 @@ export default class CreateRunScreen extends React.Component<Props> {
           isModal={true}
         />
 
-        <ScrollWrapper contentContainerStyle={{ paddingVertical: 20 }}>
+        <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
           <BottomMargin>{this.renderDatePicker()}</BottomMargin>
 
           <BottomMargin>
@@ -127,6 +130,7 @@ export default class CreateRunScreen extends React.Component<Props> {
               value={""}
               placeholder={"Intervals 2x5"}
               onChangeText={(text: string) => console.log(text)}
+              errorText={"No text entered."}
             />
           </BottomMargin>
 
@@ -142,19 +146,20 @@ export default class CreateRunScreen extends React.Component<Props> {
 
           <BottomMargin>{this.renderAverageTempoToggle()}</BottomMargin>
 
-          <BottomMargin>
-            <Subtitle titleText={"Route"} showInfoIcon={false} />
-            <Section
-              top
-              bottom
-              onPress={() => this.props.navigation.navigate("MapScreen")}
-            >
-              <SectionTitle>Set route</SectionTitle>
+          <Subtitle titleText={"Route"} showInfoIcon={false} />
+          <Section
+            top
+            bottom={!showRunDetails}
+            touchable
+            onPress={() => this.props.navigation.navigate("MapScreen")}
+          >
+            <SectionTitle>Set route</SectionTitle>
+          </Section>
+          {showRunDetails && (
+            <Section bottom>
+              <RunDetailsCard meetingLocation={"Aarhus C"} distanceInKm={7.2} />
             </Section>
-          </BottomMargin>
-
-          <Subtitle titleText={"Details"} showInfoIcon={false} />
-          <RunDetailsCard meetingLocation={"Aarhus C"} distanceInKm={7.2} />
+          )}
         </ScrollWrapper>
 
         <SubmitButton
@@ -178,7 +183,7 @@ const Wrapper = styled(ScreenBackground)`
 `;
 
 const ScrollWrapper = styled.ScrollView`
-  padding: 0 25px;
+  padding: 0 20px;
 `;
 
 const SectionTitle = styled.Text`
