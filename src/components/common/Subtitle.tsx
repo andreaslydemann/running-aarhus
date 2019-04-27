@@ -50,7 +50,7 @@ export default class Subtitle extends Component<Props, State> {
           onTouchOutside={() => {
             this.setState({ dialogVisible: false });
           }}
-          width={0.9}
+          width={0.89}
           visible={this.state.dialogVisible}
           dialogAnimation={new ScaleAnimation()}
           dialogTitle={

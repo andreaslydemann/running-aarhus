@@ -23,20 +23,14 @@ export default ({
 }: ButtonProps) => {
   const renderContent = () => {
     return (
-      <Content
-        top={top}
-        bottom={bottom}
-        disabled={disabled}
-        style={style}
-        onPress={onPress}
-      >
+      <Content top={top} bottom={bottom} disabled={disabled} style={style}>
         {children}
       </Content>
     );
   };
 
   return touchable ? (
-    <TouchableOpacity>{renderContent()}</TouchableOpacity>
+    <TouchableOpacity onPress={onPress}>{renderContent()}</TouchableOpacity>
   ) : (
     renderContent()
   );

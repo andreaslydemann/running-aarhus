@@ -34,11 +34,11 @@ const Title = styled.Text`
   color: ${({ theme }) => theme.activeTint};
   font-size: 20px;
   font-weight: bold;
-  width: 50%;
+  width: 60%;
   text-align: center;
 `;
 
 const IconWrapper = styled.TouchableOpacity`
-  width: 25%;
+  width: 20%;
   align-items: center;
 `;
