@@ -21,12 +21,15 @@ export default class SettingsScreen extends React.Component<Props> {
       <Wrapper>
         <ContentWrapper>
           <ScreenTitle title={i18n.t("settingsTitle")} />
-          <SectionsWrapper>
-            <Section top bottom onPress={this.signOut}>
-              <SectionTitle>{i18n.t("signOut")}</SectionTitle>
-            </Section>
+          <ScrollWrapper>
+            <SectionsWrapper>
+              <Section top bottom touchable onPress={this.signOut}>
+                <SectionTitle>{i18n.t("signOut")}</SectionTitle>
+              </Section>
+            </SectionsWrapper>
+
             <Credits>{i18n.t("credits")}</Credits>
-          </SectionsWrapper>
+          </ScrollWrapper>
         </ContentWrapper>
       </Wrapper>
     );
@@ -37,14 +40,16 @@ const Wrapper = styled(ScreenBackground)`
   flex: 1;
 `;
 
+const ScrollWrapper = styled.ScrollView`
+  padding: 0 20px;
+`;
+
 const ContentWrapper = styled(SafeAreaView)`
-  padding-top: 30px 0;
   flex: 1;
 `;
 
-const SectionsWrapper = styled.ScrollView`
-  padding: 0 25px;
-  margin-top: 30px;
+const SectionsWrapper = styled.View`
+  margin: 20px 0;
 `;
 
 const SectionTitle = styled.Text`
