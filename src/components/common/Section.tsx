@@ -44,6 +44,7 @@ export default ({
 
 const Content = styled.View<ButtonProps>`
   background: ${({ theme }) => theme.primary};
+  min-height: 70;
   padding: 20px;
   ${props =>
     props.top &&
