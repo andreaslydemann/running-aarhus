@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { MapView } from "expo";
 import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
+import { calculateDistance } from "../utils";
 import { Header, ScreenBackground, SubmitButton } from "./common";
 import i18n from "i18n-js";
 
@@ -202,6 +203,22 @@ class MapScreen extends React.Component<Props, State> {
   }
 
   render() {
+    let distance = 0;
+    if (this.state.polylines.length > 1) {
+      const { polylines } = this.state;
+      let lastCoordinate;
+
+      for (let i = 0; i < polylines.length; i++) {
+        if (lastCoordinate) {
+          distance += calculateDistance(lastCoordinate, polylines[i]);
+        } else {
+          distance += calculateDistance(polylines[i], polylines[i + 1]);
+        }
+
+        lastCoordinate = polylines[i];
+      }
+    }
+
     return (
       <Wrapper>
         <Header
@@ -217,10 +234,13 @@ class MapScreen extends React.Component<Props, State> {
               <DetailsField>Mødested: </DetailsField>
               <DetailsText>Vestre ringgade 208, st th</DetailsText>
             </DetailsTextWrapper>
-            <DetailsTextWrapper>
-              <DetailsField>Afstand: </DetailsField>
-              <DetailsText>7,2 km</DetailsText>
-            </DetailsTextWrapper>
+            {distance > 0 && (
+              <DetailsTextWrapper>
+                <DetailsField>Afstand: </DetailsField>
+                <DetailsText>{distance.toFixed(2)} km</DetailsText>
+              </DetailsTextWrapper>
+            )}
+
             <DetailsTextWrapper>
               <DetailsField>Slut-tidspunkt: </DetailsField>
               <DetailsText>kl. 20.15</DetailsText>
