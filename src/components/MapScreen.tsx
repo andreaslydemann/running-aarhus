@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
-import { MapView } from "expo";
+import { Localization, MapView } from "expo";
 import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
 import { calculateDistance } from "../utils";
@@ -219,6 +219,20 @@ class MapScreen extends React.Component<Props, State> {
       }
     }
 
+    const pace = 4;
+    let endTimeString;
+
+    if (pace) {
+      const date = new Date();
+
+      date.setMinutes(date.getMinutes() + pace * distance);
+      endTimeString = date.toLocaleTimeString(Localization.locale, {
+        hour12: false,
+        hour: "numeric",
+        minute: "numeric"
+      });
+    }
+
     return (
       <Wrapper>
         <Header
@@ -238,10 +252,12 @@ class MapScreen extends React.Component<Props, State> {
               <DetailsField>Afstand: </DetailsField>
               <DetailsText>{distance.toFixed(2)} km</DetailsText>
             </DetailsTextWrapper>
-            <DetailsTextWrapper>
-              <DetailsField>Slut-tidspunkt: </DetailsField>
-              <DetailsText>kl. 20.15</DetailsText>
-            </DetailsTextWrapper>
+            {pace && this.state.polylines.length > 1 ? (
+              <DetailsTextWrapper>
+                <DetailsField>Slut-tidspunkt: </DetailsField>
+                <DetailsText>kl. {endTimeString}</DetailsText>
+              </DetailsTextWrapper>
+            ) : null}
           </TextWrapper>
           <TextWrapper
             borderColor={theme.inactiveTint}
