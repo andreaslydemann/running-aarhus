@@ -34,7 +34,7 @@ export default class CreateRunScreen extends React.Component<Props> {
         mode="datetime"
         format="DD-MM-YYYY"
         minDate={new Date()}
-        style={{ width: "95%", marginBottom: 20 }}
+        style={{ width: "95%" }}
         cancelBtnText={"Cancel"}
         confirmBtnText={"Ok"}
         iconComponent={
@@ -119,34 +119,39 @@ export default class CreateRunScreen extends React.Component<Props> {
         />
 
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 20 }}>
-          {this.renderDatePicker()}
+          <BottomMargin>{this.renderDatePicker()}</BottomMargin>
 
-          <Subtitle titleText={"Title"} showInfoIcon={false} />
-          <TextInput
-            value={""}
-            placeholder={"Intervals 2x5"}
-            onChangeText={(text: string) => console.log(text)}
-            errorText={"No text entered."}
-          />
+          <BottomMargin>
+            <Subtitle titleText={"Title"} showInfoIcon={false} />
+            <TextInput
+              value={""}
+              placeholder={"Intervals 2x5"}
+              onChangeText={(text: string) => console.log(text)}
+            />
+          </BottomMargin>
 
-          <Subtitle titleText={"Description"} showInfoIcon={false} />
-          <TextInput
-            value={""}
-            placeholder={"Provide some information about this run"}
-            onChangeText={(text: string) => console.log(text)}
-            isTextArea={true}
-          />
+          <BottomMargin>
+            <Subtitle titleText={"Description"} showInfoIcon={false} />
+            <TextInput
+              value={""}
+              placeholder={"Provide some information about this run"}
+              onChangeText={(text: string) => console.log(text)}
+              isTextArea={true}
+            />
+          </BottomMargin>
 
-          {this.renderAverageTempoToggle()}
+          <BottomMargin>{this.renderAverageTempoToggle()}</BottomMargin>
 
-          <Subtitle titleText={"Route"} showInfoIcon={false} />
-          <Section
-            top
-            bottom
-            onPress={() => this.props.navigation.navigate("MapScreen")}
-          >
-            <SectionTitle>Set route</SectionTitle>
-          </Section>
+          <BottomMargin>
+            <Subtitle titleText={"Route"} showInfoIcon={false} />
+            <Section
+              top
+              bottom
+              onPress={() => this.props.navigation.navigate("MapScreen")}
+            >
+              <SectionTitle>Set route</SectionTitle>
+            </Section>
+          </BottomMargin>
 
           <Subtitle titleText={"Details"} showInfoIcon={false} />
           <RunDetailsCard meetingLocation={"Aarhus C"} distanceInKm={7.2} />
@@ -162,6 +167,10 @@ export default class CreateRunScreen extends React.Component<Props> {
     );
   }
 }
+
+const BottomMargin = styled.View`
+  margin-bottom: 40px;
+`;
 
 const Wrapper = styled(ScreenBackground)`
   flex: 1;

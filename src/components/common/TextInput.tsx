@@ -1,4 +1,5 @@
 import React from "react";
+import { View } from "react-native";
 import { styled, theme } from "theme";
 
 interface Props {
@@ -19,7 +20,7 @@ const TextInput = (props: Props) => {
   } = props;
 
   return (
-    <BottomMargin>
+    <View>
       <Wrapper>
         <StyledInput
           value={value}
@@ -32,15 +33,11 @@ const TextInput = (props: Props) => {
         />
       </Wrapper>
       {errorText && <ErrorText>{errorText}</ErrorText>}
-    </BottomMargin>
+    </View>
   );
 };
 
 export default TextInput;
-
-const BottomMargin = styled.View`
-  margin-bottom: 20px;
-`;
 
 const Wrapper = styled.View`
   padding: 15px 20px;

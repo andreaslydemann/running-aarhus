@@ -20,7 +20,6 @@ const Section = styled.TouchableOpacity<ButtonProps>`
     `
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
-      margin-bottom: 20px;
     `} margin-top: 1px;
   flex-direction: row;
   justify-content: space-between;
