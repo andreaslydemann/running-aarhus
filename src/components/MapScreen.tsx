@@ -6,6 +6,7 @@ import { Coordinate } from "types/common";
 import { calculateDistance } from "../utils";
 import { Header, ScreenBackground, SubmitButton } from "./common";
 import i18n from "i18n-js";
+import axios from "axios";
 
 // @ts-ignore
 const { Marker, Polyline, PROVIDER_DEFAULT } = MapView;
@@ -35,6 +36,7 @@ interface State {
     latitudeDelta: number;
     longitudeDelta: number;
   };
+  meetingLocation: string;
   polylines: Coordinate[];
   startMarker: any;
   endMarker: any;
@@ -67,6 +69,7 @@ class MapScreen extends React.Component<Props, State> {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA
       },
+      meetingLocation: "",
       startMarker: null,
       endMarker: null,
       polylines: []
@@ -99,6 +102,7 @@ class MapScreen extends React.Component<Props, State> {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA
       },
+      meetingLocation: "",
       startMarker: null,
       endMarker: null,
       polylines: []
@@ -121,13 +125,22 @@ class MapScreen extends React.Component<Props, State> {
     const { startMarker, endMarker, polylines } = this.state;
 
     if (!startMarker) {
-      this.setState({
-        startMarker: {
-          coordinate: e.nativeEvent.coordinate,
-          color: START_MARKER_COLOR
+      this.setState(
+        {
+          startMarker: {
+            coordinate: e.nativeEvent.coordinate,
+            color: START_MARKER_COLOR
+          },
+          polylines: [e.nativeEvent.coordinate]
         },
-        polylines: [e.nativeEvent.coordinate]
-      });
+        () => {
+          this.getAddress().then(address => {
+            this.setState({
+              meetingLocation: address
+            });
+          });
+        }
+      );
     } else if (!endMarker) {
       this.setState(
         {
@@ -202,6 +215,29 @@ class MapScreen extends React.Component<Props, State> {
     );
   }
 
+  async getAddress() {
+    const REVERSE_GEOCODE_URL =
+      "http://nominatim.openstreetmap.org/reverse?format=json";
+
+    if (this.state.startMarker) {
+      const { latitude, longitude } = this.state.startMarker.coordinate;
+
+      const {
+        data: { address }
+      } = await axios.get(
+        `${REVERSE_GEOCODE_URL}&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1";`
+      );
+
+      return `${address.house_number ? address.house_number + " " : ""}${
+        address.road ? address.road + ", " : ""
+      }${address.suburb ? address.suburb + ", " : ""}${
+        address.postcode ? address.postcode : ""
+      }`;
+    }
+
+    return "";
+  }
+
   render() {
     let distance = 0;
     if (this.state.polylines.length > 1) {
@@ -240,25 +276,28 @@ class MapScreen extends React.Component<Props, State> {
           ScreenTitle={i18n.t("createRunTitle")}
         />
         <View style={styles.map}>
-          <TextWrapper
-            borderColor={"transparent"}
-            backgroundColor={theme.primary}
-          >
-            <DetailsTextWrapper>
-              <DetailsField>Mødested: </DetailsField>
-              <DetailsText>Vestre ringgade 208, st th</DetailsText>
-            </DetailsTextWrapper>
-            <DetailsTextWrapper>
-              <DetailsField>Afstand: </DetailsField>
-              <DetailsText>{distance.toFixed(2)} km</DetailsText>
-            </DetailsTextWrapper>
-            {pace && this.state.polylines.length > 1 ? (
+          {this.state.polylines.length ? (
+            <TextWrapper
+              borderColor={"transparent"}
+              backgroundColor={theme.primary}
+            >
               <DetailsTextWrapper>
-                <DetailsField>Slut-tidspunkt: </DetailsField>
-                <DetailsText>kl. {endTimeString}</DetailsText>
+                <DetailsField>Mødested: </DetailsField>
+                <DetailsText>{this.state.meetingLocation}</DetailsText>
               </DetailsTextWrapper>
-            ) : null}
-          </TextWrapper>
+              <DetailsTextWrapper>
+                <DetailsField>Afstand: </DetailsField>
+                <DetailsText>{distance.toFixed(2)} km</DetailsText>
+              </DetailsTextWrapper>
+              {pace ? (
+                <DetailsTextWrapper>
+                  <DetailsField>Slut-tidspunkt: </DetailsField>
+                  <DetailsText>kl. {endTimeString}</DetailsText>
+                </DetailsTextWrapper>
+              ) : null}
+            </TextWrapper>
+          ) : null}
+
           <TextWrapper
             borderColor={theme.inactiveTint}
             backgroundColor={theme.activeTint}
