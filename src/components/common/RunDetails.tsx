@@ -19,7 +19,7 @@ interface Props {
   estimatedEndTime?: Date;
 }
 
-const RunDetailsCard = ({
+const RunDetails = ({
   meetingLocation,
   distanceInKm,
   estimatedEndTime
@@ -40,4 +40,4 @@ const RunDetailsCard = ({
   );
 };
 
-export default RunDetailsCard;
+export default RunDetails;

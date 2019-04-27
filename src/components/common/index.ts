@@ -4,7 +4,7 @@ export { default as PushableWrapper } from "./PushableWrapper";
 export { default as RunCard } from "./RunCard";
 export { default as Button } from "./Button";
 export { default as ScreenBackground } from "./ScreenBackground";
-export { default as RunDetailsCard } from "./RunDetailsCard";
+export { default as RunDetails } from "./RunDetails";
 export { default as SubmitButton } from "./SubmitButton";
 export { default as ScreenTitle } from "./ScreenTitle";
 export { default as Header } from "./Header";

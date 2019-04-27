@@ -4,7 +4,7 @@ import {
   ScreenBackground,
   Header,
   TextInput,
-  RunDetailsCard,
+  RunDetails,
   Section,
   SubmitButton,
   Subtitle
@@ -157,7 +157,7 @@ export default class CreateRunScreen extends React.Component<Props> {
           </Section>
           {showRunDetails && (
             <Section bottom>
-              <RunDetailsCard meetingLocation={"Aarhus C"} distanceInKm={7.2} />
+              <RunDetails meetingLocation={"Aarhus C"} distanceInKm={7.2} />
             </Section>
           )}
         </ScrollWrapper>

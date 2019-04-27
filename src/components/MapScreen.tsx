@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, View, Text, Dimensions } from "react-native";
 import { MapView } from "expo";
-import { styled } from "theme";
+import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
+import { Header, ScreenBackground, SubmitButton } from "./common";
+import i18n from "i18n-js";
 
 // @ts-ignore
 const { Marker, Polyline, PROVIDER_DEFAULT } = MapView;
@@ -201,86 +203,119 @@ class MapScreen extends React.Component<Props, State> {
 
   render() {
     return (
-      <View style={[styles.container, styles.map]}>
-        <MapView
-          provider={PROVIDER_DEFAULT}
-          style={styles.map}
-          ref={(ref: any) => {
-            this.map = ref;
-          }}
-          initialRegion={this.state.region}
-          onPress={e => this.onDrawLine(e)}
-          onLongPress={e => this.setMarker(e)}
-        >
-          {this.state.startMarker && (
-            <Marker
-              coordinate={this.state.startMarker.coordinate}
-              pinColor={this.state.startMarker.color}
-              onSelect={(e: any) => this.onStartMarkerPress(e)}
-            />
-          )}
-          {this.state.endMarker && (
-            <Marker
-              coordinate={this.state.endMarker.coordinate}
-              pinColor={this.state.endMarker.color}
-            />
-          )}
-          <Polyline
-            coordinates={this.state.polylines}
-            strokeColor="rgba(0,0,0,0.5)"
-            strokeColors={this.state.endMarker ? this.getColors() : undefined}
-            strokeWidth={this.state.endMarker ? 2 : 1}
-            lineDashPattern={!this.state.endMarker ? [20, 5] : null}
-          />
-        </MapView>
-        <BackButton onPress={() => this.props.navigation.goBack()}>
-          <Text style={{ fontWeight: "bold", fontSize: 30 }}>&larr;</Text>
-        </BackButton>
-        <ButtonWrapper>
-          {(this.state.startMarker || this.state.endMarker) && (
-            <Button
-              onPress={() =>
-                !this.state.endMarker ? this.undoLine() : this.resetState()
-              }
+      <Wrapper>
+        <Header
+          navigateBack={() => this.props.navigation.goBack()}
+          ScreenTitle={i18n.t("createRunTitle")}
+        />
+        <View style={styles.map}>
+          <TextWrapper
+            borderColor={"transparent"}
+            backgroundColor={theme.primary}
+          >
+            <DetailsTextWrapper>
+              <DetailsField>Mødested: </DetailsField>
+              <DetailsText>Vestre ringgade 208, st th</DetailsText>
+            </DetailsTextWrapper>
+            <DetailsTextWrapper>
+              <DetailsField>Afstand: </DetailsField>
+              <DetailsText>7,2 km</DetailsText>
+            </DetailsTextWrapper>
+            <DetailsTextWrapper>
+              <DetailsField>Slut-tidspunkt: </DetailsField>
+              <DetailsText>kl. 20.15</DetailsText>
+            </DetailsTextWrapper>
+          </TextWrapper>
+          <TextWrapper
+            borderColor={theme.inactiveTint}
+            backgroundColor={theme.activeTint}
+          >
+            <HelpText>
+              Start- og slut-markøren for ruten sættes ved at holde din finger
+              et sted på kortet.
+            </HelpText>
+          </TextWrapper>
+          <View style={styles.map}>
+            <MapView
+              provider={PROVIDER_DEFAULT}
+              ref={(ref: any) => {
+                this.map = ref;
+              }}
+              style={styles.map}
+              initialRegion={this.state.region}
+              onPress={e => this.onDrawLine(e)}
+              onLongPress={e => this.setMarker(e)}
             >
-              {!this.state.endMarker ? (
-                <Text>Undo</Text>
-              ) : (
-                <Text>Clear route</Text>
+              {this.state.startMarker && (
+                <Marker
+                  coordinate={this.state.startMarker.coordinate}
+                  pinColor={this.state.startMarker.color}
+                  onSelect={(e: any) => this.onStartMarkerPress(e)}
+                />
               )}
-            </Button>
-          )}
-        </ButtonWrapper>
-        <TextWrapper>
-          <Text>Meeting location:</Text>
-        </TextWrapper>
-      </View>
+              {this.state.endMarker && (
+                <Marker
+                  coordinate={this.state.endMarker.coordinate}
+                  pinColor={this.state.endMarker.color}
+                />
+              )}
+              <Polyline
+                coordinates={this.state.polylines}
+                strokeColor="rgba(0,0,0,0.5)"
+                strokeColors={
+                  this.state.endMarker ? this.getColors() : undefined
+                }
+                strokeWidth={this.state.endMarker ? 2 : 1}
+                lineDashPattern={!this.state.endMarker ? [20, 5] : null}
+              />
+            </MapView>
+            {(this.state.startMarker || this.state.endMarker) && (
+              <ButtonWrapper>
+                <UndoButton
+                  onPress={() =>
+                    !this.state.endMarker ? this.undoLine() : this.resetState()
+                  }
+                >
+                  {!this.state.endMarker ? (
+                    <Text>Undo</Text>
+                  ) : (
+                    <Text>Clear route</Text>
+                  )}
+                </UndoButton>
+              </ButtonWrapper>
+            )}
+          </View>
+        </View>
+
+        <SubmitButton
+          onPress={() => {
+            console.log("clicked");
+          }}
+          title={"Gem"}
+        />
+      </Wrapper>
     );
   }
 }
 
+const Wrapper = styled(ScreenBackground)`
+  flex: 1;
+  padding: 44px 0 0 0;
+`;
+
 const ButtonWrapper = styled.View`
-  flex-direction: row;
-  margin-vertical: 20px;
-  background-color: transparent;
-`;
-
-const Button = styled.TouchableOpacity`
-  width: 80px;
-  padding-horizontal: 12px;
-  align-items: center;
-  margin-horizontal: 10px;
-  background-color: rgba(255, 255, 255, 0.7);
-  padding-horizontal: 18px;
-  padding-vertical: 12px;
-  border-radius: 20px;
-`;
-
-const BackButton = styled.TouchableOpacity`
-  background-color: rgba(255, 255, 255, 0.4);
+  width: 100%;
   position: absolute;
-  top: 20px;
-  left: 12px;
+  align-items: flex-end;
+`;
+
+const UndoButton = styled.TouchableOpacity`
+  shadow-opacity: 0.2;
+  shadow-radius: 5px;
+  shadow-offset: 0px 0px;
+  background-color: white;
+  top: 10px;
+  right: 10;
   width: 80px;
   padding: 12px;
   border-radius: 20px;
@@ -288,12 +323,33 @@ const BackButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-const TextWrapper = styled.View`
-  background-color: ${({ theme }) => theme.activeTint};
-  border-radius: 4px;
-  margin-horizontal: 40px;
-  margin-vertical: 20px;
-  padding: 10px;
+const DetailsTextWrapper = styled.View`
+  flex-direction: row;
+`;
+
+const DetailsField = styled.Text`
+  color: ${({ theme }) => theme.activeTint};
+  font-weight: bold;
+`;
+
+const DetailsText = styled.Text`
+  color: ${({ theme }) => theme.activeTint};
+`;
+
+const HelpText = styled.Text`
+  color: ${({ theme }) => theme.primary};
+`;
+
+interface TextWrapperProps {
+  borderColor: string;
+  backgroundColor: string;
+}
+
+const TextWrapper = styled.View<TextWrapperProps>`
+  border-color: ${props => props.borderColor};
+  border-bottom-width: 1px;
+  background-color: ${props => props.backgroundColor};
+  padding: 15px 15px;
 `;
 
 const styles = StyleSheet.create({
@@ -302,7 +358,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   map: {
-    ...StyleSheet.absoluteFillObject
+    flex: 1
   }
 });
 
