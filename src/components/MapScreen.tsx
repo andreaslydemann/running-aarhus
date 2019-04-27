@@ -16,7 +16,7 @@ const LATITUDE = 56.1501;
 const LONGITUDE = 10.1861;
 const LATITUDE_DELTA = 0.1222;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
+const DEFAULT_PADDING = { top: 200, right: 40, bottom: 40, left: 40 };
 const START_MARKER_COLOR = "#238C23";
 const END_MARKER_COLOR = "#00007f";
 const SPACING_COLOR = "#00000000";
@@ -276,37 +276,6 @@ class MapScreen extends React.Component<Props, State> {
           ScreenTitle={i18n.t("createRunTitle")}
         />
         <View style={styles.map}>
-          {this.state.polylines.length ? (
-            <TextWrapper
-              borderColor={"transparent"}
-              backgroundColor={theme.primary}
-            >
-              <DetailsTextWrapper>
-                <DetailsField>Mødested: </DetailsField>
-                <DetailsText>{this.state.meetingLocation}</DetailsText>
-              </DetailsTextWrapper>
-              <DetailsTextWrapper>
-                <DetailsField>Afstand: </DetailsField>
-                <DetailsText>{distance.toFixed(2)} km</DetailsText>
-              </DetailsTextWrapper>
-              {pace ? (
-                <DetailsTextWrapper>
-                  <DetailsField>Slut-tidspunkt: </DetailsField>
-                  <DetailsText>kl. {endTimeString}</DetailsText>
-                </DetailsTextWrapper>
-              ) : null}
-            </TextWrapper>
-          ) : null}
-
-          <TextWrapper
-            borderColor={theme.inactiveTint}
-            backgroundColor={theme.activeTint}
-          >
-            <HelpText>
-              Start- og slut-markøren for ruten sættes ved at holde din finger
-              et sted på kortet.
-            </HelpText>
-          </TextWrapper>
           <View style={styles.map}>
             <MapView
               showsUserLocation={true}
@@ -342,21 +311,56 @@ class MapScreen extends React.Component<Props, State> {
                 lineDashPattern={!this.state.endMarker ? [20, 5] : null}
               />
             </MapView>
-            {(this.state.startMarker || this.state.endMarker) && (
-              <ButtonWrapper>
-                <UndoButton
-                  onPress={() =>
-                    !this.state.endMarker ? this.undoLine() : this.resetState()
-                  }
+            <MapOverlay>
+              {this.state.polylines.length ? (
+                <TextWrapper
+                  borderColor={"transparent"}
+                  backgroundColor={theme.primary}
                 >
-                  {!this.state.endMarker ? (
-                    <Text>Undo</Text>
-                  ) : (
-                    <Text>Clear route</Text>
-                  )}
-                </UndoButton>
-              </ButtonWrapper>
-            )}
+                  <DetailsTextWrapper>
+                    <DetailsField>Mødested: </DetailsField>
+                    <DetailsText>{this.state.meetingLocation}</DetailsText>
+                  </DetailsTextWrapper>
+                  <DetailsTextWrapper>
+                    <DetailsField>Afstand: </DetailsField>
+                    <DetailsText>{distance.toFixed(2)} km</DetailsText>
+                  </DetailsTextWrapper>
+                  {pace ? (
+                    <DetailsTextWrapper>
+                      <DetailsField>Slut-tidspunkt: </DetailsField>
+                      <DetailsText>kl. {endTimeString}</DetailsText>
+                    </DetailsTextWrapper>
+                  ) : null}
+                </TextWrapper>
+              ) : null}
+
+              <TextWrapper
+                borderColor={theme.inactiveTint}
+                backgroundColor={theme.activeTint}
+              >
+                <HelpText>
+                  Start- og slut-markøren for ruten sættes ved at holde din
+                  finger et sted på kortet.
+                </HelpText>
+              </TextWrapper>
+              {(this.state.startMarker || this.state.endMarker) && (
+                <ButtonWrapper>
+                  <UndoButton
+                    onPress={() =>
+                      !this.state.endMarker
+                        ? this.undoLine()
+                        : this.resetState()
+                    }
+                  >
+                    {!this.state.endMarker ? (
+                      <Text>Undo</Text>
+                    ) : (
+                      <Text>Clear route</Text>
+                    )}
+                  </UndoButton>
+                </ButtonWrapper>
+              )}
+            </MapOverlay>
           </View>
         </View>
 
@@ -371,6 +375,10 @@ class MapScreen extends React.Component<Props, State> {
   }
 }
 
+const MapOverlay = styled.View`
+  position: absolute;
+`;
+
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
   padding: 44px 0 0 0;
@@ -378,7 +386,6 @@ const Wrapper = styled(ScreenBackground)`
 
 const ButtonWrapper = styled.View`
   width: 100%;
-  position: absolute;
   align-items: flex-end;
 `;
 
