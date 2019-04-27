@@ -234,13 +234,10 @@ class MapScreen extends React.Component<Props, State> {
               <DetailsField>Mødested: </DetailsField>
               <DetailsText>Vestre ringgade 208, st th</DetailsText>
             </DetailsTextWrapper>
-            {distance > 0 && (
-              <DetailsTextWrapper>
-                <DetailsField>Afstand: </DetailsField>
-                <DetailsText>{distance.toFixed(2)} km</DetailsText>
-              </DetailsTextWrapper>
-            )}
-
+            <DetailsTextWrapper>
+              <DetailsField>Afstand: </DetailsField>
+              <DetailsText>{distance.toFixed(2)} km</DetailsText>
+            </DetailsTextWrapper>
             <DetailsTextWrapper>
               <DetailsField>Slut-tidspunkt: </DetailsField>
               <DetailsText>kl. 20.15</DetailsText>
@@ -257,6 +254,7 @@ class MapScreen extends React.Component<Props, State> {
           </TextWrapper>
           <View style={styles.map}>
             <MapView
+              showsUserLocation={true}
               provider={PROVIDER_DEFAULT}
               ref={(ref: any) => {
                 this.map = ref;
