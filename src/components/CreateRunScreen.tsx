@@ -29,7 +29,7 @@ interface PropsConnectedDispatcher {
   setStartDateTime: (dateTime: string) => Action<string>;
   setTitle: (title: string) => Action<string>;
   setDescription: (description: string) => Action<string>;
-  togglePace: (paceEnabled: boolean) => Action<boolean>;
+  togglePace: () => Action<void>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -93,11 +93,11 @@ class CreateRunScreen extends React.Component<Props> {
           "The average tempo is, in combination with the set route, used to estimate the time the run will be finished."
         }
       />,
-      <Section top touchable>
+      <Section top touchable onPress={() => this.props.togglePace()}>
         <SectionTitle>Use average tempo</SectionTitle>
         <Switch
           value={this.props.paceEnabled}
-          onValueChange={paceEnabled => this.props.togglePace(paceEnabled)}
+          onValueChange={() => this.props.togglePace()}
         />
       </Section>,
       <Section

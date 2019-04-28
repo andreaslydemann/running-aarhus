@@ -44,9 +44,8 @@ export const setDescription = (description: string) => {
   };
 };
 
-export const togglePace = (paceEnabled: boolean) => {
+export const togglePace = () => {
   return {
-    type: RUN_TYPES.TOGGLE_PACE,
-    payload: paceEnabled
+    type: RUN_TYPES.TOGGLE_PACE
   };
 };

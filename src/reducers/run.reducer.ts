@@ -21,7 +21,7 @@ export default function(state: RunState = initialState, action: Action<any>) {
     case RUN_TYPES.SET_DESCRIPTION:
       return { ...state, description: action.payload };
     case RUN_TYPES.TOGGLE_PACE:
-      return { ...state, paceEnabled: action.payload };
+      return { ...state, paceEnabled: !state.paceEnabled };
     default:
       return state;
   }
