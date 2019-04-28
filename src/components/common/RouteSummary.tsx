@@ -18,7 +18,7 @@ interface Props {
   routeDetails: RouteDetails;
 }
 
-const RouteContent = (props: Props) => {
+const RouteSummary = (props: Props) => {
   const { meetingPoint, distance, endDateTime } = props.routeDetails;
   if (!(meetingPoint && distance)) return null;
 
@@ -36,4 +36,4 @@ const RouteContent = (props: Props) => {
   );
 };
 
-export default RouteContent;
+export default RouteSummary;

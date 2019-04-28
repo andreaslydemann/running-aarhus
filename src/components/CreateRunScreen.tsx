@@ -4,7 +4,7 @@ import {
   ScreenBackground,
   Header,
   TextInput,
-  RouteContent,
+  RouteSummary,
   Section,
   SubmitButton,
   Subtitle
@@ -189,7 +189,7 @@ class CreateRunScreen extends React.Component<Props> {
           </Section>
           {this.props.routeDetails && (
             <Section bottom>
-              <RouteContent routeDetails={this.props.routeDetails} />
+              <RouteSummary routeDetails={this.props.routeDetails} />
             </Section>
           )}
         </ScrollWrapper>
