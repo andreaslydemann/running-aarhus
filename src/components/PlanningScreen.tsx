@@ -10,7 +10,7 @@ import {
   RunCard,
   Button
 } from "components/common";
-import { styled } from "theme";
+import { styled, theme, THEME_PREFIX } from "theme";
 
 interface Props {
   navigation: { navigate: (screen: string) => void };
@@ -72,33 +72,58 @@ export default class PlanningScreen extends React.Component<Props> {
             />
           }
         />
-        <ActionButton offsetY={115} buttonColor="#1481BA">
+        <ActionButton
+          size={48}
+          offsetY={105}
+          offsetX={20}
+          buttonColor={theme.action}
+        >
           <ActionButton.Item
-            buttonColor="#9b59b6"
+            size={40}
+            buttonColor={theme.action}
             title="Create Run"
             onPress={() => this.props.navigation.navigate("CreateRun")}
           >
-            <Ionicons name={"ios-list"} size={22} color={"#fff"} />
+            <Icon
+              name={`${THEME_PREFIX}-add-circle-outline`}
+              size={30}
+              color={theme.activeTint}
+            />
           </ActionButton.Item>
           <ActionButton.Item
-            buttonColor="#3498db"
+            size={40}
+            buttonColor={theme.action}
             title="My Runs"
             onPress={() => {}}
           >
-            <Ionicons name={"ios-list"} size={22} color={"#fff"} />
+            <Icon
+              name={`${THEME_PREFIX}-contact`}
+              size={30}
+              color={theme.activeTint}
+            />
           </ActionButton.Item>
           <ActionButton.Item
-            buttonColor="#1abc9c"
+            size={40}
+            buttonColor={theme.action}
             title="All Runs"
             onPress={() => {}}
           >
-            <Ionicons name={"ios-list"} size={22} color={"#fff"} />
+            <Icon
+              name={`${THEME_PREFIX}-contacts`}
+              size={30}
+              color={theme.activeTint}
+            />
           </ActionButton.Item>
         </ActionButton>
       </Wrapper>
     );
   }
 }
+
+const Icon = styled(Ionicons)`
+  margin-top: 3px;
+  margin-left: 1px;
+`;
 
 const Wrapper = styled(ScreenBackground)`
   flex: 1;

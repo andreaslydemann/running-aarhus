@@ -15,6 +15,7 @@ export const theme = {
   success: "#88D498",
   warning: "#F77F00",
   danger: "#D62828",
+  action: "#1481BA",
   actionGradient: ["#1481BA", "#0F5E88"],
   actionShadow: "#0e3d5b"
 };
