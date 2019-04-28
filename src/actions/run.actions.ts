@@ -6,7 +6,8 @@ export const RUN_TYPES = {
   GET_SCHEDULED_RUNS_FAILURE: "GET_SCHEDULED_RUNS_FAILURE",
   SET_START_DATE_TIME: "SET_START_DATE_TIME",
   SET_TITLE: "SET_TITLE",
-  SET_DESCRIPTION: "SET_DESCRIPTION"
+  SET_DESCRIPTION: "SET_DESCRIPTION",
+  TOGGLE_PACE: "TOGGLE_PACE"
 };
 
 export const getScheduledRuns = (): Action<void> => {
@@ -40,5 +41,12 @@ export const setDescription = (description: string) => {
   return {
     type: RUN_TYPES.SET_DESCRIPTION,
     payload: description
+  };
+};
+
+export const togglePace = (paceEnabled: boolean) => {
+  return {
+    type: RUN_TYPES.TOGGLE_PACE,
+    payload: paceEnabled
   };
 };

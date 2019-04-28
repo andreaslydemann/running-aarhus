@@ -5,4 +5,5 @@ export type RunState = {
   startDateTime: string;
   title: string;
   description: string;
+  paceEnabled: boolean;
 };

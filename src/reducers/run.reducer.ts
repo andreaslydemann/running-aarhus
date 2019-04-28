@@ -6,7 +6,8 @@ let initialState: RunState = {
   scheduledRuns: [],
   startDateTime: new Date().toDateString(),
   title: "",
-  description: ""
+  description: "",
+  paceEnabled: false
 };
 
 export default function(state: RunState = initialState, action: Action<any>) {
@@ -19,6 +20,8 @@ export default function(state: RunState = initialState, action: Action<any>) {
       return { ...state, title: action.payload };
     case RUN_TYPES.SET_DESCRIPTION:
       return { ...state, description: action.payload };
+    case RUN_TYPES.TOGGLE_PACE:
+      return { ...state, paceEnabled: action.payload };
     default:
       return state;
   }

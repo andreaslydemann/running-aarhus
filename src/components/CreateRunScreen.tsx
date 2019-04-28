@@ -22,12 +22,14 @@ interface PropsConnectedState {
   startDateTime: string;
   title: string;
   description: string;
+  paceEnabled: boolean;
 }
 
 interface PropsConnectedDispatcher {
   setStartDateTime: (dateTime: string) => Action<string>;
   setTitle: (title: string) => Action<string>;
   setDescription: (description: string) => Action<string>;
+  togglePace: (paceEnabled: boolean) => Action<boolean>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -93,11 +95,14 @@ class CreateRunScreen extends React.Component<Props> {
       />,
       <Section top touchable>
         <SectionTitle>Use average tempo</SectionTitle>
-        <Switch value={false} onValueChange={() => console.log("switched")} />
+        <Switch
+          value={this.props.paceEnabled}
+          onValueChange={paceEnabled => this.props.togglePace(paceEnabled)}
+        />
       </Section>,
       <Section
         bottom
-        disabled={true}
+        disabled={!this.props.paceEnabled}
         touchable
         style={{ justifyContent: "space-around" }}
       >
@@ -192,7 +197,8 @@ const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
   return {
     startDateTime: run.startDateTime,
     title: run.title,
-    description: run.description
+    description: run.description,
+    paceEnabled: run.paceEnabled
   };
 };
 
