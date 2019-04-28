@@ -179,6 +179,9 @@ class CreateRunScreen extends React.Component<Props> {
             touchable
             onPress={() =>
               this.props.navigation.navigate("MapScreen", {
+                coordinates: this.props.routeDetails
+                  ? this.props.routeDetails.coordinates
+                  : [],
                 pace: this.props.paceEnabled ? this.props.pace : null,
                 onConfirmRoute: (routeDetails: RouteDetails) =>
                   this.props.setRoute(routeDetails)

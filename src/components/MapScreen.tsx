@@ -79,6 +79,40 @@ class MapScreen extends React.Component<Props, State> {
     };
   }
 
+  componentDidMount() {
+    const coordinates = this.props.navigation.getParam("coordinates");
+
+    if (!coordinates.length) {
+      return;
+    }
+
+    const startMarker = {
+      coordinate: coordinates[0],
+      color: START_MARKER_COLOR
+    };
+
+    const endMarker = {
+      coordinate: coordinates[coordinates.length - 1],
+      color: END_MARKER_COLOR
+    };
+
+    this.setState(
+      {
+        coordinates,
+        startMarker,
+        endMarker
+      },
+      () => {
+        this.focusOnRoute();
+        this.getMeetingPoint().then(meetingPoint => {
+          this.setState({
+            meetingPoint
+          });
+        });
+      }
+    );
+  }
+
   getColors() {
     let missingColors = this.state.coordinates.length - LINE_COLORS.length;
     const colorsPerRound = Math.floor(missingColors / LINE_COLORS.length - 1);
