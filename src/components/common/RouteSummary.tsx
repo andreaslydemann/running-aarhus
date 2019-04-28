@@ -26,11 +26,11 @@ const RouteSummary = (props: Props) => {
     <View>
       <Title>Mødested</Title>
       <Subtitle>{meetingPoint}</Subtitle>
-      <Title>Distance</Title>
-      <Subtitle>{distance}</Subtitle>
+      <Title>Afstand</Title>
+      <Subtitle>{distance} km</Subtitle>
       {endDateTime && [
         <Title>Sluttidspunkt</Title>,
-        <Subtitle>{endDateTime}</Subtitle>
+        <Subtitle>kl. {endDateTime}</Subtitle>
       ]}
     </View>
   );
