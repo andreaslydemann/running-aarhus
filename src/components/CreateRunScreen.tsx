@@ -21,11 +21,13 @@ import { Action } from "../actions/common";
 interface PropsConnectedState {
   startDateTime: string;
   title: string;
+  description: string;
 }
 
 interface PropsConnectedDispatcher {
   setStartDateTime: (dateTime: string) => Action<string>;
   setTitle: (title: string) => Action<string>;
+  setDescription: (description: string) => Action<string>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -148,9 +150,11 @@ class CreateRunScreen extends React.Component<Props> {
           <BottomMargin>
             <Subtitle titleText={"Description"} showInfoIcon={false} />
             <TextInput
-              value={""}
+              value={this.props.description}
               placeholder={"Provide some information about this run"}
-              onChangeText={(text: string) => console.log(text)}
+              onChangeText={description =>
+                this.props.setDescription(description)
+              }
               isTextArea={true}
             />
           </BottomMargin>
@@ -187,7 +191,8 @@ class CreateRunScreen extends React.Component<Props> {
 const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
   return {
     startDateTime: run.startDateTime,
-    title: run.title
+    title: run.title,
+    description: run.description
   };
 };
 

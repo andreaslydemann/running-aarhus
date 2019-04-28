@@ -4,4 +4,5 @@ export type RunState = {
   scheduledRuns: RunModel[];
   startDateTime: string;
   title: string;
+  description: string;
 };

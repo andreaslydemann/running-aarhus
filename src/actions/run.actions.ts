@@ -5,7 +5,8 @@ export const RUN_TYPES = {
   GET_SCHEDULED_RUNS_SUCCESS: "GET_SCHEDULED_RUNS_SUCCESS",
   GET_SCHEDULED_RUNS_FAILURE: "GET_SCHEDULED_RUNS_FAILURE",
   SET_START_DATE_TIME: "SET_START_DATE_TIME",
-  SET_TITLE: "SET_TITLE"
+  SET_TITLE: "SET_TITLE",
+  SET_DESCRIPTION: "SET_DESCRIPTION"
 };
 
 export const getScheduledRuns = (): Action<void> => {
@@ -32,5 +33,12 @@ export const setTitle = (title: string) => {
   return {
     type: RUN_TYPES.SET_TITLE,
     payload: title
+  };
+};
+
+export const setDescription = (description: string) => {
+  return {
+    type: RUN_TYPES.SET_DESCRIPTION,
+    payload: description
   };
 };

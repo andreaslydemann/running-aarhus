@@ -5,7 +5,8 @@ import { RUN_TYPES } from "actions";
 let initialState: RunState = {
   scheduledRuns: [],
   startDateTime: new Date().toDateString(),
-  title: ""
+  title: "",
+  description: ""
 };
 
 export default function(state: RunState = initialState, action: Action<any>) {
@@ -16,6 +17,8 @@ export default function(state: RunState = initialState, action: Action<any>) {
       return { ...state, startDateTime: action.payload };
     case RUN_TYPES.SET_TITLE:
       return { ...state, title: action.payload };
+    case RUN_TYPES.SET_DESCRIPTION:
+      return { ...state, description: action.payload };
     default:
       return state;
   }
