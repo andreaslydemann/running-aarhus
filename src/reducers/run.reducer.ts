@@ -4,7 +4,7 @@ import { RUN_TYPES } from "actions";
 
 let initialState: RunState = {
   scheduledRuns: [],
-  startDateTime: new Date()
+  startDateTime: new Date().toDateString()
 };
 
 export default function(state: RunState = initialState, action: Action<any>) {

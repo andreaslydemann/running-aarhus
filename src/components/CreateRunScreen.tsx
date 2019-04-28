@@ -23,7 +23,7 @@ interface PropsConnectedState {
 }
 
 interface PropsConnectedDispatcher {
-  setStartDateTime: (dateTime: Date) => Action<Date>;
+  setStartDateTime: (dateTime: string) => Action<string>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
