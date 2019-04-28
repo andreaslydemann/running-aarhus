@@ -1,4 +1,5 @@
 import { Action } from "./common";
+import { RouteDetails } from "types/common";
 
 export const RUN_TYPES = {
   GET_SCHEDULED_RUNS_REQUEST: "GET_SCHEDULED_RUNS_REQUEST",
@@ -9,7 +10,8 @@ export const RUN_TYPES = {
   SET_DESCRIPTION: "SET_DESCRIPTION",
   TOGGLE_PACE: "TOGGLE_PACE",
   INCREASE_PACE: "INCREASE_PACE",
-  DECREASE_PACE: "DECREASE_PACE"
+  DECREASE_PACE: "DECREASE_PACE",
+  SET_ROUTE: "SET_ROUTE"
 };
 
 export const getScheduledRuns = (): Action<void> => {
@@ -61,5 +63,12 @@ export const increasePace = () => {
 export const decreasePace = () => {
   return {
     type: RUN_TYPES.DECREASE_PACE
+  };
+};
+
+export const setRoute = (routeDetails: RouteDetails) => {
+  return {
+    type: RUN_TYPES.SET_ROUTE,
+    payload: routeDetails
   };
 };

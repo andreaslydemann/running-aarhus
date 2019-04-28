@@ -36,14 +36,17 @@ interface State {
     latitudeDelta: number;
     longitudeDelta: number;
   };
-  meetingLocation: string;
-  polylines: Coordinate[];
+  meetingPoint: string;
+  coordinates: Coordinate[];
   startMarker: any;
   endMarker: any;
 }
 
 interface Props {
-  navigation: { goBack: () => void };
+  navigation: {
+    goBack: () => void;
+    getParam: (param: string) => any;
+  };
 }
 
 interface MapScreen {
@@ -69,15 +72,15 @@ class MapScreen extends React.Component<Props, State> {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA
       },
-      meetingLocation: "",
+      meetingPoint: "",
       startMarker: null,
       endMarker: null,
-      polylines: []
+      coordinates: []
     };
   }
 
   getColors() {
-    let missingColors = this.state.polylines.length - LINE_COLORS.length;
+    let missingColors = this.state.coordinates.length - LINE_COLORS.length;
     const colorsPerRound = Math.floor(missingColors / LINE_COLORS.length - 1);
 
     return LINE_COLORS.reduce((arr: string[], b: string, i: number) => {
@@ -102,27 +105,27 @@ class MapScreen extends React.Component<Props, State> {
         latitudeDelta: LATITUDE_DELTA,
         longitudeDelta: LONGITUDE_DELTA
       },
-      meetingLocation: "",
+      meetingPoint: "",
       startMarker: null,
       endMarker: null,
-      polylines: []
+      coordinates: []
     });
   }
 
   undoLine() {
-    const { polylines } = this.state;
+    const { coordinates } = this.state;
 
-    if (polylines.length === 1) {
+    if (coordinates.length === 1) {
       this.resetState();
-    } else if (polylines.length > 1) {
+    } else if (coordinates.length > 1) {
       this.setState({
-        polylines: polylines.slice(0, -1)
+        coordinates: coordinates.slice(0, -1)
       });
     }
   }
 
   setMarker(e: any) {
-    const { startMarker, endMarker, polylines } = this.state;
+    const { startMarker, endMarker, coordinates } = this.state;
 
     if (!startMarker) {
       this.setState(
@@ -131,12 +134,12 @@ class MapScreen extends React.Component<Props, State> {
             coordinate: e.nativeEvent.coordinate,
             color: START_MARKER_COLOR
           },
-          polylines: [e.nativeEvent.coordinate]
+          coordinates: [e.nativeEvent.coordinate]
         },
         () => {
-          this.getAddress().then(address => {
+          this.getMeetingPoint().then(meetingPoint => {
             this.setState({
-              meetingLocation: address
+              meetingPoint
             });
           });
         }
@@ -148,7 +151,7 @@ class MapScreen extends React.Component<Props, State> {
             coordinate: e.nativeEvent.coordinate,
             color: END_MARKER_COLOR
           },
-          polylines: [...polylines, e.nativeEvent.coordinate]
+          coordinates: [...coordinates, e.nativeEvent.coordinate]
         },
         () => this.focusOnRoute()
       );
@@ -156,49 +159,49 @@ class MapScreen extends React.Component<Props, State> {
   }
 
   focusOnRoute() {
-    const { polylines } = this.state;
+    const { coordinates } = this.state;
 
-    const latitudes = polylines.map(line => line.latitude);
+    const latitudes = coordinates.map(line => line.latitude);
     const minLatitude = Math.min(...latitudes);
     const maxLatitude = Math.max(...latitudes);
 
-    const longitudes = polylines.map(line => line.longitude);
+    const longitudes = coordinates.map(line => line.longitude);
     const minLongitude = Math.min(...longitudes);
     const maxLongitude = Math.max(...longitudes);
 
-    const coordinates = [
+    const focusCoordinates = [
       { latitude: minLatitude, longitude: minLongitude },
       { latitude: maxLatitude, longitude: maxLongitude }
     ];
 
-    this.map.fitToCoordinates(coordinates, {
+    this.map.fitToCoordinates(focusCoordinates, {
       edgePadding: DEFAULT_PADDING,
       animated: true
     });
   }
 
   onDrawLine(e: any) {
-    const { startMarker, endMarker, polylines } = this.state;
+    const { startMarker, endMarker, coordinates } = this.state;
 
     if (!startMarker || endMarker) {
       return;
     }
 
-    if (!polylines.length) {
+    if (!coordinates.length) {
       this.setState({
-        polylines: [e.nativeEvent.coordinate]
+        coordinates: [e.nativeEvent.coordinate]
       });
     } else {
       this.setState({
-        polylines: [...polylines, e.nativeEvent.coordinate]
+        coordinates: [...coordinates, e.nativeEvent.coordinate]
       });
     }
   }
 
   onStartMarkerPress(e: any) {
-    const { endMarker, polylines } = this.state;
+    const { endMarker, coordinates } = this.state;
 
-    if (endMarker || polylines.length <= 1) {
+    if (endMarker || coordinates.length <= 1) {
       return;
     }
 
@@ -209,13 +212,13 @@ class MapScreen extends React.Component<Props, State> {
           coordinate: e.nativeEvent.coordinate,
           color: END_MARKER_COLOR
         },
-        polylines: [...polylines, e.nativeEvent.coordinate]
+        coordinates: [...coordinates, e.nativeEvent.coordinate]
       },
       () => this.focusOnRoute()
     );
   }
 
-  async getAddress() {
+  async getMeetingPoint() {
     const REVERSE_GEOCODE_URL =
       "http://nominatim.openstreetmap.org/reverse?format=json";
 
@@ -238,36 +241,45 @@ class MapScreen extends React.Component<Props, State> {
     return "";
   }
 
-  render() {
+  getDistance() {
+    const { coordinates } = this.state;
+
+    if (coordinates.length <= 1) {
+      return 0;
+    }
+
     let distance = 0;
-    if (this.state.polylines.length > 1) {
-      const { polylines } = this.state;
-      let lastCoordinate;
+    let lastCoordinate;
 
-      for (let i = 0; i < polylines.length; i++) {
-        if (lastCoordinate) {
-          distance += calculateDistance(lastCoordinate, polylines[i]);
-        } else {
-          distance += calculateDistance(polylines[i], polylines[i + 1]);
-        }
+    for (let i = 0; i < coordinates.length; i++) {
+      distance = lastCoordinate
+        ? calculateDistance(lastCoordinate, coordinates[i])
+        : calculateDistance(coordinates[i], coordinates[i + 1]);
 
-        lastCoordinate = polylines[i];
-      }
+      lastCoordinate = coordinates[i];
     }
 
-    const pace = 4;
-    let endTimeString;
+    return distance;
+  }
 
-    if (pace) {
-      const date = new Date();
+  getEndDateTime(distance: number, pace: number) {
+    if (!(pace && distance)) return;
 
-      date.setMinutes(date.getMinutes() + pace * distance);
-      endTimeString = date.toLocaleTimeString(Localization.locale, {
-        hour12: false,
-        hour: "numeric",
-        minute: "numeric"
-      });
-    }
+    const date = new Date();
+    date.setMinutes(date.getMinutes() + pace * distance);
+    return date.toLocaleTimeString(Localization.locale, {
+      hour12: false,
+      hour: "numeric",
+      minute: "numeric"
+    });
+  }
+
+  render() {
+    const { navigation } = this.props;
+    const pace = navigation.getParam("pace");
+
+    const distance = this.getDistance();
+    const endDateTime = this.getEndDateTime(distance, pace);
 
     return (
       <Wrapper>
@@ -276,101 +288,108 @@ class MapScreen extends React.Component<Props, State> {
           ScreenTitle={i18n.t("createRunTitle")}
         />
         <View style={styles.map}>
-          <View style={styles.map}>
-            <MapView
-              showsUserLocation={true}
-              provider={PROVIDER_DEFAULT}
-              ref={(ref: any) => {
-                this.map = ref;
-              }}
-              style={styles.map}
-              initialRegion={this.state.region}
-              onPress={e => this.onDrawLine(e)}
-              onLongPress={e => this.setMarker(e)}
-            >
-              {this.state.startMarker && (
-                <Marker
-                  coordinate={this.state.startMarker.coordinate}
-                  pinColor={this.state.startMarker.color}
-                  onSelect={(e: any) => this.onStartMarkerPress(e)}
-                />
-              )}
-              {this.state.endMarker && (
-                <Marker
-                  coordinate={this.state.endMarker.coordinate}
-                  pinColor={this.state.endMarker.color}
-                />
-              )}
-              <Polyline
-                coordinates={this.state.polylines}
-                strokeColor="rgba(0,0,0,0.5)"
-                strokeColors={
-                  this.state.endMarker ? this.getColors() : undefined
-                }
-                strokeWidth={this.state.endMarker ? 2 : 1}
-                lineDashPattern={!this.state.endMarker ? [20, 5] : null}
+          <MapView
+            showsUserLocation={true}
+            provider={PROVIDER_DEFAULT}
+            ref={(ref: any) => {
+              this.map = ref;
+            }}
+            style={styles.map}
+            initialRegion={this.state.region}
+            onPress={e => this.onDrawLine(e)}
+            onLongPress={e => this.setMarker(e)}
+          >
+            {this.state.startMarker && (
+              <Marker
+                coordinate={this.state.startMarker.coordinate}
+                pinColor={this.state.startMarker.color}
+                onSelect={(e: any) => this.onStartMarkerPress(e)}
               />
-            </MapView>
-            <MapOverlay>
-              {this.state.polylines.length ? (
-                <TextWrapper
-                  borderColor={"transparent"}
-                  backgroundColor={theme.primary}
-                >
-                  <DetailsTextWrapper>
-                    <DetailsField>Mødested: </DetailsField>
-                    <DetailsText numberOfLines={1}>
-                      {this.state.meetingLocation}
-                    </DetailsText>
-                  </DetailsTextWrapper>
-                  <DetailsTextWrapper>
-                    <DetailsField>Afstand: </DetailsField>
-                    <DetailsText numberOfLines={1}>
-                      {distance.toFixed(2)} km
-                    </DetailsText>
-                  </DetailsTextWrapper>
-                  {pace ? (
-                    <DetailsTextWrapper>
-                      <DetailsField>Slut-tidspunkt: </DetailsField>
-                      <DetailsText>kl. {endTimeString}</DetailsText>
-                    </DetailsTextWrapper>
-                  ) : null}
-                </TextWrapper>
-              ) : null}
-
+            )}
+            {this.state.endMarker && (
+              <Marker
+                coordinate={this.state.endMarker.coordinate}
+                pinColor={this.state.endMarker.color}
+              />
+            )}
+            <Polyline
+              coordinates={this.state.coordinates}
+              strokeColor="rgba(0,0,0,0.5)"
+              strokeColors={this.state.endMarker ? this.getColors() : undefined}
+              strokeWidth={this.state.endMarker ? 2 : 1}
+              lineDashPattern={!this.state.endMarker ? [20, 5] : null}
+            />
+          </MapView>
+          <MapOverlay>
+            {this.state.coordinates.length ? (
               <TextWrapper
-                borderColor={theme.inactiveTint}
-                backgroundColor={theme.activeTint}
+                borderColor={"transparent"}
+                backgroundColor={theme.primary}
               >
-                <HelpText>
-                  Start- og slut-markøren for ruten sættes ved at holde din
-                  finger et sted på kortet.
-                </HelpText>
+                <DetailsTextWrapper>
+                  <DetailsField>Mødested: </DetailsField>
+                  <DetailsText numberOfLines={1}>
+                    {this.state.meetingPoint}
+                  </DetailsText>
+                </DetailsTextWrapper>
+                <DetailsTextWrapper>
+                  <DetailsField>Afstand: </DetailsField>
+                  <DetailsText numberOfLines={1}>
+                    {distance.toFixed(2)} km
+                  </DetailsText>
+                </DetailsTextWrapper>
+                {pace ? (
+                  <DetailsTextWrapper>
+                    <DetailsField>Sluttidspunkt: </DetailsField>
+                    <DetailsText>kl. {endDateTime}</DetailsText>
+                  </DetailsTextWrapper>
+                ) : null}
               </TextWrapper>
-              {(this.state.startMarker || this.state.endMarker) && (
-                <ButtonWrapper>
-                  <UndoButton
-                    onPress={() =>
-                      !this.state.endMarker
-                        ? this.undoLine()
-                        : this.resetState()
-                    }
-                  >
-                    {!this.state.endMarker ? (
-                      <Text>Undo</Text>
-                    ) : (
-                      <Text>Clear route</Text>
-                    )}
-                  </UndoButton>
-                </ButtonWrapper>
-              )}
-            </MapOverlay>
-          </View>
+            ) : null}
+
+            <TextWrapper
+              borderColor={theme.inactiveTint}
+              backgroundColor={theme.activeTint}
+            >
+              <HelpText>
+                Start- og slut-markøren for ruten sættes ved at holde din finger
+                et sted på kortet.
+              </HelpText>
+            </TextWrapper>
+            {(this.state.startMarker || this.state.endMarker) && (
+              <ButtonWrapper>
+                <UndoButton
+                  onPress={() =>
+                    !this.state.endMarker ? this.undoLine() : this.resetState()
+                  }
+                >
+                  {!this.state.endMarker ? (
+                    <Text>Undo</Text>
+                  ) : (
+                    <Text>Clear</Text>
+                  )}
+                </UndoButton>
+              </ButtonWrapper>
+            )}
+          </MapOverlay>
         </View>
 
         <SubmitButton
+          disabled={!this.state.endMarker}
           onPress={() => {
-            console.log("clicked");
+            const { coordinates, meetingPoint } = this.state;
+            const onConfirmRoute = this.props.navigation.getParam(
+              "onConfirmRoute"
+            );
+
+            onConfirmRoute({
+              meetingPoint,
+              distance,
+              endDateTime,
+              coordinates
+            });
+
+            this.props.navigation.goBack();
           }}
           title={"Gem"}
         />

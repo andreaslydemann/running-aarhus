@@ -1,4 +1,5 @@
 import { RunModel } from "../models";
+import { RouteDetails } from "types/common";
 
 export type RunState = {
   scheduledRuns: RunModel[];
@@ -7,4 +8,5 @@ export type RunState = {
   description: string;
   paceEnabled: boolean;
   pace: number;
+  routeDetails: RouteDetails | null;
 };

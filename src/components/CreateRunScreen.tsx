@@ -4,7 +4,7 @@ import {
   ScreenBackground,
   Header,
   TextInput,
-  RunDetails,
+  RouteContent,
   Section,
   SubmitButton,
   Subtitle
@@ -15,8 +15,9 @@ import DatePicker from "react-native-datepicker";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
 import * as actions from "actions";
-import { RunState } from "../types/states";
-import { Action } from "../actions/common";
+import { Action } from "actions/common";
+import { RunState } from "types/states";
+import { RouteDetails } from "types/common";
 
 interface PropsConnectedState {
   startDateTime: string;
@@ -24,6 +25,7 @@ interface PropsConnectedState {
   description: string;
   paceEnabled: boolean;
   pace: number;
+  routeDetails: RouteDetails | null;
 }
 
 interface PropsConnectedDispatcher {
@@ -33,12 +35,13 @@ interface PropsConnectedDispatcher {
   togglePace: () => Action<void>;
   increasePace: () => Action<void>;
   decreasePace: () => Action<void>;
+  setRoute: (routeDetails: RouteDetails) => Action<any>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: {
     goBack: (nullArg?: null) => void;
-    navigate: (screen: string) => void;
+    navigate: (screen: string, params?: any) => void;
   };
 }
 
@@ -135,9 +138,6 @@ class CreateRunScreen extends React.Component<Props> {
   }
 
   render(): JSX.Element {
-    const showRunDetails = true;
-    console.log(this.props);
-
     return (
       <Wrapper>
         <Header
@@ -175,15 +175,21 @@ class CreateRunScreen extends React.Component<Props> {
           <Subtitle titleText={"Route"} showInfoIcon={false} />
           <Section
             top
-            bottom={!showRunDetails}
+            bottom={!this.props.routeDetails}
             touchable
-            onPress={() => this.props.navigation.navigate("MapScreen")}
+            onPress={() =>
+              this.props.navigation.navigate("MapScreen", {
+                pace: this.props.paceEnabled ? this.props.pace : null,
+                onConfirmRoute: (routeDetails: RouteDetails) =>
+                  this.props.setRoute(routeDetails)
+              })
+            }
           >
             <SectionTitle>Set route</SectionTitle>
           </Section>
-          {showRunDetails && (
+          {this.props.routeDetails && (
             <Section bottom>
-              <RunDetails meetingLocation={"Aarhus C"} distanceInKm={7.2} />
+              <RouteContent routeDetails={this.props.routeDetails} />
             </Section>
           )}
         </ScrollWrapper>
@@ -205,7 +211,8 @@ const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
     title: run.title,
     description: run.description,
     paceEnabled: run.paceEnabled,
-    pace: run.pace
+    pace: run.pace,
+    routeDetails: run.routeDetails
   };
 };
 

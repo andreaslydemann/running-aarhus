@@ -8,7 +8,8 @@ const initialState: RunState = {
   title: "",
   description: "",
   paceEnabled: false,
-  pace: 6.0
+  pace: 6.0,
+  routeDetails: null
 };
 
 function increasePace(state: RunState) {
@@ -43,6 +44,8 @@ export default function(state: RunState = initialState, action: Action<any>) {
       return increasePace(state);
     case RUN_TYPES.DECREASE_PACE:
       return decreasePace(state);
+    case RUN_TYPES.SET_ROUTE:
+      return { ...state, routeDetails: action.payload };
     default:
       return state;
   }

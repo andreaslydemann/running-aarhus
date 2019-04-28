@@ -1,5 +1,6 @@
 import React from "react";
 import { View } from "react-native";
+import { RouteDetails } from "types/common";
 import { styled } from "theme";
 
 const Title = styled.Text`
@@ -14,30 +15,25 @@ const Subtitle = styled.Text`
 `;
 
 interface Props {
-  meetingLocation: string;
-  distanceInKm: number;
-  estimatedEndTime?: Date;
+  routeDetails: RouteDetails;
 }
 
-const RunDetails = ({
-  meetingLocation,
-  distanceInKm,
-  estimatedEndTime
-}: Props) => {
-  if (!(meetingLocation && distanceInKm)) return null;
+const RouteContent = (props: Props) => {
+  const { meetingPoint, distance, endDateTime } = props.routeDetails;
+  if (!(meetingPoint && distance)) return null;
 
   return (
     <View>
       <Title>Mødested</Title>
-      <Subtitle>{meetingLocation}</Subtitle>
+      <Subtitle>{meetingPoint}</Subtitle>
       <Title>Distance</Title>
-      <Subtitle>{distanceInKm}</Subtitle>
-      {estimatedEndTime && [
+      <Subtitle>{distance}</Subtitle>
+      {endDateTime && [
         <Title>Sluttidspunkt</Title>,
-        <Subtitle>{estimatedEndTime}</Subtitle>
+        <Subtitle>{endDateTime}</Subtitle>
       ]}
     </View>
   );
 };
 
-export default RunDetails;
+export default RouteContent;
