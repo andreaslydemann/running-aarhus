@@ -319,11 +319,15 @@ class MapScreen extends React.Component<Props, State> {
                 >
                   <DetailsTextWrapper>
                     <DetailsField>Mødested: </DetailsField>
-                    <DetailsText>{this.state.meetingLocation}</DetailsText>
+                    <DetailsText numberOfLines={1}>
+                      {this.state.meetingLocation}
+                    </DetailsText>
                   </DetailsTextWrapper>
                   <DetailsTextWrapper>
                     <DetailsField>Afstand: </DetailsField>
-                    <DetailsText>{distance.toFixed(2)} km</DetailsText>
+                    <DetailsText numberOfLines={1}>
+                      {distance.toFixed(2)} km
+                    </DetailsText>
                   </DetailsTextWrapper>
                   {pace ? (
                     <DetailsTextWrapper>
@@ -414,6 +418,7 @@ const DetailsField = styled.Text`
 
 const DetailsText = styled.Text`
   color: ${({ theme }) => theme.activeTint};
+  flex: 1;
 `;
 
 const HelpText = styled.Text`
