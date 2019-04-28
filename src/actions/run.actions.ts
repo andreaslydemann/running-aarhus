@@ -7,7 +7,9 @@ export const RUN_TYPES = {
   SET_START_DATE_TIME: "SET_START_DATE_TIME",
   SET_TITLE: "SET_TITLE",
   SET_DESCRIPTION: "SET_DESCRIPTION",
-  TOGGLE_PACE: "TOGGLE_PACE"
+  TOGGLE_PACE: "TOGGLE_PACE",
+  INCREASE_PACE: "INCREASE_PACE",
+  DECREASE_PACE: "DECREASE_PACE"
 };
 
 export const getScheduledRuns = (): Action<void> => {
@@ -47,5 +49,17 @@ export const setDescription = (description: string) => {
 export const togglePace = () => {
   return {
     type: RUN_TYPES.TOGGLE_PACE
+  };
+};
+
+export const increasePace = () => {
+  return {
+    type: RUN_TYPES.INCREASE_PACE
+  };
+};
+
+export const decreasePace = () => {
+  return {
+    type: RUN_TYPES.DECREASE_PACE
   };
 };

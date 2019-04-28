@@ -10,7 +10,7 @@ import {
   Subtitle
 } from "components/common";
 import { styled, theme, THEME_PREFIX } from "theme";
-import { TouchableOpacity, Switch } from "react-native";
+import { Switch } from "react-native";
 import DatePicker from "react-native-datepicker";
 import { Ionicons } from "@expo/vector-icons";
 import { connect } from "react-redux";
@@ -23,6 +23,7 @@ interface PropsConnectedState {
   title: string;
   description: string;
   paceEnabled: boolean;
+  pace: number;
 }
 
 interface PropsConnectedDispatcher {
@@ -30,6 +31,8 @@ interface PropsConnectedDispatcher {
   setTitle: (title: string) => Action<string>;
   setDescription: (description: string) => Action<string>;
   togglePace: () => Action<void>;
+  increasePace: () => Action<void>;
+  decreasePace: () => Action<void>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -75,7 +78,7 @@ class CreateRunScreen extends React.Component<Props> {
     ];
   }
 
-  renderAverageTempoToggle() {
+  renderPaceSwitch() {
     const hitSlopValue = 60;
     const touchableHitSlop = {
       top: hitSlopValue / 2,
@@ -86,14 +89,14 @@ class CreateRunScreen extends React.Component<Props> {
 
     return [
       <Subtitle
-        titleText={"Average tempo"}
+        titleText={"Pace"}
         showInfoIcon={true}
-        dialogTitle={"Average tempo"}
+        dialogTitle={"Pace"}
         dialogText={
-          "The average tempo is, in combination with the set route, used to estimate the time the run will be finished."
+          "The pace is the average tempo which, in combination with the set route, is used to estimate the time that the run will be finished."
         }
       />,
-      <Section top touchable onPress={() => this.props.togglePace()}>
+      <Section top touchable={false}>
         <SectionTitle>Use average tempo</SectionTitle>
         <Switch
           value={this.props.paceEnabled}
@@ -103,20 +106,22 @@ class CreateRunScreen extends React.Component<Props> {
       <Section
         bottom
         disabled={!this.props.paceEnabled}
-        touchable
+        touchable={false}
         style={{ justifyContent: "space-around" }}
       >
-        <TouchableOpacity
+        <PaceButtonWrapper
           disabled={false}
-          onPress={() => console.log("pressed")}
+          onPress={() => this.props.decreasePace()}
           hitSlop={touchableHitSlop}
         >
           <Ionicons name={`${THEME_PREFIX}-remove`} size={18} color="#fff" />
-        </TouchableOpacity>
-        <SectionTitle>4.05 min/km</SectionTitle>
-        <TouchableOpacity
+        </PaceButtonWrapper>
+        <PaceTextWrapper>
+          <SectionTitle>{this.props.pace} min/km</SectionTitle>
+        </PaceTextWrapper>
+        <PaceButtonWrapper
           disabled={false}
-          onPress={() => console.log("pressed")}
+          onPress={() => this.props.increasePace()}
           hitSlop={touchableHitSlop}
         >
           <Ionicons
@@ -124,13 +129,14 @@ class CreateRunScreen extends React.Component<Props> {
             size={18}
             color={theme.activeTint}
           />
-        </TouchableOpacity>
+        </PaceButtonWrapper>
       </Section>
     ];
   }
 
   render(): JSX.Element {
     const showRunDetails = true;
+    console.log(this.props);
 
     return (
       <Wrapper>
@@ -164,7 +170,7 @@ class CreateRunScreen extends React.Component<Props> {
             />
           </BottomMargin>
 
-          <BottomMargin>{this.renderAverageTempoToggle()}</BottomMargin>
+          <BottomMargin>{this.renderPaceSwitch()}</BottomMargin>
 
           <Subtitle titleText={"Route"} showInfoIcon={false} />
           <Section
@@ -198,7 +204,8 @@ const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
     startDateTime: run.startDateTime,
     title: run.title,
     description: run.description,
-    paceEnabled: run.paceEnabled
+    paceEnabled: run.paceEnabled,
+    pace: run.pace
   };
 };
 
@@ -206,6 +213,16 @@ export default connect(
   mapStateToProps,
   actions
 )(CreateRunScreen as React.ComponentClass<Props>);
+
+const PaceTextWrapper = styled.View`
+  width: 50%;
+  align-items: center;
+`;
+
+const PaceButtonWrapper = styled.TouchableOpacity`
+  width: 25%;
+  align-items: center;
+`;
 
 const BottomMargin = styled.View`
   margin-bottom: 40px;

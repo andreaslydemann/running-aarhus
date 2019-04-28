@@ -6,4 +6,5 @@ export type RunState = {
   title: string;
   description: string;
   paceEnabled: boolean;
+  pace: number;
 };
