@@ -13,26 +13,36 @@ import { styled, theme, THEME_PREFIX } from "theme";
 import { TouchableOpacity, Switch } from "react-native";
 import DatePicker from "react-native-datepicker";
 import { Ionicons } from "@expo/vector-icons";
+import { connect } from "react-redux";
+import * as actions from "actions";
+import { RunState } from "../types/states";
+import { Action } from "../actions/common";
 
-interface Props {
+interface PropsConnectedState {
+  startDateTime: Date;
+}
+
+interface PropsConnectedDispatcher {
+  setStartDateTime: (dateTime: Date) => Action<Date>;
+}
+
+interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: {
     goBack: (nullArg?: null) => void;
     navigate: (screen: string) => void;
   };
 }
 
-export default class CreateRunScreen extends React.Component<Props> {
+class CreateRunScreen extends React.Component<Props> {
   renderDatePicker() {
     return [
       <Subtitle titleText={"Date and time"} showInfoIcon={false} />,
       <DatePicker
-        date={new Date()}
-        onDateChange={() => {
-          console.log("hello");
-        }}
+        date={this.props.startDateTime}
+        onDateChange={dateTime => this.props.setStartDateTime(dateTime)}
         is24Hour={true}
         mode="datetime"
-        format="DD-MM-YYYY"
+        format="LLLL"
         minDate={new Date()}
         style={{ width: "95%" }}
         cancelBtnText={"Cancel"}
@@ -172,6 +182,17 @@ export default class CreateRunScreen extends React.Component<Props> {
     );
   }
 }
+
+const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
+  return {
+    startDateTime: run.startDateTime
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(CreateRunScreen as React.ComponentClass<Props>);
 
 const BottomMargin = styled.View`
   margin-bottom: 40px;
