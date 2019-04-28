@@ -252,14 +252,14 @@ class MapScreen extends React.Component<Props, State> {
     let lastCoordinate;
 
     for (let i = 0; i < coordinates.length; i++) {
-      distance = lastCoordinate
+      distance += lastCoordinate
         ? calculateDistance(lastCoordinate, coordinates[i])
         : calculateDistance(coordinates[i], coordinates[i + 1]);
 
       lastCoordinate = coordinates[i];
     }
 
-    return distance;
+    return Math.round(distance * 100) / 100;
   }
 
   getEndDateTime(distance: number, pace: number) {
@@ -334,9 +334,7 @@ class MapScreen extends React.Component<Props, State> {
                 </DetailsTextWrapper>
                 <DetailsTextWrapper>
                   <DetailsField>Afstand: </DetailsField>
-                  <DetailsText numberOfLines={1}>
-                    {distance.toFixed(2)} km
-                  </DetailsText>
+                  <DetailsText numberOfLines={1}>{distance} km</DetailsText>
                 </DetailsTextWrapper>
                 {pace ? (
                   <DetailsTextWrapper>
