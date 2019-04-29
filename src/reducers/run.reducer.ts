@@ -2,6 +2,8 @@ import { Action } from "actions/common";
 import { RunState } from "types/states";
 import { RUN_TYPES } from "actions";
 import moment from "moment";
+import { calculateEndDateTime } from "utils";
+import { RouteDetails } from "../types/common";
 
 const initialState: RunState = {
   scheduledRuns: [],
@@ -13,12 +15,38 @@ const initialState: RunState = {
   routeDetails: null
 };
 
+function updateEndDateTime(
+  pace: number,
+  startDateTime: string,
+  routeDetails: RouteDetails | null
+) {
+  if (!(routeDetails && startDateTime && pace)) return null;
+
+  const endDateTime = calculateEndDateTime(
+    startDateTime,
+    pace,
+    routeDetails.distance
+  );
+
+  return {
+    ...routeDetails,
+    endDateTime
+  };
+}
+
 function increasePace(state: RunState) {
   if (state.pace >= 10) {
     return state;
   }
 
-  return { ...state, pace: Math.round((state.pace + 0.05) * 100) / 100 };
+  const pace = Math.round((state.pace + 0.05) * 100) / 100;
+  const routeDetails = updateEndDateTime(
+    pace,
+    state.startDateTime,
+    state.routeDetails
+  );
+
+  return { ...state, pace, routeDetails };
 }
 
 function decreasePace(state: RunState) {
@@ -26,7 +54,14 @@ function decreasePace(state: RunState) {
     return state;
   }
 
-  return { ...state, pace: Math.round((state.pace - 0.05) * 100) / 100 };
+  const pace = Math.round((state.pace - 0.05) * 100) / 100;
+  const routeDetails = updateEndDateTime(
+    pace,
+    state.startDateTime,
+    state.routeDetails
+  );
+
+  return { ...state, pace, routeDetails };
 }
 
 export default function(state: RunState = initialState, action: Action<any>) {
