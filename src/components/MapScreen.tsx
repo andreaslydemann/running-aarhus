@@ -4,7 +4,7 @@ import { Localization, MapView } from "expo";
 import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
 import { calculateDistance } from "../utils";
-import { Header, ScreenBackground, SubmitButton } from "./common";
+import { Header, RouteSummary, ScreenBackground, SubmitButton } from "./common";
 import i18n from "i18n-js";
 import axios from "axios";
 
@@ -351,28 +351,20 @@ class MapScreen extends React.Component<Props, State> {
               lineDashPattern={!this.state.endMarker ? [20, 5] : null}
             />
           </MapView>
-          <MapOverlay pointerEvents="none">
+          <MapOverlay>
             {this.state.coordinates.length ? (
               <TextWrapper
                 borderColor={"transparent"}
                 backgroundColor={theme.primary}
               >
-                <DetailsTextWrapper>
-                  <DetailsField>Mødested: </DetailsField>
-                  <DetailsText numberOfLines={1}>
-                    {this.state.meetingPoint}
-                  </DetailsText>
-                </DetailsTextWrapper>
-                <DetailsTextWrapper>
-                  <DetailsField>Afstand: </DetailsField>
-                  <DetailsText numberOfLines={1}>{distance} km</DetailsText>
-                </DetailsTextWrapper>
-                {pace ? (
-                  <DetailsTextWrapper>
-                    <DetailsField>Sluttidspunkt: </DetailsField>
-                    <DetailsText>kl. {endDateTime}</DetailsText>
-                  </DetailsTextWrapper>
-                ) : null}
+                <RouteSummary
+                  routeDetails={{
+                    meetingPoint: this.state.meetingPoint,
+                    distance,
+                    endDateTime
+                  }}
+                  showEndDateTime={!!pace}
+                />
               </TextWrapper>
             ) : null}
 
@@ -443,20 +435,6 @@ const UndoButton = styled.TouchableOpacity`
   border-radius: 20px;
   align-items: center;
   justify-content: center;
-`;
-
-const DetailsTextWrapper = styled.View`
-  flex-direction: row;
-`;
-
-const DetailsField = styled.Text`
-  color: ${({ theme }) => theme.activeTint};
-  font-weight: bold;
-`;
-
-const DetailsText = styled.Text`
-  color: ${({ theme }) => theme.activeTint};
-  flex: 1;
 `;
 
 const HelpText = styled.Text`

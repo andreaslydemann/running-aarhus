@@ -1,38 +1,52 @@
 import React from "react";
-import { View } from "react-native";
 import { RouteDetails } from "types/common";
 import { styled } from "theme";
 
-const Title = styled.Text`
-  color: ${({ theme }) => theme.activeTint};
-  font-weight: bold;
-  margin: 5px 0;
+const Wrapper = styled.View`
+  width: 100%;
 `;
 
-const Subtitle = styled.Text`
+const DetailsTextWrapper = styled.View`
+  flex-direction: row;
+`;
+
+const DetailsField = styled.Text`
   color: ${({ theme }) => theme.activeTint};
-  margin: 2px 0;
+  font-weight: bold;
+`;
+
+const DetailsText = styled.Text`
+  color: ${({ theme }) => theme.activeTint};
+  flex: 1;
 `;
 
 interface Props {
   routeDetails: RouteDetails;
+  showEndDateTime: boolean;
 }
 
-const RouteSummary = (props: Props) => {
-  const { meetingPoint, distance, endDateTime } = props.routeDetails;
-  if (!(meetingPoint && distance)) return null;
+const RouteSummary = ({ routeDetails, showEndDateTime }: Props) => {
+  const { meetingPoint, distance, endDateTime } = routeDetails;
+
+  if (!routeDetails) return null;
 
   return (
-    <View>
-      <Title>Mødested</Title>
-      <Subtitle>{meetingPoint}</Subtitle>
-      <Title>Afstand</Title>
-      <Subtitle>{distance} km</Subtitle>
-      {endDateTime && [
-        <Title>Sluttidspunkt</Title>,
-        <Subtitle>kl. {endDateTime}</Subtitle>
-      ]}
-    </View>
+    <Wrapper>
+      <DetailsTextWrapper>
+        <DetailsField>Mødested: </DetailsField>
+        <DetailsText numberOfLines={1}>{meetingPoint}</DetailsText>
+      </DetailsTextWrapper>
+      <DetailsTextWrapper>
+        <DetailsField>Afstand: </DetailsField>
+        <DetailsText numberOfLines={1}>{distance} km</DetailsText>
+      </DetailsTextWrapper>
+      {showEndDateTime ? (
+        <DetailsTextWrapper>
+          <DetailsField>Sluttidspunkt: </DetailsField>
+          <DetailsText>kl. {endDateTime}</DetailsText>
+        </DetailsTextWrapper>
+      ) : null}
+    </Wrapper>
   );
 };
 

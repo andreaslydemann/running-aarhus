@@ -4,7 +4,7 @@ export type Coordinate = {
 };
 
 export interface RouteDetails {
-  coordinates: Coordinate[];
+  coordinates?: Coordinate[];
   meetingPoint: string;
   distance: number;
   endDateTime?: string;

@@ -144,7 +144,7 @@ class CreateRunScreen extends React.Component<Props> {
 
     if (routeDetails) {
       meetingPoint = routeDetails.meetingPoint;
-      coordinates = routeDetails.coordinates;
+      coordinates = routeDetails.coordinates || [];
     }
 
     return (
@@ -200,7 +200,10 @@ class CreateRunScreen extends React.Component<Props> {
           </Section>
           {routeDetails && (
             <Section bottom>
-              <RouteSummary routeDetails={routeDetails} />
+              <RouteSummary
+                routeDetails={routeDetails}
+                showEndDateTime={paceEnabled}
+              />
             </Section>
           )}
         </ScrollWrapper>
