@@ -1,10 +1,11 @@
 import { Action } from "actions/common";
 import { RunState } from "types/states";
 import { RUN_TYPES } from "actions";
+import moment from "moment";
 
 const initialState: RunState = {
   scheduledRuns: [],
-  startDateTime: new Date().toDateString(),
+  startDateTime: moment(new Date()).format("LLLL"),
   title: "",
   description: "",
   paceEnabled: false,

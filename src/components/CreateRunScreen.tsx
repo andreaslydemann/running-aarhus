@@ -154,6 +154,8 @@ class CreateRunScreen extends React.Component<Props> {
       coordinates = routeDetails.coordinates || [];
     }
 
+    console.log(startDateTime);
+
     return (
       <Wrapper>
         <Header
