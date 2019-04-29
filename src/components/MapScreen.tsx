@@ -351,7 +351,7 @@ class MapScreen extends React.Component<Props, State> {
               lineDashPattern={!this.state.endMarker ? [20, 5] : null}
             />
           </MapView>
-          <MapOverlay>
+          <MapOverlay pointerEvents="none">
             {this.state.coordinates.length ? (
               <TextWrapper
                 borderColor={"transparent"}
@@ -386,19 +386,13 @@ class MapScreen extends React.Component<Props, State> {
               </HelpText>
             </TextWrapper>
             {(this.state.startMarker || this.state.endMarker) && (
-              <ButtonWrapper>
-                <UndoButton
-                  onPress={() =>
-                    !this.state.endMarker ? this.undoLine() : this.resetState()
-                  }
-                >
-                  {!this.state.endMarker ? (
-                    <Text>Undo</Text>
-                  ) : (
-                    <Text>Clear</Text>
-                  )}
-                </UndoButton>
-              </ButtonWrapper>
+              <UndoButton
+                onPress={() =>
+                  !this.state.endMarker ? this.undoLine() : this.resetState()
+                }
+              >
+                {!this.state.endMarker ? <Text>Undo</Text> : <Text>Clear</Text>}
+              </UndoButton>
             )}
           </MapOverlay>
         </View>
@@ -436,12 +430,8 @@ const Wrapper = styled(ScreenBackground)`
   padding: 44px 0 0 0;
 `;
 
-const ButtonWrapper = styled.View`
-  width: 100%;
-  align-items: flex-end;
-`;
-
 const UndoButton = styled.TouchableOpacity`
+  align-self: flex-end;
   shadow-opacity: 0.2;
   shadow-radius: 5px;
   shadow-offset: 0px 0px;
