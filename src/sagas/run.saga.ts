@@ -30,7 +30,7 @@ function* getScheduledRuns() {
 
 function* createRun(run: any) {
   try {
-    const currentUser = getCurrentUser();
+    //const currentUser = getCurrentUser();
 
     yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/createRun`, run);
   } catch (error) {

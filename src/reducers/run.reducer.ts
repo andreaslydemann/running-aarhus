@@ -64,12 +64,22 @@ function decreasePace(state: RunState) {
   return { ...state, pace, routeDetails };
 }
 
+function setStartDateTime(state: RunState, startDateTime: string) {
+  const routeDetails = updateEndDateTime(
+    state.pace,
+    state.startDateTime,
+    state.routeDetails
+  );
+
+  return { ...state, startDateTime, routeDetails };
+}
+
 export default function(state: RunState = initialState, action: Action<any>) {
   switch (action.type) {
     case RUN_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
       return { ...state, scheduledRuns: action.payload };
     case RUN_TYPES.SET_START_DATE_TIME:
-      return { ...state, startDateTime: action.payload };
+      return setStartDateTime(state, action.payload);
     case RUN_TYPES.SET_TITLE:
       return { ...state, title: action.payload };
     case RUN_TYPES.SET_DESCRIPTION:
