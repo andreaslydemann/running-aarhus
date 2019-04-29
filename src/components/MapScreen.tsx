@@ -1,12 +1,16 @@
 import React from "react";
-import { StyleSheet, View, Text, Dimensions } from "react-native";
-import { Localization, MapView } from "expo";
+import { Text, Dimensions } from "react-native";
+import { MapView } from "expo";
 import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
-import { calculateDistance } from "../utils";
+import {
+  getAddressOfCoordinate,
+  calculateEndDateTime,
+  getDistanceOfCoordinates,
+  getColorsOfCoordinates
+} from "utils";
 import { Header, RouteSummary, ScreenBackground, SubmitButton } from "./common";
 import i18n from "i18n-js";
-import axios from "axios";
 
 // @ts-ignore
 const { Marker, Polyline, PROVIDER_DEFAULT } = MapView;
@@ -19,15 +23,6 @@ const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const DEFAULT_PADDING = { top: 200, right: 40, bottom: 40, left: 40 };
 const START_MARKER_COLOR = "#238C23";
 const END_MARKER_COLOR = "#00007f";
-const SPACING_COLOR = "#00000000";
-const LINE_COLORS = [
-  "#238C23",
-  "#537f35",
-  "#a6b267",
-  "#e59c5d",
-  "#6b5d8c",
-  "#00007f"
-];
 
 interface State {
   region: {
@@ -83,9 +78,7 @@ class MapScreen extends React.Component<Props, State> {
     const coordinates = this.props.navigation.getParam("coordinates");
     const meetingPoint = this.props.navigation.getParam("meetingPoint");
 
-    if (!(coordinates.length && meetingPoint)) {
-      return;
-    }
+    if (!(coordinates.length && meetingPoint)) return;
 
     const startMarker = {
       coordinate: coordinates[0],
@@ -108,24 +101,6 @@ class MapScreen extends React.Component<Props, State> {
         this.focusOnRoute();
       }
     );
-  }
-
-  getColors() {
-    let missingColors = this.state.coordinates.length - LINE_COLORS.length;
-    const colorsPerRound = Math.floor(missingColors / LINE_COLORS.length - 1);
-
-    return LINE_COLORS.reduce((arr: string[], b: string, i: number) => {
-      const colorArray = [...arr, b];
-
-      if (missingColors > 0 && i < LINE_COLORS.length - 1) {
-        for (let i = 0; i < colorsPerRound; i++) {
-          colorArray.push(SPACING_COLOR);
-          missingColors--;
-        }
-      }
-
-      return colorArray;
-    }, []);
   }
 
   resetState() {
@@ -168,11 +143,13 @@ class MapScreen extends React.Component<Props, State> {
           coordinates: [e.nativeEvent.coordinate]
         },
         () => {
-          this.getMeetingPoint().then(meetingPoint => {
-            this.setState({
-              meetingPoint
-            });
-          });
+          getAddressOfCoordinate(this.state.startMarker.coordinate).then(
+            meetingPoint => {
+              this.setState({
+                meetingPoint
+              });
+            }
+          );
         }
       );
     } else if (!endMarker) {
@@ -249,68 +226,13 @@ class MapScreen extends React.Component<Props, State> {
     );
   }
 
-  async getMeetingPoint() {
-    const REVERSE_GEOCODE_URL =
-      "http://nominatim.openstreetmap.org/reverse?format=json";
-
-    if (this.state.startMarker) {
-      const { latitude, longitude } = this.state.startMarker.coordinate;
-
-      const {
-        data: { address }
-      } = await axios.get(
-        `${REVERSE_GEOCODE_URL}&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1";`
-      );
-
-      return `${address.house_number ? address.house_number + " " : ""}${
-        address.road ? address.road + ", " : ""
-      }${address.suburb ? address.suburb + ", " : ""}${
-        address.postcode ? address.postcode : ""
-      }`;
-    }
-
-    return "";
-  }
-
-  getDistance() {
-    const { coordinates } = this.state;
-
-    if (coordinates.length <= 1) {
-      return 0;
-    }
-
-    let distance = 0;
-    let lastCoordinate;
-
-    for (let i = 0; i < coordinates.length; i++) {
-      distance += lastCoordinate
-        ? calculateDistance(lastCoordinate, coordinates[i])
-        : calculateDistance(coordinates[i], coordinates[i + 1]);
-
-      lastCoordinate = coordinates[i];
-    }
-
-    return Math.round(distance * 100) / 100;
-  }
-
-  getEndDateTime(distance: number, pace: number) {
-    if (!(pace && distance)) return;
-
-    const date = new Date();
-    date.setMinutes(date.getMinutes() + pace * distance);
-    return date.toLocaleTimeString(Localization.locale, {
-      hour12: false,
-      hour: "numeric",
-      minute: "numeric"
-    });
-  }
-
   render() {
     const { navigation } = this.props;
     const pace = navigation.getParam("pace");
+    const startDateTime = navigation.getParam("startDateTime");
 
-    const distance = this.getDistance();
-    const endDateTime = this.getEndDateTime(distance, pace);
+    const distance = getDistanceOfCoordinates(this.state.coordinates);
+    const endDateTime = calculateEndDateTime(startDateTime, pace, distance);
 
     return (
       <Wrapper>
@@ -318,14 +240,13 @@ class MapScreen extends React.Component<Props, State> {
           navigateBack={() => this.props.navigation.goBack()}
           ScreenTitle={i18n.t("createRunTitle")}
         />
-        <View style={styles.map}>
-          <MapView
+        <MapViewWrapper>
+          <StyledMapView
             showsUserLocation={true}
             provider={PROVIDER_DEFAULT}
             ref={(ref: any) => {
               this.map = ref;
             }}
-            style={styles.map}
             initialRegion={this.state.region}
             onPress={e => this.onDrawLine(e)}
             onLongPress={e => this.setMarker(e)}
@@ -346,11 +267,15 @@ class MapScreen extends React.Component<Props, State> {
             <Polyline
               coordinates={this.state.coordinates}
               strokeColor="rgba(0,0,0,0.5)"
-              strokeColors={this.state.endMarker ? this.getColors() : undefined}
+              strokeColors={
+                this.state.endMarker
+                  ? getColorsOfCoordinates(this.state.coordinates)
+                  : undefined
+              }
               strokeWidth={this.state.endMarker ? 2 : 1}
               lineDashPattern={!this.state.endMarker ? [20, 5] : null}
             />
-          </MapView>
+          </StyledMapView>
           <MapOverlay>
             {this.state.coordinates.length ? (
               <TextWrapper
@@ -387,7 +312,7 @@ class MapScreen extends React.Component<Props, State> {
               </UndoButton>
             )}
           </MapOverlay>
-        </View>
+        </MapViewWrapper>
 
         <SubmitButton
           disabled={!this.state.endMarker}
@@ -412,6 +337,14 @@ class MapScreen extends React.Component<Props, State> {
     );
   }
 }
+
+const MapViewWrapper = styled.View`
+  flex: 1;
+`;
+
+const StyledMapView = styled(MapView)`
+  flex: 1;
+`;
 
 const MapOverlay = styled.View`
   position: absolute;
@@ -452,15 +385,5 @@ const TextWrapper = styled.View<TextWrapperProps>`
   background-color: ${props => props.backgroundColor};
   padding: 15px 15px;
 `;
-
-const styles = StyleSheet.create({
-  container: {
-    justifyContent: "flex-end",
-    alignItems: "center"
-  },
-  map: {
-    flex: 1
-  }
-});
 
 export default MapScreen;

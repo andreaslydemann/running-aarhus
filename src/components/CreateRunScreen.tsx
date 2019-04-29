@@ -138,7 +138,14 @@ class CreateRunScreen extends React.Component<Props> {
   }
 
   render(): JSX.Element {
-    let { routeDetails, pace, paceEnabled, title, description } = this.props;
+    let {
+      routeDetails,
+      pace,
+      paceEnabled,
+      title,
+      description,
+      startDateTime
+    } = this.props;
     let meetingPoint: string = "";
     let coordinates: Coordinate[] = [];
 
@@ -188,6 +195,7 @@ class CreateRunScreen extends React.Component<Props> {
             touchable
             onPress={() =>
               this.props.navigation.navigate("MapScreen", {
+                startDateTime,
                 meetingPoint,
                 coordinates,
                 pace: paceEnabled ? pace : null,

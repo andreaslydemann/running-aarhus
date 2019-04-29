@@ -1,3 +1,6 @@
 export * from "./configureStore";
-export * from "./calculateDistance";
+export * from "./distanceUtils";
 export * from "./getCurrentUser";
+export * from "./getAddressOfCoordinate";
+export * from "./calculateEndDateTime";
+export * from "./getColorsOfCoordinates";

@@ -35,6 +35,20 @@ const MONTHS = [
   "dec"
 ];
 
+const REVERSE_GEOCODE_URL =
+  "http://nominatim.openstreetmap.org/reverse?format=json";
+
+const SPACING_COLOR = "#00000000";
+
+const LINE_COLORS = [
+  "#238C23",
+  "#537f35",
+  "#a6b267",
+  "#e59c5d",
+  "#6b5d8c",
+  "#00007f"
+];
+
 export {
   MONTHS,
   TABBAR_ICONS,
@@ -42,5 +56,8 @@ export {
   FACEBOOK_TOKEN,
   FACEBOOK_APP_ID,
   FIREBASE_ACCOUNT,
-  RUNNING_AARHUS_FUNCTIONS_URL
+  RUNNING_AARHUS_FUNCTIONS_URL,
+  REVERSE_GEOCODE_URL,
+  SPACING_COLOR,
+  LINE_COLORS
 };

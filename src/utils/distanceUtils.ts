@@ -1,5 +1,22 @@
 import { Coordinate } from "types/common";
 
+export function getDistanceOfCoordinates(coordinates: Coordinate[]) {
+  if (coordinates.length <= 1) return 0;
+
+  let distance = 0;
+  let lastCoordinate;
+
+  for (let i = 0; i < coordinates.length; i++) {
+    distance += lastCoordinate
+      ? calculateDistance(lastCoordinate, coordinates[i])
+      : calculateDistance(coordinates[i], coordinates[i + 1]);
+
+    lastCoordinate = coordinates[i];
+  }
+
+  return Math.round(distance * 100) / 100;
+}
+
 export function calculateDistance(
   coordinate1: Coordinate,
   coordinate2: Coordinate
