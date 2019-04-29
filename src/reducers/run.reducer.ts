@@ -74,6 +74,16 @@ function setStartDateTime(state: RunState, startDateTime: string) {
   return { ...state, startDateTime, routeDetails };
 }
 
+function togglePace(state: RunState) {
+  const routeDetails = updateEndDateTime(
+    state.pace,
+    state.startDateTime,
+    state.routeDetails
+  );
+
+  return { ...state, paceEnabled: !state.paceEnabled, routeDetails };
+}
+
 export default function(state: RunState = initialState, action: Action<any>) {
   switch (action.type) {
     case RUN_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
@@ -85,7 +95,7 @@ export default function(state: RunState = initialState, action: Action<any>) {
     case RUN_TYPES.SET_DESCRIPTION:
       return { ...state, description: action.payload };
     case RUN_TYPES.TOGGLE_PACE:
-      return { ...state, paceEnabled: !state.paceEnabled };
+      return togglePace(state);
     case RUN_TYPES.INCREASE_PACE:
       return increasePace(state);
     case RUN_TYPES.DECREASE_PACE:
