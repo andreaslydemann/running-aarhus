@@ -5,6 +5,9 @@ export const RUN_TYPES = {
   GET_SCHEDULED_RUNS_REQUEST: "GET_SCHEDULED_RUNS_REQUEST",
   GET_SCHEDULED_RUNS_SUCCESS: "GET_SCHEDULED_RUNS_SUCCESS",
   GET_SCHEDULED_RUNS_FAILURE: "GET_SCHEDULED_RUNS_FAILURE",
+  CREATE_RUN_REQUEST: "CREATE_RUN_REQUEST",
+  CREATE_RUN_SUCCESS: "CREATE_RUN_SUCCESS",
+  CREATE_RUN_FAILURE: "CREATE_RUN_FAILURE",
   SET_START_DATE_TIME: "SET_START_DATE_TIME",
   SET_TITLE: "SET_TITLE",
   SET_DESCRIPTION: "SET_DESCRIPTION",
@@ -24,6 +27,13 @@ export const getScheduledRunsSuccess = (runs: any): Action<any> => {
   return {
     type: RUN_TYPES.GET_SCHEDULED_RUNS_SUCCESS,
     payload: runs
+  };
+};
+
+export const createRun = (run: any): Action<any> => {
+  return {
+    type: RUN_TYPES.CREATE_RUN_REQUEST,
+    payload: run
   };
 };
 
