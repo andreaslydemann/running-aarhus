@@ -67,7 +67,7 @@ function decreasePace(state: RunState) {
 function setStartDateTime(state: RunState, startDateTime: string) {
   const routeDetails = updateEndDateTime(
     state.pace,
-    state.startDateTime,
+    startDateTime,
     state.routeDetails
   );
 
