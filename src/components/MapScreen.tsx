@@ -81,8 +81,9 @@ class MapScreen extends React.Component<Props, State> {
 
   componentDidMount() {
     const coordinates = this.props.navigation.getParam("coordinates");
+    const meetingPoint = this.props.navigation.getParam("meetingPoint");
 
-    if (!coordinates.length) {
+    if (!(coordinates.length && meetingPoint)) {
       return;
     }
 
@@ -98,17 +99,13 @@ class MapScreen extends React.Component<Props, State> {
 
     this.setState(
       {
+        meetingPoint,
         coordinates,
         startMarker,
         endMarker
       },
       () => {
         this.focusOnRoute();
-        this.getMeetingPoint().then(meetingPoint => {
-          this.setState({
-            meetingPoint
-          });
-        });
       }
     );
   }

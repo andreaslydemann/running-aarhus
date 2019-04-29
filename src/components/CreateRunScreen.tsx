@@ -17,7 +17,7 @@ import { connect } from "react-redux";
 import * as actions from "actions";
 import { Action } from "actions/common";
 import { RunState } from "types/states";
-import { RouteDetails } from "types/common";
+import { Coordinate, RouteDetails } from "types/common";
 
 interface PropsConnectedState {
   startDateTime: string;
@@ -138,6 +138,15 @@ class CreateRunScreen extends React.Component<Props> {
   }
 
   render(): JSX.Element {
+    let { routeDetails, pace, paceEnabled, title, description } = this.props;
+    let meetingPoint: string = "";
+    let coordinates: Coordinate[] = [];
+
+    if (routeDetails) {
+      meetingPoint = routeDetails.meetingPoint;
+      coordinates = routeDetails.coordinates;
+    }
+
     return (
       <Wrapper>
         <Header
@@ -152,7 +161,7 @@ class CreateRunScreen extends React.Component<Props> {
           <BottomMargin>
             <Subtitle titleText={"Title"} showInfoIcon={false} />
             <TextInput
-              value={this.props.title}
+              value={title}
               placeholder={"Intervals 2x5"}
               onChangeText={title => this.props.setTitle(title)}
             />
@@ -161,7 +170,7 @@ class CreateRunScreen extends React.Component<Props> {
           <BottomMargin>
             <Subtitle titleText={"Description"} showInfoIcon={false} />
             <TextInput
-              value={this.props.description}
+              value={description}
               placeholder={"Provide some information about this run"}
               onChangeText={description =>
                 this.props.setDescription(description)
@@ -175,14 +184,13 @@ class CreateRunScreen extends React.Component<Props> {
           <Subtitle titleText={"Route"} showInfoIcon={false} />
           <Section
             top
-            bottom={!this.props.routeDetails}
+            bottom={!routeDetails}
             touchable
             onPress={() =>
               this.props.navigation.navigate("MapScreen", {
-                coordinates: this.props.routeDetails
-                  ? this.props.routeDetails.coordinates
-                  : [],
-                pace: this.props.paceEnabled ? this.props.pace : null,
+                meetingPoint,
+                coordinates,
+                pace: paceEnabled ? pace : null,
                 onConfirmRoute: (routeDetails: RouteDetails) =>
                   this.props.setRoute(routeDetails)
               })
@@ -190,9 +198,9 @@ class CreateRunScreen extends React.Component<Props> {
           >
             <SectionTitle>Set route</SectionTitle>
           </Section>
-          {this.props.routeDetails && (
+          {routeDetails && (
             <Section bottom>
-              <RouteSummary routeDetails={this.props.routeDetails} />
+              <RouteSummary routeDetails={routeDetails} />
             </Section>
           )}
         </ScrollWrapper>
