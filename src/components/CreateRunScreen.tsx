@@ -113,7 +113,7 @@ class CreateRunScreen extends React.Component<Props> {
         style={{ justifyContent: "space-around" }}
       >
         <PaceButtonWrapper
-          disabled={false}
+          disabled={!this.props.paceEnabled}
           onPress={() => this.props.decreasePace()}
           hitSlop={touchableHitSlop}
         >
@@ -123,7 +123,7 @@ class CreateRunScreen extends React.Component<Props> {
           <SectionTitle>{this.props.pace} min/km</SectionTitle>
         </PaceTextWrapper>
         <PaceButtonWrapper
-          disabled={false}
+          disabled={!this.props.paceEnabled}
           onPress={() => this.props.increasePace()}
           hitSlop={touchableHitSlop}
         >
