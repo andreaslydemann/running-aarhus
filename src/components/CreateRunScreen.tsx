@@ -219,6 +219,7 @@ class CreateRunScreen extends React.Component<Props> {
         </ScrollWrapper>
 
         <SubmitButton
+          disabled={!(this.props.routeDetails && this.props.title)}
           onPress={() => {
             console.log("clicked");
           }}
