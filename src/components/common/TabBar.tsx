@@ -31,7 +31,7 @@ const TabBar = ({
           bottom: "always"
         }}
       >
-        <View style={{ height: 49 }} />
+        <View style={{ height: 50 }} />
       </SafeAreaView>
       <View pointerEvents="box-none" style={styles.content}>
         {routes.map((route: any, routeIndex: any) => {
@@ -64,11 +64,10 @@ const TabBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
     bottom: 0,
     width: "100%",
     justifyContent: "flex-end",
-    minHeight: 160
+    minHeight: 50
   },
   fakeBackground: {
     position: "absolute",

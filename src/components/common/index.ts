@@ -11,3 +11,4 @@ export { default as Header } from "./Header";
 export { default as TextInput } from "./TextInput";
 export { default as Subtitle } from "./Subtitle";
 export { default as PlanningHeader } from "./PlanningHeader";
+export { default as Loader } from "./Loader";

@@ -5,7 +5,8 @@ import {
   ScreenTitle,
   ScreenBackground,
   PushableWrapper,
-  RunCard
+  RunCard,
+  Loader
 } from "components/common";
 import { styled } from "theme";
 import { Action } from "actions/common";
@@ -14,6 +15,7 @@ import { connect } from "react-redux";
 import { RunState } from "types/states";
 import { RunModel } from "types/models";
 import { navigation } from "../utils";
+import { SafeAreaView } from "react-navigation";
 
 interface PropsConnectedState {
   scheduledRuns: RunModel[];
@@ -45,24 +47,30 @@ class ScheduleScreen extends React.Component<Props> {
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
-        <FlatList
-          data={this.props.scheduledRuns}
-          keyExtractor={(item: RunModel) => item.id}
-          renderItem={({ item }) => (
-            <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-              <RunCard data={item} />
-            </PushableWrapper>
-          )}
-          refreshControl={
-            <RefreshControl
-              refreshing={false}
-              onRefresh={() => {
-                console.log("hello");
-              }}
-              tintColor="#fff"
+        <ContentWrapper>
+          {true ? (
+            <Loader />
+          ) : (
+            <FlatList
+              data={this.props.scheduledRuns}
+              keyExtractor={(item: RunModel) => item.id}
+              renderItem={({ item }) => (
+                <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+                  <RunCard data={item} />
+                </PushableWrapper>
+              )}
+              refreshControl={
+                <RefreshControl
+                  refreshing={false}
+                  onRefresh={() => {
+                    console.log("hello");
+                  }}
+                  tintColor="#fff"
+                />
+              }
             />
-          }
-        />
+          )}
+        </ContentWrapper>
       </Wrapper>
     );
   }
@@ -83,4 +91,9 @@ export default connect(
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
   padding: 44px 0 0 0;
+`;
+
+const ContentWrapper = styled(SafeAreaView)`
+  flex: 1;
+  justify-content: center;
 `;
