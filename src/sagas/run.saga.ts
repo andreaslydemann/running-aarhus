@@ -1,14 +1,14 @@
-import { put, takeEvery, all } from "redux-saga/effects";
+import { call, put, takeEvery, takeLeading, all } from "redux-saga/effects";
 import { RUN_TYPES } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
 import { getScheduledRunsSuccess } from "actions";
-import { getCurrentUser } from "utils";
+import { getCurrentUser, navigation } from "utils";
 import axios from "axios";
 
 export default function* runSaga() {
   yield all([
     takeEvery(RUN_TYPES.GET_SCHEDULED_RUNS_REQUEST, getScheduledRuns),
-    takeEvery(RUN_TYPES.CREATE_RUN_REQUEST, createRun)
+    takeLeading(RUN_TYPES.CREATE_RUN_REQUEST, createRun)
   ]);
 }
 
@@ -28,11 +28,20 @@ function* getScheduledRuns() {
   }
 }
 
-function* createRun(run: any) {
+function* createRun({ payload }: any) {
   try {
-    //const currentUser = getCurrentUser();
+    const currentUser = getCurrentUser();
+
+    console.log(payload);
+
+    const run = {
+      ...payload,
+      userId: currentUser.uid
+    };
 
     yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/createRun`, run);
+
+    yield call(navigation.goBack);
   } catch (error) {
     // yield put(createRunFailure());
   }

@@ -36,6 +36,7 @@ interface PropsConnectedDispatcher {
   increasePace: () => Action<void>;
   decreasePace: () => Action<void>;
   setRoute: (routeDetails: RouteDetails) => Action<any>;
+  createRun: (run: any) => Action<any>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -137,6 +138,24 @@ class CreateRunScreen extends React.Component<Props> {
     ];
   }
 
+  onCreateRun() {
+    const {
+      title,
+      description,
+      pace,
+      startDateTime,
+      routeDetails
+    } = this.props;
+
+    this.props.createRun({
+      title,
+      description,
+      pace,
+      startDateTime,
+      ...routeDetails
+    });
+  }
+
   render(): JSX.Element {
     let {
       routeDetails,
@@ -220,9 +239,7 @@ class CreateRunScreen extends React.Component<Props> {
 
         <SubmitButton
           disabled={!(this.props.routeDetails && this.props.title)}
-          onPress={() => {
-            console.log("clicked");
-          }}
+          onPress={() => this.onCreateRun()}
           title={"Gem"}
         />
       </Wrapper>

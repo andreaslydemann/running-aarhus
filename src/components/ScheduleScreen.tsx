@@ -13,6 +13,7 @@ import * as actions from "actions";
 import { connect } from "react-redux";
 import { RunState } from "types/states";
 import { RunModel } from "types/models";
+import { navigation } from "../utils";
 
 interface PropsConnectedState {
   scheduledRuns: RunModel[];
@@ -28,6 +29,7 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
 
 class ScheduleScreen extends React.Component<Props> {
   componentDidMount() {
+    navigation.setNavigator(this.props.navigation);
     this.props.getScheduledRuns();
   }
 
