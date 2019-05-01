@@ -1,18 +1,34 @@
 import React, { PureComponent } from "react";
 import { Animated, Easing } from "react-native";
 
-export class Indicator extends PureComponent {
+interface Props {
+  animationEasing?: any;
+  animationDuration?: number;
+  animating?: number;
+  interaction?: boolean;
+  count?: number;
+  renderComponent?: any;
+  color: string;
+  minScale: number;
+  maxScale: number;
+  style: any;
+}
+
+interface State {
+  progress: any;
+  animation?: any;
+}
+
+export class Indicator extends PureComponent<Props, State> {
   static defaultProps = {
     animationEasing: Easing.linear,
     animationDuration: 1200,
-
     animating: true,
     interaction: true,
-
     count: 1
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.renderComponent = this.renderComponent.bind(this);
@@ -23,13 +39,16 @@ export class Indicator extends PureComponent {
       progress: new Animated.Value(0)
     };
 
+    // @ts-ignore
     this.mounted = false;
   }
 
+  // @ts-ignore
   startAnimation({ finished } = {}) {
     let { progress } = this.state;
     let { interaction, animationEasing, animationDuration } = this.props;
 
+    // @ts-ignore
     if (!this.mounted || false === finished) {
       return;
     }
@@ -62,6 +81,7 @@ export class Indicator extends PureComponent {
   componentDidMount() {
     let { animating } = this.props;
 
+    // @ts-ignore
     this.mounted = true;
 
     if (animating) {
@@ -70,12 +90,14 @@ export class Indicator extends PureComponent {
   }
 
   componentWillUnmount() {
+    // @ts-ignore
     this.mounted = false;
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps(props: Props) {
     let { animating } = this.props;
 
+    // @ts-ignore
     if (animating ^ props.animating) {
       if (animating) {
         this.stopAnimation();
@@ -85,7 +107,8 @@ export class Indicator extends PureComponent {
     }
   }
 
-  renderComponent(undefined, index) {
+  // @ts-ignore
+  renderComponent(undefined: any, index: number) {
     let { progress } = this.state;
     let { renderComponent, count } = this.props;
 

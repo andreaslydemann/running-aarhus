@@ -1,48 +1,61 @@
 import React, { PureComponent } from "react";
-import { View, Animated, Easing } from "react-native";
+import { Animated, Easing, StyleSheet } from "react-native";
 import { Indicator } from "./Indicator";
+import { theme, styled } from "theme";
 
-export default class extends PureComponent {
+interface Props {
+  color: string;
+  size: number;
+  minScale: number;
+  maxScale: number;
+  animationDuration: number;
+}
+
+export default class extends PureComponent<Props> {
   static defaultProps = {
     animationDuration: 1600,
-
-    color: "white",
+    color: theme.activeTint,
     count: 5,
     size: 50,
-
     minScale: 0.2,
     maxScale: 1.0
   };
 
-  constructor(props) {
+  constructor(props: Props) {
     super(props);
 
     this.renderComponent = this.renderComponent.bind(this);
   }
 
-  renderComponent({ index, count, progress }) {
-    let {
+  renderComponent({ index, count, progress }: any) {
+    const {
       size,
       minScale,
       maxScale,
       color: backgroundColor,
       animationDuration
     } = this.props;
-    let frames = (60 * animationDuration) / 1000;
-    let offset = index / (count - 1);
-    let easing = Easing.bezier(0.5, offset, 0.5, 1.0);
 
-    let inputRange = Array.from(
+    const frames = (60 * animationDuration) / 1000;
+    const offset = index / (count - 1);
+    const easing = Easing.bezier(0.5, offset, 0.5, 1.0);
+
+    const inputRange = Array.from(
       new Array(frames),
-      (undefined, index) => index / (frames - 1)
+      // @ts-ignore
+      (undefined: any, index: number) => index / (frames - 1)
     );
 
-    let outputRange = Array.from(
+    const outputRange = Array.from(
       new Array(frames),
+      // @ts-ignore
       (undefined, index) => easing(index / (frames - 1)) * 360 + "deg"
     );
 
-    let layerStyle = {
+    const layerStyle = {
+      ...StyleSheet.absoluteFillObject,
+      justifyContent: "flex-start",
+      alignItems: "center",
       transform: [
         {
           rotate: progress.interpolate({ inputRange, outputRange })
@@ -50,7 +63,7 @@ export default class extends PureComponent {
       ]
     };
 
-    let ballStyle = {
+    const ballStyle = {
       width: size / 5,
       height: size / 5,
       borderRadius: size / 10,
@@ -69,40 +82,29 @@ export default class extends PureComponent {
     };
 
     return (
-      <Animated.View style={[styles.layer, layerStyle]} {...{ key: index }}>
+      <Animated.View style={layerStyle} {...{ key: index }}>
         <Animated.View style={ballStyle} />
       </Animated.View>
     );
   }
 
   render() {
-    let { style, size: width, size: height, ...props } = this.props;
+    let { size: width, size: height, ...props } = this.props;
 
     return (
-      <View style={[styles.container, style]}>
+      <Wrapper>
         <Indicator
           style={{ width, height }}
           renderComponent={this.renderComponent}
           {...props}
         />
-      </View>
+      </Wrapper>
     );
   }
 }
 
-import { StyleSheet } from "react-native";
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
-  },
-
-  layer: {
-    ...StyleSheet.absoluteFillObject,
-
-    justifyContent: "flex-start",
-    alignItems: "center"
-  }
-});
+const Wrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;

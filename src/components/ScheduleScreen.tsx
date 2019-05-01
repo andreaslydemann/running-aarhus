@@ -6,7 +6,7 @@ import {
   ScreenBackground,
   PushableWrapper,
   RunCard,
-  Loader
+  Spinner
 } from "components/common";
 import { styled } from "theme";
 import { Action } from "actions/common";
@@ -48,8 +48,8 @@ class ScheduleScreen extends React.Component<Props> {
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
         <ContentWrapper>
-          {true ? (
-            <Loader />
+          {this.props.loading ? (
+            <Spinner />
           ) : (
             <FlatList
               data={this.props.scheduledRuns}
