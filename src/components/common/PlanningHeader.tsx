@@ -9,7 +9,12 @@ interface Props {
 }
 
 interface State {
-  selectedItem?: number;
+  selectedItem?: Item;
+}
+
+enum Item {
+  Left,
+  Right
 }
 
 export default class extends Component<Props, State> {
@@ -17,18 +22,18 @@ export default class extends Component<Props, State> {
     super(props);
 
     this.state = {
-      selectedItem: 1
+      selectedItem: Item.Left
     };
   }
 
-  handleOuterPress(index: number) {
-    this.setState({ selectedItem: index });
+  handleOuterPress(item: Item) {
+    this.setState({ selectedItem: item });
 
-    switch (index) {
-      case 1:
+    switch (item) {
+      case Item.Left:
         this.props.onLeftItemPress();
         return;
-      case 2:
+      case Item.Right:
         this.props.onRightItemPress();
         return;
     }
@@ -37,8 +42,8 @@ export default class extends Component<Props, State> {
   render() {
     return (
       <Wrapper>
-        <OuterItem onPress={() => this.handleOuterPress(1)}>
-          <ItemText isSelected={this.state.selectedItem === 1}>
+        <OuterItem onPress={() => this.handleOuterPress(Item.Left)}>
+          <ItemText isSelected={this.state.selectedItem === Item.Left}>
             All runs
           </ItemText>
         </OuterItem>
@@ -49,8 +54,8 @@ export default class extends Component<Props, State> {
             color={theme.activeTint}
           />
         </MiddleItem>
-        <OuterItem onPress={() => this.handleOuterPress(2)}>
-          <ItemText isSelected={this.state.selectedItem === 2}>
+        <OuterItem onPress={() => this.handleOuterPress(Item.Right)}>
+          <ItemText isSelected={this.state.selectedItem === Item.Right}>
             My runs
           </ItemText>
         </OuterItem>
