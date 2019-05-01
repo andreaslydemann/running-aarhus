@@ -1,80 +1,108 @@
-import React, { Component } from "react";
-import { styled } from "theme";
-import { Animated } from "react-native";
+import React, { PureComponent } from "react";
+import { View, Animated, Easing } from "react-native";
+import { Indicator } from "./Indicator";
 
-export default class extends Component {
-  state = {
-    moonAnim: new Animated.Value(0),
-    appearAnim: new Animated.Value(0)
+export default class extends PureComponent {
+  static defaultProps = {
+    animationDuration: 1600,
+
+    color: "white",
+    count: 5,
+    size: 50,
+
+    minScale: 0.2,
+    maxScale: 1.0
   };
 
-  componentDidMount() {
-    Animated.loop(
-      Animated.timing(this.state.moonAnim, { toValue: 1, duration: 1000 })
-    ).start();
-    Animated.timing(this.state.appearAnim, {
-      toValue: 1,
-      duration: 400
-    }).start();
+  constructor(props) {
+    super(props);
+
+    this.renderComponent = this.renderComponent.bind(this);
+  }
+
+  renderComponent({ index, count, progress }) {
+    let {
+      size,
+      minScale,
+      maxScale,
+      color: backgroundColor,
+      animationDuration
+    } = this.props;
+    let frames = (60 * animationDuration) / 1000;
+    let offset = index / (count - 1);
+    let easing = Easing.bezier(0.5, offset, 0.5, 1.0);
+
+    let inputRange = Array.from(
+      new Array(frames),
+      (undefined, index) => index / (frames - 1)
+    );
+
+    let outputRange = Array.from(
+      new Array(frames),
+      (undefined, index) => easing(index / (frames - 1)) * 360 + "deg"
+    );
+
+    let layerStyle = {
+      transform: [
+        {
+          rotate: progress.interpolate({ inputRange, outputRange })
+        }
+      ]
+    };
+
+    let ballStyle = {
+      width: size / 5,
+      height: size / 5,
+      borderRadius: size / 10,
+      backgroundColor,
+      transform: [
+        {
+          scale: progress.interpolate({
+            inputRange: [0, 1],
+            outputRange: [
+              maxScale - (maxScale - minScale) * offset,
+              minScale + (maxScale - minScale) * offset
+            ]
+          })
+        }
+      ]
+    };
+
+    return (
+      <Animated.View style={[styles.layer, layerStyle]} {...{ key: index }}>
+        <Animated.View style={ballStyle} />
+      </Animated.View>
+    );
   }
 
   render() {
-    const moonRotation = this.state.moonAnim.interpolate({
-      inputRange: [0, 1],
-      outputRange: ["0deg", "360deg"]
-    });
+    let { style, size: width, size: height, ...props } = this.props;
 
     return (
-      <FullWidthWrapper>
-        <Wrapper
-          style={{
-            transform: [{ rotate: moonRotation }],
-            opacity: this.state.appearAnim
-          }}
-        >
-          <OrbitLine>
-            <Center />
-          </OrbitLine>
-          <Moon />
-        </Wrapper>
-      </FullWidthWrapper>
+      <View style={[styles.container, style]}>
+        <Indicator
+          style={{ width, height }}
+          renderComponent={this.renderComponent}
+          {...props}
+        />
+      </View>
     );
   }
 }
 
-const FullWidthWrapper = styled.View`
-  align-items: center;
-  margin: 10px;
-`;
+import { StyleSheet } from "react-native";
 
-const Wrapper = styled(Animated.View)`
-  align-items: center;
-  width: 46px;
-`;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center"
+  },
 
-const Center = styled.View`
-  height: 24px;
-  width: 24px;
-  border-radius: 12px;
-  background: ${({ theme }) => theme.activeTint};
-`;
+  layer: {
+    ...StyleSheet.absoluteFillObject,
 
-const OrbitLine = styled.View`
-  height: 46px;
-  width: 46px;
-  border-radius: 23px;
-  align-items: center;
-  justify-content: center;
-  border-width: 2px;
-  border-color: ${({ theme }) => theme.activeTint};
-`;
-
-const Moon = styled.View`
-  height: 14px;
-  width: 14px;
-  border-radius: 7px;
-  background: ${({ theme }) => theme.activeTint};
-  position: absolute;
-  left: 34px;
-  top: 0;
-`;
+    justifyContent: "flex-start",
+    alignItems: "center"
+  }
+});
