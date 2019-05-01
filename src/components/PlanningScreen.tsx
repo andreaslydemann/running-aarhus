@@ -42,9 +42,11 @@ export default class PlanningScreen extends React.Component<Props> {
         <FlatList
           ListHeaderComponent={
             <PlanningHeader
+              onLeftItemPress={() => console.log("clicked")}
               onMiddleItemPress={() =>
                 this.props.navigation.navigate("CreateRunScreen")
               }
+              onRightItemPress={() => console.log("clicked")}
             />
           }
           data={data.runs}
