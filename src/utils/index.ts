@@ -1,5 +1,5 @@
 export * from "./configureStore";
-export * from "./distanceUtils";
+export * from "./distance.utils";
 export * from "./getCurrentUser";
 export * from "./getAddressOfCoordinate";
 export * from "./calculateEndDateTime";
