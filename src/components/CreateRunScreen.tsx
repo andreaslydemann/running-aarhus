@@ -7,7 +7,8 @@ import {
   RouteSummary,
   Section,
   SubmitButton,
-  Subtitle
+  Subtitle,
+  Spinner
 } from "components/common";
 import { styled, theme, THEME_PREFIX } from "theme";
 import { Switch } from "react-native";
@@ -26,6 +27,7 @@ interface PropsConnectedState {
   paceEnabled: boolean;
   pace: number;
   routeDetails: RouteDetails | null;
+  loading: boolean;
 }
 
 interface PropsConnectedDispatcher {
@@ -236,9 +238,12 @@ class CreateRunScreen extends React.Component<Props> {
             </Section>
           )}
         </ScrollWrapper>
+        <Spinner visible={this.props.loading} />
 
         <SubmitButton
-          disabled={!(this.props.routeDetails && this.props.title)}
+          disabled={
+            !(this.props.routeDetails && this.props.title) || this.props.loading
+          }
           onPress={() => this.onCreateRun()}
           title={"Gem"}
         />
@@ -254,7 +259,8 @@ const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
     description: run.description,
     paceEnabled: run.paceEnabled,
     pace: run.pace,
-    routeDetails: run.routeDetails
+    routeDetails: run.routeDetails,
+    loading: run.loading
   };
 };
 

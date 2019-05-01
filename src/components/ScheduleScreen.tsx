@@ -48,29 +48,26 @@ class ScheduleScreen extends React.Component<Props> {
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
         <ContentWrapper>
-          {this.props.loading ? (
-            <Spinner />
-          ) : (
-            <FlatList
-              data={this.props.scheduledRuns}
-              keyExtractor={(item: RunModel) => item.id}
-              renderItem={({ item }) => (
-                <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-                  <RunCard data={item} />
-                </PushableWrapper>
-              )}
-              refreshControl={
-                <RefreshControl
-                  refreshing={false}
-                  onRefresh={() => {
-                    console.log("hello");
-                  }}
-                  tintColor="#fff"
-                />
-              }
-            />
-          )}
+          <FlatList
+            data={this.props.scheduledRuns}
+            keyExtractor={(item: RunModel) => item.id}
+            renderItem={({ item }) => (
+              <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+                <RunCard data={item} />
+              </PushableWrapper>
+            )}
+            refreshControl={
+              <RefreshControl
+                refreshing={false}
+                onRefresh={() => {
+                  console.log("hello");
+                }}
+                tintColor="#fff"
+              />
+            }
+          />
         </ContentWrapper>
+        <Spinner visible={this.props.loading} />
       </Wrapper>
     );
   }

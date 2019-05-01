@@ -9,6 +9,7 @@ interface Props {
   minScale: number;
   maxScale: number;
   animationDuration: number;
+  visible: boolean;
 }
 
 export default class extends PureComponent<Props> {
@@ -89,6 +90,8 @@ export default class extends PureComponent<Props> {
   }
 
   render() {
+    if (!this.props.visible) return null;
+
     let { size: width, size: height, ...props } = this.props;
 
     return (
@@ -105,6 +108,12 @@ export default class extends PureComponent<Props> {
 
 const Wrapper = styled.View`
   flex: 1;
+  background: rgba(0, 0, 0, 0.25);
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
   justify-content: center;
   align-items: center;
 `;
