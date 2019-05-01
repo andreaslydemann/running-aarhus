@@ -17,6 +17,7 @@ import { navigation } from "../utils";
 
 interface PropsConnectedState {
   scheduledRuns: RunModel[];
+  loading: boolean;
 }
 
 interface PropsConnectedDispatcher {
@@ -39,7 +40,7 @@ class ScheduleScreen extends React.Component<Props> {
   }
 
   render(): JSX.Element {
-    console.log(this.props.scheduledRuns);
+    console.log(this.props.loading);
 
     return (
       <Wrapper>
@@ -69,7 +70,8 @@ class ScheduleScreen extends React.Component<Props> {
 
 const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
   return {
-    scheduledRuns: run.scheduledRuns
+    scheduledRuns: run.scheduledRuns,
+    loading: run.loading
   };
 };
 
