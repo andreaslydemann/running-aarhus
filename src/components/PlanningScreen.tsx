@@ -1,16 +1,15 @@
 import React from "react";
 import { FlatList, RefreshControl, ActivityIndicator } from "react-native";
-import ActionButton from "react-native-action-button";
-import { Ionicons } from "@expo/vector-icons";
 import i18n from "i18n-js";
 import {
   ScreenTitle,
   ScreenBackground,
   PushableWrapper,
   RunCard,
-  Button
+  Button,
+  PlanningHeader
 } from "components/common";
-import { styled, theme, THEME_PREFIX } from "theme";
+import { styled } from "theme";
 
 interface Props {
   navigation: { navigate: (screen: string) => void };
@@ -39,7 +38,15 @@ export default class PlanningScreen extends React.Component<Props> {
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("planningTitle")} />
+
         <FlatList
+          ListHeaderComponent={
+            <PlanningHeader
+              onMiddleItemPress={() =>
+                this.props.navigation.navigate("CreateRunScreen")
+              }
+            />
+          }
           data={data.runs}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
@@ -72,58 +79,10 @@ export default class PlanningScreen extends React.Component<Props> {
             />
           }
         />
-        <ActionButton
-          size={48}
-          offsetY={105}
-          offsetX={20}
-          buttonColor={theme.action}
-        >
-          <ActionButton.Item
-            size={40}
-            buttonColor={theme.action}
-            title="Create Run"
-            onPress={() => this.props.navigation.navigate("CreateRun")}
-          >
-            <Icon
-              name={`${THEME_PREFIX}-add-circle-outline`}
-              size={30}
-              color={theme.activeTint}
-            />
-          </ActionButton.Item>
-          <ActionButton.Item
-            size={40}
-            buttonColor={theme.action}
-            title="My Runs"
-            onPress={() => {}}
-          >
-            <Icon
-              name={`${THEME_PREFIX}-contact`}
-              size={30}
-              color={theme.activeTint}
-            />
-          </ActionButton.Item>
-          <ActionButton.Item
-            size={40}
-            buttonColor={theme.action}
-            title="All Runs"
-            onPress={() => {}}
-          >
-            <Icon
-              name={`${THEME_PREFIX}-contacts`}
-              size={30}
-              color={theme.activeTint}
-            />
-          </ActionButton.Item>
-        </ActionButton>
       </Wrapper>
     );
   }
 }
-
-const Icon = styled(Ionicons)`
-  margin-top: 3px;
-  margin-left: 1px;
-`;
 
 const Wrapper = styled(ScreenBackground)`
   flex: 1;

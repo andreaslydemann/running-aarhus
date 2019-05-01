@@ -10,3 +10,4 @@ export { default as ScreenTitle } from "./ScreenTitle";
 export { default as Header } from "./Header";
 export { default as TextInput } from "./TextInput";
 export { default as Subtitle } from "./Subtitle";
+export { default as PlanningHeader } from "./PlanningHeader";
