@@ -238,7 +238,7 @@ class CreateRunScreen extends React.Component<Props> {
             </Section>
           )}
         </ScrollWrapper>
-        <Spinner visible={this.props.loading} />
+        <Spinner showAsOverlay={true} isVisible={this.props.loading} />
 
         <SubmitButton
           disabled={

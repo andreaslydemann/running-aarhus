@@ -94,7 +94,7 @@ export default function(state: RunState = initialState, action: Action<any>) {
     case RUN_TYPES.CREATE_RUN_REQUEST:
       return { ...state, loading: true };
     case RUN_TYPES.CREATE_RUN_SUCCESS:
-      return { ...state, false: false };
+      return { ...state, loading: false };
     case RUN_TYPES.SET_START_DATE_TIME:
       return setStartDateTime(state, action.payload);
     case RUN_TYPES.SET_TITLE:

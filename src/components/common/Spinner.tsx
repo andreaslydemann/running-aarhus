@@ -9,7 +9,8 @@ interface Props {
   minScale: number;
   maxScale: number;
   animationDuration: number;
-  visible: boolean;
+  isVisible?: boolean;
+  showAsOverlay?: boolean;
 }
 
 export default class extends PureComponent<Props> {
@@ -19,7 +20,9 @@ export default class extends PureComponent<Props> {
     count: 5,
     size: 50,
     minScale: 0.2,
-    maxScale: 1.0
+    maxScale: 1.0,
+    showAsOverlay: false,
+    isVisible: true
   };
 
   constructor(props: Props) {
@@ -90,23 +93,38 @@ export default class extends PureComponent<Props> {
   }
 
   render() {
-    if (!this.props.visible) return null;
+    const {
+      size: width,
+      size: height,
+      isVisible,
+      showAsOverlay,
+      ...props
+    } = this.props;
 
-    let { size: width, size: height, ...props } = this.props;
+    if (!this.props.isVisible) return null;
 
-    return (
-      <Wrapper>
-        <Indicator
-          style={{ width, height }}
-          renderComponent={this.renderComponent}
-          {...props}
-        />
-      </Wrapper>
+    const indicator = (
+      <Indicator
+        style={{ width, height }}
+        renderComponent={this.renderComponent}
+        {...props}
+      />
+    );
+    return showAsOverlay ? (
+      <OverlayWrapper>{indicator}</OverlayWrapper>
+    ) : (
+      <RegularWrapper>{indicator}</RegularWrapper>
     );
   }
 }
 
-const Wrapper = styled.View`
+const RegularWrapper = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+const OverlayWrapper = styled.View`
   flex: 1;
   background: rgba(0, 0, 0, 0.25);
   position: absolute;
