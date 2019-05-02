@@ -8,7 +8,7 @@ import {
   Section,
   SubmitButton,
   Subtitle,
-  Spinner
+  StatusModal
 } from "components/common";
 import { styled, theme, THEME_PREFIX } from "theme";
 import { Switch } from "react-native";
@@ -238,7 +238,7 @@ class CreateRunScreen extends React.Component<Props> {
             </Section>
           )}
         </ScrollWrapper>
-        <Spinner showAsOverlay={true} isVisible={this.props.loading} />
+        <StatusModal isVisible={this.props.loading} />
 
         <SubmitButton
           disabled={

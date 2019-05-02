@@ -37,6 +37,12 @@ export const createRun = (run: any): Action<any> => {
   };
 };
 
+export const createRunSuccess = (): Action<void> => {
+  return {
+    type: RUN_TYPES.CREATE_RUN_SUCCESS
+  };
+};
+
 export const setStartDateTime = (dateTime: string) => {
   return {
     type: RUN_TYPES.SET_START_DATE_TIME,

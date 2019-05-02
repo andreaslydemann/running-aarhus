@@ -1,7 +1,7 @@
 import { call, put, takeEvery, takeLeading, all } from "redux-saga/effects";
 import { RUN_TYPES } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
-import { getScheduledRunsSuccess } from "actions";
+import { getScheduledRunsSuccess, createRunSuccess } from "actions";
 import { getCurrentUser, navigation } from "utils";
 import axios from "axios";
 
@@ -32,8 +32,6 @@ function* createRun({ payload }: any) {
   try {
     const currentUser = getCurrentUser();
 
-    console.log(payload);
-
     const run = {
       ...payload,
       userId: currentUser.uid
@@ -41,6 +39,7 @@ function* createRun({ payload }: any) {
 
     yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/createRun`, run);
 
+    yield put(createRunSuccess());
     yield call(navigation.goBack);
   } catch (error) {
     // yield put(createRunFailure());
