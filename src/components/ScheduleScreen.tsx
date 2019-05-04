@@ -5,8 +5,7 @@ import {
   ScreenTitle,
   ScreenBackground,
   PushableWrapper,
-  RunCard,
-  StatusModal
+  RunCard
 } from "components/common";
 import { styled } from "theme";
 import { Action } from "actions/common";
@@ -16,6 +15,7 @@ import { RunState } from "types/states";
 import { RunModel } from "types/models";
 import { navigation } from "../utils";
 import { SafeAreaView } from "react-navigation";
+import { StatusModal, statusModalTypes } from "./common/StatusModal";
 
 interface PropsConnectedState {
   scheduledRuns: RunModel[];
@@ -42,8 +42,6 @@ class ScheduleScreen extends React.Component<Props> {
   }
 
   render(): JSX.Element {
-    console.log(this.props.loading);
-
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
@@ -66,7 +64,7 @@ class ScheduleScreen extends React.Component<Props> {
               />
             }
           />
-          <StatusModal isVisible={this.props.loading} />
+          <StatusModal type={statusModalTypes.LOADING} />
         </ContentWrapper>
       </Wrapper>
     );

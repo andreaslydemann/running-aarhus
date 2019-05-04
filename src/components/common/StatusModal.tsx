@@ -1,15 +1,23 @@
-import React from "react";
+import React, { PureComponent } from "react";
 import { Animated } from "react-native";
-import { styled, theme } from "theme";
+import { styled, theme, THEME_PREFIX } from "theme";
+import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
   text?: string;
-  textNumberOfLines: number;
   isVisible: boolean;
+  textNumberOfLines: number;
   showAsOverlay: boolean;
+  type: string;
 }
 
-export default class extends React.Component<Props, any> {
+export const statusModalTypes = {
+  LOADING: "LOADING",
+  SUCCESS: "SUCCESS",
+  ERROR: "ERROR"
+};
+
+export class StatusModal extends PureComponent<Props, any> {
   static defaultProps = {
     textNumberOfLines: 1,
     isVisible: true,
@@ -25,35 +33,73 @@ export default class extends React.Component<Props, any> {
   }
 
   fadeInAnimation() {
-    Animated.timing(this.state.fadeAnim, {
+    return Animated.timing(this.state.fadeAnim, {
       toValue: 1,
       duration: 400
-    }).start();
-  }
-
-  fadeOutAnimation() {
-    Animated.timing(this.state.fadeAnim, {
-      toValue: 2,
-      duration: 400
-    }).start(() => {
-      this.state.fadeAnim.setValue(0);
     });
   }
 
-  render() {
-    if (this.props.isVisible) {
-      //
-      if (this.state.fadeAnim.__getValue() === 0) {
-        this.fadeInAnimation();
-      }
-    } else if (this.state.fadeAnim.__getValue() === 1) {
-      this.fadeOutAnimation();
+  fadeOutAnimation() {
+    return Animated.timing(this.state.fadeAnim, {
+      toValue: 2,
+      duration: 400
+    });
+  }
+
+  renderIcon() {
+    switch (this.props.type) {
+      case statusModalTypes.LOADING:
+        return <Spinner color={theme.activeTint} size={"large"} />;
+      case statusModalTypes.SUCCESS:
+        return (
+          <Ionicons
+            name={`${THEME_PREFIX}-checkmark`}
+            size={76}
+            color={theme.activeTint}
+          />
+        );
+      case statusModalTypes.ERROR:
+        return (
+          <Ionicons
+            name={`${THEME_PREFIX}-close`}
+            size={76}
+            color={theme.activeTint}
+          />
+        );
+      default:
+        return null;
     }
+  }
+
+  animateLoading() {
+    const isAnimating = this.state.fadeAnim.__getValue() !== 0;
+
+    if (this.props.isVisible && !isAnimating) {
+      this.fadeInAnimation().start();
+    } else if (isAnimating) {
+      this.fadeOutAnimation().start(() => {
+        this.state.fadeAnim.setValue(0);
+      });
+    }
+  }
+
+  animateSuccessOrError() {
+    Animated.sequence([
+      this.fadeInAnimation(),
+      Animated.delay(300),
+      this.fadeOutAnimation()
+    ]).start();
+  }
+
+  render() {
+    const { type, text, textNumberOfLines, showAsOverlay } = this.props;
+
+    type === statusModalTypes.LOADING
+      ? this.animateLoading()
+      : this.animateSuccessOrError();
 
     const containerStyle = {
-      backgroundColor: this.props.showAsOverlay
-        ? "rgba(0,0,0,0.3)"
-        : "transparent",
+      backgroundColor: showAsOverlay ? "rgba(0,0,0,0.3)" : "transparent",
       position: "absolute",
       justifyContent: "center",
       alignItems: "center",
@@ -85,11 +131,9 @@ export default class extends React.Component<Props, any> {
         pointerEvents="none"
       >
         <Wrapper>
-          <Spinner color={theme.activeTint} size={"large"} />
-          {this.props.text && (
-            <StyledText numberOfLines={this.props.textNumberOfLines}>
-              {this.props.text}
-            </StyledText>
+          {this.renderIcon()}
+          {text && (
+            <StyledText numberOfLines={textNumberOfLines}>{text}</StyledText>
           )}
         </Wrapper>
       </Animated.View>
