@@ -64,7 +64,10 @@ class ScheduleScreen extends React.Component<Props> {
               />
             }
           />
-          <StatusModal type={statusModalTypes.LOADING} />
+          <StatusModal
+            type={statusModalTypes.LOADING}
+            isVisible={this.props.loading}
+          />
         </ContentWrapper>
       </Wrapper>
     );

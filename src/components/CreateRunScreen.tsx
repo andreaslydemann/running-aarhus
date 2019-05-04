@@ -7,8 +7,7 @@ import {
   RouteSummary,
   Section,
   SubmitButton,
-  Subtitle,
-  StatusModal
+  Subtitle
 } from "components/common";
 import { styled, theme, THEME_PREFIX } from "theme";
 import { Switch } from "react-native";
@@ -19,6 +18,7 @@ import * as actions from "actions";
 import { Action } from "actions/common";
 import { RunState } from "types/states";
 import { Coordinate, RouteDetails } from "types/common";
+import { statusModalTypes, StatusModal } from "./common/StatusModal";
 
 interface PropsConnectedState {
   startDateTime: string;
@@ -238,7 +238,10 @@ class CreateRunScreen extends React.Component<Props> {
             </Section>
           )}
         </ScrollWrapper>
-        <StatusModal isVisible={this.props.loading} />
+        <StatusModal
+          type={statusModalTypes.LOADING}
+          isVisible={this.props.loading}
+        />
 
         <SubmitButton
           disabled={
