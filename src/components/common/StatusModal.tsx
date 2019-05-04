@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 interface Props {
   text?: string;
   isVisible: boolean;
+  height: number;
   textNumberOfLines: number;
   showAsOverlay: boolean;
   type: string;
@@ -19,6 +20,7 @@ export const statusModalTypes = {
 
 export class StatusModal extends PureComponent<Props, any> {
   static defaultProps = {
+    height: 100,
     textNumberOfLines: 1,
     isVisible: true,
     showAsOverlay: false
@@ -84,15 +86,17 @@ export class StatusModal extends PureComponent<Props, any> {
   }
 
   animateSuccessOrError() {
+    if (!this.props.isVisible) return;
+
     Animated.sequence([
       this.fadeInAnimation(),
-      Animated.delay(300),
+      Animated.delay(1000),
       this.fadeOutAnimation()
     ]).start();
   }
 
   render() {
-    const { type, text, textNumberOfLines, showAsOverlay } = this.props;
+    const { type, text, textNumberOfLines, height, showAsOverlay } = this.props;
 
     type === statusModalTypes.LOADING
       ? this.animateLoading()
@@ -130,7 +134,7 @@ export class StatusModal extends PureComponent<Props, any> {
         style={[animatedStyle, containerStyle]}
         pointerEvents="none"
       >
-        <Wrapper>
+        <Wrapper height={height}>
           {this.renderIcon()}
           {text && (
             <StyledText numberOfLines={textNumberOfLines}>{text}</StyledText>
@@ -141,18 +145,24 @@ export class StatusModal extends PureComponent<Props, any> {
   }
 }
 
-const Wrapper = styled.View`
+interface WrapperProps {
+  height: number;
+}
+
+const Wrapper = styled.View<WrapperProps>`
   align-items: center;
   justify-content: center;
   border-radius: 10px;
   padding: 10px;
   background-color: ${({ theme }) => theme.primary};
   width: 100;
-  height: 100;
+  height: ${props => props.height}px;
+  border-color: ${({ theme }) => theme.darkAccent};
+  border-width: 1px;
 `;
 
 const StyledText = styled.Text`
-  margin-top: 8px;
+  margin-bottom: 8px;
   color: ${({ theme }) => theme.activeTint};
   font-size: 14px;
 `;

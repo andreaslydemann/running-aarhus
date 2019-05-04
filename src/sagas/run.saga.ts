@@ -1,7 +1,11 @@
 import { call, put, takeEvery, takeLeading, all } from "redux-saga/effects";
 import { RUN_TYPES } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
-import { getScheduledRunsSuccess, createRunSuccess } from "actions";
+import {
+  getScheduledRunsSuccess,
+  createRunSuccess,
+  createRunFailure
+} from "actions";
 import { getCurrentUser, navigation } from "utils";
 import axios from "axios";
 
@@ -42,6 +46,6 @@ function* createRun({ payload }: any) {
     yield put(createRunSuccess());
     yield call(navigation.goBack);
   } catch (error) {
-    // yield put(createRunFailure());
+    yield put(createRunFailure());
   }
 }

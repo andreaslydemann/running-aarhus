@@ -6,6 +6,7 @@ import { calculateEndDateTime } from "utils";
 import { RouteDetails } from "../types/common";
 
 const initialState: RunState = {
+  error: false,
   loading: false,
   scheduledRuns: [],
   startDateTime: moment(new Date()).format("LLLL"),
@@ -95,6 +96,8 @@ export default function(state: RunState = initialState, action: Action<any>) {
       return { ...state, loading: true };
     case RUN_TYPES.CREATE_RUN_SUCCESS:
       return { ...state, loading: false };
+    case RUN_TYPES.CREATE_RUN_FAILURE:
+      return { ...state, error: true, loading: false };
     case RUN_TYPES.SET_START_DATE_TIME:
       return setStartDateTime(state, action.payload);
     case RUN_TYPES.SET_TITLE:

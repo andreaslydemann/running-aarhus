@@ -2,6 +2,7 @@ import { RunModel } from "../models";
 import { RouteDetails } from "types/common";
 
 export type RunState = {
+  error: boolean;
   loading: boolean;
   scheduledRuns: RunModel[];
   startDateTime: string;

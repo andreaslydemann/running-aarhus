@@ -10,12 +10,20 @@ import {
   PlanningHeader
 } from "components/common";
 import { styled } from "theme";
+import { StatusModal, statusModalTypes } from "./common/StatusModal";
+import { connect } from "react-redux";
+import * as actions from "../actions";
+import { RunState } from "../types/states";
 
-interface Props {
+interface PropsConnectedState {
+  error: boolean;
+}
+
+interface Props extends PropsConnectedState {
   navigation: { navigate: (screen: string) => void };
 }
 
-export default class PlanningScreen extends React.Component<Props> {
+class PlanningScreen extends React.Component<Props> {
   navigateToDetails(data: any) {
     console.log(data);
     this.props.navigation.navigate("RunDetails");
@@ -81,10 +89,29 @@ export default class PlanningScreen extends React.Component<Props> {
             />
           }
         />
+
+        <StatusModal
+          type={statusModalTypes.ERROR}
+          isVisible={this.props.error}
+          height={135}
+          textNumberOfLines={2}
+          text={"Der skete en fejl"}
+        />
       </Wrapper>
     );
   }
 }
+
+const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
+  return {
+    error: run.error
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(PlanningScreen as React.ComponentClass<Props>);
 
 const Wrapper = styled(ScreenBackground)`
   flex: 1;

@@ -175,8 +175,6 @@ class CreateRunScreen extends React.Component<Props> {
       coordinates = routeDetails.coordinates || [];
     }
 
-    console.log(startDateTime);
-
     return (
       <Wrapper>
         <Header
@@ -241,6 +239,7 @@ class CreateRunScreen extends React.Component<Props> {
         <StatusModal
           type={statusModalTypes.LOADING}
           isVisible={this.props.loading}
+          showAsOverlay={true}
         />
 
         <SubmitButton

@@ -43,6 +43,12 @@ export const createRunSuccess = (): Action<void> => {
   };
 };
 
+export const createRunFailure = (): Action<void> => {
+  return {
+    type: RUN_TYPES.CREATE_RUN_FAILURE
+  };
+};
+
 export const setStartDateTime = (dateTime: string) => {
   return {
     type: RUN_TYPES.SET_START_DATE_TIME,
