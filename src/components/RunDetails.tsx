@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { styled } from "theme";
-import { ScrollView } from "react-native";
+import { styled, theme } from "theme";
+import { Image, ScrollView, View, Text } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import { Header, Button, ScreenBackground } from "components/common";
 import { THEME_PREFIX } from "theme";
@@ -16,13 +16,34 @@ export default class extends Component<Props> {
 
   render() {
     const run = {
-      name: "Intervaller Lørdag",
-      date: Date.now(),
-      duration: { hours: 1, minutes: 40 },
-      location: "Ceres Park",
-      planner: "Anders Andersen",
-      description:
-        "Vi løber 6x4 minutters intervaller på løbebanen. Opvarmning er på et kvarter."
+      cancelled: false,
+      coordinates: [
+        {
+          _latitude: 56.16199992705801,
+          _longitude: 10.161590916784867
+        },
+        {
+          _latitude: 56.15512769268152,
+          _longitude: 10.17518802706289
+        },
+        {
+          _latitude: 56.14233442757844,
+          _longitude: 10.157020454889446
+        },
+        {
+          _latitude: 56.127690141706736,
+          _longitude: 10.17290280134564
+        }
+      ],
+      description: "Fkf",
+      distance: 5.99,
+      endDateTime: "01.30",
+      id: "2L1iuE5xLLP1TuIHedoW",
+      meetingPoint: "30 Åbyhøjvej, Åbyhøj, 8210",
+      pace: 6,
+      startDateTime: "2019-05-27T22:00:00.000Z",
+      title: "Fjjrg",
+      userId: "j2ivAiBvx9ZJ1RqmrGQonHsqqVe2"
     };
 
     const location = { longitude: 0, latitude: 0 };
@@ -31,26 +52,74 @@ export default class extends Component<Props> {
       <Wrapper>
         <ContentWrapper>
           <Header
-            ScreenTitle={run.name}
+            ScreenTitle={run.title}
             navigateBack={() => this.props.navigation.goBack()}
           />
           <ScrollView>
             <DetailsWrapper>
               <SectionTitle>Date</SectionTitle>
-              <InfoText>{run.date}</InfoText>
-              <SectionTitle>Duration</SectionTitle>
-              <InfoText>
-                {run.duration.hours} hours, {run.duration.minutes} minutes
-              </InfoText>
-              <SectionTitle>Location</SectionTitle>
-              <InfoText>{run.location}</InfoText>
-              <SectionTitle>Planner</SectionTitle>
-              <InfoText>{run.planner}</InfoText>
+              <InfoText>{run.startDateTime}</InfoText>
+              <SectionTitle>Distance</SectionTitle>
+              <InfoText>{run.distance} km</InfoText>
+              <SectionTitle>Pace</SectionTitle>
+              <InfoText>{run.pace} min/km</InfoText>
+              <SectionTitle>Meeting point</SectionTitle>
+              <InfoText>{run.meetingPoint}</InfoText>
             </DetailsWrapper>
+
             <DescText>{run.description}</DescText>
+
+            <View style={{ margin: 25 }}>
+              <Text
+                style={{
+                  marginLeft: 10,
+                  fontSize: 17,
+                  color: theme.activeTint
+                }}
+              >
+                Arrangeret af:
+              </Text>
+              <View style={{ flexDirection: "row", alignItems: "center" }}>
+                <Image
+                  style={{ height: 60, width: 60 }}
+                  source={require("../../assets/logo.png")}
+                />
+                <View
+                  style={{
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    marginLeft: 5
+                  }}
+                >
+                  <Text
+                    style={{
+                      fontSize: 17,
+                      color: theme.activeTint
+                    }}
+                  >
+                    Anders Andersen
+                  </Text>
+                  <Text
+                    style={{
+                      fontSize: 14,
+                      color: theme.inactiveTint
+                    }}
+                  >
+                    Medlem siden maj 2017
+                  </Text>
+                </View>
+              </View>
+            </View>
 
             <LinksWrapper>
               <Row>
+                <ButtonWrapper>
+                  <LinkButton
+                    icon={`${THEME_PREFIX}-map`}
+                    onPress={() => this.openMap(location)}
+                  />
+                  <ButtonLabel>Participants</ButtonLabel>
+                </ButtonWrapper>
                 <ButtonWrapper>
                   <LinkButton
                     icon={`${THEME_PREFIX}-map`}
@@ -60,6 +129,10 @@ export default class extends Component<Props> {
                 </ButtonWrapper>
               </Row>
             </LinksWrapper>
+
+            <ButtonWrapper>
+              <LinkButton title="Join" onPress={() => this.openMap(location)} />
+            </ButtonWrapper>
           </ScrollView>
         </ContentWrapper>
       </Wrapper>

@@ -22,7 +22,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TABS, TABBAR_ICONS } from "constants";
 
 const ScheduleStack = createStackNavigator(
-  { ScheduleScreen },
+  { ScheduleScreen, RunDetails },
   { headerMode: "none" }
 );
 

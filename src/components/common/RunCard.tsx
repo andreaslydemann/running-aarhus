@@ -10,14 +10,11 @@ export default ({ data }: { data: any }) => {
   const { startDateTime, endDateTime, meetingPoint, title, cancelled } = data;
 
   const startDate = new Date(startDateTime);
-  const startTimeString = new Date(startDateTime).toLocaleTimeString(
-    Localization.locale,
-    {
-      hour12: false,
-      hour: "numeric",
-      minute: "numeric"
-    }
-  );
+  const startTimeString = startDate.toLocaleTimeString(Localization.locale, {
+    hour12: false,
+    hour: "numeric",
+    minute: "numeric"
+  });
 
   return (
     <Wrapper>
