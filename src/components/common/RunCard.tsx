@@ -7,38 +7,36 @@ import i18n from "i18n-js";
 import { Localization } from "expo";
 
 export default ({ data }: { data: any }) => {
-  const date = new Date(data.date);
-  const startTimeString = date.toLocaleTimeString(Localization.locale, {
-    hour12: false,
-    hour: "numeric",
-    minute: "numeric"
-  });
+  const { startDateTime, endDateTime, meetingPoint, title, cancelled } = data;
 
-  date.setMinutes(date.getMinutes() + data.durationInMins);
-  const endTimeString = date.toLocaleTimeString(Localization.locale, {
-    hour12: false,
-    hour: "numeric",
-    minute: "numeric"
-  });
+  const startDate = new Date(startDateTime);
+  const startTimeString = new Date(startDateTime).toLocaleTimeString(
+    Localization.locale,
+    {
+      hour12: false,
+      hour: "numeric",
+      minute: "numeric"
+    }
+  );
 
   return (
     <Wrapper>
       <Row>
         <View>
           <Day>
-            {date.getDate()} {i18n.t(MONTHS[date.getMonth()])}
+            {startDate.getDate()} {i18n.t(MONTHS[startDate.getMonth()])}
           </Day>
           <Day>
-            {startTimeString} - {endTimeString}
+            {startTimeString} - {endDateTime}
           </Day>
         </View>
         <Label
           numberOfLines={2}
-          text={data.cancelled ? i18n.t("cancelled") : i18n.t("signedUp")}
+          text={cancelled ? i18n.t("cancelled") : i18n.t("signedUp")}
         />
       </Row>
-      <Desc bold>{data.name}</Desc>
-      <Desc numberOfLines={1}>Kennedy Street</Desc>
+      <Desc bold>{title}</Desc>
+      <Desc numberOfLines={1}>{meetingPoint}</Desc>
     </Wrapper>
   );
 };
