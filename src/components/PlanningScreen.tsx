@@ -94,8 +94,9 @@ class PlanningScreen extends React.Component<Props> {
           type={statusModalTypes.ERROR}
           isVisible={this.props.error}
           height={135}
+          width={115}
           textNumberOfLines={2}
-          text={"Der skete en fejl"}
+          text={"Oprettelse mislykkedes"}
         />
       </Wrapper>
     );

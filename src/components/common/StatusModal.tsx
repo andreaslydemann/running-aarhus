@@ -7,9 +7,11 @@ interface Props {
   text?: string;
   isVisible: boolean;
   height: number;
+  width: number;
   textNumberOfLines: number;
   showAsOverlay: boolean;
   type: string;
+  style: object;
 }
 
 export const statusModalTypes = {
@@ -21,9 +23,11 @@ export const statusModalTypes = {
 export class StatusModal extends PureComponent<Props, any> {
   static defaultProps = {
     height: 100,
+    width: 100,
     textNumberOfLines: 1,
     isVisible: true,
-    showAsOverlay: false
+    showAsOverlay: false,
+    style: null
   };
 
   constructor(props: Props) {
@@ -101,15 +105,18 @@ export class StatusModal extends PureComponent<Props, any> {
       text,
       textNumberOfLines,
       height,
+      width,
       showAsOverlay,
-      isVisible
+      isVisible,
+      style
     } = this.props;
     const isLoadingModal = type === statusModalTypes.LOADING;
+    const shouldBlockInputs = isLoadingModal && isVisible && showAsOverlay;
 
     isLoadingModal ? this.animateLoading() : this.animateSuccessOrError();
 
     const containerStyle = {
-      backgroundColor: showAsOverlay ? "rgba(0,0,0,0.3)" : "transparent",
+      backgroundColor: showAsOverlay ? "rgba(0,0,0,0.2)" : "transparent",
       position: "absolute",
       justifyContent: "center",
       alignItems: "center",
@@ -137,10 +144,10 @@ export class StatusModal extends PureComponent<Props, any> {
 
     return (
       <Animated.View
-        style={[animatedStyle, containerStyle]}
-        pointerEvents={isLoadingModal && isVisible ? undefined : "none"}
+        style={[animatedStyle, containerStyle, style]}
+        pointerEvents={shouldBlockInputs ? undefined : "none"}
       >
-        <Wrapper height={height}>
+        <Wrapper height={height} width={width}>
           {this.renderIcon()}
           {text && (
             <StyledText numberOfLines={textNumberOfLines}>{text}</StyledText>
@@ -153,6 +160,7 @@ export class StatusModal extends PureComponent<Props, any> {
 
 interface WrapperProps {
   height: number;
+  width: number;
 }
 
 const Wrapper = styled.View<WrapperProps>`
@@ -161,7 +169,7 @@ const Wrapper = styled.View<WrapperProps>`
   border-radius: 10px;
   padding: 10px;
   background-color: ${({ theme }) => theme.primary};
-  width: 100;
+  width: ${props => props.width}px;
   height: ${props => props.height}px;
   border-color: ${({ theme }) => theme.darkAccent};
   border-width: 1px;

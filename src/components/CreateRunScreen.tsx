@@ -244,9 +244,10 @@ class CreateRunScreen extends React.Component<Props> {
           onPress={() => this.onCreateRun()}
           title={"Gem"}
         />
-        <StatusModal
+
+        <LoadingModal
           type={statusModalTypes.LOADING}
-          isVisible={true}
+          isVisible={this.props.loading}
           showAsOverlay={true}
         />
       </Wrapper>
@@ -296,4 +297,8 @@ const ScrollWrapper = styled.ScrollView`
 
 const SectionTitle = styled.Text`
   color: ${({ theme }) => theme.activeTint};
+`;
+
+const LoadingModal = styled(StatusModal)`
+  margin-bottom: 80px;
 `;
