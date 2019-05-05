@@ -96,11 +96,17 @@ export class StatusModal extends PureComponent<Props, any> {
   }
 
   render() {
-    const { type, text, textNumberOfLines, height, showAsOverlay } = this.props;
+    const {
+      type,
+      text,
+      textNumberOfLines,
+      height,
+      showAsOverlay,
+      isVisible
+    } = this.props;
+    const isLoadingModal = type === statusModalTypes.LOADING;
 
-    type === statusModalTypes.LOADING
-      ? this.animateLoading()
-      : this.animateSuccessOrError();
+    isLoadingModal ? this.animateLoading() : this.animateSuccessOrError();
 
     const containerStyle = {
       backgroundColor: showAsOverlay ? "rgba(0,0,0,0.3)" : "transparent",
@@ -132,7 +138,7 @@ export class StatusModal extends PureComponent<Props, any> {
     return (
       <Animated.View
         style={[animatedStyle, containerStyle]}
-        pointerEvents="none"
+        pointerEvents={isLoadingModal && isVisible ? undefined : "none"}
       >
         <Wrapper height={height}>
           {this.renderIcon()}

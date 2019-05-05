@@ -236,11 +236,6 @@ class CreateRunScreen extends React.Component<Props> {
             </Section>
           )}
         </ScrollWrapper>
-        <StatusModal
-          type={statusModalTypes.LOADING}
-          isVisible={this.props.loading}
-          showAsOverlay={true}
-        />
 
         <SubmitButton
           disabled={
@@ -248,6 +243,11 @@ class CreateRunScreen extends React.Component<Props> {
           }
           onPress={() => this.onCreateRun()}
           title={"Gem"}
+        />
+        <StatusModal
+          type={statusModalTypes.LOADING}
+          isVisible={true}
+          showAsOverlay={true}
         />
       </Wrapper>
     );
