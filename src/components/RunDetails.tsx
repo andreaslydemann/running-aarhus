@@ -1,9 +1,8 @@
 import React, { Component } from "react";
-import { styled, theme } from "theme";
-import { Image, ScrollView, View, Text } from "react-native";
-import { SafeAreaView } from "react-navigation";
+import { styled, theme, THEME_PREFIX } from "theme";
+import { Image, View } from "react-native";
 import { Header, Button, ScreenBackground } from "components/common";
-import { THEME_PREFIX } from "theme";
+import { Ionicons } from "@expo/vector-icons";
 
 interface Props {
   navigation: { goBack: () => void };
@@ -35,7 +34,8 @@ export default class extends Component<Props> {
           _longitude: 10.17290280134564
         }
       ],
-      description: "Fkf",
+      description:
+        "This is a great run and its a great run and a great run and a great run and a great run and a great run and a great run.",
       distance: 5.99,
       endDateTime: "01.30",
       id: "2L1iuE5xLLP1TuIHedoW",
@@ -50,112 +50,101 @@ export default class extends Component<Props> {
 
     return (
       <Wrapper>
-        <ContentWrapper>
-          <Header
-            ScreenTitle={run.title}
-            navigateBack={() => this.props.navigation.goBack()}
-          />
-          <ScrollView>
-            <DetailsWrapper>
+        <Header
+          ScreenTitle={run.title}
+          navigateBack={() => this.props.navigation.goBack()}
+        />
+        <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
+          <DetailsWrapper>
+            <BottomMargin>
               <SectionTitle>Date</SectionTitle>
               <InfoText>{run.startDateTime}</InfoText>
+            </BottomMargin>
+            <BottomMargin>
               <SectionTitle>Distance</SectionTitle>
               <InfoText>{run.distance} km</InfoText>
+            </BottomMargin>
+            <BottomMargin>
               <SectionTitle>Pace</SectionTitle>
               <InfoText>{run.pace} min/km</InfoText>
-              <SectionTitle>Meeting point</SectionTitle>
-              <InfoText>{run.meetingPoint}</InfoText>
-            </DetailsWrapper>
+            </BottomMargin>
+            <SectionTitle>Meeting point</SectionTitle>
+            <InfoText>{run.meetingPoint}</InfoText>
+          </DetailsWrapper>
 
-            <DescText>{run.description}</DescText>
+          <Icon
+            name={`${THEME_PREFIX}-walk`}
+            size={40}
+            color={theme.activeTint}
+          />
 
-            <View style={{ margin: 25 }}>
-              <Text
-                style={{
-                  marginLeft: 10,
-                  fontSize: 17,
-                  color: theme.activeTint
-                }}
-              >
-                Arrangeret af:
-              </Text>
-              <View style={{ flexDirection: "row", alignItems: "center" }}>
-                <Image
-                  style={{ height: 60, width: 60 }}
-                  source={require("../../assets/logo.png")}
-                />
-                <View
-                  style={{
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    marginLeft: 5
-                  }}
-                >
-                  <Text
-                    style={{
-                      fontSize: 17,
-                      color: theme.activeTint
-                    }}
-                  >
-                    Anders Andersen
-                  </Text>
-                  <Text
-                    style={{
-                      fontSize: 14,
-                      color: theme.inactiveTint
-                    }}
-                  >
-                    Medlem siden maj 2017
-                  </Text>
-                </View>
-              </View>
+          <DescText>{run.description}</DescText>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              marginVertical: 35
+            }}
+          >
+            <Image
+              style={{ height: 60, width: 60 }}
+              source={require("../../assets/logo.png")}
+            />
+            <View
+              style={{
+                flexDirection: "column",
+                justifyContent: "center",
+                marginLeft: 5
+              }}
+            >
+              <SectionTitle>Arrangør:</SectionTitle>
+              <InfoText>Anders Andersen</InfoText>
             </View>
+          </View>
 
-            <LinksWrapper>
-              <Row>
-                <ButtonWrapper>
-                  <LinkButton
-                    icon={`${THEME_PREFIX}-map`}
-                    onPress={() => this.openMap(location)}
-                  />
-                  <ButtonLabel>Participants</ButtonLabel>
-                </ButtonWrapper>
-                <ButtonWrapper>
-                  <LinkButton
-                    icon={`${THEME_PREFIX}-map`}
-                    onPress={() => this.openMap(location)}
-                  />
-                  <ButtonLabel>Location</ButtonLabel>
-                </ButtonWrapper>
-              </Row>
-            </LinksWrapper>
-
+          <Row>
             <ButtonWrapper>
-              <LinkButton title="Join" onPress={() => this.openMap(location)} />
+              <LinkButton
+                icon={`${THEME_PREFIX}-people`}
+                onPress={() => this.openMap(location)}
+              />
+              <ButtonLabel>Participants</ButtonLabel>
             </ButtonWrapper>
-          </ScrollView>
-        </ContentWrapper>
+            <ButtonWrapper>
+              <LinkButton
+                icon={`${THEME_PREFIX}-map`}
+                onPress={() => this.openMap(location)}
+              />
+              <ButtonLabel>Location</ButtonLabel>
+            </ButtonWrapper>
+          </Row>
+
+          <ButtonWrapper>
+            <LinkButton title="Join" onPress={() => this.openMap(location)} />
+          </ButtonWrapper>
+        </ScrollWrapper>
       </Wrapper>
     );
   }
 }
 
 const Wrapper = styled(ScreenBackground)`
+  padding: 44px 0 0 0;
   flex: 1;
+`;
+
+const ScrollWrapper = styled.ScrollView`
+  padding: 0 20px;
 `;
 
 const DetailsWrapper = styled.View`
   background: ${({ theme }) => theme.primary};
-  margin: 25px;
   border-radius: 20px;
   padding: 20px;
   overflow: hidden;
   flex: 1;
   justify-content: flex-end;
-`;
-
-const ContentWrapper = styled(SafeAreaView)`
-  flex: 1;
 `;
 
 const SectionTitle = styled.Text`
@@ -166,18 +155,12 @@ const SectionTitle = styled.Text`
 const InfoText = styled.Text`
   color: ${({ theme }) => theme.activeTint};
   font-size: 16px;
-  margin-bottom: 15px;
-  margin-left: 5px;
 `;
 
 const DescText = styled.Text`
   color: ${({ theme }) => theme.activeTint};
   text-align: justify;
-  margin: 25px;
-`;
-
-const LinksWrapper = styled.View`
-  margin: 20px;
+  margin-horizontal: 5px;
 `;
 
 const Row = styled.View`
@@ -189,15 +172,24 @@ const Row = styled.View`
 `;
 
 const LinkButton = styled(Button)`
-  width: 80%;
+  width: 100%;
 `;
 
 const ButtonLabel = styled.Text`
-  color: #bbb;
+  color: ${({ theme }) => theme.inactiveTint};
   margin: 3px;
 `;
 
 const ButtonWrapper = styled.View`
-  flex: 1;
+  flex: 0.47;
   align-items: center;
+`;
+
+const BottomMargin = styled.View`
+  margin-bottom: 18px;
+`;
+
+const Icon = styled(Ionicons)`
+  align-self: center;
+  margin-vertical: 20px;
 `;
