@@ -10,7 +10,7 @@ import {
   SignInScreen,
   PlanningScreen,
   PastScreen,
-  RunDetails,
+  RunDetailsScreen,
   SettingsScreen,
   MapScreen,
   CreateRunScreen
@@ -22,12 +22,12 @@ import { Ionicons } from "@expo/vector-icons";
 import { TABS, TABBAR_ICONS } from "constants";
 
 const ScheduleStack = createStackNavigator(
-  { ScheduleScreen, RunDetails },
+  { ScheduleScreen, RunDetailsScreen },
   { headerMode: "none" }
 );
 
 const FindRunStack = createStackNavigator(
-  { PlanningScreen, RunDetails },
+  { PlanningScreen, RunDetailsScreen },
   { headerMode: "none" }
 );
 

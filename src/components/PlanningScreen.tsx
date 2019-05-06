@@ -26,7 +26,7 @@ interface Props extends PropsConnectedState {
 class PlanningScreen extends React.Component<Props> {
   navigateToDetails(data: any) {
     console.log(data);
-    this.props.navigation.navigate("RunDetails");
+    this.props.navigation.navigate("RunDetailsScreen");
   }
 
   render(): JSX.Element {
