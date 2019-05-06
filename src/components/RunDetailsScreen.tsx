@@ -35,7 +35,7 @@ export default class extends Component<Props> {
         }
       ],
       description:
-        "This is a great run and its a great run and a great run and a great run and a great run and a great run and a great run.",
+        "This is a great run and its a great run and its a great run and its a great run and its a great run and its a great run.",
       distance: 5.99,
       endDateTime: "01.30",
       id: "2L1iuE5xLLP1TuIHedoW",
@@ -64,10 +64,12 @@ export default class extends Component<Props> {
               <SectionTitle>Distance</SectionTitle>
               <InfoText>{run.distance} km</InfoText>
             </BottomMargin>
-            <BottomMargin>
-              <SectionTitle>Pace</SectionTitle>
-              <InfoText>{run.pace} min/km</InfoText>
-            </BottomMargin>
+            {run.pace && (
+              <BottomMargin>
+                <SectionTitle>Pace</SectionTitle>
+                <InfoText>{run.pace} min/km</InfoText>
+              </BottomMargin>
+            )}
             <SectionTitle>Meeting point</SectionTitle>
             <InfoText>{run.meetingPoint}</InfoText>
           </DetailsWrapper>
@@ -78,13 +80,13 @@ export default class extends Component<Props> {
             color={theme.activeTint}
           />
 
-          <DescText>{run.description}</DescText>
+          {run.description ? <DescText>{run.description}</DescText> : null}
 
           <View
             style={{
               flexDirection: "row",
               alignItems: "center",
-              marginVertical: 35
+              marginBottom: 35
             }}
           >
             <Image
@@ -161,6 +163,7 @@ const DescText = styled.Text`
   color: ${({ theme }) => theme.activeTint};
   text-align: justify;
   margin-horizontal: 5px;
+  margin-bottom: 35px;
 `;
 
 const Row = styled.View`
