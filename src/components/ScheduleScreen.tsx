@@ -11,7 +11,7 @@ import { styled } from "theme";
 import { Action } from "actions/common";
 import * as actions from "actions";
 import { connect } from "react-redux";
-import { RunState } from "types/states";
+import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
 import { navigation } from "../utils";
 import { SafeAreaView } from "react-navigation";
@@ -27,7 +27,7 @@ interface PropsConnectedDispatcher {
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
-  navigation: { navigate: (screen: string) => void };
+  navigation: { navigate: (screen: string, params?: any) => void };
 }
 
 class ScheduleScreen extends React.Component<Props> {
@@ -38,7 +38,7 @@ class ScheduleScreen extends React.Component<Props> {
 
   navigateToDetails(data: any) {
     console.log(data);
-    this.props.navigation.navigate("RunDetailsScreen");
+    this.props.navigation.navigate("RunDetailsScreen", { run: data });
   }
 
   render(): JSX.Element {
@@ -74,10 +74,14 @@ class ScheduleScreen extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
+const mapStateToProps = ({
+  schedule
+}: {
+  schedule: ScheduleState;
+}): PropsConnectedState => {
   return {
-    scheduledRuns: run.scheduledRuns,
-    loading: run.loading
+    scheduledRuns: schedule.scheduledRuns,
+    loading: schedule.loading
   };
 };
 

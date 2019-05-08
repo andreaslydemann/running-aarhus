@@ -2,9 +2,6 @@ import { Action } from "./common";
 import { RouteDetails } from "types/common";
 
 export const RUN_TYPES = {
-  GET_SCHEDULED_RUNS_REQUEST: "GET_SCHEDULED_RUNS_REQUEST",
-  GET_SCHEDULED_RUNS_SUCCESS: "GET_SCHEDULED_RUNS_SUCCESS",
-  GET_SCHEDULED_RUNS_FAILURE: "GET_SCHEDULED_RUNS_FAILURE",
   CREATE_RUN_REQUEST: "CREATE_RUN_REQUEST",
   CREATE_RUN_SUCCESS: "CREATE_RUN_SUCCESS",
   CREATE_RUN_FAILURE: "CREATE_RUN_FAILURE",
@@ -15,19 +12,6 @@ export const RUN_TYPES = {
   INCREASE_PACE: "INCREASE_PACE",
   DECREASE_PACE: "DECREASE_PACE",
   SET_ROUTE: "SET_ROUTE"
-};
-
-export const getScheduledRuns = (): Action<void> => {
-  return {
-    type: RUN_TYPES.GET_SCHEDULED_RUNS_REQUEST
-  };
-};
-
-export const getScheduledRunsSuccess = (runs: any): Action<any> => {
-  return {
-    type: RUN_TYPES.GET_SCHEDULED_RUNS_SUCCESS,
-    payload: runs
-  };
 };
 
 export const createRun = (run: any): Action<any> => {

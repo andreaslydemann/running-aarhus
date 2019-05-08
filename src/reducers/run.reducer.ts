@@ -8,7 +8,6 @@ import { RouteDetails } from "../types/common";
 const initialState: RunState = {
   error: false,
   loading: false,
-  scheduledRuns: [],
   startDateTime: moment(new Date()).format("LLLL"),
   title: "",
   description: "",
@@ -88,10 +87,6 @@ function togglePace(state: RunState) {
 
 export default function(state: RunState = initialState, action: Action<any>) {
   switch (action.type) {
-    case RUN_TYPES.GET_SCHEDULED_RUNS_REQUEST:
-      return { ...state, loading: true };
-    case RUN_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
-      return { ...state, scheduledRuns: action.payload, loading: false };
     case RUN_TYPES.CREATE_RUN_REQUEST:
       return { ...state, loading: true };
     case RUN_TYPES.CREATE_RUN_SUCCESS:
