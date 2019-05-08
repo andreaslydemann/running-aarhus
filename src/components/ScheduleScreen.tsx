@@ -24,6 +24,7 @@ interface PropsConnectedState {
 
 interface PropsConnectedDispatcher {
   getScheduledRuns: () => Action<void>;
+  setSelectedRun: (run: any) => Action<object>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -36,9 +37,9 @@ class ScheduleScreen extends React.Component<Props> {
     this.props.getScheduledRuns();
   }
 
-  navigateToDetails(data: any) {
-    console.log(data);
-    this.props.navigation.navigate("RunDetailsScreen", { run: data });
+  navigateToDetails(run: any) {
+    this.props.setSelectedRun(run);
+    this.props.navigation.navigate("RunDetailsScreen");
   }
 
   render(): JSX.Element {

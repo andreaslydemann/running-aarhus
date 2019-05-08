@@ -3,50 +3,28 @@ import { styled, theme, THEME_PREFIX } from "theme";
 import { Image, View } from "react-native";
 import { Header, Button, ScreenBackground } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
+import { ScheduleState } from "../types/states";
+import { connect } from "react-redux";
+import * as actions from "../actions";
 
-interface Props {
+interface PropsConnectedState {
+  run: any;
+  loading: boolean;
+}
+
+interface PropsConnectedDispatcher {}
+
+interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: { goBack: () => void };
 }
 
-export default class extends Component<Props> {
+class RunDetailsScreen extends Component<Props> {
   openMap({ longitude, latitude }: { longitude: number; latitude: number }) {
     console.log(longitude, latitude);
   }
 
   render() {
-    const run = {
-      cancelled: false,
-      coordinates: [
-        {
-          _latitude: 56.16199992705801,
-          _longitude: 10.161590916784867
-        },
-        {
-          _latitude: 56.15512769268152,
-          _longitude: 10.17518802706289
-        },
-        {
-          _latitude: 56.14233442757844,
-          _longitude: 10.157020454889446
-        },
-        {
-          _latitude: 56.127690141706736,
-          _longitude: 10.17290280134564
-        }
-      ],
-      description:
-        "This is a great run and its a great run and its a great run and its a great run and its a great run and its a great run.",
-      distance: 5.99,
-      endDateTime: "01.30",
-      id: "2L1iuE5xLLP1TuIHedoW",
-      meetingPoint: "30 Åbyhøjvej, Åbyhøj, 8210",
-      pace: 6,
-      startDateTime: "2019-05-27T22:00:00.000Z",
-      title: "Fjjrg",
-      userId: "j2ivAiBvx9ZJ1RqmrGQonHsqqVe2"
-    };
-
-    const location = { longitude: 0, latitude: 0 };
+    const { run } = this.props;
 
     return (
       <Wrapper>
@@ -109,27 +87,43 @@ export default class extends Component<Props> {
             <ButtonWrapper>
               <LinkButton
                 icon={`${THEME_PREFIX}-people`}
-                onPress={() => this.openMap(location)}
+                onPress={() => console.log("hello")}
               />
               <ButtonLabel>Participants</ButtonLabel>
             </ButtonWrapper>
             <ButtonWrapper>
               <LinkButton
                 icon={`${THEME_PREFIX}-map`}
-                onPress={() => this.openMap(location)}
+                onPress={() => console.log("hello")}
               />
               <ButtonLabel>Location</ButtonLabel>
             </ButtonWrapper>
           </Row>
 
           <ButtonWrapper>
-            <LinkButton title="Join" onPress={() => this.openMap(location)} />
+            <LinkButton title="Join" onPress={() => console.log("hello")} />
           </ButtonWrapper>
         </ScrollWrapper>
       </Wrapper>
     );
   }
 }
+
+const mapStateToProps = ({
+  schedule
+}: {
+  schedule: ScheduleState;
+}): PropsConnectedState => {
+  return {
+    run: schedule.selectedRun,
+    loading: schedule.loading
+  };
+};
+
+export default connect(
+  mapStateToProps,
+  actions
+)(RunDetailsScreen as React.ComponentClass<Props>);
 
 const Wrapper = styled(ScreenBackground)`
   padding: 44px 0 0 0;

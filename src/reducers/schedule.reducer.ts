@@ -19,7 +19,7 @@ export default function(
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
       return { ...state, scheduledRuns: action.payload, loading: false };
     case SCHEDULE_TYPES.SET_SELECTED_RUN:
-      return { ...state, title: action.payload };
+      return { ...state, selectedRun: action.payload };
     default:
       return state;
   }
