@@ -24,7 +24,8 @@ export default ({ data }: { data: any }) => {
             {startDate.getDate()} {i18n.t(MONTHS[startDate.getMonth()])}
           </Day>
           <Day>
-            {startTimeString} - {endDateTime}
+            {startTimeString}
+            {endDateTime ? " - " + endDateTime : null}
           </Day>
         </View>
         <Label

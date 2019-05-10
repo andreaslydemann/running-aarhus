@@ -6,6 +6,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { ScheduleState } from "../types/states";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import moment from "moment";
 
 interface PropsConnectedState {
   run: any;
@@ -26,6 +27,10 @@ class RunDetailsScreen extends Component<Props> {
   render() {
     const { run } = this.props;
 
+    const startDate = new Date(run.startDateTime);
+    const startTimeString = moment(startDate).utc();
+    const str = startTimeString.format("LLLL");
+
     return (
       <Wrapper>
         <Header
@@ -36,7 +41,7 @@ class RunDetailsScreen extends Component<Props> {
           <DetailsWrapper>
             <BottomMargin>
               <SectionTitle>Date</SectionTitle>
-              <InfoText>{run.startDateTime}</InfoText>
+              <InfoText>{str}</InfoText>
             </BottomMargin>
             <BottomMargin>
               <SectionTitle>Distance</SectionTitle>

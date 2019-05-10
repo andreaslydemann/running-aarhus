@@ -4,6 +4,10 @@ import { RUN_TYPES } from "actions";
 import moment from "moment";
 import { calculateEndDateTime } from "utils";
 import { RouteDetails } from "../types/common";
+import { Localization } from "expo";
+import "moment/locale/da";
+
+moment.locale(Localization.locale === "da-DK" ? "da" : "en");
 
 const initialState: RunState = {
   error: false,
