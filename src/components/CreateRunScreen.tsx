@@ -19,6 +19,9 @@ import { Action } from "actions/common";
 import { RunState } from "types/states";
 import { Coordinate, RouteDetails } from "types/common";
 import { statusModalTypes, StatusModal } from "./common/StatusModal";
+import { Localization } from "expo";
+
+const language = Localization.locale.split("-")[0];
 
 interface PropsConnectedState {
   startDateTime: string;
@@ -50,9 +53,12 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
 
 class CreateRunScreen extends React.Component<Props> {
   renderDatePicker() {
+    console.log(this.props.startDateTime);
+
     return [
       <Subtitle titleText={"Date and time"} showInfoIcon={false} />,
       <DatePicker
+        locale={language === "da" ? "da" : "en-gb"}
         date={this.props.startDateTime}
         onDateChange={dateTime => this.props.setStartDateTime(dateTime)}
         is24Hour={true}

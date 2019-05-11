@@ -5,9 +5,10 @@ import moment from "moment";
 import { calculateEndDateTime } from "utils";
 import { RouteDetails } from "../types/common";
 import { Localization } from "expo";
-import "moment/locale/da";
+import "moment/min/locales";
 
-moment.locale(Localization.locale === "da-DK" ? "da" : "en");
+const language = Localization.locale.split("-")[0];
+moment.locale(language === "da" ? "da" : "en-gb");
 
 const initialState: RunState = {
   error: false,
