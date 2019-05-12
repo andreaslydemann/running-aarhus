@@ -242,6 +242,7 @@ class MapScreen extends React.Component<Props, State> {
         />
         <MapViewWrapper>
           <StyledMapView
+            userLocationAnnotationTitle={""}
             showsUserLocation={true}
             provider={PROVIDER_DEFAULT}
             ref={(ref: any) => {
