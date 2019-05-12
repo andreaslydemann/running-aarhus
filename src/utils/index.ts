@@ -1,4 +1,3 @@
-export * from "./configureStore";
 export * from "./distance.utils";
 export * from "./getCurrentUser";
 export * from "./getAddressOfCoordinate";

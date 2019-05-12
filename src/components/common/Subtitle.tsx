@@ -1,6 +1,6 @@
 import { styled, THEME_PREFIX } from "theme";
 import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity, View, Text } from "react-native";
+import { TouchableOpacity, View, Text, YellowBox } from "react-native";
 import React, { Component } from "react";
 import Dialog, {
   DialogTitle,
@@ -10,6 +10,8 @@ import Dialog, {
   ScaleAnimation
 } from "react-native-popup-dialog";
 import i18n from "i18n-js";
+
+YellowBox.ignoreWarnings(["DialogActionList"]);
 
 interface State {
   dialogVisible: boolean;

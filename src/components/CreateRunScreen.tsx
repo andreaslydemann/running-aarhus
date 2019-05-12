@@ -56,8 +56,13 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
 class CreateRunScreen extends React.Component<Props> {
   renderDatePicker() {
     return [
-      <Subtitle titleText={"Date and time"} showInfoIcon={false} />,
+      <Subtitle
+        titleText={"Date and time"}
+        showInfoIcon={false}
+        key={"subtitle"}
+      />,
       <DatePicker
+        key={"datepicker"}
         locale={language}
         date={this.props.startDateTime}
         onDateChange={dateTime => console.log(dateTime)}
@@ -110,6 +115,7 @@ class CreateRunScreen extends React.Component<Props> {
 
     return [
       <Subtitle
+        key={"subtitle"}
         titleText={"Pace"}
         showInfoIcon={true}
         dialogTitle={"Pace"}
@@ -117,7 +123,7 @@ class CreateRunScreen extends React.Component<Props> {
           "The pace is the average tempo which, in combination with the set route, is used to estimate the time that the run will be finished."
         }
       />,
-      <Section top touchable={false}>
+      <Section top touchable={false} key={"section1"}>
         <SectionTitle>Use average tempo</SectionTitle>
         <Switch
           value={this.props.paceEnabled}
@@ -129,6 +135,7 @@ class CreateRunScreen extends React.Component<Props> {
         disabled={!this.props.paceEnabled}
         touchable={false}
         style={{ justifyContent: "space-around" }}
+        key={"section2"}
       >
         <PaceButtonWrapper
           disabled={!this.props.paceEnabled}
