@@ -4,7 +4,7 @@ export const SCHEDULE_TYPES = {
   GET_SCHEDULED_RUNS_REQUEST: "GET_SCHEDULED_RUNS_REQUEST",
   GET_SCHEDULED_RUNS_SUCCESS: "GET_SCHEDULED_RUNS_SUCCESS",
   GET_SCHEDULED_RUNS_FAILURE: "GET_SCHEDULED_RUNS_FAILURE",
-  SET_SELECTED_RUN: "SET_SELECTED_RUN"
+  SET_SCHEDULED_RUN: "SET_SCHEDULED_RUN"
 };
 
 export const getScheduledRuns = (): Action<void> => {
@@ -20,9 +20,9 @@ export const getScheduledRunsSuccess = (runs: any): Action<any> => {
   };
 };
 
-export const setSelectedRun = (run: any) => {
+export const setScheduledRun = (run: any) => {
   return {
-    type: SCHEDULE_TYPES.SET_SELECTED_RUN,
+    type: SCHEDULE_TYPES.SET_SCHEDULED_RUN,
     payload: run
   };
 };

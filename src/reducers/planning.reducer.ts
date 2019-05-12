@@ -1,24 +1,24 @@
 import { Action } from "actions/common";
-import { ScheduleState } from "types/states";
-import { SCHEDULE_TYPES } from "actions";
+import { PlanningState } from "types/states";
+import { PLANNING_TYPES } from "actions";
 
-const initialState: ScheduleState = {
+const initialState: PlanningState = {
   error: false,
   loading: false,
-  scheduledRuns: [],
+  upcomingRuns: [],
   selectedRun: {}
 };
 
 export default function(
-  state: ScheduleState = initialState,
+  state: PlanningState = initialState,
   action: Action<any>
 ) {
   switch (action.type) {
-    case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_REQUEST:
+    case PLANNING_TYPES.GET_UPCOMING_RUNS_REQUEST:
       return { ...state, loading: true };
-    case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
+    case PLANNING_TYPES.GET_UPCOMING_RUNS_SUCCESS:
       return { ...state, scheduledRuns: action.payload, loading: false };
-    case SCHEDULE_TYPES.SET_SCHEDULED_RUN:
+    case PLANNING_TYPES.SET_UPCOMING_RUN:
       return { ...state, selectedRun: action.payload };
     default:
       return state;

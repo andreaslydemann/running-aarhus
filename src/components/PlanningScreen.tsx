@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, RefreshControl, ActivityIndicator } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import i18n from "i18n-js";
 import {
   ScreenTitle,
@@ -12,11 +12,15 @@ import {
 import { styled } from "theme";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 import { connect } from "react-redux";
-import * as actions from "../actions";
-import { RunState } from "../types/states";
+import * as actions from "actions";
+import { PlanningState } from "types/states";
+import { RunModel } from "types/models";
+import { SafeAreaView } from "react-navigation";
 
 interface PropsConnectedState {
   error: boolean;
+  loading: boolean;
+  upcomingRuns: RunModel[];
 }
 
 interface Props extends PropsConnectedState {
@@ -30,66 +34,57 @@ class PlanningScreen extends React.Component<Props> {
   }
 
   render(): JSX.Element {
-    const showMoreEnabled = false;
+    const showMoreEnabled = this.props.upcomingRuns.length > 0;
 
-    const data = {
-      runs: [
-        {
-          id: 1,
-          netstamp: Date.now(),
-          label: "hello",
-          name: "Intervaller Lørdag",
-          location: "Ceres Park"
-        }
-      ]
-    };
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("planningTitle")} />
-
-        <FlatList
-          ListHeaderComponent={
-            <PlanningHeader
-              onLeftItemPress={() => console.log("clicked")}
-              onMiddleItemPress={() =>
-                this.props.navigation.navigate("CreateRunScreen")
-              }
-              onRightItemPress={() => console.log("clicked")}
-            />
-          }
-          data={data.runs}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
-            <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-              <RunCard data={item} />
-            </PushableWrapper>
-          )}
-          ListFooterComponent={() => (
-            <>
-              {showMoreEnabled ? (
-                <ActivityIndicator size="large" />
-              ) : (
-                <LoadMoreButton
-                  title="Load more"
-                  onPress={() => {
-                    console.log("hello");
-                  }}
-                  disabled={false}
-                />
-              )}
-            </>
-          )}
-          refreshControl={
-            <RefreshControl
-              refreshing={false}
-              onRefresh={() => {
-                console.log("hello");
-              }}
-              tintColor="#fff"
-            />
-          }
+        <ContentWrapper>
+          <FlatList
+            ListHeaderComponent={
+              <PlanningHeader
+                onLeftItemPress={() => console.log("clicked")}
+                onMiddleItemPress={() =>
+                  this.props.navigation.navigate("CreateRunScreen")
+                }
+                onRightItemPress={() => console.log("clicked")}
+              />
+            }
+            data={this.props.upcomingRuns}
+            keyExtractor={(item: RunModel) => item.id}
+            renderItem={({ item }) => (
+              <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+                <RunCard data={item} />
+              </PushableWrapper>
+            )}
+            ListFooterComponent={() => (
+              <>
+                {showMoreEnabled && (
+                  <LoadMoreButton
+                    title="Load more"
+                    onPress={() => {
+                      console.log("hello");
+                    }}
+                    disabled={false}
+                  />
+                )}
+              </>
+            )}
+            refreshControl={
+              <RefreshControl
+                refreshing={false}
+                onRefresh={() => {
+                  console.log("hello");
+                }}
+                tintColor="#fff"
+              />
+            }
+          />
+        </ContentWrapper>
+        <StatusModal
+          type={statusModalTypes.LOADING}
+          isVisible={this.props.loading}
         />
-
         <StatusModal
           type={statusModalTypes.ERROR}
           isVisible={this.props.error}
@@ -103,9 +98,15 @@ class PlanningScreen extends React.Component<Props> {
   }
 }
 
-const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
+const mapStateToProps = ({
+  planning
+}: {
+  planning: PlanningState;
+}): PropsConnectedState => {
   return {
-    error: run.error
+    upcomingRuns: planning.upcomingRuns,
+    error: planning.error,
+    loading: planning.loading
   };
 };
 
@@ -121,4 +122,9 @@ const Wrapper = styled(ScreenBackground)`
 
 const LoadMoreButton = styled(Button)`
   margin: 0px 20% 20px 20%;
+`;
+
+const ContentWrapper = styled(SafeAreaView)`
+  flex: 1;
+  justify-content: center;
 `;
