@@ -1,4 +1,5 @@
 import { Action } from "./common";
+import { RunRequest } from "types/common";
 
 export const PLANNING_TYPES = {
   GET_UPCOMING_RUNS_REQUEST: "GET_UPCOMING_RUNS_REQUEST",
@@ -7,9 +8,13 @@ export const PLANNING_TYPES = {
   SET_UPCOMING_RUN: "SET_UPCOMING_RUN"
 };
 
-export const getUpcomingRuns = (): Action<void> => {
+export const getUpcomingRuns = (
+  numberOfRuns: number,
+  offset: number
+): Action<RunRequest> => {
   return {
-    type: PLANNING_TYPES.GET_UPCOMING_RUNS_REQUEST
+    type: PLANNING_TYPES.GET_UPCOMING_RUNS_REQUEST,
+    payload: { numberOfRuns, offset }
   };
 };
 

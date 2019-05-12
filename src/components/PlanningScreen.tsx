@@ -9,13 +9,15 @@ import {
   Button,
   PlanningHeader
 } from "components/common";
-import { styled } from "theme";
+import { styled, theme } from "theme";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 import { connect } from "react-redux";
 import * as actions from "actions";
 import { PlanningState } from "types/states";
 import { RunModel } from "types/models";
+import { RunRequest } from "types/common";
 import { SafeAreaView } from "react-navigation";
+import { Action } from "actions/common";
 
 interface PropsConnectedState {
   error: boolean;
@@ -23,7 +25,11 @@ interface PropsConnectedState {
   upcomingRuns: RunModel[];
 }
 
-interface Props extends PropsConnectedState {
+interface PropsConnectedDispatcher {
+  getUpcomingRuns: (numberOfRuns: number, offset: number) => Action<RunRequest>;
+}
+
+interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: { navigate: (screen: string, params?: any) => void };
 }
 
@@ -35,8 +41,13 @@ class PlanningScreen extends React.Component<Props> {
     });
   }
 
+  loadMore = () => {
+    const offset = this.props.upcomingRuns.length;
+    this.props.getUpcomingRuns(5, offset);
+  };
+
   render(): JSX.Element {
-    const showMoreEnabled = this.props.upcomingRuns.length > 0;
+    const { loading, upcomingRuns } = this.props;
 
     return (
       <Wrapper>
@@ -61,15 +72,17 @@ class PlanningScreen extends React.Component<Props> {
             )}
             ListFooterComponent={() => (
               <>
-                {showMoreEnabled && (
-                  <LoadMoreButton
-                    title="Load more"
-                    onPress={() => {
-                      console.log("hello");
-                    }}
-                    disabled={false}
-                  />
-                )}
+                {upcomingRuns.length ? (
+                  loading ? (
+                    <Spinner color={theme.activeTint} size="large" />
+                  ) : (
+                    <LoadMoreButton
+                      title="Load more"
+                      onPress={this.loadMore}
+                      disabled={this.props.loading}
+                    />
+                  )
+                ) : null}
               </>
             )}
             refreshControl={
@@ -83,10 +96,6 @@ class PlanningScreen extends React.Component<Props> {
             }
           />
         </ContentWrapper>
-        <StatusModal
-          type={statusModalTypes.LOADING}
-          isVisible={this.props.loading}
-        />
         <StatusModal
           type={statusModalTypes.ERROR}
           isVisible={this.props.error}
@@ -129,4 +138,8 @@ const LoadMoreButton = styled(Button)`
 const ContentWrapper = styled(SafeAreaView)`
   flex: 1;
   justify-content: center;
+`;
+
+const Spinner = styled.ActivityIndicator`
+  margin: 10px;
 `;

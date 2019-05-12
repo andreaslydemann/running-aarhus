@@ -9,7 +9,6 @@ import {
 import { styled } from "theme";
 import { FlatList, RefreshControl } from "react-native";
 import { RunModel } from "../types/models";
-import { StatusModal, statusModalTypes } from "./common/StatusModal";
 import { Action } from "../actions/common";
 import { PastState } from "../types/states";
 import { connect } from "react-redux";
@@ -72,10 +71,6 @@ class PastScreen extends React.Component<Props> {
             }
           />
         </ContentWrapper>
-        <StatusModal
-          type={statusModalTypes.LOADING}
-          isVisible={this.props.loading}
-        />
       </Wrapper>
     );
   }

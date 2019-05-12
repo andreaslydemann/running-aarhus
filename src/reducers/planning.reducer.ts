@@ -17,7 +17,7 @@ export default function(
     case PLANNING_TYPES.GET_UPCOMING_RUNS_REQUEST:
       return { ...state, loading: true };
     case PLANNING_TYPES.GET_UPCOMING_RUNS_SUCCESS:
-      return { ...state, scheduledRuns: action.payload, loading: false };
+      return { ...state, upcomingRuns: action.payload, loading: false };
     case PLANNING_TYPES.SET_UPCOMING_RUN:
       return { ...state, selectedRun: action.payload };
     default:

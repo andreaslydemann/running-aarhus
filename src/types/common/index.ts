@@ -3,6 +3,11 @@ export type Coordinate = {
   longitude: number;
 };
 
+export type RunRequest = {
+  numberOfRuns: number;
+  offset: number;
+};
+
 export interface RouteDetails {
   coordinates?: Coordinate[];
   meetingPoint: string;

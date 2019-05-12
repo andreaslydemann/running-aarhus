@@ -13,6 +13,7 @@ import * as actions from "actions";
 import { connect } from "react-redux";
 import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
+import { RunRequest } from "types/common";
 import { navigation } from "../utils";
 import { SafeAreaView } from "react-navigation";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
@@ -23,8 +24,8 @@ interface PropsConnectedState {
 }
 
 interface PropsConnectedDispatcher {
+  getUpcomingRuns: (numberOfRuns: number, offset: number) => Action<RunRequest>;
   getScheduledRuns: () => Action<void>;
-  getUpcomingRuns: () => Action<void>;
   getPastRuns: () => Action<void>;
   setScheduledRun: (run: any) => Action<object>;
 }
@@ -37,8 +38,8 @@ class ScheduleScreen extends React.Component<Props> {
   componentDidMount() {
     navigation.setNavigator(this.props.navigation);
 
+    this.props.getUpcomingRuns(5, 0);
     this.props.getScheduledRuns();
-    this.props.getUpcomingRuns();
     this.props.getPastRuns();
   }
 
