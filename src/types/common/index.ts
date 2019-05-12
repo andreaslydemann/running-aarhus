@@ -7,5 +7,5 @@ export interface RouteDetails {
   coordinates?: Coordinate[];
   meetingPoint: string;
   distance: number;
-  endDateTime?: string;
+  endDateTime?: Date | string;
 }

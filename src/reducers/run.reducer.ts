@@ -1,19 +1,13 @@
 import { Action } from "actions/common";
 import { RunState } from "types/states";
 import { RUN_TYPES } from "actions";
-import moment from "moment";
 import { calculateEndDateTime } from "utils";
 import { RouteDetails } from "../types/common";
-import { Localization } from "expo";
-import "moment/min/locales";
-
-const language = Localization.locale.split("-")[0];
-moment.locale(language === "da" ? "da" : "en-gb");
 
 const initialState: RunState = {
   error: false,
   loading: false,
-  startDateTime: moment(new Date()).format("LLLL"),
+  startDateTime: new Date(),
   title: "",
   description: "",
   paceEnabled: false,
@@ -23,7 +17,7 @@ const initialState: RunState = {
 
 function updateEndDateTime(
   pace: number,
-  startDateTime: string,
+  startDateTime: Date,
   routeDetails: RouteDetails | null
 ) {
   if (!(routeDetails && startDateTime && pace)) return null;
@@ -70,7 +64,7 @@ function decreasePace(state: RunState) {
   return { ...state, pace, routeDetails };
 }
 
-function setStartDateTime(state: RunState, startDateTime: string) {
+function setStartDateTime(state: RunState, startDateTime: Date) {
   const routeDetails = updateEndDateTime(
     state.pace,
     startDateTime,

@@ -285,8 +285,8 @@ class MapScreen extends React.Component<Props, State> {
                 <RouteSummary
                   routeDetails={{
                     meetingPoint: this.state.meetingPoint,
-                    distance,
-                    endDateTime
+                    endDateTime,
+                    distance
                   }}
                   showEndDateTime={!!pace}
                 />

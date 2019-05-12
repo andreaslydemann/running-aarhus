@@ -33,7 +33,7 @@ export const createRunFailure = (): Action<void> => {
   };
 };
 
-export const setStartDateTime = (dateTime: string) => {
+export const setStartDateTime = (dateTime: Date) => {
   return {
     type: RUN_TYPES.SET_START_DATE_TIME,
     payload: dateTime

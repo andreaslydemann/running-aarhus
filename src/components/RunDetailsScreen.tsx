@@ -28,8 +28,7 @@ class RunDetailsScreen extends Component<Props> {
     const { run } = this.props;
 
     const startDate = new Date(run.startDateTime);
-    const startTimeString = moment(startDate).utc();
-    const str = startTimeString.format("LLLL");
+    const startTimeString = moment(startDate).format("LLLL");
 
     return (
       <Wrapper>
@@ -41,7 +40,7 @@ class RunDetailsScreen extends Component<Props> {
           <DetailsWrapper>
             <BottomMargin>
               <SectionTitle>Date</SectionTitle>
-              <InfoText>{str}</InfoText>
+              <InfoText>{startTimeString}</InfoText>
             </BottomMargin>
             <BottomMargin>
               <SectionTitle>Distance</SectionTitle>

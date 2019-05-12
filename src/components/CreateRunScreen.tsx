@@ -20,11 +20,13 @@ import { RunState } from "types/states";
 import { Coordinate, RouteDetails } from "types/common";
 import { statusModalTypes, StatusModal } from "./common/StatusModal";
 import { Localization } from "expo";
+import moment from "moment";
+import "moment/min/locales";
 
-const language = Localization.locale.split("-")[0];
+const language = Localization.locale.split("-")[0] === "da" ? "da" : "en";
 
 interface PropsConnectedState {
-  startDateTime: string;
+  startDateTime: Date;
   title: string;
   description: string;
   paceEnabled: boolean;
@@ -34,7 +36,7 @@ interface PropsConnectedState {
 }
 
 interface PropsConnectedDispatcher {
-  setStartDateTime: (dateTime: string) => Action<string>;
+  setStartDateTime: (dateTime: Date) => Action<Date>;
   setTitle: (title: string) => Action<string>;
   setDescription: (description: string) => Action<string>;
   togglePace: () => Action<void>;
@@ -53,14 +55,21 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
 
 class CreateRunScreen extends React.Component<Props> {
   renderDatePicker() {
-    console.log(this.props.startDateTime);
-
     return [
       <Subtitle titleText={"Date and time"} showInfoIcon={false} />,
       <DatePicker
-        locale={language === "da" ? "da" : "en-gb"}
+        locale={language}
         date={this.props.startDateTime}
-        onDateChange={dateTime => this.props.setStartDateTime(dateTime)}
+        onDateChange={dateTime => console.log(dateTime)}
+        getDateStr={date => {
+          if (this.props.startDateTime !== date) {
+            this.props.setStartDateTime(date);
+          }
+
+          return moment(date)
+            .locale(language)
+            .format("LLLL");
+        }}
         is24Hour={true}
         mode="datetime"
         format="LLLL"

@@ -4,17 +4,14 @@ import Label from "./Label";
 import { View } from "react-native";
 import { MONTHS } from "constants";
 import i18n from "i18n-js";
-import { Localization } from "expo";
+import moment from "moment";
 
 export default ({ data }: { data: any }) => {
   const { startDateTime, endDateTime, meetingPoint, title, cancelled } = data;
 
   const startDate = new Date(startDateTime);
-  const startTimeString = startDate.toLocaleTimeString(Localization.locale, {
-    hour12: false,
-    hour: "numeric",
-    minute: "numeric"
-  });
+  const startTime = moment(startDateTime).format("HH.mm");
+  const endTime = moment(new Date(endDateTime)).format("HH.mm");
 
   return (
     <Wrapper>
@@ -24,8 +21,8 @@ export default ({ data }: { data: any }) => {
             {startDate.getDate()} {i18n.t(MONTHS[startDate.getMonth()])}
           </Day>
           <Day>
-            {startTimeString}
-            {endDateTime ? " - " + endDateTime : null}
+            {startTime}
+            {endTime ? " - " + endTime : null}
           </Day>
         </View>
         <Label

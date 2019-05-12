@@ -1,17 +1,12 @@
-import { Localization } from "expo";
-
 export function calculateEndDateTime(
-  startDateTime: string,
+  startDateTime: Date,
   pace: number,
   distance: number = 0
 ) {
   if (!pace) return;
 
-  const date = new Date(startDateTime);
-  date.setMinutes(date.getMinutes() + pace * distance);
-  return date.toLocaleTimeString(Localization.locale, {
-    hour12: false,
-    hour: "numeric",
-    minute: "numeric"
-  });
+  const endDateTime = new Date(startDateTime);
+  endDateTime.setMinutes(endDateTime.getMinutes() + pace * distance);
+
+  return endDateTime;
 }

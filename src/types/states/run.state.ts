@@ -3,7 +3,7 @@ import { RouteDetails } from "types/common";
 export type RunState = {
   error: boolean;
   loading: boolean;
-  startDateTime: string;
+  startDateTime: Date;
   title: string;
   description: string;
   paceEnabled: boolean;

@@ -1,6 +1,7 @@
 import React from "react";
 import { RouteDetails } from "types/common";
 import { styled } from "theme";
+import moment from "moment";
 
 const Wrapper = styled.View`
   width: 100%;
@@ -30,6 +31,8 @@ const RouteSummary = ({ routeDetails, showEndDateTime }: Props) => {
 
   if (!routeDetails) return null;
 
+  const endTime = moment(endDateTime).format("HH.mm");
+
   return (
     <Wrapper>
       <DetailsTextWrapper>
@@ -43,7 +46,7 @@ const RouteSummary = ({ routeDetails, showEndDateTime }: Props) => {
       {showEndDateTime ? (
         <DetailsTextWrapper>
           <DetailsField>Sluttidspunkt: </DetailsField>
-          <DetailsText>kl. {endDateTime}</DetailsText>
+          <DetailsText>kl. {endTime}</DetailsText>
         </DetailsTextWrapper>
       ) : null}
     </Wrapper>

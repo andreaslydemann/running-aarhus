@@ -18,6 +18,8 @@ function* createRun({ payload }: any) {
       userId: currentUser.uid
     };
 
+    console.log(run);
+
     yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/createRun`, run);
 
     yield put(createRunSuccess());
