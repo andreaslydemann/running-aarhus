@@ -3,10 +3,12 @@ import authSaga from "./auth.saga";
 import runSaga from "./run.saga";
 import scheduleSaga from "./schedule.saga";
 import planningSaga from "./planning.saga";
+import pastSaga from "./past.saga";
 
 export default function* sagas() {
   yield fork(authSaga);
   yield fork(runSaga);
   yield fork(scheduleSaga);
   yield fork(planningSaga);
+  yield fork(pastSaga);
 }

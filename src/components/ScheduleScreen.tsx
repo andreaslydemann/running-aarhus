@@ -25,6 +25,7 @@ interface PropsConnectedState {
 interface PropsConnectedDispatcher {
   getScheduledRuns: () => Action<void>;
   getUpcomingRuns: () => Action<void>;
+  getPastRuns: () => Action<void>;
   setScheduledRun: (run: any) => Action<object>;
 }
 
@@ -38,7 +39,7 @@ class ScheduleScreen extends React.Component<Props> {
 
     this.props.getScheduledRuns();
     this.props.getUpcomingRuns();
-    //this.props.getPastRuns();
+    this.props.getPastRuns();
   }
 
   navigateToDetails(run: any) {

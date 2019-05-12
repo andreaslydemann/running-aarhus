@@ -44,7 +44,11 @@ const PlanningStack = createStackNavigator(
   { headerMode: "none", mode: "modal" }
 );
 
-const PastStack = createStackNavigator({ PastScreen }, { headerMode: "none" });
+const PastStack = createStackNavigator(
+  { PastScreen, RunDetailsScreen },
+  { headerMode: "none" }
+);
+
 const SettingsStack = createStackNavigator(
   { SettingsScreen },
   { headerMode: "none" }
