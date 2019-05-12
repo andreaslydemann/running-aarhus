@@ -42,7 +42,10 @@ class PastScreen extends React.Component<Props> {
 
   navigateToDetails(run: any) {
     this.props.setPastRun(run);
-    this.props.navigation.navigate("RunDetailsScreen");
+    this.props.navigation.navigate("RunDetailsScreen", {
+      run,
+      type: "past"
+    });
   }
 
   render(): JSX.Element {

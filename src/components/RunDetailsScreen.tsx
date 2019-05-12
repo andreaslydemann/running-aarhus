@@ -3,20 +3,19 @@ import { styled, theme, THEME_PREFIX } from "theme";
 import { Image, View } from "react-native";
 import { Header, Button, ScreenBackground } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
-import { ScheduleState } from "../types/states";
+import { PastState, PlanningState, ScheduleState } from "../types/states";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import moment from "moment";
 
 interface PropsConnectedState {
-  run: any;
   loading: boolean;
 }
 
 interface PropsConnectedDispatcher {}
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
-  navigation: { goBack: () => void };
+  navigation: { goBack: () => void; getParam: (param: string) => any };
 }
 
 class RunDetailsScreen extends Component<Props> {
@@ -25,7 +24,7 @@ class RunDetailsScreen extends Component<Props> {
   }
 
   render() {
-    const { run } = this.props;
+    const run = this.props.navigation.getParam("run");
 
     const startDate = new Date(run.startDateTime);
     const startTimeString = moment(startDate).format("LLLL");
@@ -113,15 +112,28 @@ class RunDetailsScreen extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({
-  schedule
-}: {
-  schedule: ScheduleState;
-}): PropsConnectedState => {
-  return {
-    run: schedule.selectedRun,
-    loading: schedule.loading
-  };
+const mapStateToProps = (
+  {
+    schedule,
+    planning,
+    past
+  }: {
+    schedule: ScheduleState;
+    planning: PlanningState;
+    past: PastState;
+  },
+  ownProps: Props
+): PropsConnectedState => {
+  const type = ownProps.navigation.getParam("type");
+
+  switch (type) {
+    case schedule:
+      return { loading: schedule.loading };
+    case past:
+      return { loading: schedule.loading };
+    default:
+      return { loading: planning.loading };
+  }
 };
 
 export default connect(

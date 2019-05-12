@@ -24,13 +24,15 @@ interface PropsConnectedState {
 }
 
 interface Props extends PropsConnectedState {
-  navigation: { navigate: (screen: string) => void };
+  navigation: { navigate: (screen: string, params?: any) => void };
 }
 
 class PlanningScreen extends React.Component<Props> {
-  navigateToDetails(data: any) {
-    console.log(data);
-    this.props.navigation.navigate("RunDetailsScreen");
+  navigateToDetails(run: any) {
+    this.props.navigation.navigate("RunDetailsScreen", {
+      run,
+      type: "planning"
+    });
   }
 
   render(): JSX.Element {

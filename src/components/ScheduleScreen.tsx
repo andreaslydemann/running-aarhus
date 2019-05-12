@@ -44,7 +44,10 @@ class ScheduleScreen extends React.Component<Props> {
 
   navigateToDetails(run: any) {
     this.props.setScheduledRun(run);
-    this.props.navigation.navigate("RunDetailsScreen");
+    this.props.navigation.navigate("RunDetailsScreen", {
+      run,
+      type: "schedule"
+    });
   }
 
   render(): JSX.Element {
