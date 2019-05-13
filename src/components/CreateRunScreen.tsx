@@ -19,11 +19,9 @@ import { Action } from "actions/common";
 import { RunState } from "types/states";
 import { Coordinate, RouteDetails } from "types/common";
 import { statusModalTypes, StatusModal } from "./common/StatusModal";
-import { Localization } from "expo";
+import { getLanguage } from "utils";
 import moment from "moment";
 import "moment/min/locales";
-
-const language = Localization.locale.split("-")[0] === "da" ? "da" : "en";
 
 interface PropsConnectedState {
   startDateTime: Date;
@@ -55,6 +53,7 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
 
 class CreateRunScreen extends React.Component<Props> {
   renderDatePicker() {
+    const language = getLanguage();
     return [
       <Subtitle
         titleText={"Date and time"}

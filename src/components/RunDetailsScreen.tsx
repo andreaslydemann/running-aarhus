@@ -7,6 +7,7 @@ import { PastState, PlanningState, ScheduleState } from "../types/states";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import moment from "moment";
+import { getLanguage } from "utils";
 
 interface PropsConnectedState {
   loading: boolean;
@@ -27,7 +28,9 @@ class RunDetailsScreen extends Component<Props> {
     const run = this.props.navigation.getParam("run");
 
     const startDate = new Date(run.startDateTime);
-    const startTimeString = moment(startDate).format("LLLL");
+    const startTimeString = moment(startDate)
+      .locale(getLanguage())
+      .format("LLLL");
 
     return (
       <Wrapper>

@@ -4,3 +4,4 @@ export * from "./getAddressOfCoordinate";
 export * from "./calculateEndDateTime";
 export * from "./getColorsOfCoordinates";
 export * from "./navigation.utils";
+export * from "./getLanguage";
