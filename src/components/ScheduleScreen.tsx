@@ -62,9 +62,9 @@ class ScheduleScreen extends React.Component<Props> {
             )}
             refreshControl={
               <RefreshControl
-                refreshing={false}
+                refreshing={loading}
                 onRefresh={() => {
-                  console.log("hello");
+                  this.props.getScheduledRuns();
                 }}
                 tintColor="#fff"
               />

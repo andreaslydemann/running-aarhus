@@ -69,9 +69,9 @@ class PastScreen extends React.Component<Props> {
             )}
             refreshControl={
               <RefreshControl
-                refreshing={false}
+                refreshing={loading}
                 onRefresh={() => {
-                  console.log("hello");
+                  this.props.getPastRuns();
                 }}
                 tintColor="#fff"
               />

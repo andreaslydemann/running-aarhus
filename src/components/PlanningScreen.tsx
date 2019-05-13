@@ -33,7 +33,15 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: { navigate: (screen: string, params?: any) => void };
 }
 
-class PlanningScreen extends React.Component<Props> {
+interface State {
+  refreshing: boolean;
+}
+
+class PlanningScreen extends React.Component<Props, State> {
+  state = {
+    refreshing: false
+  };
+
   componentDidMount() {
     this.props.getUpcomingRuns(5, 0);
   }
@@ -45,7 +53,13 @@ class PlanningScreen extends React.Component<Props> {
     });
   }
 
+  refreshRuns = () => {
+    this.setState({ refreshing: true });
+    this.props.getUpcomingRuns(this.props.upcomingRuns.length, 0);
+  };
+
   loadMore = () => {
+    this.setState({ refreshing: false });
     const offset = this.props.upcomingRuns.length;
     this.props.getUpcomingRuns(5, offset);
   };
@@ -75,7 +89,7 @@ class PlanningScreen extends React.Component<Props> {
             ListFooterComponent={() => (
               <>
                 {upcomingRuns.length ? (
-                  loading ? (
+                  loading && !this.state.refreshing ? (
                     <Spinner color={theme.activeTint} size="large" />
                   ) : (
                     <LoadMoreButton
@@ -89,10 +103,8 @@ class PlanningScreen extends React.Component<Props> {
             )}
             refreshControl={
               <RefreshControl
-                refreshing={false}
-                onRefresh={() => {
-                  console.log("hello");
-                }}
+                refreshing={loading && this.state.refreshing}
+                onRefresh={this.refreshRuns}
                 tintColor="#fff"
               />
             }
