@@ -34,6 +34,10 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
 }
 
 class PlanningScreen extends React.Component<Props> {
+  componentDidMount() {
+    this.props.getUpcomingRuns(5, 0);
+  }
+
   navigateToDetails(run: any) {
     this.props.navigation.navigate("RunDetailsScreen", {
       run,
@@ -47,7 +51,7 @@ class PlanningScreen extends React.Component<Props> {
   };
 
   render(): JSX.Element {
-    const { loading, upcomingRuns } = this.props;
+    const { error, loading, upcomingRuns, navigation } = this.props;
 
     return (
       <Wrapper>
@@ -57,13 +61,11 @@ class PlanningScreen extends React.Component<Props> {
             ListHeaderComponent={
               <PlanningHeader
                 onLeftItemPress={() => console.log("clicked")}
-                onMiddleItemPress={() =>
-                  this.props.navigation.navigate("CreateRunScreen")
-                }
+                onMiddleItemPress={() => navigation.navigate("CreateRunScreen")}
                 onRightItemPress={() => console.log("clicked")}
               />
             }
-            data={this.props.upcomingRuns}
+            data={upcomingRuns}
             keyExtractor={(item: RunModel) => item.id}
             renderItem={({ item }) => (
               <PushableWrapper onPress={() => this.navigateToDetails(item)}>
@@ -79,7 +81,7 @@ class PlanningScreen extends React.Component<Props> {
                     <LoadMoreButton
                       title="Load more"
                       onPress={this.loadMore}
-                      disabled={this.props.loading}
+                      disabled={loading}
                     />
                   )
                 ) : null}
@@ -97,8 +99,12 @@ class PlanningScreen extends React.Component<Props> {
           />
         </ContentWrapper>
         <StatusModal
+          type={statusModalTypes.LOADING}
+          isVisible={loading && !upcomingRuns.length}
+        />
+        <StatusModal
           type={statusModalTypes.ERROR}
-          isVisible={this.props.error}
+          isVisible={error}
           height={135}
           width={115}
           textNumberOfLines={2}

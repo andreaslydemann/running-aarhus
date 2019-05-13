@@ -13,7 +13,6 @@ import * as actions from "actions";
 import { connect } from "react-redux";
 import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
-import { RunRequest } from "types/common";
 import { navigation } from "../utils";
 import { SafeAreaView } from "react-navigation";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
@@ -24,9 +23,7 @@ interface PropsConnectedState {
 }
 
 interface PropsConnectedDispatcher {
-  getUpcomingRuns: (numberOfRuns: number, offset: number) => Action<RunRequest>;
   getScheduledRuns: () => Action<void>;
-  getPastRuns: () => Action<void>;
   setScheduledRun: (run: any) => Action<object>;
 }
 
@@ -37,10 +34,7 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
 class ScheduleScreen extends React.Component<Props> {
   componentDidMount() {
     navigation.setNavigator(this.props.navigation);
-
-    this.props.getUpcomingRuns(5, 0);
     this.props.getScheduledRuns();
-    this.props.getPastRuns();
   }
 
   navigateToDetails(run: any) {
@@ -52,12 +46,14 @@ class ScheduleScreen extends React.Component<Props> {
   }
 
   render(): JSX.Element {
+    const { loading, scheduledRuns } = this.props;
+
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
         <ContentWrapper>
           <FlatList
-            data={this.props.scheduledRuns}
+            data={scheduledRuns}
             keyExtractor={(item: RunModel) => item.id}
             renderItem={({ item }) => (
               <PushableWrapper onPress={() => this.navigateToDetails(item)}>
@@ -77,7 +73,7 @@ class ScheduleScreen extends React.Component<Props> {
         </ContentWrapper>
         <StatusModal
           type={statusModalTypes.LOADING}
-          isVisible={this.props.loading}
+          isVisible={loading && !scheduledRuns.length}
         />
       </Wrapper>
     );

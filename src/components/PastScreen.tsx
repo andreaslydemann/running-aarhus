@@ -14,6 +14,7 @@ import { PastState } from "../types/states";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import { SafeAreaView } from "react-navigation";
+import { StatusModal, statusModalTypes } from "./common/StatusModal";
 //import firebase from "firebase";
 
 interface PropsConnectedState {
@@ -31,6 +32,10 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
 }
 
 class PastScreen extends React.Component<Props> {
+  componentDidMount() {
+    this.props.getPastRuns();
+  }
+
   /*async componentDidMount() {
     const user = firebase.auth().currentUser;
     if (user) {
@@ -48,12 +53,14 @@ class PastScreen extends React.Component<Props> {
   }
 
   render(): JSX.Element {
+    const { loading, pastRuns } = this.props;
+
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("pastTitle")} />
         <ContentWrapper>
           <FlatList
-            data={this.props.pastRuns}
+            data={pastRuns}
             keyExtractor={(item: RunModel) => item.id}
             renderItem={({ item }) => (
               <PushableWrapper onPress={() => this.navigateToDetails(item)}>
@@ -71,6 +78,10 @@ class PastScreen extends React.Component<Props> {
             }
           />
         </ContentWrapper>
+        <StatusModal
+          type={statusModalTypes.LOADING}
+          isVisible={loading && !pastRuns.length}
+        />
       </Wrapper>
     );
   }
