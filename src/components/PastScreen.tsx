@@ -31,7 +31,15 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: { navigate: (screen: string, params?: any) => void };
 }
 
-class PastScreen extends React.Component<Props> {
+interface State {
+  refreshing: boolean;
+}
+
+class PastScreen extends React.Component<Props, State> {
+  state = {
+    refreshing: false
+  };
+
   componentDidMount() {
     this.props.getPastRuns();
   }
@@ -52,8 +60,14 @@ class PastScreen extends React.Component<Props> {
     });
   }
 
+  refreshRuns = () => {
+    this.setState({ refreshing: true });
+    this.props.getPastRuns();
+  };
+
   render(): JSX.Element {
     const { loading, pastRuns } = this.props;
+    const { refreshing } = this.state;
 
     return (
       <Wrapper>
@@ -69,10 +83,8 @@ class PastScreen extends React.Component<Props> {
             )}
             refreshControl={
               <RefreshControl
-                refreshing={loading}
-                onRefresh={() => {
-                  this.props.getPastRuns();
-                }}
+                refreshing={loading && refreshing}
+                onRefresh={this.refreshRuns}
                 tintColor="#fff"
               />
             }
@@ -80,7 +92,7 @@ class PastScreen extends React.Component<Props> {
         </ContentWrapper>
         <StatusModal
           type={statusModalTypes.LOADING}
-          isVisible={loading && !pastRuns.length}
+          isVisible={loading && !refreshing}
         />
       </Wrapper>
     );

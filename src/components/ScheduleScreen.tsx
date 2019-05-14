@@ -31,7 +31,15 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: { navigate: (screen: string, params?: any) => void };
 }
 
-class ScheduleScreen extends React.Component<Props> {
+interface State {
+  refreshing: boolean;
+}
+
+class ScheduleScreen extends React.Component<Props, State> {
+  state = {
+    refreshing: false
+  };
+
   componentDidMount() {
     navigation.setNavigator(this.props.navigation);
     this.props.getScheduledRuns();
@@ -45,8 +53,14 @@ class ScheduleScreen extends React.Component<Props> {
     });
   }
 
+  refreshRuns = () => {
+    this.setState({ refreshing: true });
+    this.props.getScheduledRuns();
+  };
+
   render(): JSX.Element {
     const { loading, scheduledRuns } = this.props;
+    const { refreshing } = this.state;
 
     return (
       <Wrapper>
@@ -62,10 +76,8 @@ class ScheduleScreen extends React.Component<Props> {
             )}
             refreshControl={
               <RefreshControl
-                refreshing={loading}
-                onRefresh={() => {
-                  this.props.getScheduledRuns();
-                }}
+                refreshing={loading && refreshing}
+                onRefresh={this.refreshRuns}
                 tintColor="#fff"
               />
             }
@@ -73,7 +85,7 @@ class ScheduleScreen extends React.Component<Props> {
         </ContentWrapper>
         <StatusModal
           type={statusModalTypes.LOADING}
-          isVisible={loading && !scheduledRuns.length}
+          isVisible={loading && !refreshing}
         />
       </Wrapper>
     );
