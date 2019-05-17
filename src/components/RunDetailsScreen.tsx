@@ -16,7 +16,11 @@ interface PropsConnectedState {
 interface PropsConnectedDispatcher {}
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
-  navigation: { goBack: () => void; getParam: (param: string) => any };
+  navigation: {
+    navigate: (screen: string, params?: any) => void;
+    goBack: () => void;
+    getParam: (param: string) => any;
+  };
 }
 
 class RunDetailsScreen extends Component<Props> {
@@ -93,7 +97,9 @@ class RunDetailsScreen extends Component<Props> {
             <ButtonWrapper>
               <LinkButton
                 icon={`${THEME_PREFIX}-people`}
-                onPress={() => console.log("hello")}
+                onPress={() =>
+                  this.props.navigation.navigate("ParticipantsScreen")
+                }
               />
               <ButtonLabel>Participants</ButtonLabel>
             </ButtonWrapper>

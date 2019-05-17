@@ -13,7 +13,8 @@ import {
   RunDetailsScreen,
   SettingsScreen,
   MapScreen,
-  CreateRunScreen
+  CreateRunScreen,
+  ParticipantsScreen
 } from "components";
 import { TabBar } from "components/common";
 import { theme } from "theme";
@@ -21,13 +22,18 @@ import React, { Component } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { TABS, TABBAR_ICONS } from "constants";
 
+const RunDetailsStack = createStackNavigator(
+  { RunDetailsScreen, ParticipantsScreen },
+  { headerMode: "none", mode: "modal" }
+);
+
 const ScheduleStack = createStackNavigator(
-  { ScheduleScreen, RunDetailsScreen },
+  { ScheduleScreen, RunDetailsStack },
   { headerMode: "none" }
 );
 
 const FindRunStack = createStackNavigator(
-  { PlanningScreen, RunDetailsScreen },
+  { PlanningScreen, RunDetailsStack },
   { headerMode: "none" }
 );
 
