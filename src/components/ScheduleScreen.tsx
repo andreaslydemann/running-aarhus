@@ -1,11 +1,12 @@
 import React from "react";
-import { FlatList, RefreshControl } from "react-native";
+import { FlatList, RefreshControl, ScrollView } from "react-native";
 import i18n from "i18n-js";
 import {
   ScreenTitle,
   ScreenBackground,
   PushableWrapper,
-  RunCard
+  RunCard,
+  InfoCard
 } from "components/common";
 import { styled } from "theme";
 import { Action } from "actions/common";
@@ -13,12 +14,13 @@ import * as actions from "actions";
 import { connect } from "react-redux";
 import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
-import { navigation } from "../utils";
+import { navigation } from "utils";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 
 interface PropsConnectedState {
   scheduledRuns: RunModel[];
   loading: boolean;
+  error: boolean;
 }
 
 interface PropsConnectedDispatcher {
@@ -58,18 +60,28 @@ class ScheduleScreen extends React.Component<Props, State> {
   };
 
   render(): JSX.Element {
-    const { loading, scheduledRuns } = this.props;
+    const { error, loading, scheduledRuns } = this.props;
     const { refreshing } = this.state;
 
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
-        {loading && !refreshing ? (
+
+        {error ? (
+          <ScrollView>
+            <InfoCard
+              title="Error while fetching runs"
+              subtitle="Try again later"
+              onPress={this.refreshRuns}
+              loading={loading}
+            />
+          </ScrollView>
+        ) : loading && !refreshing ? (
           <StatusModal
             type={statusModalTypes.LOADING}
             isVisible={loading && !refreshing}
           />
-        ) : (
+        ) : scheduledRuns.length ? (
           <FlatList
             data={scheduledRuns}
             keyExtractor={(item: RunModel) => item.id}
@@ -86,6 +98,14 @@ class ScheduleScreen extends React.Component<Props, State> {
               />
             }
           />
+        ) : (
+          <ScrollView>
+            <InfoCard
+              title="Your schedule is empty"
+              subtitle="Sign up to a run"
+              showTextOnly={true}
+            />
+          </ScrollView>
         )}
       </Wrapper>
     );
@@ -99,7 +119,8 @@ const mapStateToProps = ({
 }): PropsConnectedState => {
   return {
     scheduledRuns: schedule.scheduledRuns,
-    loading: schedule.loading
+    loading: schedule.loading,
+    error: schedule.error
   };
 };
 

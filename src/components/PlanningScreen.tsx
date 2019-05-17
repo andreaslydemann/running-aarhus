@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, RefreshControl } from "react-native";
+import { FlatList, RefreshControl, ScrollView } from "react-native";
 import i18n from "i18n-js";
 import {
   ScreenTitle,
@@ -7,7 +7,8 @@ import {
   PushableWrapper,
   RunCard,
   Button,
-  PlanningHeader
+  PlanningHeader,
+  InfoCard
 } from "components/common";
 import { styled, theme } from "theme";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
@@ -16,7 +17,6 @@ import * as actions from "actions";
 import { PlanningState } from "types/states";
 import { RunModel } from "types/models";
 import { RunRequest } from "types/common";
-import { SafeAreaView } from "react-navigation";
 import { Action } from "actions/common";
 
 interface PropsConnectedState {
@@ -70,7 +70,17 @@ class PlanningScreen extends React.Component<Props, State> {
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("planningTitle")} />
-        {loading && !upcomingRuns.length ? (
+
+        {error ? (
+          <ScrollView>
+            <InfoCard
+              title="Error while fetching runs"
+              subtitle="Try again later"
+              onPress={this.refreshRuns}
+              loading={loading}
+            />
+          </ScrollView>
+        ) : loading && !upcomingRuns.length ? (
           <StatusModal
             type={statusModalTypes.LOADING}
             isVisible={loading && !upcomingRuns.length}

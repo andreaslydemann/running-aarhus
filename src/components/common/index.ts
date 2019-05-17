@@ -12,3 +12,4 @@ export { default as TextInput } from "./TextInput";
 export { default as Subtitle } from "./Subtitle";
 export { default as PlanningHeader } from "./PlanningHeader";
 export { default as StatusModal } from "./StatusModal";
+export { default as InfoCard } from "./InfoCard";

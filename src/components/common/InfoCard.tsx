@@ -1,11 +1,15 @@
 import React, { Component } from "react";
-import { styled } from "theme";
-import { Animated, View, Easing } from "react-native";
-import Button from "./Button";
+import { styled, theme, THEME_PREFIX } from "theme";
+import { Animated, View, Easing, ActivityIndicator } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
+import Button from "./Button";
 
 interface Props {
-  onPress: () => void;
+  title: string;
+  subtitle: string;
+  showTextOnly?: boolean;
+  onPress?: () => void;
+  loading?: boolean;
 }
 
 export default class extends Component<Props> {
@@ -22,8 +26,9 @@ export default class extends Component<Props> {
   }
 
   render() {
-    const { onPress } = this.props;
+    const { title, subtitle, onPress, loading, showTextOnly } = this.props;
     const { appearAnim } = this.state;
+
     return (
       <Wrapper
         style={{
@@ -38,17 +43,32 @@ export default class extends Component<Props> {
           ]
         }}
       >
-        <Ionicons name="exclamation" size={35} color="white" />
-        <Title>Something's wrong</Title>
-        <Subtitle>Error while fetching data</Subtitle>
-        <Button onPress={onPress} title="Retry" />
+        {!showTextOnly && (
+          <Ionicons
+            name={`${THEME_PREFIX}-information-circle-outline`}
+            size={40}
+            color="white"
+          />
+        )}
+
+        <Title>{title}</Title>
+        <Subtitle>{subtitle}</Subtitle>
+        {!showTextOnly && (
+          <ButtonWrapper>
+            {loading ? (
+              <ActivityIndicator color={theme.activeTint} size="large" />
+            ) : (
+              <Button title="Retry" onPress={onPress} disabled={loading} />
+            )}
+          </ButtonWrapper>
+        )}
       </Wrapper>
     );
   }
 }
 
 const Wrapper = styled(Animated.createAnimatedComponent(View))`
-    background: ${({ theme }) => theme.cardBackground};
+    background-color: ${({ theme }) => theme.primary};
     margin: 25px;
     border-radius: 20px
     align-items: center;
@@ -66,4 +86,9 @@ const Subtitle = styled.Text`
   color: ${({ theme }) => theme.activeTint};
   font-size: 15px;
   margin: 10px 0 20px 0;
+`;
+
+const ButtonWrapper = styled.View`
+  height: 60px;
+  justify-content: center;
 `;

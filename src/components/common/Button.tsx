@@ -6,7 +6,7 @@ import { theme } from "theme";
 
 interface Props {
   title?: string;
-  onPress: () => void;
+  onPress?: () => void;
   disabled?: boolean;
   icon?: string;
   style?: any;

@@ -4,10 +4,11 @@ import {
   ScreenTitle,
   ScreenBackground,
   PushableWrapper,
-  RunCard
+  RunCard,
+  InfoCard
 } from "components/common";
 import { styled } from "theme";
-import { FlatList, RefreshControl } from "react-native";
+import { FlatList, RefreshControl, ScrollView } from "react-native";
 import { RunModel } from "../types/models";
 import { Action } from "../actions/common";
 import { PastState } from "../types/states";
@@ -19,6 +20,7 @@ import firebase from "firebase";
 interface PropsConnectedState {
   pastRuns: RunModel[];
   loading: boolean;
+  error: boolean;
 }
 
 interface PropsConnectedDispatcher {
@@ -63,18 +65,28 @@ class PastScreen extends React.Component<Props, State> {
   };
 
   render(): JSX.Element {
-    const { loading, pastRuns } = this.props;
+    const { error, loading, pastRuns } = this.props;
     const { refreshing } = this.state;
 
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("pastTitle")} />
-        {loading && !refreshing ? (
+
+        {error ? (
+          <ScrollView>
+            <InfoCard
+              title="Error while fetching runs"
+              subtitle="Try again later"
+              onPress={this.refreshRuns}
+              loading={loading}
+            />
+          </ScrollView>
+        ) : loading && !refreshing ? (
           <StatusModal
             type={statusModalTypes.LOADING}
             isVisible={loading && !refreshing}
           />
-        ) : (
+        ) : pastRuns.length ? (
           <FlatList
             data={pastRuns}
             keyExtractor={(item: RunModel) => item.id}
@@ -91,6 +103,14 @@ class PastScreen extends React.Component<Props, State> {
               />
             }
           />
+        ) : (
+          <ScrollView>
+            <InfoCard
+              title="No past runs"
+              subtitle="Sign up to a run"
+              showTextOnly={true}
+            />
+          </ScrollView>
         )}
       </Wrapper>
     );
@@ -104,7 +124,8 @@ const mapStateToProps = ({
 }): PropsConnectedState => {
   return {
     pastRuns: past.pastRuns,
-    loading: past.loading
+    loading: past.loading,
+    error: past.error
   };
 };
 
