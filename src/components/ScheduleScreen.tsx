@@ -14,7 +14,6 @@ import { connect } from "react-redux";
 import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
 import { navigation } from "../utils";
-import { SafeAreaView } from "react-navigation";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 
 interface PropsConnectedState {
@@ -65,7 +64,12 @@ class ScheduleScreen extends React.Component<Props, State> {
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
-        <ContentWrapper>
+        {loading && !refreshing ? (
+          <StatusModal
+            type={statusModalTypes.LOADING}
+            isVisible={loading && !refreshing}
+          />
+        ) : (
           <FlatList
             data={scheduledRuns}
             keyExtractor={(item: RunModel) => item.id}
@@ -82,11 +86,7 @@ class ScheduleScreen extends React.Component<Props, State> {
               />
             }
           />
-        </ContentWrapper>
-        <StatusModal
-          type={statusModalTypes.LOADING}
-          isVisible={loading && !refreshing}
-        />
+        )}
       </Wrapper>
     );
   }
@@ -111,9 +111,4 @@ export default connect(
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
   padding: 44px 0 0 0;
-`;
-
-const ContentWrapper = styled(SafeAreaView)`
-  flex: 1;
-  justify-content: center;
 `;

@@ -70,7 +70,12 @@ class PlanningScreen extends React.Component<Props, State> {
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("planningTitle")} />
-        <ContentWrapper>
+        {loading && !upcomingRuns.length ? (
+          <StatusModal
+            type={statusModalTypes.LOADING}
+            isVisible={loading && !upcomingRuns.length}
+          />
+        ) : (
           <FlatList
             ListHeaderComponent={
               <PlanningHeader
@@ -109,11 +114,7 @@ class PlanningScreen extends React.Component<Props, State> {
               />
             }
           />
-        </ContentWrapper>
-        <StatusModal
-          type={statusModalTypes.LOADING}
-          isVisible={loading && !upcomingRuns.length}
-        />
+        )}
         <StatusModal
           type={statusModalTypes.ERROR}
           isVisible={error}
@@ -151,11 +152,6 @@ const Wrapper = styled(ScreenBackground)`
 
 const LoadMoreButton = styled(Button)`
   margin: 0px 20% 20px 20%;
-`;
-
-const ContentWrapper = styled(SafeAreaView)`
-  flex: 1;
-  justify-content: center;
 `;
 
 const Spinner = styled.ActivityIndicator`

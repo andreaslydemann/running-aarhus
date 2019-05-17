@@ -13,9 +13,8 @@ import { Action } from "../actions/common";
 import { PastState } from "../types/states";
 import { connect } from "react-redux";
 import * as actions from "../actions";
-import { SafeAreaView } from "react-navigation";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
-//import firebase from "firebase";
+import firebase from "firebase";
 
 interface PropsConnectedState {
   pastRuns: RunModel[];
@@ -40,17 +39,15 @@ class PastScreen extends React.Component<Props, State> {
     refreshing: false
   };
 
-  componentDidMount() {
+  async componentDidMount() {
     this.props.getPastRuns();
-  }
 
-  /*async componentDidMount() {
     const user = firebase.auth().currentUser;
     if (user) {
       const token = await user.getIdToken();
       console.log(token);
     }
-  }*/
+  }
 
   navigateToDetails(run: any) {
     this.props.setPastRun(run);
@@ -72,7 +69,12 @@ class PastScreen extends React.Component<Props, State> {
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("pastTitle")} />
-        <ContentWrapper>
+        {loading && !refreshing ? (
+          <StatusModal
+            type={statusModalTypes.LOADING}
+            isVisible={loading && !refreshing}
+          />
+        ) : (
           <FlatList
             data={pastRuns}
             keyExtractor={(item: RunModel) => item.id}
@@ -89,11 +91,7 @@ class PastScreen extends React.Component<Props, State> {
               />
             }
           />
-        </ContentWrapper>
-        <StatusModal
-          type={statusModalTypes.LOADING}
-          isVisible={loading && !refreshing}
-        />
+        )}
       </Wrapper>
     );
   }
@@ -118,9 +116,4 @@ export default connect(
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
   padding: 44px 0 0 0;
-`;
-
-const ContentWrapper = styled(SafeAreaView)`
-  flex: 1;
-  justify-content: center;
 `;
