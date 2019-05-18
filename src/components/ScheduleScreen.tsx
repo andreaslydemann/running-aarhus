@@ -6,7 +6,8 @@ import {
   ScreenBackground,
   PushableWrapper,
   RunCard,
-  InfoCard
+  InfoCard,
+  PromotionCard
 } from "components/common";
 import { styled } from "theme";
 import { Action } from "actions/common";
@@ -83,6 +84,16 @@ class ScheduleScreen extends React.Component<Props, State> {
           />
         ) : scheduledRuns.length ? (
           <FlatList
+            ListHeaderComponent={
+              <PromotionCard
+                run={{
+                  title: "Running Challenge",
+                  meetingPoint: "Station Allé, Aarhus C",
+                  startDateTime: "Monday 27/6 - 17:30"
+                }}
+                navigateToDetails={() => console.log("hello")}
+              />
+            }
             data={scheduledRuns}
             keyExtractor={(item: RunModel) => item.id}
             renderItem={({ item }) => (

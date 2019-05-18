@@ -13,3 +13,4 @@ export { default as Subtitle } from "./Subtitle";
 export { default as PlanningHeader } from "./PlanningHeader";
 export { default as StatusModal } from "./StatusModal";
 export { default as InfoCard } from "./InfoCard";
+export { default as PromotionCard } from "./PromotionCard";

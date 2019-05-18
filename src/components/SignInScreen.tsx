@@ -94,5 +94,5 @@ interface BottomProps {
 const Bottom = styled.View<BottomProps>`
   flex: 1;
   justify-content: flex-end;
-  padding-bottom: ${props => (props.isAndroid ? "14px" : "36px")};
+  padding-bottom: ${({ isAndroid }) => (isAndroid ? "14px" : "36px")};
 `;
