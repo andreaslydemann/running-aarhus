@@ -3,6 +3,7 @@ export const en = {
   currentLocation: "Current location",
   pastTitle: "Past",
   createRunTitle: "Create run",
+  participantsTitle: "Participants",
   planningTitle: "Planning",
   scheduleTitle: "Schedule",
   settingsTitle: "Settings",

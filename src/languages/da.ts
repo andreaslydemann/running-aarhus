@@ -3,6 +3,7 @@ export const da = {
   currentLocation: "Nuværende placering",
   pastTitle: "Historik",
   createRunTitle: "Opret løb",
+  participantsTitle: "Deltagere",
   planningTitle: "Planlæg",
   scheduleTitle: "Tidsplan",
   settingsTitle: "Indstillinger",

@@ -31,7 +31,7 @@ export default class ParticipantsScreen extends Component<Props> {
       <Wrapper>
         <Header
           navigateBack={() => this.props.navigation.goBack(null)}
-          ScreenTitle={i18n.t("createRunTitle")}
+          ScreenTitle={i18n.t("participantsTitle")}
           isModal={true}
         />
 

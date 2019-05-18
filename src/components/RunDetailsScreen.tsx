@@ -18,7 +18,7 @@ interface PropsConnectedDispatcher {}
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: {
     navigate: (screen: string, params?: any) => void;
-    goBack: () => void;
+    goBack: (nullArg?: null) => void;
     getParam: (param: string) => any;
   };
 }
@@ -40,7 +40,7 @@ class RunDetailsScreen extends Component<Props> {
       <Wrapper>
         <Header
           ScreenTitle={run.title}
-          navigateBack={() => this.props.navigation.goBack()}
+          navigateBack={() => this.props.navigation.goBack(null)}
         />
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
           <DetailsWrapper>
