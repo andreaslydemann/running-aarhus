@@ -237,7 +237,7 @@ class MapScreen extends React.Component<Props, State> {
     return (
       <Wrapper>
         <Header
-          navigateBack={() => this.props.navigation.goBack()}
+          navigateBack={() => navigation.goBack()}
           ScreenTitle={i18n.t("createRunTitle")}
         />
         <MapViewWrapper>
