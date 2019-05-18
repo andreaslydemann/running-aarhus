@@ -236,7 +236,7 @@ class CreateRunScreen extends React.Component<Props> {
             bottom={!routeDetails}
             touchable
             onPress={() =>
-              this.props.navigation.navigate("MapScreen", {
+              this.props.navigation.navigate("SetRouteScreen", {
                 startDateTime,
                 meetingPoint,
                 coordinates,

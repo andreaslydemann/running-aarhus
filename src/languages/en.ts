@@ -5,6 +5,8 @@ export const en = {
   createRunTitle: "Create run",
   participantsTitle: "Participants",
   planningTitle: "Planning",
+  setRouteTitle: "Set route",
+  showRouteTitle: "Route",
   scheduleTitle: "Schedule",
   settingsTitle: "Settings",
   searchLocation: "Search for location",

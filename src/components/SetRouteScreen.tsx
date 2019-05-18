@@ -44,7 +44,7 @@ interface Props {
   };
 }
 
-interface MapScreen {
+interface SetRouteScreen {
   map: {
     fitToCoordinates: (
       coordinates: any,
@@ -56,7 +56,7 @@ interface MapScreen {
   };
 }
 
-class MapScreen extends React.Component<Props, State> {
+class SetRouteScreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -238,7 +238,7 @@ class MapScreen extends React.Component<Props, State> {
       <Wrapper>
         <Header
           navigateBack={() => navigation.goBack()}
-          ScreenTitle={i18n.t("createRunTitle")}
+          ScreenTitle={i18n.t("setRouteTitle")}
         />
         <MapViewWrapper>
           <StyledMapView
@@ -387,4 +387,4 @@ const TextWrapper = styled.View<TextWrapperProps>`
   padding: 15px 15px;
 `;
 
-export default MapScreen;
+export default SetRouteScreen;

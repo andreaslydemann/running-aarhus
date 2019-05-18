@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { Dimensions } from "react-native";
 import { MapView } from "expo";
-import { styled } from "theme";
+import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
 import { getColorsOfCoordinates } from "utils";
-import { Header, ScreenBackground } from "./common";
+import { Header, RouteSummary, ScreenBackground } from "./common";
 import i18n from "i18n-js";
 
 // @ts-ignore
@@ -15,21 +15,9 @@ const LATITUDE = 56.1501;
 const LONGITUDE = 10.1861;
 const LATITUDE_DELTA = 0.1222;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const DEFAULT_PADDING = { top: 200, right: 40, bottom: 40, left: 40 };
+const DEFAULT_PADDING = { top: 120, right: 40, bottom: 40, left: 40 };
 const START_MARKER_COLOR = "#238C23";
 const END_MARKER_COLOR = "#00007f";
-
-interface State {
-  region: {
-    latitude: number;
-    longitude: number;
-    latitudeDelta: number;
-    longitudeDelta: number;
-  };
-  coordinates: Coordinate[];
-  startMarker: any;
-  endMarker: any;
-}
 
 interface Props {
   navigation: {
@@ -50,53 +38,20 @@ interface ShowRouteScreen {
   };
 }
 
-class ShowRouteScreen extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      region: {
-        latitude: LATITUDE,
-        longitude: LONGITUDE,
-        latitudeDelta: LATITUDE_DELTA,
-        longitudeDelta: LONGITUDE_DELTA
-      },
-      startMarker: null,
-      endMarker: null,
-      coordinates: []
-    };
-  }
-
+class ShowRouteScreen extends Component<Props> {
   componentDidMount() {
-    const coordinates = this.props.navigation.getParam("coordinates");
+    const _coordinates = this.props.navigation.getParam("coordinates");
+    const coordinates = _coordinates.map((coordinate: any) => {
+      return {
+        latitude: coordinate._latitude,
+        longitude: coordinate._longitude
+      };
+    });
 
-    if (!coordinates.length) return;
-
-    const startMarker = {
-      coordinate: coordinates[0],
-      color: START_MARKER_COLOR
-    };
-
-    const endMarker = {
-      coordinate: coordinates[coordinates.length - 1],
-      color: END_MARKER_COLOR
-    };
-
-    this.setState(
-      {
-        coordinates,
-        startMarker,
-        endMarker
-      },
-      () => {
-        this.focusOnRoute();
-      }
-    );
+    this.focusOnRoute(coordinates);
   }
 
-  focusOnRoute() {
-    const { coordinates } = this.state;
-
+  focusOnRoute(coordinates: Coordinate[]) {
     const latitudes = coordinates.map(line => line.latitude);
     const minLatitude = Math.min(...latitudes);
     const maxLatitude = Math.max(...latitudes);
@@ -119,11 +74,42 @@ class ShowRouteScreen extends Component<Props, State> {
   render() {
     const { navigation } = this.props;
 
+    const _coordinates = this.props.navigation.getParam("coordinates");
+    const meetingPoint = this.props.navigation.getParam("meetingPoint");
+    const distance = this.props.navigation.getParam("distance");
+    const endDateTime = this.props.navigation.getParam("endDateTime");
+    const pace = this.props.navigation.getParam("pace");
+
+    const coordinates = _coordinates.map((coordinate: any) => {
+      return {
+        latitude: coordinate._latitude,
+        longitude: coordinate._longitude
+      };
+    });
+
+    const startMarker = {
+      coordinate: coordinates[0],
+      color: START_MARKER_COLOR
+    };
+
+    const endMarker = {
+      coordinate: coordinates[coordinates.length - 1],
+      color: END_MARKER_COLOR
+    };
+
+    const region = {
+      latitude: LATITUDE,
+      longitude: LONGITUDE,
+      latitudeDelta: LATITUDE_DELTA,
+      longitudeDelta: LONGITUDE_DELTA
+    };
+
     return (
       <Wrapper>
         <Header
           navigateBack={() => navigation.goBack()}
-          ScreenTitle={i18n.t("createRunTitle")}
+          ScreenTitle={i18n.t("showRouteTitle")}
+          isModal={true}
         />
         <MapViewWrapper>
           <StyledMapView
@@ -131,32 +117,43 @@ class ShowRouteScreen extends Component<Props, State> {
             ref={(ref: any) => {
               this.map = ref;
             }}
-            initialRegion={this.state.region}
+            initialRegion={region}
           >
-            {this.state.startMarker && (
+            {startMarker && (
               <Marker
-                coordinate={this.state.startMarker.coordinate}
-                pinColor={this.state.startMarker.color}
+                coordinate={startMarker.coordinate}
+                pinColor={startMarker.color}
               />
             )}
-            {this.state.endMarker && (
+            {endMarker && (
               <Marker
-                coordinate={this.state.endMarker.coordinate}
-                pinColor={this.state.endMarker.color}
+                coordinate={endMarker.coordinate}
+                pinColor={endMarker.color}
               />
             )}
             <Polyline
-              coordinates={this.state.coordinates}
+              coordinates={coordinates}
               strokeColor="rgba(0,0,0,0.5)"
-              strokeColors={
-                this.state.endMarker
-                  ? getColorsOfCoordinates(this.state.coordinates)
-                  : undefined
-              }
-              strokeWidth={this.state.endMarker ? 2 : 1}
-              lineDashPattern={!this.state.endMarker ? [20, 5] : null}
+              strokeColors={getColorsOfCoordinates(coordinates)}
+              strokeWidth={2}
             />
           </StyledMapView>
+
+          <MapOverlay>
+            <TextWrapper
+              borderColor={"transparent"}
+              backgroundColor={theme.primary}
+            >
+              <RouteSummary
+                routeDetails={{
+                  meetingPoint,
+                  endDateTime,
+                  distance
+                }}
+                showEndDateTime={!!pace}
+              />
+            </TextWrapper>
+          </MapOverlay>
         </MapViewWrapper>
       </Wrapper>
     );
@@ -174,6 +171,23 @@ const StyledMapView = styled(MapView)`
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
   padding: 44px 0 0 0;
+`;
+
+const MapOverlay = styled.View`
+  width: 100%;
+  position: absolute;
+`;
+
+interface TextWrapperProps {
+  borderColor: string;
+  backgroundColor: string;
+}
+
+const TextWrapper = styled.View<TextWrapperProps>`
+  border-color: ${props => props.borderColor};
+  border-bottom-width: 1px;
+  background-color: ${props => props.backgroundColor};
+  padding: 15px 15px;
 `;
 
 export default ShowRouteScreen;

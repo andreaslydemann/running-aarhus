@@ -12,8 +12,9 @@ import {
   PastScreen,
   RunDetailsScreen,
   SettingsScreen,
-  MapScreen,
   CreateRunScreen,
+  SetRouteScreen,
+  ShowRouteScreen,
   ParticipantsScreen
 } from "components";
 import { TabBar } from "components/common";
@@ -23,7 +24,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { TABS, TABBAR_ICONS } from "constants";
 
 const RunDetailsStack = createStackNavigator(
-  { RunDetailsScreen, ParticipantsScreen },
+  { RunDetailsScreen, ParticipantsScreen, ShowRouteScreen },
   { headerMode: "none", mode: "modal" }
 );
 
@@ -38,7 +39,7 @@ const FindRunStack = createStackNavigator(
 );
 
 const CreateRunStack = createStackNavigator(
-  { CreateRunScreen, MapScreen },
+  { CreateRunScreen, SetRouteScreen },
   { headerMode: "none" }
 );
 

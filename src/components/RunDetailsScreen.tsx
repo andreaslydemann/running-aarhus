@@ -106,9 +106,17 @@ class RunDetailsScreen extends Component<Props> {
             <ButtonWrapper>
               <LinkButton
                 icon={`${THEME_PREFIX}-map`}
-                onPress={() => console.log("hello")}
+                onPress={() =>
+                  this.props.navigation.navigate("ShowRouteScreen", {
+                    coordinates: run.coordinates,
+                    meetingPoint: run.meetingPoint,
+                    distance: run.distance,
+                    endDateTime: run.endDateTime,
+                    pace: run.pace
+                  })
+                }
               />
-              <ButtonLabel>Location</ButtonLabel>
+              <ButtonLabel>Route</ButtonLabel>
             </ButtonWrapper>
           </Row>
 

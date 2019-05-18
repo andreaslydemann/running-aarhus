@@ -5,6 +5,8 @@ export const da = {
   createRunTitle: "Opret løb",
   participantsTitle: "Deltagere",
   planningTitle: "Planlæg",
+  setRouteTitle: "Vælg rute",
+  showRouteTitle: "Rute",
   scheduleTitle: "Tidsplan",
   settingsTitle: "Indstillinger",
   searchLocation: "Søg efter placering",
