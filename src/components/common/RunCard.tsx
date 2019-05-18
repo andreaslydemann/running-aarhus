@@ -38,7 +38,7 @@ export default ({ data }: { data: any }) => {
 
 const Wrapper = styled.View`
   background: ${({ theme }) => theme.primary};
-  margin: 20px;
+  margin-horizontal: 20px;
   border-radius: 15px;
   padding: 20px;
   padding-right: 15px;

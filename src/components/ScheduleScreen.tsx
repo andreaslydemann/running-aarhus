@@ -85,21 +85,25 @@ class ScheduleScreen extends React.Component<Props, State> {
         ) : scheduledRuns.length ? (
           <FlatList
             ListHeaderComponent={
-              <PromotionCard
-                run={{
-                  title: "Running Challenge",
-                  meetingPoint: "Station Allé, Aarhus C",
-                  startDateTime: "Monday 27/6 - 17:30"
-                }}
-                navigateToDetails={() => console.log("hello")}
-              />
+              <BottomMargin>
+                <PromotionCard
+                  run={{
+                    title: "Running Challenge",
+                    meetingPoint: "Station Allé, Aarhus C",
+                    startDateTime: "Monday 27/6 - 17:30"
+                  }}
+                  navigateToDetails={() => console.log("hello")}
+                />
+              </BottomMargin>
             }
             data={scheduledRuns}
             keyExtractor={(item: RunModel) => item.id}
             renderItem={({ item }) => (
-              <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-                <RunCard data={item} />
-              </PushableWrapper>
+              <BottomMargin>
+                <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+                  <RunCard data={item} />
+                </PushableWrapper>
+              </BottomMargin>
             )}
             refreshControl={
               <RefreshControl
@@ -143,4 +147,8 @@ export default connect(
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
   padding: 44px 0 0 0;
+`;
+
+const BottomMargin = styled.View`
+  margin-bottom: 20px;
 `;

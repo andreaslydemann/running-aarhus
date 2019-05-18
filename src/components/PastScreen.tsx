@@ -91,9 +91,11 @@ class PastScreen extends React.Component<Props, State> {
             data={pastRuns}
             keyExtractor={(item: RunModel) => item.id}
             renderItem={({ item }) => (
-              <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-                <RunCard data={item} />
-              </PushableWrapper>
+              <BottomMargin>
+                <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+                  <RunCard data={item} />
+                </PushableWrapper>
+              </BottomMargin>
             )}
             refreshControl={
               <RefreshControl
@@ -137,4 +139,8 @@ export default connect(
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
   padding: 44px 0 0 0;
+`;
+
+const BottomMargin = styled.View`
+  margin-bottom: 20px;
 `;

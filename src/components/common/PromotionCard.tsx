@@ -35,9 +35,9 @@ export default ({ run, navigateToDetails }: any) => {
 };
 
 const Wrapper = styled(LinearGradient)`
-  border-radius: 10px;
   flex: 1;
-  margin: 10px 25px;
+  border-radius: 10px;
+  margin-horizontal: 20px;
 `;
 
 interface TitleProps {

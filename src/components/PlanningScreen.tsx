@@ -88,18 +88,24 @@ class PlanningScreen extends React.Component<Props, State> {
         ) : (
           <FlatList
             ListHeaderComponent={
-              <PlanningHeader
-                onLeftItemPress={() => console.log("clicked")}
-                onMiddleItemPress={() => navigation.navigate("CreateRunScreen")}
-                onRightItemPress={() => console.log("clicked")}
-              />
+              <BottomMargin>
+                <PlanningHeader
+                  onLeftItemPress={() => console.log("clicked")}
+                  onMiddleItemPress={() =>
+                    navigation.navigate("CreateRunScreen")
+                  }
+                  onRightItemPress={() => console.log("clicked")}
+                />
+              </BottomMargin>
             }
             data={upcomingRuns}
             keyExtractor={(item: RunModel) => item.id}
             renderItem={({ item }) => (
-              <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-                <RunCard data={item} />
-              </PushableWrapper>
+              <BottomMargin>
+                <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+                  <RunCard data={item} />
+                </PushableWrapper>
+              </BottomMargin>
             )}
             ListFooterComponent={() => (
               <>
@@ -166,4 +172,8 @@ const LoadMoreButton = styled(Button)`
 
 const Spinner = styled.ActivityIndicator`
   margin: 10px;
+`;
+
+const BottomMargin = styled.View`
+  margin-bottom: 20px;
 `;
