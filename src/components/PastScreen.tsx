@@ -142,5 +142,5 @@ const Wrapper = styled(ScreenBackground)`
 `;
 
 const BottomMargin = styled.View`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;

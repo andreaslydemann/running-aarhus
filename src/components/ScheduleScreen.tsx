@@ -85,7 +85,7 @@ class ScheduleScreen extends React.Component<Props, State> {
         ) : scheduledRuns.length ? (
           <FlatList
             ListHeaderComponent={
-              <BottomMargin>
+              <VerticalMargin>
                 <PromotionCard
                   run={{
                     title: "Running Challenge",
@@ -94,7 +94,7 @@ class ScheduleScreen extends React.Component<Props, State> {
                   }}
                   navigateToDetails={() => console.log("hello")}
                 />
-              </BottomMargin>
+              </VerticalMargin>
             }
             data={scheduledRuns}
             keyExtractor={(item: RunModel) => item.id}
@@ -150,5 +150,10 @@ const Wrapper = styled(ScreenBackground)`
 `;
 
 const BottomMargin = styled.View`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
+`;
+
+const VerticalMargin = styled.View`
+  margin-top: 20px;
+  margin-bottom: 30px;
 `;

@@ -175,5 +175,5 @@ const Spinner = styled.ActivityIndicator`
 `;
 
 const BottomMargin = styled.View`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
