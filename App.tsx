@@ -35,7 +35,7 @@ export default class App extends Component<void, State> {
   state = { isReady: false, isAuthorized: false };
 
   async componentDidMount() {
-    await this.loadAssetsAsync();
+    // await this.loadAssetsAsync();
     firebase.initializeApp(FIREBASE_ACCOUNT);
 
     firebase.auth().onAuthStateChanged(async user => {
