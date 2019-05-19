@@ -3,11 +3,11 @@ import { Provider } from "react-redux";
 import { configureStore } from "utils/configureStore";
 import { ThemeProvider } from "styled-components";
 import Navigation from "navigation";
-import { Localization, AppLoading } from "expo";
+import { Localization, AppLoading, Asset } from "expo";
 import languages from "languages";
 import { theme } from "theme";
 import i18n from "i18n-js";
-import { StatusBar, AsyncStorage } from "react-native";
+import { StatusBar, AsyncStorage, Image } from "react-native";
 import firebase from "firebase";
 import { FIREBASE_ACCOUNT } from "constants";
 import axios from "axios";
@@ -21,10 +21,21 @@ interface State {
   isAuthorized: boolean;
 }
 
+function cacheImages(images: any) {
+  return images.map((image: any) => {
+    if (typeof image === "string") {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
+}
+
 export default class App extends Component<void, State> {
   state = { isReady: false, isAuthorized: false };
 
-  componentDidMount() {
+  async componentDidMount() {
+    await this.loadAssetsAsync();
     firebase.initializeApp(FIREBASE_ACCOUNT);
 
     firebase.auth().onAuthStateChanged(async user => {
@@ -36,6 +47,16 @@ export default class App extends Component<void, State> {
 
       this.setState({ isReady: true, isAuthorized: !!user });
     });
+  }
+
+  async loadAssetsAsync() {
+    const imageAssets = cacheImages([
+      "https://cdn.pixabay.com/photo/2014/04/03/10/50/run-311447_960_720.png",
+      require("./assets/logo.png"),
+      require("./assets/icon.png")
+    ]);
+
+    await Promise.all([...imageAssets]);
   }
 
   setAuthHeaders(user: firebase.User) {
