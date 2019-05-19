@@ -167,7 +167,7 @@ const Wrapper = styled(ScreenBackground)`
 `;
 
 const LoadMoreButton = styled(Button)`
-  margin: 0px 20% 20px 20%;
+  margin: 0px 20% 30px 20%;
 `;
 
 const Spinner = styled.ActivityIndicator`
