@@ -8,7 +8,7 @@ export default ({ run, navigateToDetails }: any) => {
   return (
     <PushableWrapper style={{ height: 300 }} onPress={navigateToDetails}>
       <Wrapper
-        colors={["#ffb39d", "#ff43bb"]}
+        colors={["#54A3CC", "#1481BA"]}
         start={[0.0, 0.25]}
         end={[0.5, 1.0]}
       >
