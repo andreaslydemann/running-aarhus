@@ -10,7 +10,6 @@ export const en = {
   scheduleTitle: "Schedule",
   settingsTitle: "Settings",
   searchLocation: "Search for location",
-  signIn: "Sign in",
   signOut: "Sign out",
   signedUp: "Signed up",
   credits: "2019 - Running Aarhus",

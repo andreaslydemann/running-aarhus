@@ -6,6 +6,7 @@ import React from "react";
 import { connect } from "react-redux";
 import i18n from "i18n-js";
 import { styled } from "theme";
+import { ScreenBackground, PushableWrapper } from "./common";
 
 interface PropsConnectedState {
   token: string;
@@ -37,15 +38,22 @@ class SignInScreen extends React.Component<Props> {
   render(): JSX.Element {
     return (
       <Wrapper>
-        <StyledImage source={require("../../assets/logo.png")} />
-        <Heading>WELCOME</Heading>
-        <StyledText>Find people to run with</StyledText>
-        <StyledText>Create or find you next run</StyledText>
-        <Bottom isAndroid={Platform.OS === "android"}>
-          <TouchableOpacity onPress={this.signIn}>
-            <Text>{i18n.t("signIn")}</Text>
-          </TouchableOpacity>
-        </Bottom>
+        <LogoWrapper>
+          <Heading>Running Aarhus</Heading>
+          <RunningAarhusLogo source={require("../../assets/logo.png")} />
+        </LogoWrapper>
+
+        <FacebookButtonWrapper>
+          <PushableWrapper onPress={this.signIn}>
+            <FacebookLogo source={require("../../assets/facebook-logo.png")} />
+          </PushableWrapper>
+          <Heading>Facebook</Heading>
+
+          <Divider />
+
+          <StyledText>Please login with Facebook</StyledText>
+          <StyledText>using the button above.</StyledText>
+        </FacebookButtonWrapper>
       </Wrapper>
     );
   }
@@ -66,33 +74,49 @@ export default connect(
   actions
 )(SignInScreen as React.ComponentClass<Props>);
 
-const Heading = styled.Text`
-  margin-top: 40;
-`;
-
-const StyledText = styled.Text`
-  margin-horizontal: 8px;
-  margin-vertical: 10px;
-`;
-
-const Wrapper = styled.View`
-  flex: 1;
+const FacebookButtonWrapper = styled.View`
+  flex: 0.65;
+  width: 100%;
   justify-content: center;
   align-items: center;
 `;
 
-const StyledImage = styled.Image`
-  margin-top: 50px;
-  width: 160px;
-  height: 160px;
+const LogoWrapper = styled.View`
+  justify-content: flex-end;
+  align-items: center;
+  flex: 0.35;
 `;
 
-interface BottomProps {
-  isAndroid: boolean;
-}
+const Divider = styled.View`
+  border-bottom-color: ${({ theme }) => theme.inactiveTint};
+  border-bottom-width: 1px;
+  margin-vertical: 20px;
+  width: 80%;
+`;
 
-const Bottom = styled.View<BottomProps>`
+const Heading = styled.Text`
+  font-weight: bold;
+  margin-top: 40;
+  font-size: 18;
+  color: ${({ theme }) => theme.activeTint};
+`;
+
+const StyledText = styled.Text`
+  color: white;
+  margin-horizontal: 8px;
+`;
+
+const Wrapper = styled(ScreenBackground)`
   flex: 1;
-  justify-content: flex-end;
-  padding-bottom: ${({ isAndroid }) => (isAndroid ? "14px" : "36px")};
+  padding: 44px 0 0 0;
+`;
+
+const RunningAarhusLogo = styled.Image`
+  width: 180px;
+  height: 180px;
+`;
+
+const FacebookLogo = styled.Image`
+  width: 140px;
+  height: 140px;
 `;

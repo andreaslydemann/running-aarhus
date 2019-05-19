@@ -10,7 +10,6 @@ export const da = {
   scheduleTitle: "Tidsplan",
   settingsTitle: "Indstillinger",
   searchLocation: "Søg efter placering",
-  signIn: "Log ind",
   signedUp: "Tilmeldt",
   signOut: "Log ud",
   credits: "2019 - Running Aarhus",
