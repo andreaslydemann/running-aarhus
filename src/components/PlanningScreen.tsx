@@ -64,73 +64,93 @@ class PlanningScreen extends React.Component<Props, State> {
     this.props.getUpcomingRuns(5, offset);
   };
 
+  renderList(): JSX.Element {
+    const { upcomingRuns, navigation, loading } = this.props;
+    const { refreshing } = this.state;
+
+    return (
+      <FlatList
+        ListHeaderComponent={
+          <BottomMargin>
+            <PlanningHeader
+              onLeftItemPress={() => console.log("clicked")}
+              onMiddleItemPress={() => navigation.navigate("CreateRunScreen")}
+              onRightItemPress={() => console.log("clicked")}
+            />
+          </BottomMargin>
+        }
+        data={upcomingRuns}
+        keyExtractor={(item: RunModel) => item.id}
+        renderItem={({ item }) => (
+          <BottomMargin>
+            <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+              <RunCard data={item} />
+            </PushableWrapper>
+          </BottomMargin>
+        )}
+        ListFooterComponent={() => (
+          <>
+            {upcomingRuns.length ? (
+              loading && !refreshing ? (
+                <Spinner color={theme.activeTint} size="large" />
+              ) : (
+                <LoadMoreButton
+                  title="Load more"
+                  onPress={this.loadMore}
+                  disabled={loading}
+                />
+              )
+            ) : null}
+          </>
+        )}
+        refreshControl={
+          <RefreshControl
+            refreshing={loading && refreshing}
+            onRefresh={this.refreshRuns}
+            tintColor="#fff"
+          />
+        }
+      />
+    );
+  }
+
+  renderContent(): JSX.Element {
+    const { error, loading, upcomingRuns } = this.props;
+
+    if (error) {
+      return (
+        <ScrollView>
+          <InfoCard
+            title="Error while fetching runs"
+            subtitle="Try again later"
+            onPress={this.refreshRuns}
+            loading={loading}
+          />
+        </ScrollView>
+      );
+    }
+
+    if (loading && !upcomingRuns.length) {
+      return (
+        <StatusModal
+          type={statusModalTypes.LOADING}
+          isVisible={loading && !upcomingRuns.length}
+        />
+      );
+    }
+
+    return this.renderList();
+  }
+
   render(): JSX.Element {
-    const { error, loading, upcomingRuns, navigation } = this.props;
+    const { error } = this.props;
 
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("planningTitle")} />
 
-        {error ? (
-          <ScrollView>
-            <InfoCard
-              title="Error while fetching runs"
-              subtitle="Try again later"
-              onPress={this.refreshRuns}
-              loading={loading}
-            />
-          </ScrollView>
-        ) : loading && !upcomingRuns.length ? (
-          <StatusModal
-            type={statusModalTypes.LOADING}
-            isVisible={loading && !upcomingRuns.length}
-          />
-        ) : (
-          <FlatList
-            ListHeaderComponent={
-              <BottomMargin>
-                <PlanningHeader
-                  onLeftItemPress={() => console.log("clicked")}
-                  onMiddleItemPress={() =>
-                    navigation.navigate("CreateRunScreen")
-                  }
-                  onRightItemPress={() => console.log("clicked")}
-                />
-              </BottomMargin>
-            }
-            data={upcomingRuns}
-            keyExtractor={(item: RunModel) => item.id}
-            renderItem={({ item }) => (
-              <BottomMargin>
-                <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-                  <RunCard data={item} />
-                </PushableWrapper>
-              </BottomMargin>
-            )}
-            ListFooterComponent={() => (
-              <>
-                {upcomingRuns.length ? (
-                  loading && !this.state.refreshing ? (
-                    <Spinner color={theme.activeTint} size="large" />
-                  ) : (
-                    <LoadMoreButton
-                      title="Load more"
-                      onPress={this.loadMore}
-                      disabled={loading}
-                    />
-                  )
-                ) : null}
-              </>
-            )}
-            refreshControl={
-              <RefreshControl
-                refreshing={loading && this.state.refreshing}
-                onRefresh={this.refreshRuns}
-                tintColor="#fff"
-              />
-            }
-          />
-        )}
+        {this.renderContent()}
+
         <StatusModal
           type={statusModalTypes.ERROR}
           isVisible={error}

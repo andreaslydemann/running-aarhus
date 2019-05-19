@@ -60,68 +60,91 @@ class ScheduleScreen extends React.Component<Props, State> {
     this.props.getScheduledRuns();
   };
 
-  render(): JSX.Element {
+  renderList(): JSX.Element {
+    const { scheduledRuns, loading } = this.props;
+    const { refreshing } = this.state;
+
+    return (
+      <FlatList
+        ListHeaderComponent={
+          <VerticalMargin>
+            <PromotionCard
+              run={{
+                title: "Running Challenge",
+                meetingPoint: "Station Allé, Aarhus C",
+                startDateTime: "Monday 27/6 - 17:30"
+              }}
+              navigateToDetails={() => console.log("hello")}
+            />
+          </VerticalMargin>
+        }
+        data={scheduledRuns}
+        keyExtractor={(item: RunModel) => item.id}
+        renderItem={({ item }) => (
+          <BottomMargin>
+            <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+              <RunCard data={item} />
+            </PushableWrapper>
+          </BottomMargin>
+        )}
+        refreshControl={
+          <RefreshControl
+            refreshing={loading && refreshing}
+            onRefresh={this.refreshRuns}
+            tintColor="#fff"
+          />
+        }
+      />
+    );
+  }
+
+  renderContent(): JSX.Element {
     const { error, loading, scheduledRuns } = this.props;
     const { refreshing } = this.state;
 
+    if (error) {
+      return (
+        <ScrollView>
+          <InfoCard
+            title="Error while fetching runs"
+            subtitle="Try again later"
+            onPress={this.refreshRuns}
+            loading={loading}
+          />
+        </ScrollView>
+      );
+    }
+
+    if (loading && !refreshing) {
+      return (
+        <StatusModal
+          type={statusModalTypes.LOADING}
+          isVisible={loading && !refreshing}
+        />
+      );
+    }
+
+    if (scheduledRuns.length) {
+      return this.renderList();
+    }
+
+    return (
+      <ScrollView>
+        <InfoCard
+          title="Your schedule is empty"
+          subtitle="Sign up to a run"
+          showTextOnly={true}
+        />
+      </ScrollView>
+    );
+  }
+
+  render(): JSX.Element {
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
 
-        {error ? (
-          <ScrollView>
-            <InfoCard
-              title="Error while fetching runs"
-              subtitle="Try again later"
-              onPress={this.refreshRuns}
-              loading={loading}
-            />
-          </ScrollView>
-        ) : loading && !refreshing ? (
-          <StatusModal
-            type={statusModalTypes.LOADING}
-            isVisible={loading && !refreshing}
-          />
-        ) : scheduledRuns.length ? (
-          <FlatList
-            ListHeaderComponent={
-              <VerticalMargin>
-                <PromotionCard
-                  run={{
-                    title: "Running Challenge",
-                    meetingPoint: "Station Allé, Aarhus C",
-                    startDateTime: "Monday 27/6 - 17:30"
-                  }}
-                  navigateToDetails={() => console.log("hello")}
-                />
-              </VerticalMargin>
-            }
-            data={scheduledRuns}
-            keyExtractor={(item: RunModel) => item.id}
-            renderItem={({ item }) => (
-              <BottomMargin>
-                <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-                  <RunCard data={item} />
-                </PushableWrapper>
-              </BottomMargin>
-            )}
-            refreshControl={
-              <RefreshControl
-                refreshing={loading && refreshing}
-                onRefresh={this.refreshRuns}
-                tintColor="#fff"
-              />
-            }
-          />
-        ) : (
-          <ScrollView>
-            <InfoCard
-              title="Your schedule is empty"
-              subtitle="Sign up to a run"
-              showTextOnly={true}
-            />
-          </ScrollView>
-        )}
+        {this.renderContent()}
       </Wrapper>
     );
   }

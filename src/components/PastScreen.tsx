@@ -64,56 +64,72 @@ class PastScreen extends React.Component<Props, State> {
     this.props.getPastRuns();
   };
 
-  render(): JSX.Element {
+  renderContent(): JSX.Element {
     const { error, loading, pastRuns } = this.props;
     const { refreshing } = this.state;
 
+    if (error) {
+      return (
+        <ScrollView>
+          <InfoCard
+            title="Error while fetching runs"
+            subtitle="Try again later"
+            onPress={this.refreshRuns}
+            loading={loading}
+          />
+        </ScrollView>
+      );
+    }
+
+    if (loading && !refreshing) {
+      return (
+        <StatusModal
+          type={statusModalTypes.LOADING}
+          isVisible={loading && !refreshing}
+        />
+      );
+    }
+
+    if (pastRuns.length) {
+      return (
+        <FlatList
+          data={pastRuns}
+          keyExtractor={(item: RunModel) => item.id}
+          renderItem={({ item }) => (
+            <BottomMargin>
+              <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+                <RunCard data={item} />
+              </PushableWrapper>
+            </BottomMargin>
+          )}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading && refreshing}
+              onRefresh={this.refreshRuns}
+              tintColor="#fff"
+            />
+          }
+        />
+      );
+    }
+
+    return (
+      <ScrollView>
+        <InfoCard
+          title="No past runs"
+          subtitle="Sign up to a run"
+          showTextOnly={true}
+        />
+      </ScrollView>
+    );
+  }
+
+  render(): JSX.Element {
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("pastTitle")} />
 
-        {error ? (
-          <ScrollView>
-            <InfoCard
-              title="Error while fetching runs"
-              subtitle="Try again later"
-              onPress={this.refreshRuns}
-              loading={loading}
-            />
-          </ScrollView>
-        ) : loading && !refreshing ? (
-          <StatusModal
-            type={statusModalTypes.LOADING}
-            isVisible={loading && !refreshing}
-          />
-        ) : pastRuns.length ? (
-          <FlatList
-            data={pastRuns}
-            keyExtractor={(item: RunModel) => item.id}
-            renderItem={({ item }) => (
-              <BottomMargin>
-                <PushableWrapper onPress={() => this.navigateToDetails(item)}>
-                  <RunCard data={item} />
-                </PushableWrapper>
-              </BottomMargin>
-            )}
-            refreshControl={
-              <RefreshControl
-                refreshing={loading && refreshing}
-                onRefresh={this.refreshRuns}
-                tintColor="#fff"
-              />
-            }
-          />
-        ) : (
-          <ScrollView>
-            <InfoCard
-              title="No past runs"
-              subtitle="Sign up to a run"
-              showTextOnly={true}
-            />
-          </ScrollView>
-        )}
+        {this.renderContent()}
       </Wrapper>
     );
   }
