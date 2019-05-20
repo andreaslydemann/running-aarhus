@@ -35,7 +35,7 @@ export default class App extends Component<void, State> {
   state = { isReady: false, isAuthorized: false };
 
   async componentDidMount() {
-    // await this.loadAssetsAsync();
+    await this.loadAssetsAsync();
     firebase.initializeApp(FIREBASE_ACCOUNT);
 
     firebase.auth().onAuthStateChanged(async user => {
@@ -52,6 +52,7 @@ export default class App extends Component<void, State> {
   async loadAssetsAsync() {
     const imageAssets = cacheImages([
       "https://cdn.pixabay.com/photo/2014/04/03/10/50/run-311447_960_720.png",
+      require("./assets/facebook-logo.png"),
       require("./assets/logo.png"),
       require("./assets/icon.png")
     ]);
