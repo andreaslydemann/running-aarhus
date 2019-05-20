@@ -16,6 +16,8 @@ i18n.fallbacks = true;
 i18n.translations = languages;
 i18n.locale = Localization.locale;
 
+const store = configureStore();
+
 interface State {
   isReady: boolean;
   isAuthorized: boolean;
@@ -73,8 +75,6 @@ export default class App extends Component<void, State> {
   }
 
   render() {
-    const store = configureStore();
-
     if (!this.state.isReady) return <AppLoading />;
 
     return (

@@ -155,6 +155,8 @@ const mapStateToProps = ({
 }: {
   schedule: ScheduleState;
 }): PropsConnectedState => {
+  console.log("husmisef", schedule);
+
   return {
     scheduledRuns: schedule.scheduledRuns,
     loading: schedule.loading,
