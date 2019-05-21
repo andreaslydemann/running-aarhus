@@ -40,13 +40,7 @@ interface ShowRouteScreen {
 
 class ShowRouteScreen extends Component<Props> {
   componentDidMount() {
-    const _coordinates = this.props.navigation.getParam("coordinates");
-    const coordinates = _coordinates.map((coordinate: any) => {
-      return {
-        latitude: coordinate._latitude,
-        longitude: coordinate._longitude
-      };
-    });
+    const coordinates = this.props.navigation.getParam("coordinates");
 
     this.focusOnRoute(coordinates);
   }
@@ -74,18 +68,11 @@ class ShowRouteScreen extends Component<Props> {
   render() {
     const { navigation } = this.props;
 
-    const _coordinates = this.props.navigation.getParam("coordinates");
+    const coordinates = this.props.navigation.getParam("coordinates");
     const meetingPoint = this.props.navigation.getParam("meetingPoint");
     const distance = this.props.navigation.getParam("distance");
     const endDateTime = this.props.navigation.getParam("endDateTime");
     const pace = this.props.navigation.getParam("pace");
-
-    const coordinates = _coordinates.map((coordinate: any) => {
-      return {
-        latitude: coordinate._latitude,
-        longitude: coordinate._longitude
-      };
-    });
 
     const startMarker = {
       coordinate: coordinates[0],
