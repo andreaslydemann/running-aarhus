@@ -3,9 +3,11 @@ import { styled, theme, THEME_PREFIX } from "theme";
 import { Image, View } from "react-native";
 import { Header, Button, ScreenBackground } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
-import { PastState, PlanningState, ScheduleState } from "../types/states";
+import { PastState, PlanningState, ScheduleState } from "types/states";
+import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { connect } from "react-redux";
 import * as actions from "../actions";
+import i18n from "i18n-js";
 import moment from "moment";
 import { getLanguage } from "utils";
 
@@ -16,6 +18,7 @@ interface PropsConnectedState {
 interface PropsConnectedDispatcher {}
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
+  showActionSheetWithOptions: (options: any, callback: any) => void;
   navigation: {
     navigate: (screen: string, params?: any) => void;
     goBack: (nullArg?: null) => void;
@@ -24,9 +27,36 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
 }
 
 class RunDetailsScreen extends Component<Props> {
-  openMap({ longitude, latitude }: { longitude: number; latitude: number }) {
-    console.log(longitude, latitude);
-  }
+  onOpenActionSheet = () => {
+    const options = [
+      i18n.t("optionEdit"),
+      i18n.t("optionDelete"),
+      i18n.t("optionCancel")
+    ];
+    const destructiveButtonIndex = 1;
+    const cancelButtonIndex = 2;
+
+    this.props.showActionSheetWithOptions(
+      {
+        options,
+        cancelButtonIndex,
+        destructiveButtonIndex,
+        tintColor: theme.action
+      },
+      (buttonIndex: number) => {
+        switch (buttonIndex) {
+          case 0:
+            console.log("editing");
+            break;
+          case 1:
+            console.log("deleting");
+            break;
+          default:
+            break;
+        }
+      }
+    );
+  };
 
   render() {
     const run = this.props.navigation.getParam("run");
@@ -41,6 +71,8 @@ class RunDetailsScreen extends Component<Props> {
         <Header
           ScreenTitle={run.title}
           navigateBack={() => this.props.navigation.goBack(null)}
+          showMoreButton={true}
+          onMoreButtonPress={this.onOpenActionSheet}
         />
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
           <DetailsWrapper>
@@ -153,10 +185,12 @@ const mapStateToProps = (
   }
 };
 
-export default connect(
-  mapStateToProps,
-  actions
-)(RunDetailsScreen as React.ComponentClass<Props>);
+export default connectActionSheet(
+  connect(
+    mapStateToProps,
+    actions
+  )(RunDetailsScreen as React.ComponentClass<Props>)
+);
 
 const Wrapper = styled(ScreenBackground)`
   padding: 44px 0 0 0;

@@ -10,6 +10,7 @@ import i18n from "i18n-js";
 import { StatusBar, AsyncStorage, Image } from "react-native";
 import firebase from "firebase";
 import { FIREBASE_ACCOUNT } from "constants";
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import axios from "axios";
 
 i18n.fallbacks = true;
@@ -80,10 +81,12 @@ export default class App extends Component<void, State> {
     return (
       <Provider store={store}>
         <ThemeProvider theme={theme}>
-          <>
-            <StatusBar barStyle="light-content" />
-            <Navigation isAuthenticated={this.state.isAuthorized} />
-          </>
+          <ActionSheetProvider>
+            <>
+              <StatusBar barStyle="light-content" />
+              <Navigation isAuthenticated={this.state.isAuthorized} />
+            </>
+          </ActionSheetProvider>
         </ThemeProvider>
       </Provider>
     );

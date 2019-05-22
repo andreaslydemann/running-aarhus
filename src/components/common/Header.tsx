@@ -5,11 +5,19 @@ import { THEME_PREFIX } from "theme";
 
 interface Props {
   isModal?: boolean;
+  showMoreButton?: boolean;
+  onMoreButtonPress?: () => void;
   ScreenTitle: string;
   navigateBack: () => void;
 }
 
-export default ({ ScreenTitle, navigateBack, isModal }: Props) => {
+export default ({
+  ScreenTitle,
+  navigateBack,
+  isModal,
+  showMoreButton,
+  onMoreButtonPress
+}: Props) => {
   const iconName = isModal
     ? `${THEME_PREFIX}-close`
     : `${THEME_PREFIX}-arrow-round-back`;
@@ -20,6 +28,15 @@ export default ({ ScreenTitle, navigateBack, isModal }: Props) => {
         <Ionicons name={iconName} size={40} color={theme.activeTint} />
       </IconWrapper>
       <Title>{ScreenTitle}</Title>
+      {showMoreButton && (
+        <IconWrapper onPress={onMoreButtonPress}>
+          <Ionicons
+            name={`${THEME_PREFIX}-more`}
+            size={26}
+            color={theme.activeTint}
+          />
+        </IconWrapper>
+      )}
     </Wrapper>
   );
 };
@@ -41,4 +58,5 @@ const Title = styled.Text`
 const IconWrapper = styled.TouchableOpacity`
   width: 20%;
   align-items: center;
+  justify-content: center;
 `;
