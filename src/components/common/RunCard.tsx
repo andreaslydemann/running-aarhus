@@ -7,7 +7,13 @@ import i18n from "i18n-js";
 import moment from "moment";
 
 export default ({ data }: { data: any }) => {
-  const { startDateTime, endDateTime, meetingPoint, title, cancelled } = data;
+  const {
+    startDateTime,
+    endDateTime,
+    meetingPoint,
+    title,
+    participating
+  } = data;
 
   const startDate = new Date(startDateTime);
   const startTime = moment(startDateTime).format("HH.mm");
@@ -27,7 +33,7 @@ export default ({ data }: { data: any }) => {
         </View>
         <Label
           numberOfLines={2}
-          text={cancelled ? i18n.t("cancelled") : i18n.t("signedUp")}
+          text={participating ? i18n.t("signedUp") : i18n.t("signUp")}
         />
       </Row>
       <Desc bold>{title}</Desc>

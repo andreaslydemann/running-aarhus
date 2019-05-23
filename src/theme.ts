@@ -12,9 +12,11 @@ export const theme = {
   activeTint: "#FFFFFF",
   inactiveTint: "#809DA2",
   info: "#E8F1F2",
-  success: "#88D498",
+  success: "#258874",
   warning: "#F77F00",
-  danger: "#D62828",
+  submitGradient: ["#258874", "#185A4D"],
+  danger: "#BD2F3A",
+  dangerGradient: ["#BD2F3A", "#7E2027"],
   action: "#1481BA",
   actionGradient: ["#1481BA", "#0F5E88"],
   actionShadow: "#0e3d5b"

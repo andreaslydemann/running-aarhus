@@ -12,6 +12,7 @@ export const en = {
   searchLocation: "Search for location",
   signOut: "Sign out",
   signedUp: "Signed up",
+  signUp: "Sign up",
   credits: "2019 - Running Aarhus",
   dismiss: "Dismiss",
   optionEdit: "Edit",

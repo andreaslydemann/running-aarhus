@@ -4,6 +4,7 @@ import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
 import { RunRequest } from "types/common";
 import { Action } from "actions/common";
 import axios from "axios";
+import { getCurrentUser, addParticipationStatusToRuns } from "utils";
 
 export default function* planningSaga() {
   yield all([
@@ -21,7 +22,12 @@ function* getUpcomingRuns({ payload }: Action<RunRequest>) {
       `${RUNNING_AARHUS_FUNCTIONS_URL}/getUpcomingRuns?numberOfRuns=${numberOfRuns}&offset=${offset}`
     );
 
-    yield put(getUpcomingRunsSuccess(data));
+    const runsWithParticipationStatus = addParticipationStatusToRuns(
+      data,
+      getCurrentUser().uid
+    );
+
+    yield put(getUpcomingRunsSuccess(runsWithParticipationStatus));
   } catch (error) {
     //return yield put(signInFailure());
   }

@@ -153,7 +153,19 @@ class RunDetailsScreen extends Component<Props> {
           </Row>
 
           <ButtonWrapper>
-            <LinkButton title="Join" onPress={() => console.log("hello")} />
+            {run.participating ? (
+              <LinkButton
+                type={"destructive"}
+                title="Cancel"
+                onPress={() => console.log("hello")}
+              />
+            ) : (
+              <LinkButton
+                type={"submit"}
+                title="Join"
+                onPress={() => console.log("hello")}
+              />
+            )}
           </ButtonWrapper>
         </ScrollWrapper>
       </Wrapper>

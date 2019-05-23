@@ -11,6 +11,7 @@ interface Props {
   icon?: string;
   style?: any;
   fontSize?: number;
+  type?: string;
 }
 export default ({
   title,
@@ -18,7 +19,8 @@ export default ({
   disabled = false,
   icon,
   style,
-  fontSize = 20
+  fontSize = 20,
+  type
 }: Props) => (
   <TouchableWrapper
     style={style}
@@ -26,12 +28,23 @@ export default ({
     shadow={theme.actionShadow}
     disabled={disabled}
   >
-    <Wrapper colors={theme.actionGradient} start={[0.0, 0.0]} end={[1.0, 0.0]}>
+    <Wrapper colors={getColorsOfType(type)} start={[0.0, 0.0]} end={[1.0, 0.0]}>
       {icon && <Ionicons name={icon} size={25} color={theme.activeTint} />}
       {title && <Title fontSize={fontSize}>{title}</Title>}
     </Wrapper>
   </TouchableWrapper>
 );
+
+function getColorsOfType(type: string) {
+  switch (type) {
+    case "destructive":
+      return theme.dangerGradient;
+    case "submit":
+      return theme.submitGradient;
+    default:
+      return theme.actionGradient;
+  }
+}
 
 interface TouchableWrapperProps {
   shadow: string;

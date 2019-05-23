@@ -5,3 +5,4 @@ export * from "./calculateEndDateTime";
 export * from "./getColorsOfCoordinates";
 export * from "./navigation.utils";
 export * from "./getLanguage";
+export * from "./addParticipationStatusToRuns";

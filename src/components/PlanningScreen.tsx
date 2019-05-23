@@ -43,7 +43,7 @@ class PlanningScreen extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.getUpcomingRuns(5, 0);
+    this.props.getUpcomingRuns(10, 0);
   }
 
   navigateToDetails(run: any) {

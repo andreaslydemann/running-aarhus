@@ -11,6 +11,7 @@ export const da = {
   settingsTitle: "Indstillinger",
   searchLocation: "Søg efter placering",
   signedUp: "Tilmeldt",
+  signUp: "Tilmeld",
   signOut: "Log ud",
   credits: "2019 - Running Aarhus",
   dismiss: "Luk",
