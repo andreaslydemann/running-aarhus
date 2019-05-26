@@ -25,7 +25,7 @@ interface PropsConnectedState {
 
 interface PropsConnectedDispatcher {
   getPastRuns: () => Action<void>;
-  setPastRun: (run: any) => Action<object>;
+  setRun: (run: any) => Action<object>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -51,13 +51,10 @@ class PastScreen extends React.Component<Props, State> {
     }
   }
 
-  navigateToDetails(run: any) {
-    this.props.setPastRun(run);
-    this.props.navigation.navigate("RunDetailsScreen", {
-      run,
-      type: "past"
-    });
-  }
+  runSelected = (run: any) => {
+    this.props.setRun(run);
+    this.props.navigation.navigate("RunDetailsScreen");
+  };
 
   refreshRuns = () => {
     this.setState({ refreshing: true });
@@ -97,7 +94,7 @@ class PastScreen extends React.Component<Props, State> {
           keyExtractor={(item: RunModel) => item.id}
           renderItem={({ item }) => (
             <BottomMargin>
-              <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+              <PushableWrapper onPress={() => this.runSelected(item)}>
                 <RunCard data={item} />
               </PushableWrapper>
             </BottomMargin>

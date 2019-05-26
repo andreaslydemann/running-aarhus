@@ -3,7 +3,7 @@ import { styled, theme, THEME_PREFIX } from "theme";
 import { Image, View } from "react-native";
 import { Header, Button, ScreenBackground } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
-import { PastState, PlanningState, ScheduleState } from "types/states";
+import { RunState } from "types/states";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { connect } from "react-redux";
 import * as actions from "../actions";
@@ -12,7 +12,7 @@ import moment from "moment";
 import { getLanguage } from "utils";
 
 interface PropsConnectedState {
-  loading: boolean;
+  run: RunState;
 }
 
 interface PropsConnectedDispatcher {}
@@ -59,9 +59,23 @@ class RunDetailsScreen extends Component<Props> {
   };
 
   render() {
-    const run = this.props.navigation.getParam("run");
+    const {
+      startDateTime,
+      title,
+      routeDetails,
+      description,
+      pace,
+      participating
+    } = this.props.run;
 
-    const startDate = new Date(run.startDateTime);
+    const _routeDetails = {
+      meetingPoint: routeDetails ? routeDetails.meetingPoint : "",
+      distance: routeDetails ? routeDetails.distance : 0,
+      coordinates: routeDetails ? routeDetails.coordinates : [],
+      endDateTime: routeDetails ? routeDetails.endDateTime : new Date()
+    };
+
+    const startDate = new Date(startDateTime);
     const startTimeString = moment(startDate)
       .locale(getLanguage())
       .format("LLLL");
@@ -69,7 +83,7 @@ class RunDetailsScreen extends Component<Props> {
     return (
       <Wrapper>
         <Header
-          ScreenTitle={run.title}
+          ScreenTitle={title}
           navigateBack={() => this.props.navigation.goBack(null)}
           showMoreButton={true}
           onMoreButtonPress={this.onOpenActionSheet}
@@ -82,16 +96,16 @@ class RunDetailsScreen extends Component<Props> {
             </BottomMargin>
             <BottomMargin>
               <SectionTitle>Distance</SectionTitle>
-              <InfoText>{run.distance} km</InfoText>
+              <InfoText>{_routeDetails.distance} km</InfoText>
             </BottomMargin>
-            {run.pace && (
+            {pace && (
               <BottomMargin>
                 <SectionTitle>Pace</SectionTitle>
-                <InfoText>{run.pace} min/km</InfoText>
+                <InfoText>{pace} min/km</InfoText>
               </BottomMargin>
             )}
             <SectionTitle>Meeting point</SectionTitle>
-            <InfoText>{run.meetingPoint}</InfoText>
+            <InfoText>{_routeDetails.meetingPoint}</InfoText>
           </DetailsWrapper>
 
           <Icon
@@ -100,7 +114,7 @@ class RunDetailsScreen extends Component<Props> {
             color={theme.activeTint}
           />
 
-          {run.description ? <DescText>{run.description}</DescText> : null}
+          {description ? <DescText>{description}</DescText> : null}
 
           <View
             style={{
@@ -137,23 +151,21 @@ class RunDetailsScreen extends Component<Props> {
             </ButtonWrapper>
             <ButtonWrapper>
               <LinkButton
+                disabled={!routeDetails}
                 icon={`${THEME_PREFIX}-map`}
-                onPress={() =>
+                onPress={() => {
                   this.props.navigation.navigate("ShowRouteScreen", {
-                    coordinates: run.coordinates,
-                    meetingPoint: run.meetingPoint,
-                    distance: run.distance,
-                    endDateTime: run.endDateTime,
-                    pace: run.pace
-                  })
-                }
+                    ..._routeDetails,
+                    pace
+                  });
+                }}
               />
               <ButtonLabel>Route</ButtonLabel>
             </ButtonWrapper>
           </Row>
 
           <ButtonWrapper>
-            {run.participating ? (
+            {participating ? (
               <LinkButton
                 type={"destructive"}
                 title="Cancel"
@@ -173,28 +185,8 @@ class RunDetailsScreen extends Component<Props> {
   }
 }
 
-const mapStateToProps = (
-  {
-    schedule,
-    planning,
-    past
-  }: {
-    schedule: ScheduleState;
-    planning: PlanningState;
-    past: PastState;
-  },
-  ownProps: Props
-): PropsConnectedState => {
-  const type = ownProps.navigation.getParam("type");
-
-  switch (type) {
-    case schedule:
-      return { loading: schedule.loading };
-    case past:
-      return { loading: schedule.loading };
-    default:
-      return { loading: planning.loading };
-  }
+const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
+  return { run };
 };
 
 export default connectActionSheet(

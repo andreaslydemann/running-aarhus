@@ -5,8 +5,7 @@ import { PLANNING_TYPES } from "actions";
 const initialState: PlanningState = {
   error: false,
   loading: false,
-  upcomingRuns: [],
-  selectedRun: {}
+  upcomingRuns: []
 };
 
 export default function(
@@ -18,8 +17,6 @@ export default function(
       return { ...state, loading: true };
     case PLANNING_TYPES.GET_UPCOMING_RUNS_SUCCESS:
       return { ...state, upcomingRuns: action.payload, loading: false };
-    case PLANNING_TYPES.SET_UPCOMING_RUN:
-      return { ...state, selectedRun: action.payload };
     default:
       return state;
   }

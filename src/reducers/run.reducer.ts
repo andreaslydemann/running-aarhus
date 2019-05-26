@@ -5,6 +5,7 @@ import { calculateEndDateTime } from "utils";
 import { RouteDetails } from "../types/common";
 
 const initialState: RunState = {
+  id: "",
   error: false,
   loading: false,
   startDateTime: new Date(),
@@ -12,7 +13,11 @@ const initialState: RunState = {
   description: "",
   paceEnabled: false,
   pace: 6.0,
-  routeDetails: null
+  routeDetails: null,
+  userId: "",
+  participating: false,
+  participants: [],
+  cancelled: false
 };
 
 function updateEndDateTime(
@@ -84,6 +89,26 @@ function togglePace(state: RunState) {
   return { ...state, paceEnabled: !state.paceEnabled, routeDetails };
 }
 
+function toggleParticipation(state: RunState, runId: string) {
+  console.log(runId);
+  return { ...state };
+}
+
+function setRun(state: RunState, run: any) {
+  //console.log(state, run);
+
+  const { coordinates, meetingPoint, distance, endDateTime, ...rest } = run;
+
+  const routeDetails = {
+    coordinates,
+    meetingPoint,
+    distance,
+    endDateTime
+  };
+
+  return { ...state, routeDetails, ...rest };
+}
+
 export default function(state: RunState = initialState, action: Action<any>) {
   switch (action.type) {
     case RUN_TYPES.CREATE_RUN_REQUEST:
@@ -106,6 +131,10 @@ export default function(state: RunState = initialState, action: Action<any>) {
       return decreasePace(state);
     case RUN_TYPES.SET_ROUTE:
       return { ...state, routeDetails: action.payload };
+    case RUN_TYPES.TOGGLE_PARTICIPATION:
+      return toggleParticipation(state, action.payload);
+    case RUN_TYPES.SET_RUN:
+      return setRun(state, action.payload);
     default:
       return state;
   }

@@ -5,8 +5,7 @@ import { PAST_TYPES } from "actions";
 const initialState: PastState = {
   error: false,
   loading: false,
-  pastRuns: [],
-  selectedRun: {}
+  pastRuns: []
 };
 
 export default function(state: PastState = initialState, action: Action<any>) {
@@ -15,8 +14,6 @@ export default function(state: PastState = initialState, action: Action<any>) {
       return { ...state, loading: true };
     case PAST_TYPES.GET_PAST_RUNS_SUCCESS:
       return { ...state, pastRuns: action.payload, loading: false };
-    case PAST_TYPES.SET_PAST_RUN:
-      return { ...state, selectedRun: action.payload };
     default:
       return state;
   }

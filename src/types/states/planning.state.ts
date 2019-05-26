@@ -4,5 +4,4 @@ export type PlanningState = {
   error: boolean;
   loading: boolean;
   upcomingRuns: RunModel[];
-  selectedRun: object;
 };

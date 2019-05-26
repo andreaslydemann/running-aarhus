@@ -5,8 +5,7 @@ import { SCHEDULE_TYPES } from "actions";
 const initialState: ScheduleState = {
   error: false,
   loading: false,
-  scheduledRuns: [],
-  selectedRun: {}
+  scheduledRuns: []
 };
 
 export default function(
@@ -18,8 +17,6 @@ export default function(
       return { ...state, loading: true };
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
       return { ...state, scheduledRuns: action.payload, loading: false };
-    case SCHEDULE_TYPES.SET_SCHEDULED_RUN:
-      return { ...state, selectedRun: action.payload };
     default:
       return state;
   }

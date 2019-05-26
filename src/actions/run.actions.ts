@@ -11,7 +11,11 @@ export const RUN_TYPES = {
   TOGGLE_PACE: "TOGGLE_PACE",
   INCREASE_PACE: "INCREASE_PACE",
   DECREASE_PACE: "DECREASE_PACE",
-  SET_ROUTE: "SET_ROUTE"
+  SET_ROUTE: "SET_ROUTE",
+  SAVE_PARTICIPATION: "SAVE_PARTICIPATION",
+  CANCEL_PARTICIPATION: "CANCEL_PARTICIPATION",
+  TOGGLE_PARTICIPATION: "TOGGLE_PARTICIPATION",
+  SET_RUN: "SET_RUN"
 };
 
 export const createRun = (run: any): Action<any> => {
@@ -76,5 +80,33 @@ export const setRoute = (routeDetails: RouteDetails) => {
   return {
     type: RUN_TYPES.SET_ROUTE,
     payload: routeDetails
+  };
+};
+
+export const saveParticipation = (runId: string) => {
+  return {
+    type: RUN_TYPES.SAVE_PARTICIPATION,
+    payload: runId
+  };
+};
+
+export const cancelParticipation = (runId: string) => {
+  return {
+    type: RUN_TYPES.CANCEL_PARTICIPATION,
+    payload: runId
+  };
+};
+
+export const toggleParticipation = (runId: string): Action<string> => {
+  return {
+    type: RUN_TYPES.TOGGLE_PARTICIPATION,
+    payload: runId
+  };
+};
+
+export const setRun = (run: any): Action<any> => {
+  return {
+    type: RUN_TYPES.SET_RUN,
+    payload: run
   };
 };

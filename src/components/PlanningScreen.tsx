@@ -27,6 +27,7 @@ interface PropsConnectedState {
 
 interface PropsConnectedDispatcher {
   getUpcomingRuns: (numberOfRuns: number, offset: number) => Action<RunRequest>;
+  setRun: (run: any) => Action<object>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -46,13 +47,6 @@ class PlanningScreen extends React.Component<Props, State> {
     this.props.getUpcomingRuns(10, 0);
   }
 
-  navigateToDetails(run: any) {
-    this.props.navigation.navigate("RunDetailsScreen", {
-      run,
-      type: "planning"
-    });
-  }
-
   refreshRuns = () => {
     this.setState({ refreshing: true });
     this.props.getUpcomingRuns(this.props.upcomingRuns.length, 0);
@@ -62,6 +56,11 @@ class PlanningScreen extends React.Component<Props, State> {
     this.setState({ refreshing: false });
     const offset = this.props.upcomingRuns.length;
     this.props.getUpcomingRuns(5, offset);
+  };
+
+  runSelected = (run: any) => {
+    this.props.setRun(run);
+    this.props.navigation.navigate("RunDetailsScreen");
   };
 
   renderList(): JSX.Element {
@@ -83,7 +82,7 @@ class PlanningScreen extends React.Component<Props, State> {
         keyExtractor={(item: RunModel) => item.id}
         renderItem={({ item }) => (
           <BottomMargin>
-            <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+            <PushableWrapper onPress={() => this.runSelected(item)}>
               <RunCard data={item} />
             </PushableWrapper>
           </BottomMargin>

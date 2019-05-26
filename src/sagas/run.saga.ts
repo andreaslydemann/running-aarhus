@@ -7,6 +7,8 @@ import axios from "axios";
 
 export default function* runSaga() {
   yield all([takeLeading(RUN_TYPES.CREATE_RUN_REQUEST, createRun)]);
+  yield all([takeLeading(RUN_TYPES.SAVE_PARTICIPATION, saveParticipation)]);
+  yield all([takeLeading(RUN_TYPES.CANCEL_PARTICIPATION, cancelParticipation)]);
 }
 
 function* createRun({ payload }: any) {
@@ -22,6 +24,43 @@ function* createRun({ payload }: any) {
 
     yield put(createRunSuccess());
     yield call(navigation.goBack);
+  } catch (error) {
+    yield put(createRunFailure());
+  }
+}
+
+function* saveParticipation({ payload }: any) {
+  try {
+    const currentUser = getCurrentUser();
+
+    const body = {
+      userId: currentUser.uid,
+      runId: payload
+    };
+
+    yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/saveParticipation`, body);
+
+    yield put(toggleParticipation(payload));
+  } catch (error) {
+    yield put(createRunFailure());
+  }
+}
+
+function* cancelParticipation({ payload }: any) {
+  try {
+    const currentUser = getCurrentUser();
+
+    const body = {
+      userId: currentUser.uid,
+      runId: payload
+    };
+
+    yield axios.post(
+      `${RUNNING_AARHUS_FUNCTIONS_URL}/cancelParticipation`,
+      body
+    );
+
+    yield put(toggleParticipation(payload));
   } catch (error) {
     yield put(createRunFailure());
   }

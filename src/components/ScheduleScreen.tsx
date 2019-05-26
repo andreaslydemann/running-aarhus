@@ -26,7 +26,7 @@ interface PropsConnectedState {
 
 interface PropsConnectedDispatcher {
   getScheduledRuns: () => Action<void>;
-  setScheduledRun: (run: any) => Action<object>;
+  setRun: (run: any) => Action<object>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -47,13 +47,10 @@ class ScheduleScreen extends React.Component<Props, State> {
     this.props.getScheduledRuns();
   }
 
-  navigateToDetails(run: any) {
-    this.props.setScheduledRun(run);
-    this.props.navigation.navigate("RunDetailsScreen", {
-      run,
-      type: "schedule"
-    });
-  }
+  runSelected = (run: any) => {
+    this.props.setRun(run);
+    this.props.navigation.navigate("RunDetailsScreen");
+  };
 
   refreshRuns = () => {
     this.setState({ refreshing: true });
@@ -82,7 +79,7 @@ class ScheduleScreen extends React.Component<Props, State> {
         keyExtractor={(item: RunModel) => item.id}
         renderItem={({ item }) => (
           <BottomMargin>
-            <PushableWrapper onPress={() => this.navigateToDetails(item)}>
+            <PushableWrapper onPress={() => this.runSelected(item)}>
               <RunCard data={item} />
             </PushableWrapper>
           </BottomMargin>
