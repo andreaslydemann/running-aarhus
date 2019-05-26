@@ -1,5 +1,10 @@
 import { call, put, takeLeading, all } from "redux-saga/effects";
-import { RUN_TYPES } from "actions";
+import {
+  participationFailure,
+  participationRequest,
+  participationSuccess,
+  RUN_TYPES
+} from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
 import { createRunSuccess, createRunFailure } from "actions";
 import { getCurrentUser, navigation } from "utils";
@@ -38,11 +43,13 @@ function* saveParticipation({ payload }: any) {
       runId: payload
     };
 
+    yield put(participationRequest());
+
     yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/saveParticipation`, body);
 
-    yield put(toggleParticipation(payload));
+    yield put(participationSuccess());
   } catch (error) {
-    yield put(createRunFailure());
+    yield put(participationFailure());
   }
 }
 
@@ -55,13 +62,15 @@ function* cancelParticipation({ payload }: any) {
       runId: payload
     };
 
+    yield put(participationRequest());
+
     yield axios.post(
       `${RUNNING_AARHUS_FUNCTIONS_URL}/cancelParticipation`,
       body
     );
 
-    yield put(toggleParticipation(payload));
+    yield put(participationSuccess());
   } catch (error) {
-    yield put(createRunFailure());
+    yield put(participationFailure());
   }
 }

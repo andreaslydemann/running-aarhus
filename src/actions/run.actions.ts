@@ -14,7 +14,9 @@ export const RUN_TYPES = {
   SET_ROUTE: "SET_ROUTE",
   SAVE_PARTICIPATION: "SAVE_PARTICIPATION",
   CANCEL_PARTICIPATION: "CANCEL_PARTICIPATION",
-  TOGGLE_PARTICIPATION: "TOGGLE_PARTICIPATION",
+  PARTICIPATION_REQUEST: "PARTICIPATION_REQUEST",
+  PARTICIPATION_SUCCESS: "PARTICIPATION_SUCCESS",
+  PARTICIPATION_FAILURE: "PARTICIPATION_FAILURE",
   SET_RUN: "SET_RUN"
 };
 
@@ -97,10 +99,21 @@ export const cancelParticipation = (runId: string) => {
   };
 };
 
-export const toggleParticipation = (runId: string): Action<string> => {
+export const participationRequest = (): Action<void> => {
   return {
-    type: RUN_TYPES.TOGGLE_PARTICIPATION,
-    payload: runId
+    type: RUN_TYPES.PARTICIPATION_REQUEST
+  };
+};
+
+export const participationSuccess = (): Action<void> => {
+  return {
+    type: RUN_TYPES.PARTICIPATION_SUCCESS
+  };
+};
+
+export const participationFailure = (): Action<void> => {
+  return {
+    type: RUN_TYPES.PARTICIPATION_FAILURE
   };
 };
 

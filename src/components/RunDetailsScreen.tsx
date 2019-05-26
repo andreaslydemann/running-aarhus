@@ -15,7 +15,10 @@ interface PropsConnectedState {
   run: RunState;
 }
 
-interface PropsConnectedDispatcher {}
+interface PropsConnectedDispatcher {
+  saveParticipation: (runId: string) => void;
+  cancelParticipation: (runId: string) => void;
+}
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   showActionSheetWithOptions: (options: any, callback: any) => void;
@@ -60,12 +63,14 @@ class RunDetailsScreen extends Component<Props> {
 
   render() {
     const {
+      id,
       startDateTime,
       title,
       routeDetails,
       description,
       pace,
-      participating
+      participating,
+      loading
     } = this.props.run;
 
     const _routeDetails = {
@@ -165,17 +170,19 @@ class RunDetailsScreen extends Component<Props> {
           </Row>
 
           <ButtonWrapper>
-            {participating ? (
+            {loading ? (
+              <Spinner color={theme.activeTint} size="large" />
+            ) : participating ? (
               <LinkButton
                 type={"destructive"}
                 title="Cancel"
-                onPress={() => console.log("hello")}
+                onPress={() => this.props.saveParticipation(id)}
               />
             ) : (
               <LinkButton
                 type={"submit"}
                 title="Join"
-                onPress={() => console.log("hello")}
+                onPress={() => this.props.cancelParticipation(id)}
               />
             )}
           </ButtonWrapper>
@@ -260,4 +267,8 @@ const BottomMargin = styled.View`
 const Icon = styled(Ionicons)`
   align-self: center;
   margin-vertical: 20px;
+`;
+
+const Spinner = styled.ActivityIndicator`
+  margin: 10px;
 `;

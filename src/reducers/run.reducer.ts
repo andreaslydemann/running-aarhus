@@ -89,14 +89,16 @@ function togglePace(state: RunState) {
   return { ...state, paceEnabled: !state.paceEnabled, routeDetails };
 }
 
-function toggleParticipation(state: RunState, runId: string) {
-  console.log(runId);
-  return { ...state };
+function toggleParticipation(state: RunState) {
+  return {
+    ...state,
+    error: false,
+    loading: false,
+    participating: !state.participating
+  };
 }
 
 function setRun(state: RunState, run: any) {
-  //console.log(state, run);
-
   const { coordinates, meetingPoint, distance, endDateTime, ...rest } = run;
 
   const routeDetails = {
@@ -131,8 +133,16 @@ export default function(state: RunState = initialState, action: Action<any>) {
       return decreasePace(state);
     case RUN_TYPES.SET_ROUTE:
       return { ...state, routeDetails: action.payload };
-    case RUN_TYPES.TOGGLE_PARTICIPATION:
-      return toggleParticipation(state, action.payload);
+    case RUN_TYPES.PARTICIPATION_REQUEST:
+      return { ...state, loading: true };
+    case RUN_TYPES.PARTICIPATION_SUCCESS:
+      return toggleParticipation(state);
+    case RUN_TYPES.PARTICIPATION_FAILURE:
+      return {
+        ...state,
+        loading: false,
+        error: true
+      };
     case RUN_TYPES.SET_RUN:
       return setRun(state, action.payload);
     default:
