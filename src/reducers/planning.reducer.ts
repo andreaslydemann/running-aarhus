@@ -1,6 +1,6 @@
 import { Action } from "actions/common";
 import { PlanningState } from "types/states";
-import { PLANNING_TYPES, RUN_TYPES } from "actions";
+import { DETAILS_TYPES, PLANNING_TYPES } from "actions";
 import { Item } from "../types/common";
 import { RunModel } from "../types/models";
 import { getRunsWithUpdatedParticipation } from "utils";
@@ -50,7 +50,7 @@ export default function(
       );
     case PLANNING_TYPES.SET_SELECTED_ITEM:
       return { ...state, selectedItem: action.payload };
-    case RUN_TYPES.PARTICIPATION_SUCCESS:
+    case DETAILS_TYPES.PARTICIPATION_SUCCESS:
       return updateParticipation(state, action.payload);
     default:
       return state;

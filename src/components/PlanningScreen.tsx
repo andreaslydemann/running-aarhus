@@ -78,8 +78,6 @@ class PlanningScreen extends React.Component<Props, State> {
     } = this.props;
     const { refreshing } = this.state;
 
-    console.log(upcomingRuns);
-
     return (
       <FlatList
         ListHeaderComponent={

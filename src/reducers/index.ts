@@ -5,13 +5,15 @@ import runReducer from "./run.reducer";
 import scheduleReducer from "./schedule.reducer";
 import planningReducer from "./planning.reducer";
 import pastReducer from "./past.reducer";
+import detailsReducer from "./details.reducer";
 
 const reducers = combineReducers<RootState>({
   auth: authReducer,
   run: runReducer,
   schedule: scheduleReducer,
   planning: planningReducer,
-  past: pastReducer
+  past: pastReducer,
+  details: detailsReducer
 });
 
 export default reducers;

@@ -3,7 +3,7 @@ import { styled, theme, THEME_PREFIX } from "theme";
 import { Image, View } from "react-native";
 import { Header, Button, ScreenBackground } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
-import { RunState } from "types/states";
+import { DetailsState } from "types/states";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { connect } from "react-redux";
 import * as actions from "../actions";
@@ -12,16 +12,12 @@ import moment from "moment";
 import { getLanguage } from "utils";
 import { RunModel } from "types/models";
 
-interface PropsConnectedState {
-  run: RunState;
-}
-
 interface PropsConnectedDispatcher {
   saveParticipation: (run: RunModel) => void;
   cancelParticipation: (run: RunModel) => void;
 }
 
-interface Props extends PropsConnectedState, PropsConnectedDispatcher {
+interface Props extends DetailsState, PropsConnectedDispatcher {
   showActionSheetWithOptions: (options: any, callback: any) => void;
   navigation: {
     navigate: (screen: string, params?: any) => void;
@@ -63,21 +59,14 @@ class RunDetailsScreen extends Component<Props> {
   };
 
   render() {
-    const {
-      startDateTime,
-      title,
-      routeDetails,
-      description,
-      pace,
-      participating,
-      loading
-    } = this.props.run;
+    const { loading, run } = this.props;
+    const { startDateTime, title, description, pace, participating } = run;
 
-    const _routeDetails = {
-      meetingPoint: routeDetails ? routeDetails.meetingPoint : "",
-      distance: routeDetails ? routeDetails.distance : 0,
-      coordinates: routeDetails ? routeDetails.coordinates : [],
-      endDateTime: routeDetails ? routeDetails.endDateTime : new Date()
+    const routeDetails = {
+      meetingPoint: run.meetingPoint,
+      distance: run.distance,
+      coordinates: run.coordinates,
+      endDateTime: run.endDateTime
     };
 
     const startDate = new Date(startDateTime);
@@ -101,7 +90,7 @@ class RunDetailsScreen extends Component<Props> {
             </BottomMargin>
             <BottomMargin>
               <SectionTitle>Distance</SectionTitle>
-              <InfoText>{_routeDetails.distance} km</InfoText>
+              <InfoText>{routeDetails.distance} km</InfoText>
             </BottomMargin>
             {pace && (
               <BottomMargin>
@@ -110,7 +99,7 @@ class RunDetailsScreen extends Component<Props> {
               </BottomMargin>
             )}
             <SectionTitle>Meeting point</SectionTitle>
-            <InfoText>{_routeDetails.meetingPoint}</InfoText>
+            <InfoText>{routeDetails.meetingPoint}</InfoText>
           </DetailsWrapper>
 
           <Icon
@@ -160,7 +149,7 @@ class RunDetailsScreen extends Component<Props> {
                 icon={`${THEME_PREFIX}-map`}
                 onPress={() => {
                   this.props.navigation.navigate("ShowRouteScreen", {
-                    ..._routeDetails,
+                    ...routeDetails,
                     pace
                   });
                 }}
@@ -192,8 +181,12 @@ class RunDetailsScreen extends Component<Props> {
   }
 }
 
-const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
-  return { run };
+const mapStateToProps = ({
+  details
+}: {
+  details: DetailsState;
+}): DetailsState => {
+  return { ...details };
 };
 
 export default connectActionSheet(

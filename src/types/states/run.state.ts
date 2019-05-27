@@ -10,8 +10,6 @@ export type RunState = {
   paceEnabled: boolean;
   pace: number;
   routeDetails: RouteDetails | null;
-  participating: boolean;
-  participants: any;
   cancelled: boolean;
   userId: string;
 };

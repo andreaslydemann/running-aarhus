@@ -13,11 +13,6 @@ export const RUN_TYPES = {
   INCREASE_PACE: "INCREASE_PACE",
   DECREASE_PACE: "DECREASE_PACE",
   SET_ROUTE: "SET_ROUTE",
-  SAVE_PARTICIPATION: "SAVE_PARTICIPATION",
-  CANCEL_PARTICIPATION: "CANCEL_PARTICIPATION",
-  PARTICIPATION_REQUEST: "PARTICIPATION_REQUEST",
-  PARTICIPATION_SUCCESS: "PARTICIPATION_SUCCESS",
-  PARTICIPATION_FAILURE: "PARTICIPATION_FAILURE",
   SET_RUN: "SET_RUN"
 };
 
@@ -28,9 +23,10 @@ export const createRun = (run: any): Action<any> => {
   };
 };
 
-export const createRunSuccess = (): Action<void> => {
+export const createRunSuccess = (run: RunModel): Action<RunModel> => {
   return {
-    type: RUN_TYPES.CREATE_RUN_SUCCESS
+    type: RUN_TYPES.CREATE_RUN_SUCCESS,
+    payload: run
   };
 };
 
@@ -86,40 +82,7 @@ export const setRoute = (routeDetails: RouteDetails) => {
   };
 };
 
-export const saveParticipation = (run: RunModel) => {
-  return {
-    type: RUN_TYPES.SAVE_PARTICIPATION,
-    payload: { run, participate: true }
-  };
-};
-
-export const cancelParticipation = (run: RunModel) => {
-  return {
-    type: RUN_TYPES.CANCEL_PARTICIPATION,
-    payload: { run, participate: false }
-  };
-};
-
-export const participationRequest = (): Action<void> => {
-  return {
-    type: RUN_TYPES.PARTICIPATION_REQUEST
-  };
-};
-
-export const participationSuccess = (run: RunModel): Action<RunModel> => {
-  return {
-    type: RUN_TYPES.PARTICIPATION_SUCCESS,
-    payload: run
-  };
-};
-
-export const participationFailure = (): Action<void> => {
-  return {
-    type: RUN_TYPES.PARTICIPATION_FAILURE
-  };
-};
-
-export const setRun = (run: any): Action<any> => {
+export const setRunForEditing = (run: any): Action<any> => {
   return {
     type: RUN_TYPES.SET_RUN,
     payload: run

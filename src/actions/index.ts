@@ -3,3 +3,4 @@ export * from "./run.actions";
 export * from "./schedule.actions";
 export * from "./planning.actions";
 export * from "./past.actions";
+export * from "./details.actions";

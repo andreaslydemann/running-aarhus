@@ -21,8 +21,6 @@ function* getScheduledRuns() {
       }`
     );
 
-    console.log(data);
-
     const runsWithParticipationStatus = addParticipationStatusToRuns(
       data,
       getCurrentUser().uid

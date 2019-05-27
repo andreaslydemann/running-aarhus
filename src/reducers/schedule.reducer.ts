@@ -1,6 +1,6 @@
 import { Action } from "actions/common";
 import { ScheduleState } from "types/states";
-import { RUN_TYPES, SCHEDULE_TYPES } from "actions";
+import { DETAILS_TYPES, SCHEDULE_TYPES } from "actions";
 import { RunModel } from "../types/models";
 
 const initialState: ScheduleState = {
@@ -34,7 +34,7 @@ export default function(
       return { ...state, loading: true };
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
       return { ...state, scheduledRuns: action.payload, loading: false };
-    case RUN_TYPES.PARTICIPATION_SUCCESS:
+    case DETAILS_TYPES.PARTICIPATION_SUCCESS:
       return updateParticipation(state, action.payload);
     default:
       return state;
