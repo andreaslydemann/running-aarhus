@@ -52,7 +52,7 @@ const PlanningStack = createStackNavigator(
 );
 
 const PastStack = createStackNavigator(
-  { PastScreen, RunDetailsScreen },
+  { PastScreen, RunDetailsStack },
   { headerMode: "none" }
 );
 
