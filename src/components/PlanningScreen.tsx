@@ -16,18 +16,22 @@ import { connect } from "react-redux";
 import * as actions from "actions";
 import { PlanningState } from "types/states";
 import { RunModel } from "types/models";
-import { RunRequest } from "types/common";
+import { Item, RunRequest } from "types/common";
 import { Action } from "actions/common";
 
 interface PropsConnectedState {
   error: boolean;
   loading: boolean;
   upcomingRuns: RunModel[];
+  myRuns: RunModel[];
+  selectedItem: Item;
 }
 
 interface PropsConnectedDispatcher {
   getUpcomingRuns: (numberOfRuns: number, offset: number) => Action<RunRequest>;
+  getMyRuns: () => Action<RunRequest>;
   setRun: (run: any) => Action<object>;
+  setSelectedItem: (item: Item) => Action<Item>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -45,6 +49,7 @@ class PlanningScreen extends React.Component<Props, State> {
 
   componentDidMount() {
     this.props.getUpcomingRuns(10, 0);
+    this.props.getMyRuns();
   }
 
   refreshRuns = () => {
@@ -64,7 +69,13 @@ class PlanningScreen extends React.Component<Props, State> {
   };
 
   renderList(): JSX.Element {
-    const { upcomingRuns, navigation, loading } = this.props;
+    const {
+      upcomingRuns,
+      myRuns,
+      navigation,
+      loading,
+      selectedItem
+    } = this.props;
     const { refreshing } = this.state;
 
     return (
@@ -72,13 +83,14 @@ class PlanningScreen extends React.Component<Props, State> {
         ListHeaderComponent={
           <BottomMargin>
             <PlanningHeader
-              onLeftItemPress={() => console.log("clicked")}
+              onLeftItemPress={() => this.props.setSelectedItem(Item.Left)}
               onMiddleItemPress={() => navigation.navigate("CreateRunScreen")}
-              onRightItemPress={() => console.log("clicked")}
+              onRightItemPress={() => this.props.setSelectedItem(Item.Right)}
+              selectedItem={selectedItem}
             />
           </BottomMargin>
         }
-        data={upcomingRuns}
+        data={selectedItem === Item.Left ? upcomingRuns : myRuns}
         keyExtractor={(item: RunModel) => item.id}
         renderItem={({ item }) => (
           <BottomMargin>
@@ -89,7 +101,7 @@ class PlanningScreen extends React.Component<Props, State> {
         )}
         ListFooterComponent={() => (
           <>
-            {upcomingRuns.length ? (
+            {selectedItem === Item.Left && upcomingRuns.length ? (
               loading && !refreshing ? (
                 <Spinner color={theme.activeTint} size="large" />
               ) : (
@@ -169,7 +181,9 @@ const mapStateToProps = ({
   planning: PlanningState;
 }): PropsConnectedState => {
   return {
+    selectedItem: planning.selectedItem,
     upcomingRuns: planning.upcomingRuns,
+    myRuns: planning.myRuns,
     error: planning.error,
     loading: planning.loading
   };

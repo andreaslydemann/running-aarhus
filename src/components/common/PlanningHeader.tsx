@@ -1,34 +1,17 @@
 import React, { Component } from "react";
 import { styled, theme, THEME_PREFIX } from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
+import { Item } from "types/common";
 
 interface Props {
   onLeftItemPress: () => void;
   onMiddleItemPress: () => void;
   onRightItemPress: () => void;
+  selectedItem: Item;
 }
 
-interface State {
-  selectedItem?: Item;
-}
-
-enum Item {
-  Left,
-  Right
-}
-
-export default class extends Component<Props, State> {
-  constructor(props: Props) {
-    super(props);
-
-    this.state = {
-      selectedItem: Item.Left
-    };
-  }
-
+export default class extends Component<Props> {
   handleOuterPress(item: Item) {
-    this.setState({ selectedItem: item });
-
     switch (item) {
       case Item.Left:
         this.props.onLeftItemPress();
@@ -43,7 +26,7 @@ export default class extends Component<Props, State> {
     return (
       <Wrapper>
         <OuterItem onPress={() => this.handleOuterPress(Item.Left)}>
-          <ItemText isSelected={this.state.selectedItem === Item.Left}>
+          <ItemText isSelected={this.props.selectedItem === Item.Left}>
             All runs
           </ItemText>
         </OuterItem>
@@ -55,7 +38,7 @@ export default class extends Component<Props, State> {
           />
         </MiddleItem>
         <OuterItem onPress={() => this.handleOuterPress(Item.Right)}>
-          <ItemText isSelected={this.state.selectedItem === Item.Right}>
+          <ItemText isSelected={this.props.selectedItem === Item.Right}>
             My runs
           </ItemText>
         </OuterItem>

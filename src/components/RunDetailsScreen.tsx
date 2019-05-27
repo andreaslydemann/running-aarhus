@@ -146,7 +146,7 @@ class RunDetailsScreen extends Component<Props> {
 
           <Row>
             <ButtonWrapper>
-              <LinkButton
+              <StyledButton
                 icon={`${THEME_PREFIX}-people`}
                 onPress={() =>
                   this.props.navigation.navigate("ParticipantsScreen")
@@ -155,7 +155,7 @@ class RunDetailsScreen extends Component<Props> {
               <ButtonLabel>Participants</ButtonLabel>
             </ButtonWrapper>
             <ButtonWrapper>
-              <LinkButton
+              <StyledButton
                 disabled={!routeDetails}
                 icon={`${THEME_PREFIX}-map`}
                 onPress={() => {
@@ -173,16 +173,16 @@ class RunDetailsScreen extends Component<Props> {
             {loading ? (
               <Spinner color={theme.activeTint} size="large" />
             ) : participating ? (
-              <LinkButton
+              <StyledButton
                 type={"destructive"}
                 title="Cancel"
-                onPress={() => this.props.saveParticipation(id)}
+                onPress={() => this.props.cancelParticipation(id)}
               />
             ) : (
-              <LinkButton
+              <StyledButton
                 type={"submit"}
                 title="Join"
-                onPress={() => this.props.cancelParticipation(id)}
+                onPress={() => this.props.saveParticipation(id)}
               />
             )}
           </ButtonWrapper>
@@ -246,7 +246,7 @@ const Row = styled.View`
   margin-bottom: 15px;
 `;
 
-const LinkButton = styled(Button)`
+const StyledButton = styled(Button)`
   width: 100%;
 `;
 

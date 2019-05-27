@@ -6,6 +6,7 @@ export type Coordinate = {
 export type RunRequest = {
   numberOfRuns: number;
   offset: number;
+  filterMyRuns?: boolean;
 };
 
 export interface RouteDetails {
@@ -13,4 +14,9 @@ export interface RouteDetails {
   meetingPoint: string;
   distance: number;
   endDateTime?: Date | string;
+}
+
+export enum Item {
+  Left,
+  Right
 }

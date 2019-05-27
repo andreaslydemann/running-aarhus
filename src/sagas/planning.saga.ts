@@ -16,18 +16,24 @@ function* getUpcomingRuns({ payload }: Action<RunRequest>) {
   try {
     if (!payload) return; //yield put(getUpcomingRunsFailure());
 
-    const { numberOfRuns, offset } = payload;
+    const { numberOfRuns, offset, filterMyRuns } = payload;
 
-    const { data } = yield axios.get(
-      `${RUNNING_AARHUS_FUNCTIONS_URL}/getUpcomingRuns?numberOfRuns=${numberOfRuns}&offset=${offset}`
-    );
+    let requestUrl = `${RUNNING_AARHUS_FUNCTIONS_URL}/getUpcomingRuns?numberOfRuns=${numberOfRuns}&offset=${offset}`;
+
+    if (filterMyRuns) {
+      requestUrl += `&userId=${getCurrentUser().uid}`;
+    }
+
+    const { data } = yield axios.get(requestUrl);
 
     const runsWithParticipationStatus = addParticipationStatusToRuns(
       data,
       getCurrentUser().uid
     );
 
-    yield put(getUpcomingRunsSuccess(runsWithParticipationStatus));
+    yield put(
+      getUpcomingRunsSuccess(runsWithParticipationStatus, !!filterMyRuns)
+    );
   } catch (error) {
     //return yield put(signInFailure());
   }
