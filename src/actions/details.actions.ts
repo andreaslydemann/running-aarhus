@@ -7,7 +7,7 @@ export const DETAILS_TYPES = {
   PARTICIPATION_REQUEST: "PARTICIPATION_REQUEST",
   PARTICIPATION_SUCCESS: "PARTICIPATION_SUCCESS",
   PARTICIPATION_FAILURE: "PARTICIPATION_FAILURE",
-  SET_RUN: "SET_RUN"
+  SET_DETAILS: "SET_DETAILS"
 };
 
 export const saveParticipation = (run: RunModel) => {
@@ -43,9 +43,9 @@ export const participationFailure = (): Action<void> => {
   };
 };
 
-export const setRun = (run: any): Action<any> => {
+export const setDetails = (run: RunModel): Action<RunModel> => {
   return {
-    type: DETAILS_TYPES.SET_RUN,
+    type: DETAILS_TYPES.SET_DETAILS,
     payload: run
   };
 };

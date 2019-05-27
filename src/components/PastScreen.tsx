@@ -25,7 +25,7 @@ interface PropsConnectedState {
 
 interface PropsConnectedDispatcher {
   getPastRuns: () => Action<void>;
-  setRun: (run: any) => Action<object>;
+  setDetails: (run: RunModel) => Action<RunModel>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -52,7 +52,7 @@ class PastScreen extends React.Component<Props, State> {
   }
 
   runSelected = (run: any) => {
-    this.props.setRun(run);
+    this.props.setDetails(run);
     this.props.navigation.navigate("RunDetailsScreen");
   };
 

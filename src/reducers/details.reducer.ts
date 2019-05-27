@@ -45,7 +45,7 @@ export default function(
         loading: false,
         error: true
       };
-    case DETAILS_TYPES.SET_RUN:
+    case DETAILS_TYPES.SET_DETAILS:
       return { ...state, run: action.payload };
     default:
       return state;

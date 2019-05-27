@@ -30,7 +30,7 @@ interface PropsConnectedState {
 interface PropsConnectedDispatcher {
   getUpcomingRuns: (numberOfRuns: number, offset: number) => Action<RunRequest>;
   getMyRuns: () => Action<RunRequest>;
-  setRun: (run: any) => Action<object>;
+  setDetails: (run: RunModel) => Action<RunModel>;
   setSelectedItem: (item: Item) => Action<Item>;
 }
 
@@ -64,7 +64,7 @@ class PlanningScreen extends React.Component<Props, State> {
   };
 
   runSelected = (run: any) => {
-    this.props.setRun(run);
+    this.props.setDetails(run);
     this.props.navigation.navigate("RunDetailsScreen");
   };
 

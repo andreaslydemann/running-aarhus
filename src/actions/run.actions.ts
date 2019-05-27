@@ -82,7 +82,7 @@ export const setRoute = (routeDetails: RouteDetails) => {
   };
 };
 
-export const setRunForEditing = (run: any): Action<any> => {
+export const setRun = (run: any): Action<any> => {
   return {
     type: RUN_TYPES.SET_RUN,
     payload: run
