@@ -28,7 +28,7 @@ interface PropsConnectedState {
 }
 
 interface PropsConnectedDispatcher {
-  getUpcomingRuns: (numberOfRuns: number, offset: number) => Action<RunRequest>;
+  getUpcomingRuns: (numberOfRuns: number, offset: string) => Action<RunRequest>;
   getMyRuns: () => Action<RunRequest>;
   setDetails: (run: RunModel) => Action<RunModel>;
   setSelectedItem: (item: Item) => Action<Item>;
@@ -48,18 +48,19 @@ class PlanningScreen extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.getUpcomingRuns(10, 0);
+    this.props.getUpcomingRuns(10, "");
     this.props.getMyRuns();
   }
 
   refreshRuns = () => {
     this.setState({ refreshing: true });
-    this.props.getUpcomingRuns(this.props.upcomingRuns.length, 0);
+    this.props.getUpcomingRuns(this.props.upcomingRuns.length, "");
   };
 
   loadMore = () => {
     this.setState({ refreshing: false });
-    const offset = this.props.upcomingRuns.length;
+    const offset = this.props.upcomingRuns.slice(-1)[0].id;
+    console.log(offset);
     this.props.getUpcomingRuns(5, offset);
   };
 

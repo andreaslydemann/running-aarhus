@@ -31,6 +31,8 @@ function* getUpcomingRuns({ payload }: Action<RunRequest>) {
       getCurrentUser().uid
     );
 
+    //console.log("runsWithParticipationStatus: ", runsWithParticipationStatus);
+
     yield put(
       getUpcomingRunsSuccess(runsWithParticipationStatus, !!filterMyRuns)
     );

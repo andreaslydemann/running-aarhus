@@ -5,7 +5,7 @@ export type Coordinate = {
 
 export type RunRequest = {
   numberOfRuns: number;
-  offset: number;
+  offset: string;
   filterMyRuns?: boolean;
 };
 

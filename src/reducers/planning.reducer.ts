@@ -21,7 +21,23 @@ function setUpcomingRuns(
   if (filterMyRuns) {
     return { ...state, myRuns: runs, loading: false };
   } else {
-    return { ...state, upcomingRuns: runs, loading: false };
+    if (state.upcomingRuns.length === 0) {
+      return { ...state, upcomingRuns: runs, loading: false };
+    }
+
+    const upcomingRuns = state.upcomingRuns.map(run => ({ ...run }));
+
+    runs.forEach(run => {
+      const index = upcomingRuns.findIndex(
+        upcomingRun => upcomingRun.id === run.id
+      );
+
+      if (index === -1) {
+        upcomingRuns.push(run);
+      }
+    });
+
+    return { ...state, upcomingRuns, loading: false };
   }
 }
 

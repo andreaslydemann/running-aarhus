@@ -1,5 +1,6 @@
 import { Action } from "./common";
 import { Item, RunRequest } from "types/common";
+import { RunModel } from "../types/models";
 
 export const PLANNING_TYPES = {
   GET_UPCOMING_RUNS_REQUEST: "GET_UPCOMING_RUNS_REQUEST",
@@ -11,7 +12,7 @@ export const PLANNING_TYPES = {
 
 export const getUpcomingRuns = (
   numberOfRuns: number,
-  offset: number
+  offset: string
 ): Action<RunRequest> => {
   return {
     type: PLANNING_TYPES.GET_UPCOMING_RUNS_REQUEST,
@@ -27,7 +28,7 @@ export const getMyRuns = () => {
 };
 
 export const getUpcomingRunsSuccess = (
-  runs: any,
+  runs: RunModel[],
   filterMyRuns: boolean
 ): Action<any> => {
   return {
