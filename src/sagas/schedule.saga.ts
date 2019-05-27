@@ -2,7 +2,7 @@ import { put, takeEvery, all } from "redux-saga/effects";
 import { SCHEDULE_TYPES } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
 import { getScheduledRunsSuccess } from "actions";
-import { getCurrentUser } from "utils";
+import { addParticipationStatusToRuns, getCurrentUser } from "utils";
 import axios from "axios";
 
 export default function* scheduleSaga() {
@@ -21,7 +21,14 @@ function* getScheduledRuns() {
       }`
     );
 
-    yield put(getScheduledRunsSuccess(data));
+    console.log(data);
+
+    const runsWithParticipationStatus = addParticipationStatusToRuns(
+      data,
+      getCurrentUser().uid
+    );
+
+    yield put(getScheduledRunsSuccess(runsWithParticipationStatus));
   } catch (error) {
     //return yield put(signInFailure());
   }

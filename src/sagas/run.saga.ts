@@ -12,8 +12,8 @@ import axios from "axios";
 
 export default function* runSaga() {
   yield all([takeLeading(RUN_TYPES.CREATE_RUN_REQUEST, createRun)]);
-  yield all([takeLeading(RUN_TYPES.SAVE_PARTICIPATION, saveParticipation)]);
-  yield all([takeLeading(RUN_TYPES.CANCEL_PARTICIPATION, cancelParticipation)]);
+  yield all([takeLeading(RUN_TYPES.SAVE_PARTICIPATION, changeParticipation)]);
+  yield all([takeLeading(RUN_TYPES.CANCEL_PARTICIPATION, changeParticipation)]);
 }
 
 function* createRun({ payload }: any) {
@@ -34,42 +34,26 @@ function* createRun({ payload }: any) {
   }
 }
 
-function* saveParticipation({ payload }: any) {
+function* changeParticipation({ payload }: any) {
   try {
     const currentUser = getCurrentUser();
 
     const body = {
       userId: currentUser.uid,
-      runId: payload
+      runId: payload.id
     };
 
     yield put(participationRequest());
 
-    yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/saveParticipation`, body);
+    const requestUrl = payload.participate
+      ? `${RUNNING_AARHUS_FUNCTIONS_URL}/saveParticipation`
+      : `${RUNNING_AARHUS_FUNCTIONS_URL}/cancelParticipation`;
 
-    yield put(participationSuccess());
-  } catch (error) {
-    yield put(participationFailure());
-  }
-}
+    yield axios.post(requestUrl, body);
 
-function* cancelParticipation({ payload }: any) {
-  try {
-    const currentUser = getCurrentUser();
+    const updatedRun = { ...payload, participating: !payload.participating };
 
-    const body = {
-      userId: currentUser.uid,
-      runId: payload
-    };
-
-    yield put(participationRequest());
-
-    yield axios.post(
-      `${RUNNING_AARHUS_FUNCTIONS_URL}/cancelParticipation`,
-      body
-    );
-
-    yield put(participationSuccess());
+    yield put(participationSuccess(updatedRun));
   } catch (error) {
     yield put(participationFailure());
   }

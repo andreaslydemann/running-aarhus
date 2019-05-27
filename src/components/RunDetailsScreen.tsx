@@ -10,14 +10,15 @@ import * as actions from "../actions";
 import i18n from "i18n-js";
 import moment from "moment";
 import { getLanguage } from "utils";
+import { RunModel } from "types/models";
 
 interface PropsConnectedState {
   run: RunState;
 }
 
 interface PropsConnectedDispatcher {
-  saveParticipation: (runId: string) => void;
-  cancelParticipation: (runId: string) => void;
+  saveParticipation: (run: RunModel) => void;
+  cancelParticipation: (run: RunModel) => void;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -63,7 +64,6 @@ class RunDetailsScreen extends Component<Props> {
 
   render() {
     const {
-      id,
       startDateTime,
       title,
       routeDetails,
@@ -176,13 +176,13 @@ class RunDetailsScreen extends Component<Props> {
               <StyledButton
                 type={"destructive"}
                 title="Cancel"
-                onPress={() => this.props.cancelParticipation(id)}
+                onPress={() => this.props.cancelParticipation(this.props.run)}
               />
             ) : (
               <StyledButton
                 type={"submit"}
                 title="Join"
-                onPress={() => this.props.saveParticipation(id)}
+                onPress={() => this.props.saveParticipation(this.props.run)}
               />
             )}
           </ButtonWrapper>

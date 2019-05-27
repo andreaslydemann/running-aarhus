@@ -1,5 +1,6 @@
 import { Action } from "./common";
 import { RouteDetails } from "types/common";
+import { RunModel } from "../types/models";
 
 export const RUN_TYPES = {
   CREATE_RUN_REQUEST: "CREATE_RUN_REQUEST",
@@ -85,17 +86,17 @@ export const setRoute = (routeDetails: RouteDetails) => {
   };
 };
 
-export const saveParticipation = (runId: string) => {
+export const saveParticipation = (run: RunModel) => {
   return {
     type: RUN_TYPES.SAVE_PARTICIPATION,
-    payload: runId
+    payload: { run, participate: true }
   };
 };
 
-export const cancelParticipation = (runId: string) => {
+export const cancelParticipation = (run: RunModel) => {
   return {
     type: RUN_TYPES.CANCEL_PARTICIPATION,
-    payload: runId
+    payload: { run, participate: false }
   };
 };
 
@@ -105,9 +106,10 @@ export const participationRequest = (): Action<void> => {
   };
 };
 
-export const participationSuccess = (): Action<void> => {
+export const participationSuccess = (run: RunModel): Action<RunModel> => {
   return {
-    type: RUN_TYPES.PARTICIPATION_SUCCESS
+    type: RUN_TYPES.PARTICIPATION_SUCCESS,
+    payload: run
   };
 };
 

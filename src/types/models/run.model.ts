@@ -1,12 +1,17 @@
 import { Coordinate } from "../common";
 
 export type RunModel = {
-  cancelled: boolean;
-  date: Date;
-  durationInMins: number;
   id: string;
-  location: Coordinate;
-  name: string;
-  notes: string;
+  title: string;
+  description: string;
+  pace: number;
+  distance: number;
+  meetingPoint: string;
+  coordinates: Coordinate[];
+  startDateTime: string;
+  endDateTime: string;
+  participants: any;
+  participating: boolean;
+  cancelled: boolean;
   userId: string;
 };
