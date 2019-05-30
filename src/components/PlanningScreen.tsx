@@ -48,7 +48,7 @@ class PlanningScreen extends React.Component<Props, State> {
   };
 
   componentDidMount() {
-    this.props.getUpcomingRuns(10, "");
+    this.props.getUpcomingRuns(5, "");
     this.props.getMyRuns();
   }
 
@@ -60,7 +60,7 @@ class PlanningScreen extends React.Component<Props, State> {
   loadMore = () => {
     this.setState({ refreshing: false });
     const offset = this.props.upcomingRuns.slice(-1)[0].id;
-    console.log(offset);
+
     this.props.getUpcomingRuns(5, offset);
   };
 

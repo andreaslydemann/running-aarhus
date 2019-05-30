@@ -64,6 +64,7 @@ class ScheduleScreen extends React.Component<Props, State> {
 
     return (
       <FlatList
+        style={{ marginBottom: 20 }}
         ListHeaderComponent={
           showPromotionCard ? (
             <BottomMargin>

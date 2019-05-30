@@ -8,7 +8,7 @@ import {
   InfoCard
 } from "components/common";
 import { styled } from "theme";
-import { FlatList, RefreshControl, ScrollView } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import { RunModel } from "../types/models";
 import { Action } from "../actions/common";
 import { PastState } from "../types/states";
@@ -90,7 +90,8 @@ class PastScreen extends React.Component<Props, State> {
     if (pastRuns.length) {
       return (
         <VerticalPadding>
-          <StyledList
+          <FlatList
+            style={{ marginBottom: 20 }}
             data={pastRuns}
             keyExtractor={(item: RunModel) => item.id}
             renderItem={({ item }) => (
@@ -113,13 +114,13 @@ class PastScreen extends React.Component<Props, State> {
     }
 
     return (
-      <ScrollView>
+      <VerticalPadding>
         <InfoCard
           title="No past runs"
           subtitle="Sign up to a run"
           showTextOnly={true}
         />
-      </ScrollView>
+      </VerticalPadding>
     );
   }
 
@@ -163,8 +164,4 @@ const BottomMargin = styled.View`
 const VerticalPadding = styled.ScrollView`
   padding-top: 20px;
   padding-bottom: 100px;
-`;
-
-const StyledList = styled(FlatList)`
-  margin-bottom: 20px;
 `;

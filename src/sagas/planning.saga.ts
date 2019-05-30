@@ -31,12 +31,11 @@ function* getUpcomingRuns({ payload }: Action<RunRequest>) {
       getCurrentUser().uid
     );
 
-    //console.log("runsWithParticipationStatus: ", runsWithParticipationStatus);
-
     yield put(
       getUpcomingRunsSuccess(runsWithParticipationStatus, !!filterMyRuns)
     );
   } catch (error) {
+    console.log(error);
     //return yield put(signInFailure());
   }
 }
