@@ -69,7 +69,7 @@ export default class extends Component<Props> {
 
 const Wrapper = styled(Animated.createAnimatedComponent(View))`
   background-color: ${({ theme }) => theme.primary};
-  margin: 20px;
+  margin-horizontal: 20px;
   border-radius: 15px
   align-items: center;
   padding: 20px;

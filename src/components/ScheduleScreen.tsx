@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, RefreshControl, ScrollView } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import i18n from "i18n-js";
 import {
   ScreenTitle,
@@ -60,20 +60,23 @@ class ScheduleScreen extends React.Component<Props, State> {
   renderList(): JSX.Element {
     const { scheduledRuns, loading } = this.props;
     const { refreshing } = this.state;
+    const showPromotionCard = true;
 
     return (
       <FlatList
         ListHeaderComponent={
-          <VerticalMargin>
-            <PromotionCard
-              run={{
-                title: "Running Challenge",
-                meetingPoint: "Station Allé, Aarhus C",
-                startDateTime: "Monday 27/6 - 17:30"
-              }}
-              navigateToDetails={() => console.log("hello")}
-            />
-          </VerticalMargin>
+          showPromotionCard ? (
+            <BottomMargin>
+              <PromotionCard
+                run={{
+                  title: "Running Challenge",
+                  meetingPoint: "Station Allé, Aarhus C",
+                  startDateTime: "Monday 27/6 - 17:30"
+                }}
+                navigateToDetails={() => console.log("hello")}
+              />
+            </BottomMargin>
+          ) : null
         }
         data={scheduledRuns}
         keyExtractor={(item: RunModel) => item.id}
@@ -101,14 +104,14 @@ class ScheduleScreen extends React.Component<Props, State> {
 
     if (error) {
       return (
-        <ScrollView>
+        <VerticalPadding>
           <InfoCard
             title="Error while fetching runs"
             subtitle="Try again later"
             onPress={this.refreshRuns}
             loading={loading}
           />
-        </ScrollView>
+        </VerticalPadding>
       );
     }
 
@@ -122,17 +125,17 @@ class ScheduleScreen extends React.Component<Props, State> {
     }
 
     if (scheduledRuns.length) {
-      return this.renderList();
+      return <VerticalPadding>{this.renderList()}</VerticalPadding>;
     }
 
     return (
-      <ScrollView>
+      <VerticalPadding>
         <InfoCard
           title="Your schedule is empty"
           subtitle="Sign up to a run"
           showTextOnly={true}
         />
-      </ScrollView>
+      </VerticalPadding>
     );
   }
 
@@ -173,7 +176,7 @@ const BottomMargin = styled.View`
   margin-bottom: 30px;
 `;
 
-const VerticalMargin = styled.View`
-  margin-top: 20px;
-  margin-bottom: 30px;
+const VerticalPadding = styled.ScrollView`
+  padding-top: 20px;
+  padding-bottom: 30px;
 `;

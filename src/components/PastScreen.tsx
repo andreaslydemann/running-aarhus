@@ -67,14 +67,14 @@ class PastScreen extends React.Component<Props, State> {
 
     if (error) {
       return (
-        <ScrollView>
+        <VerticalPadding>
           <InfoCard
             title="Error while fetching runs"
             subtitle="Try again later"
             onPress={this.refreshRuns}
             loading={loading}
           />
-        </ScrollView>
+        </VerticalPadding>
       );
     }
 
@@ -89,24 +89,26 @@ class PastScreen extends React.Component<Props, State> {
 
     if (pastRuns.length) {
       return (
-        <FlatList
-          data={pastRuns}
-          keyExtractor={(item: RunModel) => item.id}
-          renderItem={({ item }) => (
-            <BottomMargin>
-              <PushableWrapper onPress={() => this.runSelected(item)}>
-                <RunCard data={item} />
-              </PushableWrapper>
-            </BottomMargin>
-          )}
-          refreshControl={
-            <RefreshControl
-              refreshing={loading && refreshing}
-              onRefresh={this.refreshRuns}
-              tintColor="#fff"
-            />
-          }
-        />
+        <VerticalPadding>
+          <StyledList
+            data={pastRuns}
+            keyExtractor={(item: RunModel) => item.id}
+            renderItem={({ item }) => (
+              <BottomMargin>
+                <PushableWrapper onPress={() => this.runSelected(item)}>
+                  <RunCard data={item} />
+                </PushableWrapper>
+              </BottomMargin>
+            )}
+            refreshControl={
+              <RefreshControl
+                refreshing={loading && refreshing}
+                onRefresh={this.refreshRuns}
+                tintColor="#fff"
+              />
+            }
+          />
+        </VerticalPadding>
       );
     }
 
@@ -156,4 +158,13 @@ const Wrapper = styled(ScreenBackground)`
 
 const BottomMargin = styled.View`
   margin-bottom: 30px;
+`;
+
+const VerticalPadding = styled.ScrollView`
+  padding-top: 20px;
+  padding-bottom: 100px;
+`;
+
+const StyledList = styled(FlatList)`
+  margin-bottom: 20px;
 `;
