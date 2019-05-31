@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { FlatList, View } from "react-native";
 import { styled } from "../theme";
-import { Header, ScreenBackground } from "./common";
+import { Header, InfoCard, ScreenBackground } from "./common";
 import i18n from "i18n-js";
 import { UserModel } from "types/models";
 import moment from "moment";
@@ -19,16 +19,6 @@ export default class ParticipantsScreen extends Component<Props> {
       "participants"
     ) as UserModel[];
 
-    /* [
-      Object {
-        "creationDate": "2019-05-30T22:11:59.362Z",
-        "firstName": "Andreas",
-        "id": "j2ivAiBvx9ZJ1RqmrGQonHsqqVe2",
-        "lastName": "Lüdemann",
-        "pictureUrl": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10219042710328458&height=100&width=100&ext=1561846316&hash=AeS36LIDCUfdyNke",
-      },
-    ]*/
-
     return (
       <Wrapper>
         <Header
@@ -38,42 +28,50 @@ export default class ParticipantsScreen extends Component<Props> {
         />
 
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
-          <FlatList
-            data={participants}
-            keyExtractor={item => item.id}
-            renderItem={({ item }) => (
-              <View
-                style={{
-                  flexDirection: "row",
-                  alignItems: "center",
-                  marginBottom: 35
-                }}
-              >
-                <ProfilePicture
-                  source={{
-                    uri: item.pictureUrl
-                  }}
-                />
+          {participants.length ? (
+            <FlatList
+              data={participants}
+              keyExtractor={item => item.id}
+              ItemSeparatorComponent={() => <Divider />}
+              renderItem={({ item }) => (
                 <View
                   style={{
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    marginLeft: 12
+                    flexDirection: "row",
+                    alignItems: "center"
                   }}
                 >
-                  <SectionTitle>
-                    {item.firstName} {item.lastName}
-                  </SectionTitle>
-                  <InfoText>
-                    User since{" "}
-                    {moment(new Date(item.creationDate))
-                      .format("LL")
-                      .toLowerCase()}
-                  </InfoText>
+                  <ProfilePicture
+                    source={{
+                      uri: item.pictureUrl
+                    }}
+                  />
+                  <View
+                    style={{
+                      flexDirection: "column",
+                      justifyContent: "center",
+                      marginLeft: 12
+                    }}
+                  >
+                    <SectionTitle>
+                      {item.firstName} {item.lastName}
+                    </SectionTitle>
+                    <InfoText>
+                      User since{" "}
+                      {moment(new Date(item.creationDate))
+                        .format("LL")
+                        .toLowerCase()}
+                    </InfoText>
+                  </View>
                 </View>
-              </View>
-            )}
-          />
+              )}
+            />
+          ) : (
+            <InfoCard
+              title="No participants yet"
+              subtitle="Sign up to this run"
+              showTextOnly={true}
+            />
+          )}
         </ScrollWrapper>
       </Wrapper>
     );
@@ -103,4 +101,11 @@ const ProfilePicture = styled.Image`
   width: 60px;
   height: 60px;
   border-radius: 30;
+`;
+
+const Divider = styled.View`
+  border-bottom-color: ${({ theme }) => theme.inactiveTint};
+  border-bottom-width: 1px;
+  margin-vertical: 10px;
+  width: 100%;
 `;
