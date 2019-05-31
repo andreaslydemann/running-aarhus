@@ -60,7 +60,14 @@ class RunDetailsScreen extends Component<Props> {
 
   render() {
     const { loading, run } = this.props;
-    const { startDateTime, title, description, pace, participating } = run;
+    const {
+      startDateTime,
+      title,
+      description,
+      pace,
+      participating,
+      participants
+    } = run;
 
     const routeDetails = {
       meetingPoint: run.meetingPoint,
@@ -138,7 +145,9 @@ class RunDetailsScreen extends Component<Props> {
               <StyledButton
                 icon={`${THEME_PREFIX}-people`}
                 onPress={() =>
-                  this.props.navigation.navigate("ParticipantsScreen")
+                  this.props.navigation.navigate("ParticipantsScreen", {
+                    participants
+                  })
                 }
               />
               <ButtonLabel>Participants</ButtonLabel>
