@@ -6,6 +6,13 @@ import {
   ScreenBackground,
   ProfileInfo
 } from "components/common";
+import Dialog, {
+  DialogTitle,
+  DialogContent,
+  DialogFooter,
+  DialogButton,
+  ScaleAnimation
+} from "react-native-popup-dialog";
 import { Ionicons } from "@expo/vector-icons";
 import { DetailsState } from "types/states";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
@@ -15,10 +22,16 @@ import i18n from "i18n-js";
 import moment from "moment";
 import { getLanguage } from "utils";
 import { RunModel } from "types/models";
+import { Text } from "react-native";
+
+interface State {
+  dialogVisible: boolean;
+}
 
 interface PropsConnectedDispatcher {
   saveParticipation: (run: RunModel) => void;
   cancelParticipation: (run: RunModel) => void;
+  cancelRun: (runId: string) => void;
 }
 
 interface Props extends DetailsState, PropsConnectedDispatcher {
@@ -30,12 +43,16 @@ interface Props extends DetailsState, PropsConnectedDispatcher {
   };
 }
 
-class RunDetailsScreen extends Component<Props> {
-  onOpenActionSheet = () => {
+class RunDetailsScreen extends Component<Props, State> {
+  state = {
+    dialogVisible: false
+  };
+
+  openActionSheet = () => {
     const options = [
-      i18n.t("optionEdit"),
-      i18n.t("optionDelete"),
-      i18n.t("optionCancel")
+      i18n.t("optionEditRun"),
+      i18n.t("optionCancelRun"),
+      i18n.t("optionDismiss")
     ];
     const destructiveButtonIndex = 1;
     const cancelButtonIndex = 2;
@@ -53,12 +70,50 @@ class RunDetailsScreen extends Component<Props> {
             console.log("editing");
             break;
           case 1:
-            console.log("deleting");
+            this.setState({ dialogVisible: true });
             break;
           default:
             break;
         }
       }
+    );
+  };
+
+  renderDialog = () => {
+    const { cancelRun, navigation, run } = this.props;
+
+    return (
+      <Dialog
+        onTouchOutside={() => {
+          this.setState({ dialogVisible: false });
+        }}
+        width={0.89}
+        visible={this.state.dialogVisible}
+        dialogAnimation={new ScaleAnimation()}
+        dialogTitle={<DialogTitle title={"Confirm"} hasTitleBar={false} />}
+        footer={
+          <DialogFooter>
+            <DialogButton
+              text={i18n.t("optionNo")}
+              onPress={() => {
+                this.setState({ dialogVisible: false });
+              }}
+            />
+            <DialogButton
+              text={i18n.t("optionYes")}
+              onPress={() => {
+                this.setState({ dialogVisible: false });
+                cancelRun(run.id);
+                navigation.goBack(null);
+              }}
+            />
+          </DialogFooter>
+        }
+      >
+        <DialogContent style={{ alignItems: "center" }}>
+          <Text>Are you sure you want to cancel this run?</Text>
+        </DialogContent>
+      </Dialog>
     );
   };
 
@@ -86,24 +141,13 @@ class RunDetailsScreen extends Component<Props> {
       .locale(getLanguage())
       .format("LLLL");
 
-    console.log(run);
-
-    /*const user = {
-      creationDate: "2019-05-31T14:05:49.800Z",
-      firstName: "Andreas",
-      id: "j2ivAiBvx9ZJ1RqmrGQonHsqqVe2",
-      lastName: "Lüdemann",
-      pictureUrl:
-        "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10219042710328458&height=100&width=100&ext=1561903547&hash=AeROYS1ZfWRaFLZB"
-    };*/
-
     return (
       <Wrapper>
         <Header
           ScreenTitle={title}
           navigateBack={() => this.props.navigation.goBack(null)}
           showMoreButton={true}
-          onMoreButtonPress={this.onOpenActionSheet}
+          onMoreButtonPress={this.openActionSheet}
         />
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
           <DetailsWrapper>
@@ -182,6 +226,7 @@ class RunDetailsScreen extends Component<Props> {
             )}
           </ButtonWrapper>
         </ScrollWrapper>
+        {this.renderDialog()}
       </Wrapper>
     );
   }

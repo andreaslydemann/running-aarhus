@@ -64,7 +64,6 @@ class CreateRunScreen extends React.Component<Props> {
         key={"datepicker"}
         locale={language}
         date={this.props.startDateTime}
-        onDateChange={dateTime => console.log(dateTime)}
         getDateStr={date => {
           if (this.props.startDateTime !== date) {
             this.props.setStartDateTime(date);

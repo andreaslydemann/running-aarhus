@@ -12,7 +12,8 @@ export default ({ data }: { data: any }) => {
     endDateTime,
     meetingPoint,
     title,
-    participating
+    participating,
+    cancelled
   } = data;
 
   const startDate = new Date(startDateTime);
@@ -33,7 +34,13 @@ export default ({ data }: { data: any }) => {
         </View>
         <Label
           numberOfLines={2}
-          text={participating ? i18n.t("signedUp") : i18n.t("signUp")}
+          text={
+            cancelled
+              ? i18n.t("cancelled")
+              : participating
+              ? i18n.t("signedUp")
+              : i18n.t("signUp")
+          }
         />
       </Row>
       <Desc bold>{title}</Desc>

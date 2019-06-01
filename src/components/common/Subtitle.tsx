@@ -64,7 +64,7 @@ export default class Subtitle extends Component<Props, State> {
           footer={
             <DialogFooter>
               <DialogButton
-                text={i18n.t("dismiss")}
+                text={i18n.t("optionDismiss")}
                 onPress={() => {
                   this.setState({ dialogVisible: false });
                 }}

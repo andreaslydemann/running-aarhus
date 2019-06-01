@@ -9,10 +9,8 @@ interface Props {
 }
 
 export default ({ user }: Props) => {
-  const language = getLanguage();
-
   const creationDate = moment(new Date(user.creationDate))
-    .locale(language)
+    .locale(getLanguage())
     .format("LL")
     .toLowerCase();
 
