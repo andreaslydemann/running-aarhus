@@ -81,8 +81,7 @@ class PlanningScreen extends React.Component<Props, State> {
     const { refreshing } = this.state;
 
     return (
-      <FlatList
-        style={{ marginBottom: 20 }}
+      <PlanningList
         ListHeaderComponent={
           <BottomMargin>
             <PlanningHeader
@@ -94,7 +93,7 @@ class PlanningScreen extends React.Component<Props, State> {
           </BottomMargin>
         }
         data={selectedItem === Item.Left ? upcomingRuns : myRuns}
-        keyExtractor={(item: RunModel) => item.id}
+        keyExtractor={(item: any) => item.id}
         renderItem={({ item }) => (
           <BottomMargin>
             <PushableWrapper onPress={() => this.runSelected(item)}>
@@ -153,7 +152,7 @@ class PlanningScreen extends React.Component<Props, State> {
       );
     }
 
-    return <Padding>{this.renderList()}</Padding>;
+    return this.renderList();
   }
 
   render(): JSX.Element {
@@ -216,4 +215,9 @@ const BottomMargin = styled.View`
 
 const Padding = styled.ScrollView`
   padding: 20px 20px 30px 20px;
+`;
+
+const PlanningList = styled(FlatList)`
+  margin: 20px 20px 0px 20px;
+  padding-bottom: 20px;
 `;

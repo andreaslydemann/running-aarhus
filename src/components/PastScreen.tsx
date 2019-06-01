@@ -89,27 +89,24 @@ class PastScreen extends React.Component<Props, State> {
 
     if (pastRuns.length) {
       return (
-        <Padding>
-          <FlatList
-            style={{ marginBottom: 20 }}
-            data={pastRuns}
-            keyExtractor={(item: RunModel) => item.id}
-            renderItem={({ item }) => (
-              <BottomMargin>
-                <PushableWrapper onPress={() => this.runSelected(item)}>
-                  <RunCard data={item} />
-                </PushableWrapper>
-              </BottomMargin>
-            )}
-            refreshControl={
-              <RefreshControl
-                refreshing={loading && refreshing}
-                onRefresh={this.refreshRuns}
-                tintColor="#fff"
-              />
-            }
-          />
-        </Padding>
+        <PastList
+          data={pastRuns}
+          keyExtractor={(item: any) => item.id}
+          renderItem={({ item }) => (
+            <BottomMargin>
+              <PushableWrapper onPress={() => this.runSelected(item)}>
+                <RunCard data={item} />
+              </PushableWrapper>
+            </BottomMargin>
+          )}
+          refreshControl={
+            <RefreshControl
+              refreshing={loading && refreshing}
+              onRefresh={this.refreshRuns}
+              tintColor="#fff"
+            />
+          }
+        />
       );
     }
 
@@ -163,4 +160,9 @@ const BottomMargin = styled.View`
 
 const Padding = styled.ScrollView`
   padding: 20px 20px 30px 20px;
+`;
+
+const PastList = styled(FlatList)`
+  margin: 20px 20px 0px 20px;
+  padding-bottom: 20px;
 `;

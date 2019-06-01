@@ -63,8 +63,7 @@ class ScheduleScreen extends React.Component<Props, State> {
     const showPromotionCard = true;
 
     return (
-      <FlatList
-        style={{ marginBottom: 20 }}
+      <ScheduleList
         ListHeaderComponent={
           showPromotionCard ? (
             <BottomMargin>
@@ -80,7 +79,7 @@ class ScheduleScreen extends React.Component<Props, State> {
           ) : null
         }
         data={scheduledRuns}
-        keyExtractor={(item: RunModel) => item.id}
+        keyExtractor={(item: any) => item.id}
         renderItem={({ item }) => (
           <BottomMargin>
             <PushableWrapper onPress={() => this.runSelected(item)}>
@@ -126,7 +125,7 @@ class ScheduleScreen extends React.Component<Props, State> {
     }
 
     if (scheduledRuns.length) {
-      return <Padding>{this.renderList()}</Padding>;
+      return this.renderList();
     }
 
     return (
@@ -179,4 +178,9 @@ const BottomMargin = styled.View`
 
 const Padding = styled.ScrollView`
   padding: 20px 20px 30px 20px;
+`;
+
+const ScheduleList = styled(FlatList)`
+  margin: 20px 20px 0px 20px;
+  padding-bottom: 20px;
 `;
