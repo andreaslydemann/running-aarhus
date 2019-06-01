@@ -1,5 +1,5 @@
 import React from "react";
-import { FlatList, RefreshControl, ScrollView } from "react-native";
+import { FlatList, RefreshControl } from "react-native";
 import i18n from "i18n-js";
 import {
   ScreenTitle,

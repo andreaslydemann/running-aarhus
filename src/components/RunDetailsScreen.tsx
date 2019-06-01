@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { styled, theme, THEME_PREFIX } from "theme";
-import { Image, View } from "react-native";
-import { Header, Button, ScreenBackground } from "components/common";
+import {
+  Header,
+  Button,
+  ScreenBackground,
+  ProfileInfo
+} from "components/common";
 import { Ionicons } from "@expo/vector-icons";
 import { DetailsState } from "types/states";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
@@ -81,6 +85,15 @@ class RunDetailsScreen extends Component<Props> {
       .locale(getLanguage())
       .format("LLLL");
 
+    const user = {
+      creationDate: "2019-05-31T14:05:49.800Z",
+      firstName: "Andreas",
+      id: "j2ivAiBvx9ZJ1RqmrGQonHsqqVe2",
+      lastName: "Lüdemann",
+      pictureUrl:
+        "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10219042710328458&height=100&width=100&ext=1561903547&hash=AeROYS1ZfWRaFLZB"
+    };
+
     return (
       <Wrapper>
         <Header
@@ -117,28 +130,9 @@ class RunDetailsScreen extends Component<Props> {
 
           {description ? <DescText>{description}</DescText> : null}
 
-          <View
-            style={{
-              flexDirection: "row",
-              alignItems: "center",
-              marginBottom: 35
-            }}
-          >
-            <Image
-              style={{ height: 60, width: 60 }}
-              source={require("../../assets/logo.png")}
-            />
-            <View
-              style={{
-                flexDirection: "column",
-                justifyContent: "center",
-                marginLeft: 5
-              }}
-            >
-              <SectionTitle>Arrangør:</SectionTitle>
-              <InfoText>Anders Andersen</InfoText>
-            </View>
-          </View>
+          <ProfileWrapper>
+            <ProfileInfo user={user} />
+          </ProfileWrapper>
 
           <Row>
             <ButtonWrapper>
@@ -273,4 +267,8 @@ const Icon = styled(Ionicons)`
 
 const Spinner = styled.ActivityIndicator`
   margin: 10px;
+`;
+
+const ProfileWrapper = styled.View`
+  margin-bottom: 40px;
 `;

@@ -1,10 +1,9 @@
 import React, { Component } from "react";
-import { FlatList, View } from "react-native";
+import { FlatList } from "react-native";
 import { styled } from "../theme";
-import { Header, InfoCard, ScreenBackground } from "./common";
+import { Header, InfoCard, ProfileInfo, ScreenBackground } from "./common";
 import i18n from "i18n-js";
 import { UserModel } from "types/models";
-import moment from "moment";
 
 interface Props {
   navigation: {
@@ -33,37 +32,7 @@ export default class ParticipantsScreen extends Component<Props> {
               data={participants}
               keyExtractor={item => item.id}
               ItemSeparatorComponent={() => <Divider />}
-              renderItem={({ item }) => (
-                <View
-                  style={{
-                    flexDirection: "row",
-                    alignItems: "center"
-                  }}
-                >
-                  <ProfilePicture
-                    source={{
-                      uri: item.pictureUrl
-                    }}
-                  />
-                  <View
-                    style={{
-                      flexDirection: "column",
-                      justifyContent: "center",
-                      marginLeft: 12
-                    }}
-                  >
-                    <SectionTitle>
-                      {item.firstName} {item.lastName}
-                    </SectionTitle>
-                    <InfoText>
-                      User since{" "}
-                      {moment(new Date(item.creationDate))
-                        .format("LL")
-                        .toLowerCase()}
-                    </InfoText>
-                  </View>
-                </View>
-              )}
+              renderItem={({ item }) => <ProfileInfo user={item} />}
             />
           ) : (
             <InfoCard
@@ -85,22 +54,6 @@ const Wrapper = styled(ScreenBackground)`
 
 const ScrollWrapper = styled.ScrollView`
   padding: 0 20px;
-`;
-
-const SectionTitle = styled.Text`
-  color: ${({ theme }) => theme.activeTint};
-  font-weight: bold;
-`;
-
-const InfoText = styled.Text`
-  color: ${({ theme }) => theme.activeTint};
-  font-size: 16px;
-`;
-
-const ProfilePicture = styled.Image`
-  width: 60px;
-  height: 60px;
-  border-radius: 30;
 `;
 
 const Divider = styled.View`
