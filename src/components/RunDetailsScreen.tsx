@@ -270,5 +270,6 @@ const Spinner = styled.ActivityIndicator`
 `;
 
 const ProfileWrapper = styled.View`
-  margin-bottom: 40px;
+  margin-top: 10px;
+  margin-bottom: 45px;
 `;
