@@ -2,13 +2,17 @@ import React from "react";
 import moment from "moment";
 import { styled } from "theme";
 import { UserModel } from "types/models";
+import { getLanguage } from "utils";
 
 interface Props {
   user: UserModel;
 }
 
 export default ({ user }: Props) => {
+  const language = getLanguage();
+
   const creationDate = moment(new Date(user.creationDate))
+    .locale(language)
     .format("LL")
     .toLowerCase();
 

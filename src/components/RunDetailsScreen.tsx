@@ -70,7 +70,8 @@ class RunDetailsScreen extends Component<Props> {
       description,
       pace,
       participating,
-      participants
+      participants,
+      createdBy
     } = run;
 
     const routeDetails = {
@@ -85,14 +86,16 @@ class RunDetailsScreen extends Component<Props> {
       .locale(getLanguage())
       .format("LLLL");
 
-    const user = {
+    console.log(run);
+
+    /*const user = {
       creationDate: "2019-05-31T14:05:49.800Z",
       firstName: "Andreas",
       id: "j2ivAiBvx9ZJ1RqmrGQonHsqqVe2",
       lastName: "Lüdemann",
       pictureUrl:
         "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=10219042710328458&height=100&width=100&ext=1561903547&hash=AeROYS1ZfWRaFLZB"
-    };
+    };*/
 
     return (
       <Wrapper>
@@ -131,7 +134,7 @@ class RunDetailsScreen extends Component<Props> {
           {description ? <DescText>{description}</DescText> : null}
 
           <ProfileWrapper>
-            <ProfileInfo user={user} />
+            <ProfileInfo user={createdBy} />
           </ProfileWrapper>
 
           <Row>

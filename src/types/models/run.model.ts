@@ -1,4 +1,5 @@
 import { Coordinate } from "../common";
+import { UserModel } from "./user.model";
 
 export type RunModel = {
   id: string;
@@ -13,5 +14,5 @@ export type RunModel = {
   participants: any;
   participating: boolean;
   cancelled: boolean;
-  userId: string;
+  createdBy: UserModel;
 };
