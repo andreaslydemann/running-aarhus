@@ -12,7 +12,7 @@ import {
   PastScreen,
   RunDetailsScreen,
   SettingsScreen,
-  CreateRunScreen,
+  SetRunScreen,
   SetRouteScreen,
   ShowRouteScreen,
   ParticipantsScreen
@@ -28,7 +28,7 @@ const RunDetailsStack = createStackNavigator(
   { headerMode: "none", mode: "modal" }
 );
 
-const ScheduleStack = createStackNavigator(
+const SeeScheduleStack = createStackNavigator(
   { ScheduleScreen, RunDetailsStack },
   { headerMode: "none" }
 );
@@ -38,15 +38,20 @@ const FindRunStack = createStackNavigator(
   { headerMode: "none" }
 );
 
-const CreateRunStack = createStackNavigator(
-  { CreateRunScreen, SetRouteScreen },
+const SetRunStack = createStackNavigator(
+  { SetRunScreen, SetRouteScreen },
   { headerMode: "none" }
+);
+
+const ScheduleStack = createStackNavigator(
+  { SeeSchedule: SeeScheduleStack, EditRun: SetRunStack },
+  { headerMode: "none", mode: "modal" }
 );
 
 const PlanningStack = createStackNavigator(
   {
     FindRun: FindRunStack,
-    CreateRun: CreateRunStack
+    CreateRun: SetRunStack
   },
   { headerMode: "none", mode: "modal" }
 );
@@ -70,15 +75,20 @@ const options = (label: string, icon: string) => {
   };
 };
 
-ScheduleStack.navigationOptions = options(TABS.Schedule, TABBAR_ICONS.Schedule);
-SettingsStack.navigationOptions = options(TABS.Settings, TABBAR_ICONS.Settings);
-PastStack.navigationOptions = options(TABS.Past, TABBAR_ICONS.Past);
+ScheduleStack.navigationOptions = ({ navigation }: any) => {
+  return {
+    ...options(TABS.Schedule, TABBAR_ICONS.Schedule),
+    tabBarVisible: navigation.state.index === 0
+  };
+};
 PlanningStack.navigationOptions = ({ navigation }: any) => {
   return {
     ...options(TABS.Planning, TABBAR_ICONS.Planning),
     tabBarVisible: navigation.state.index === 0
   };
 };
+PastStack.navigationOptions = options(TABS.Past, TABBAR_ICONS.Past);
+SettingsStack.navigationOptions = options(TABS.Settings, TABBAR_ICONS.Settings);
 
 const AppTabBar = createBottomTabNavigator(
   {

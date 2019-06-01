@@ -3,6 +3,7 @@ import { RunState } from "types/states";
 import { RUN_TYPES } from "actions";
 import { calculateEndDateTime } from "utils";
 import { RouteDetails } from "../types/common";
+import { RunModel } from "../types/models";
 
 const initialState: RunState = {
   id: "",
@@ -87,7 +88,7 @@ function togglePace(state: RunState) {
   return { ...state, paceEnabled: !state.paceEnabled, routeDetails };
 }
 
-function setRun(state: RunState, run: any) {
+function setRun(state: RunState, run: RunModel) {
   const { coordinates, meetingPoint, distance, endDateTime, ...rest } = run;
 
   const routeDetails = {

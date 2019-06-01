@@ -82,7 +82,7 @@ export const setRoute = (routeDetails: RouteDetails) => {
   };
 };
 
-export const setRun = (run: any): Action<any> => {
+export const setRun = (run: RunModel): Action<RunModel> => {
   return {
     type: RUN_TYPES.SET_RUN,
     payload: run

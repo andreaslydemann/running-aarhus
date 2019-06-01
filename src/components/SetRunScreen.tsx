@@ -24,6 +24,7 @@ import moment from "moment";
 import "moment/min/locales";
 
 interface PropsConnectedState {
+  isEditRun: boolean;
   startDateTime: Date;
   title: string;
   description: string;
@@ -51,7 +52,7 @@ interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   };
 }
 
-class CreateRunScreen extends React.Component<Props> {
+class SetRunScreen extends React.Component<Props> {
   renderDatePicker() {
     const language = getLanguage();
     return [
@@ -160,7 +161,7 @@ class CreateRunScreen extends React.Component<Props> {
     ];
   }
 
-  onCreateRun() {
+  onSetRun() {
     const {
       title,
       description,
@@ -185,7 +186,8 @@ class CreateRunScreen extends React.Component<Props> {
       paceEnabled,
       title,
       description,
-      startDateTime
+      startDateTime,
+      isEditRun
     } = this.props;
     let meetingPoint: string = "";
     let coordinates: Coordinate[] = [];
@@ -199,7 +201,9 @@ class CreateRunScreen extends React.Component<Props> {
       <Wrapper>
         <Header
           navigateBack={() => this.props.navigation.goBack(null)}
-          ScreenTitle={i18n.t("createRunTitle")}
+          ScreenTitle={
+            isEditRun ? i18n.t("editRunTitle") : i18n.t("createRunTitle")
+          }
           isModal={true}
         />
 
@@ -261,7 +265,7 @@ class CreateRunScreen extends React.Component<Props> {
           disabled={
             !(this.props.routeDetails && this.props.title) || this.props.loading
           }
-          onPress={() => this.onCreateRun()}
+          onPress={() => this.onSetRun()}
           title={"Gem"}
         />
 
@@ -283,14 +287,15 @@ const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
     paceEnabled: run.paceEnabled,
     pace: run.pace,
     routeDetails: run.routeDetails,
-    loading: run.loading
+    loading: run.loading,
+    isEditRun: !!run.id
   };
 };
 
 export default connect(
   mapStateToProps,
   actions
-)(CreateRunScreen as React.ComponentClass<Props>);
+)(SetRunScreen as React.ComponentClass<Props>);
 
 const PaceTextWrapper = styled.View`
   width: 50%;

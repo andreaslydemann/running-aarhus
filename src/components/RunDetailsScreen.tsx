@@ -34,6 +34,7 @@ interface PropsConnectedDispatcher {
   saveParticipation: (run: RunModel) => void;
   cancelParticipation: (run: RunModel) => void;
   cancelRun: (runId: string) => void;
+  setRun: (run: RunModel) => void;
 }
 
 interface Props extends DetailsState, PropsConnectedDispatcher {
@@ -69,7 +70,8 @@ class RunDetailsScreen extends Component<Props, State> {
       (buttonIndex: number) => {
         switch (buttonIndex) {
           case 0:
-            console.log("editing");
+            this.props.setRun(this.props.run);
+            this.props.navigation.navigate("SetRunScreen");
             break;
           case 1:
             this.setState({ dialogVisible: true });

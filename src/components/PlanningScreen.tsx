@@ -86,7 +86,7 @@ class PlanningScreen extends React.Component<Props, State> {
           <BottomMargin>
             <PlanningHeader
               onLeftItemPress={() => this.props.setSelectedItem(Item.Left)}
-              onMiddleItemPress={() => navigation.navigate("CreateRunScreen")}
+              onMiddleItemPress={() => navigation.navigate("SetRunScreen")}
               onRightItemPress={() => this.props.setSelectedItem(Item.Right)}
               selectedItem={selectedItem}
             />

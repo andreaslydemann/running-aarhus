@@ -2,6 +2,7 @@ export const en = {
   cancelled: "Cancelled",
   currentLocation: "Current location",
   pastTitle: "Past",
+  editRunTitle: "Edit run",
   createRunTitle: "Create run",
   participantsTitle: "Participants",
   planningTitle: "Planning",
