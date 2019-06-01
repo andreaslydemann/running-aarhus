@@ -1,7 +1,8 @@
 import { Action } from "actions/common";
 import { ScheduleState } from "types/states";
+import { RunModel } from "types/models";
 import { DETAILS_TYPES, SCHEDULE_TYPES } from "actions";
-import { RunModel } from "../types/models";
+import { getRunsWithUpdatedCancellation } from "utils";
 
 const initialState: ScheduleState = {
   error: false,
@@ -25,6 +26,15 @@ function updateParticipation(state: ScheduleState, run: RunModel) {
   return { ...state, scheduledRuns: newScheduledRuns };
 }
 
+function updateCancelledRun(state: ScheduleState, runId: string) {
+  const updatedScheduledRuns = getRunsWithUpdatedCancellation(
+    state.scheduledRuns,
+    runId
+  );
+
+  return { ...state, scheduledRuns: updatedScheduledRuns };
+}
+
 export default function(
   state: ScheduleState = initialState,
   action: Action<any>
@@ -36,6 +46,8 @@ export default function(
       return { ...state, scheduledRuns: action.payload, loading: false };
     case DETAILS_TYPES.PARTICIPATION_SUCCESS:
       return updateParticipation(state, action.payload);
+    case DETAILS_TYPES.CANCEL_RUN_SUCCESS:
+      return updateCancelledRun(state, action.payload);
     default:
       return state;
   }

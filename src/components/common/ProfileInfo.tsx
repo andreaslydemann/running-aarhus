@@ -9,7 +9,11 @@ interface Props {
 }
 
 export default ({ user }: Props) => {
-  const creationDate = moment(new Date(user.creationDate))
+  const { creationDate: _creationDate, firstName, lastName, pictureUrl } = user;
+
+  if (!(_creationDate && firstName && lastName && pictureUrl)) return null;
+
+  const creationDate = moment(new Date(_creationDate))
     .locale(getLanguage())
     .format("LL")
     .toLowerCase();
@@ -18,7 +22,7 @@ export default ({ user }: Props) => {
     <Wrapper>
       <ProfilePicture
         source={{
-          uri: user.pictureUrl
+          uri: pictureUrl
         }}
       />
       <TextWrapper>

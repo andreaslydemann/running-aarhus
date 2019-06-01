@@ -140,11 +140,22 @@ class ScheduleScreen extends React.Component<Props, State> {
   }
 
   render(): JSX.Element {
+    const { error } = this.props;
+
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
 
         {this.renderContent()}
+
+        <StatusModal
+          type={statusModalTypes.ERROR}
+          isVisible={error}
+          height={135}
+          width={115}
+          textNumberOfLines={2}
+          text={"Fejl opstået"}
+        />
       </Wrapper>
     );
   }

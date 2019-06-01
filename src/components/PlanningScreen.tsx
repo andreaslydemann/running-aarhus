@@ -14,13 +14,12 @@ import { styled, theme } from "theme";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 import { connect } from "react-redux";
 import * as actions from "actions";
-import { DetailsState, PlanningState } from "types/states";
+import { PlanningState } from "types/states";
 import { RunModel } from "types/models";
 import { Item, RunRequest } from "types/common";
 import { Action } from "actions/common";
 
 interface PropsConnectedState {
-  success: boolean;
   error: boolean;
   loading: boolean;
   upcomingRuns: RunModel[];
@@ -157,7 +156,7 @@ class PlanningScreen extends React.Component<Props, State> {
   }
 
   render(): JSX.Element {
-    const { error, success } = this.props;
+    const { error } = this.props;
 
     return (
       <Wrapper>
@@ -165,15 +164,13 @@ class PlanningScreen extends React.Component<Props, State> {
 
         {this.renderContent()}
 
-        <StatusModal type={statusModalTypes.SUCCESS} isVisible={success} />
-
         <StatusModal
           type={statusModalTypes.ERROR}
           isVisible={error}
           height={135}
           width={115}
           textNumberOfLines={2}
-          text={"Oprettelse mislykkedes"}
+          text={"Fejl opstået"}
         />
       </Wrapper>
     );
@@ -181,18 +178,15 @@ class PlanningScreen extends React.Component<Props, State> {
 }
 
 const mapStateToProps = ({
-  planning,
-  details
+  planning
 }: {
   planning: PlanningState;
-  details: DetailsState;
 }): PropsConnectedState => {
   return {
     selectedItem: planning.selectedItem,
     upcomingRuns: planning.upcomingRuns,
     myRuns: planning.myRuns,
-    error: planning.error || details.error,
-    success: details.success,
+    error: planning.error,
     loading: planning.loading
   };
 };

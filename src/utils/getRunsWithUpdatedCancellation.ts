@@ -1,6 +1,6 @@
 import { RunModel } from "../types/models";
 
-export function getRunsWithUpdatedParticipation(
+export function getRunsWithUpdatedCancellation(
   runs: RunModel[],
   runId: string
 ) {
@@ -9,7 +9,7 @@ export function getRunsWithUpdatedParticipation(
 
     return {
       ...run,
-      participating: !run.participating
+      cancelled: true
     };
   });
 }

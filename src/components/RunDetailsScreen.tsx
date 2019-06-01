@@ -23,9 +23,11 @@ import moment from "moment";
 import { getLanguage } from "utils";
 import { RunModel } from "types/models";
 import { Text } from "react-native";
+import { StatusModal, statusModalTypes } from "./common/StatusModal";
 
 interface State {
   dialogVisible: boolean;
+  recentlyCancelled: boolean;
 }
 
 interface PropsConnectedDispatcher {
@@ -39,13 +41,13 @@ interface Props extends DetailsState, PropsConnectedDispatcher {
   navigation: {
     navigate: (screen: string, params?: any) => void;
     goBack: (nullArg?: null) => void;
-    getParam: (param: string) => any;
   };
 }
 
 class RunDetailsScreen extends Component<Props, State> {
   state = {
-    dialogVisible: false
+    dialogVisible: false,
+    recentlyCancelled: false
   };
 
   openActionSheet = () => {
@@ -80,7 +82,7 @@ class RunDetailsScreen extends Component<Props, State> {
   };
 
   renderDialog = () => {
-    const { cancelRun, navigation, run } = this.props;
+    const { cancelRun, run } = this.props;
 
     return (
       <Dialog
@@ -102,9 +104,15 @@ class RunDetailsScreen extends Component<Props, State> {
             <DialogButton
               text={i18n.t("optionYes")}
               onPress={() => {
-                this.setState({ dialogVisible: false });
-                cancelRun(run.id);
-                navigation.goBack(null);
+                this.setState(
+                  {
+                    dialogVisible: false,
+                    recentlyCancelled: true
+                  },
+                  () => {
+                    cancelRun(run.id);
+                  }
+                );
               }}
             />
           </DialogFooter>
@@ -118,7 +126,8 @@ class RunDetailsScreen extends Component<Props, State> {
   };
 
   render() {
-    const { loading, run } = this.props;
+    const { recentlyCancelled } = this.state;
+    const { error, success, loading, run } = this.props;
     const {
       startDateTime,
       title,
@@ -126,7 +135,8 @@ class RunDetailsScreen extends Component<Props, State> {
       pace,
       participating,
       participants,
-      createdBy
+      createdBy,
+      cancelled
     } = run;
 
     const routeDetails = {
@@ -141,12 +151,14 @@ class RunDetailsScreen extends Component<Props, State> {
       .locale(getLanguage())
       .format("LLLL");
 
+    const showMoreButton = !(cancelled || recentlyCancelled);
+
     return (
       <Wrapper>
         <Header
-          ScreenTitle={title}
+          ScreenTitle={(cancelled ? "Cancelled: " : "") + title}
           navigateBack={() => this.props.navigation.goBack(null)}
-          showMoreButton={true}
+          showMoreButton={showMoreButton}
           onMoreButtonPress={this.openActionSheet}
         />
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
@@ -177,9 +189,11 @@ class RunDetailsScreen extends Component<Props, State> {
 
           {description ? <DescText>{description}</DescText> : null}
 
-          <ProfileWrapper>
-            <ProfileInfo user={createdBy} />
-          </ProfileWrapper>
+          {createdBy && (
+            <ProfileWrapper>
+              <ProfileInfo user={createdBy} />
+            </ProfileWrapper>
+          )}
 
           <Row>
             <ButtonWrapper>
@@ -213,12 +227,14 @@ class RunDetailsScreen extends Component<Props, State> {
               <Spinner color={theme.activeTint} size="large" />
             ) : participating ? (
               <StyledButton
+                disabled={run.cancelled}
                 type={"destructive"}
                 title="Cancel"
                 onPress={() => this.props.cancelParticipation(this.props.run)}
               />
             ) : (
               <StyledButton
+                disabled={run.cancelled}
                 type={"submit"}
                 title="Join"
                 onPress={() => this.props.saveParticipation(this.props.run)}
@@ -226,6 +242,18 @@ class RunDetailsScreen extends Component<Props, State> {
             )}
           </ButtonWrapper>
         </ScrollWrapper>
+
+        <StatusModal type={statusModalTypes.SUCCESS} isVisible={success} />
+
+        <StatusModal
+          type={statusModalTypes.ERROR}
+          isVisible={error}
+          height={135}
+          width={115}
+          textNumberOfLines={2}
+          text={"Fejl opstået"}
+        />
+
         {this.renderDialog()}
       </Wrapper>
     );
@@ -237,7 +265,7 @@ const mapStateToProps = ({
 }: {
   details: DetailsState;
 }): DetailsState => {
-  return { ...details };
+  return details;
 };
 
 export default connectActionSheet(

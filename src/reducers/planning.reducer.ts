@@ -1,9 +1,12 @@
 import { Action } from "actions/common";
-import { PlanningState } from "types/states";
 import { DETAILS_TYPES, PLANNING_TYPES } from "actions";
-import { Item } from "../types/common";
-import { RunModel } from "../types/models";
-import { getRunsWithUpdatedParticipation } from "utils";
+import { PlanningState } from "types/states";
+import { Item } from "types/common";
+import { RunModel } from "types/models";
+import {
+  getRunsWithUpdatedCancellation,
+  getRunsWithUpdatedParticipation
+} from "utils";
 
 const initialState: PlanningState = {
   error: false,
@@ -51,6 +54,15 @@ function updateParticipation(state: PlanningState, { id }: RunModel) {
   return { ...state, upcomingRuns: updatedUpcomingRuns, myRuns: updatedMyRuns };
 }
 
+function updateCancelledRun(state: PlanningState, runId: string) {
+  const updatedMyRuns = getRunsWithUpdatedCancellation(state.myRuns, runId);
+  const updatedUpcomingRuns = state.upcomingRuns.filter(
+    (run: RunModel) => run.id !== runId
+  );
+
+  return { ...state, upcomingRuns: updatedUpcomingRuns, myRuns: updatedMyRuns };
+}
+
 export default function(
   state: PlanningState = initialState,
   action: Action<any>
@@ -68,6 +80,8 @@ export default function(
       return { ...state, selectedItem: action.payload };
     case DETAILS_TYPES.PARTICIPATION_SUCCESS:
       return updateParticipation(state, action.payload);
+    case DETAILS_TYPES.CANCEL_RUN_SUCCESS:
+      return updateCancelledRun(state, action.payload);
     default:
       return state;
   }
