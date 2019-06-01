@@ -3,7 +3,7 @@ import { RouteDetails } from "types/common";
 import { RunModel } from "../types/models";
 
 export const RUN_TYPES = {
-  CREATE_RUN_REQUEST: "CREATE_RUN_REQUEST",
+  CREATE_RUN: "CREATE_RUN",
   CREATE_RUN_SUCCESS: "CREATE_RUN_SUCCESS",
   CREATE_RUN_FAILURE: "CREATE_RUN_FAILURE",
   SET_START_DATE_TIME: "SET_START_DATE_TIME",
@@ -18,7 +18,7 @@ export const RUN_TYPES = {
 
 export const createRun = (run: any): Action<any> => {
   return {
-    type: RUN_TYPES.CREATE_RUN_REQUEST,
+    type: RUN_TYPES.CREATE_RUN,
     payload: run
   };
 };

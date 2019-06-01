@@ -30,7 +30,7 @@ export default function(
   action: Action<any>
 ) {
   switch (action.type) {
-    case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_REQUEST:
+    case SCHEDULE_TYPES.GET_SCHEDULED_RUNS:
       return { ...state, loading: true };
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
       return { ...state, scheduledRuns: action.payload, loading: false };

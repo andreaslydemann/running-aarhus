@@ -6,7 +6,7 @@ import { addParticipationStatusToRuns, getCurrentUser } from "utils";
 import axios from "axios";
 
 export default function* pastSaga() {
-  yield all([takeEvery(PAST_TYPES.GET_PAST_RUNS_REQUEST, getPastRuns)]);
+  yield all([takeEvery(PAST_TYPES.GET_PAST_RUNS, getPastRuns)]);
 }
 
 function* getPastRuns() {

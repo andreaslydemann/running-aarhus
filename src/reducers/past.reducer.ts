@@ -10,7 +10,7 @@ const initialState: PastState = {
 
 export default function(state: PastState = initialState, action: Action<any>) {
   switch (action.type) {
-    case PAST_TYPES.GET_PAST_RUNS_REQUEST:
+    case PAST_TYPES.GET_PAST_RUNS:
       return { ...state, loading: true };
     case PAST_TYPES.GET_PAST_RUNS_SUCCESS:
       return { ...state, pastRuns: action.payload, loading: false };

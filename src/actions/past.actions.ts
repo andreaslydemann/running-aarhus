@@ -1,7 +1,7 @@
 import { Action } from "./common";
 
 export const PAST_TYPES = {
-  GET_PAST_RUNS_REQUEST: "GET_PAST_RUNS_REQUEST",
+  GET_PAST_RUNS: "GET_PAST_RUNS",
   GET_PAST_RUNS_SUCCESS: "GET_PAST_RUNS_SUCCESS",
   GET_PAST_RUNS_FAILURE: "GET_PAST_RUNS_FAILURE",
   SET_PAST_RUN: "SET_PAST_RUN"
@@ -9,7 +9,7 @@ export const PAST_TYPES = {
 
 export const getPastRuns = (): Action<void> => {
   return {
-    type: PAST_TYPES.GET_PAST_RUNS_REQUEST
+    type: PAST_TYPES.GET_PAST_RUNS
   };
 };
 

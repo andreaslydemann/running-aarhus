@@ -6,9 +6,7 @@ import { addParticipationStatusToRuns, getCurrentUser } from "utils";
 import axios from "axios";
 
 export default function* scheduleSaga() {
-  yield all([
-    takeEvery(SCHEDULE_TYPES.GET_SCHEDULED_RUNS_REQUEST, getScheduledRuns)
-  ]);
+  yield all([takeEvery(SCHEDULE_TYPES.GET_SCHEDULED_RUNS, getScheduledRuns)]);
 }
 
 function* getScheduledRuns() {

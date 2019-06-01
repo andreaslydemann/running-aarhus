@@ -11,7 +11,7 @@ import firebase from "firebase";
 import axios from "axios";
 
 export default function* authSaga() {
-  yield all([takeEvery(AUTH_TYPES.SIGN_IN_REQUEST, signIn)]);
+  yield all([takeEvery(AUTH_TYPES.SIGN_IN, signIn)]);
 }
 
 function* signIn() {

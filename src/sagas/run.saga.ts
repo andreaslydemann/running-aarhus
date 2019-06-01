@@ -10,7 +10,7 @@ import {
 import axios from "axios";
 
 export default function* runSaga() {
-  yield all([takeLeading(RUN_TYPES.CREATE_RUN_REQUEST, createRun)]);
+  yield all([takeLeading(RUN_TYPES.CREATE_RUN, createRun)]);
 }
 
 function* createRun({ payload }: any) {

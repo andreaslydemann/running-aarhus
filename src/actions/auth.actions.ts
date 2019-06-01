@@ -1,14 +1,14 @@
 import { Action } from "./common";
 
 export const AUTH_TYPES = {
-  SIGN_IN_REQUEST: "SIGN_IN_REQUEST",
+  SIGN_IN: "SIGN_IN",
   SIGN_IN_SUCCESS: "SIGN_IN_SUCCESS",
   SIGN_IN_FAILURE: "SIGN_IN_FAILURE"
 };
 
 export const signIn = (): Action<void> => {
   return {
-    type: AUTH_TYPES.SIGN_IN_REQUEST
+    type: AUTH_TYPES.SIGN_IN
   };
 };
 

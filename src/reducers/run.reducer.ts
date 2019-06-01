@@ -102,7 +102,7 @@ function setRun(state: RunState, run: any) {
 
 export default function(state: RunState = initialState, action: Action<any>) {
   switch (action.type) {
-    case RUN_TYPES.CREATE_RUN_REQUEST:
+    case RUN_TYPES.CREATE_RUN:
       return { ...state, loading: true };
     case RUN_TYPES.CREATE_RUN_SUCCESS:
       return { ...state, loading: false };

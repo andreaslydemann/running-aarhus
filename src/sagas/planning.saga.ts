@@ -7,9 +7,7 @@ import axios from "axios";
 import { getCurrentUser, addParticipationStatusToRuns } from "utils";
 
 export default function* planningSaga() {
-  yield all([
-    takeEvery(PLANNING_TYPES.GET_UPCOMING_RUNS_REQUEST, getUpcomingRuns)
-  ]);
+  yield all([takeEvery(PLANNING_TYPES.GET_UPCOMING_RUNS, getUpcomingRuns)]);
 }
 
 function* getUpcomingRuns({ payload }: Action<RunRequest>) {

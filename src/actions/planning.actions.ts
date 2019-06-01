@@ -3,7 +3,7 @@ import { Item, RunRequest } from "types/common";
 import { RunModel } from "../types/models";
 
 export const PLANNING_TYPES = {
-  GET_UPCOMING_RUNS_REQUEST: "GET_UPCOMING_RUNS_REQUEST",
+  GET_UPCOMING_RUNS: "GET_UPCOMING_RUNS",
   GET_UPCOMING_RUNS_SUCCESS: "GET_UPCOMING_RUNS_SUCCESS",
   GET_SCHEDULED_RUNS_FAILURE: "GET_UPCOMING_RUNS_FAILURE",
   SET_UPCOMING_RUN: "SET_UPCOMING_RUN",
@@ -15,14 +15,14 @@ export const getUpcomingRuns = (
   offset: string
 ): Action<RunRequest> => {
   return {
-    type: PLANNING_TYPES.GET_UPCOMING_RUNS_REQUEST,
+    type: PLANNING_TYPES.GET_UPCOMING_RUNS,
     payload: { numberOfRuns, offset }
   };
 };
 
 export const getMyRuns = () => {
   return {
-    type: PLANNING_TYPES.GET_UPCOMING_RUNS_REQUEST,
+    type: PLANNING_TYPES.GET_UPCOMING_RUNS,
     payload: { numberOfRuns: 15, offset: "", filterMyRuns: true }
   };
 };

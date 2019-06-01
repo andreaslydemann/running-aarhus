@@ -56,7 +56,7 @@ export default function(
   action: Action<any>
 ) {
   switch (action.type) {
-    case PLANNING_TYPES.GET_UPCOMING_RUNS_REQUEST:
+    case PLANNING_TYPES.GET_UPCOMING_RUNS:
       return { ...state, loading: true };
     case PLANNING_TYPES.GET_UPCOMING_RUNS_SUCCESS:
       return setUpcomingRuns(
