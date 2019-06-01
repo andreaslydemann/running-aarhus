@@ -53,7 +53,12 @@ export default function(
         error: true
       };
     case DETAILS_TYPES.SET_DETAILS:
-      return { ...state, run: action.payload };
+      return {
+        run: action.payload,
+        success: false,
+        error: false,
+        loading: false
+      };
     case DETAILS_TYPES.CANCEL_RUN_REQUEST:
       return { ...state, success: false, error: false };
     case DETAILS_TYPES.CANCEL_RUN_SUCCESS:
