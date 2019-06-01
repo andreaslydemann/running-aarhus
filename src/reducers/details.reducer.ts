@@ -5,6 +5,7 @@ import { DETAILS_TYPES } from "actions/details.actions";
 const initialState: DetailsState = {
   error: false,
   loading: false,
+  success: false,
   run: {
     id: "",
     title: "",
@@ -18,7 +19,13 @@ const initialState: DetailsState = {
     participants: [],
     participating: false,
     cancelled: false,
-    userId: ""
+    createdBy: {
+      id: "",
+      firstName: "",
+      lastName: "",
+      pictureUrl: "",
+      creationDate: ""
+    }
   }
 };
 
@@ -47,6 +54,12 @@ export default function(
       };
     case DETAILS_TYPES.SET_DETAILS:
       return { ...state, run: action.payload };
+    case DETAILS_TYPES.CANCEL_RUN_REQUEST:
+      return { ...state, success: false, error: false };
+    case DETAILS_TYPES.CANCEL_RUN_SUCCESS:
+      return { ...state, success: true };
+    case DETAILS_TYPES.CANCEL_RUN_FAILURE:
+      return { ...state, error: true };
     default:
       return state;
   }

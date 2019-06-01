@@ -14,12 +14,13 @@ import { styled, theme } from "theme";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 import { connect } from "react-redux";
 import * as actions from "actions";
-import { PlanningState } from "types/states";
+import { DetailsState, PlanningState } from "types/states";
 import { RunModel } from "types/models";
 import { Item, RunRequest } from "types/common";
 import { Action } from "actions/common";
 
 interface PropsConnectedState {
+  success: boolean;
   error: boolean;
   loading: boolean;
   upcomingRuns: RunModel[];
@@ -156,13 +157,15 @@ class PlanningScreen extends React.Component<Props, State> {
   }
 
   render(): JSX.Element {
-    const { error } = this.props;
+    const { error, success } = this.props;
 
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("planningTitle")} />
 
         {this.renderContent()}
+
+        <StatusModal type={statusModalTypes.SUCCESS} isVisible={success} />
 
         <StatusModal
           type={statusModalTypes.ERROR}
@@ -178,15 +181,18 @@ class PlanningScreen extends React.Component<Props, State> {
 }
 
 const mapStateToProps = ({
-  planning
+  planning,
+  details
 }: {
   planning: PlanningState;
+  details: DetailsState;
 }): PropsConnectedState => {
   return {
     selectedItem: planning.selectedItem,
     upcomingRuns: planning.upcomingRuns,
     myRuns: planning.myRuns,
-    error: planning.error,
+    error: planning.error || details.error,
+    success: details.success,
     loading: planning.loading
   };
 };

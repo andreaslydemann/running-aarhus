@@ -4,6 +4,7 @@ import {
   participationFailure,
   participationRequest,
   participationSuccess,
+  cancelRunRequest,
   cancelRunFailure,
   cancelRunSuccess
 } from "actions";
@@ -16,7 +17,7 @@ export default function* detailsSaga() {
   yield all([
     takeEvery(DETAILS_TYPES.SAVE_PARTICIPATION, changeParticipation),
     takeEvery(DETAILS_TYPES.CANCEL_PARTICIPATION, changeParticipation),
-    takeEvery(DETAILS_TYPES.CANCEL_RUN_REQUEST, cancelRun)
+    takeEvery(DETAILS_TYPES.CANCEL_RUN, cancelRun)
   ]);
 }
 
@@ -48,6 +49,8 @@ function* changeParticipation({ payload }: any) {
 }
 
 function* cancelRun({ payload: runId = "" }: Action<string>) {
+  yield put(cancelRunRequest());
+
   try {
     yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/cancelRun`, { runId });
   } catch (error) {

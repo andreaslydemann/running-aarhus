@@ -7,6 +7,7 @@ export const DETAILS_TYPES = {
   PARTICIPATION_REQUEST: "PARTICIPATION_REQUEST",
   PARTICIPATION_SUCCESS: "PARTICIPATION_SUCCESS",
   PARTICIPATION_FAILURE: "PARTICIPATION_FAILURE",
+  CANCEL_RUN: "CANCEL_RUN",
   CANCEL_RUN_REQUEST: "CANCEL_RUN_REQUEST",
   CANCEL_RUN_SUCCESS: "CANCEL_RUN_SUCCESS",
   CANCEL_RUN_FAILURE: "CANCEL_RUN_FAILURE",
@@ -55,8 +56,14 @@ export const setDetails = (run: RunModel): Action<RunModel> => {
 
 export const cancelRun = (runId: string): Action<string> => {
   return {
-    type: DETAILS_TYPES.CANCEL_RUN_REQUEST,
+    type: DETAILS_TYPES.CANCEL_RUN,
     payload: runId
+  };
+};
+
+export const cancelRunRequest = (): Action<void> => {
+  return {
+    type: DETAILS_TYPES.CANCEL_RUN_REQUEST
   };
 };
 
