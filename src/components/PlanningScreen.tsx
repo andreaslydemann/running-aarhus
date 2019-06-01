@@ -55,6 +55,7 @@ class PlanningScreen extends React.Component<Props, State> {
   refreshRuns = () => {
     this.setState({ refreshing: true });
     this.props.getUpcomingRuns(this.props.upcomingRuns.length, "");
+    this.props.getMyRuns();
   };
 
   loadMore = () => {
@@ -81,6 +82,7 @@ class PlanningScreen extends React.Component<Props, State> {
 
     return (
       <FlatList
+        style={{ marginBottom: 20 }}
         ListHeaderComponent={
           <BottomMargin>
             <PlanningHeader
@@ -131,14 +133,14 @@ class PlanningScreen extends React.Component<Props, State> {
 
     if (error) {
       return (
-        <ScrollView>
+        <Padding>
           <InfoCard
             title="Error while fetching runs"
             subtitle="Try again later"
             onPress={this.refreshRuns}
             loading={loading}
           />
-        </ScrollView>
+        </Padding>
       );
     }
 
@@ -151,7 +153,7 @@ class PlanningScreen extends React.Component<Props, State> {
       );
     }
 
-    return this.renderList();
+    return <Padding>{this.renderList()}</Padding>;
   }
 
   render(): JSX.Element {
@@ -210,4 +212,8 @@ const Spinner = styled.ActivityIndicator`
 
 const BottomMargin = styled.View`
   margin-bottom: 30px;
+`;
+
+const Padding = styled.ScrollView`
+  padding: 20px 20px 30px 20px;
 `;

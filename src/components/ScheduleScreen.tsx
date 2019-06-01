@@ -105,14 +105,14 @@ class ScheduleScreen extends React.Component<Props, State> {
 
     if (error) {
       return (
-        <VerticalPadding>
+        <Padding>
           <InfoCard
             title="Error while fetching runs"
             subtitle="Try again later"
             onPress={this.refreshRuns}
             loading={loading}
           />
-        </VerticalPadding>
+        </Padding>
       );
     }
 
@@ -126,17 +126,17 @@ class ScheduleScreen extends React.Component<Props, State> {
     }
 
     if (scheduledRuns.length) {
-      return <VerticalPadding>{this.renderList()}</VerticalPadding>;
+      return <Padding>{this.renderList()}</Padding>;
     }
 
     return (
-      <VerticalPadding>
+      <Padding>
         <InfoCard
           title="Your schedule is empty"
           subtitle="Sign up to a run"
           showTextOnly={true}
         />
-      </VerticalPadding>
+      </Padding>
     );
   }
 
@@ -177,7 +177,6 @@ const BottomMargin = styled.View`
   margin-bottom: 30px;
 `;
 
-const VerticalPadding = styled.ScrollView`
-  padding-top: 20px;
-  padding-bottom: 30px;
+const Padding = styled.ScrollView`
+  padding: 20px 20px 30px 20px;
 `;

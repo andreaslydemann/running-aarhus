@@ -51,7 +51,6 @@ const Wrapper = styled.View`
   background: ${({ theme }) => theme.primary};
   flex-direction: row;
   align-items: center;
-  margin: 20px 20px 0 20px;
   border-radius: 15px;
 `;
 

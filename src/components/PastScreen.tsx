@@ -67,14 +67,14 @@ class PastScreen extends React.Component<Props, State> {
 
     if (error) {
       return (
-        <VerticalPadding>
+        <Padding>
           <InfoCard
             title="Error while fetching runs"
             subtitle="Try again later"
             onPress={this.refreshRuns}
             loading={loading}
           />
-        </VerticalPadding>
+        </Padding>
       );
     }
 
@@ -89,7 +89,7 @@ class PastScreen extends React.Component<Props, State> {
 
     if (pastRuns.length) {
       return (
-        <VerticalPadding>
+        <Padding>
           <FlatList
             style={{ marginBottom: 20 }}
             data={pastRuns}
@@ -109,18 +109,18 @@ class PastScreen extends React.Component<Props, State> {
               />
             }
           />
-        </VerticalPadding>
+        </Padding>
       );
     }
 
     return (
-      <VerticalPadding>
+      <Padding>
         <InfoCard
           title="No past runs"
           subtitle="Sign up to a run"
           showTextOnly={true}
         />
-      </VerticalPadding>
+      </Padding>
     );
   }
 
@@ -161,7 +161,6 @@ const BottomMargin = styled.View`
   margin-bottom: 30px;
 `;
 
-const VerticalPadding = styled.ScrollView`
-  padding-top: 20px;
-  padding-bottom: 100px;
+const Padding = styled.ScrollView`
+  padding: 20px 20px 30px 20px;
 `;
