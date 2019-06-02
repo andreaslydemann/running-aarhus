@@ -39,7 +39,7 @@ function* firebaseSignIn(token: string) {
 
     const picture = profile.picture ? profile.picture.data.url : "";
 
-    if (!isNewUser) {
+    if (isNewUser) {
       const userInfo = {
         id: uid,
         firstName: profile.first_name,
