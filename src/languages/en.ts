@@ -15,6 +15,7 @@ export const en = {
   signOut: "Sign out",
   signedUp: "Signed up",
   signUp: "Sign up",
+  deleteUser: "Delete user",
   credits: "2019 - Running Aarhus",
   optionDismiss: "Dismiss",
   optionEditRun: "Edit run",

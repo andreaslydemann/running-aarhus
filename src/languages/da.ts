@@ -15,6 +15,7 @@ export const da = {
   signOut: "Log ud",
   signedUp: "Tilmeldt",
   signUp: "Tilmeld",
+  deleteUser: "Slet bruger",
   credits: "2019 - Running Aarhus",
   optionDismiss: "Luk",
   optionEditRun: "Redigér løb",

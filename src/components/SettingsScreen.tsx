@@ -4,7 +4,7 @@ import React from "react";
 import i18n from "i18n-js";
 import { ScreenTitle, ScreenBackground, Section } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
-import { styled, THEME_PREFIX } from "theme";
+import { theme, styled, THEME_PREFIX } from "theme";
 import firebase from "firebase";
 import Dialog, {
   DialogButton,
@@ -126,7 +126,7 @@ class SettingsScreen extends React.Component<Props, State> {
                 touchable
                 onPress={() => this.setState({ dialogVisible: true })}
               >
-                <SectionTitle>Delete user</SectionTitle>
+                <SectionTitle danger>{i18n.t("deleteUser")}</SectionTitle>
               </Section>
               <Section bottom touchable onPress={this.signOut}>
                 <SectionTitle>{i18n.t("signOut")}</SectionTitle>
@@ -164,8 +164,12 @@ const SectionsWrapper = styled.View`
   margin: 20px 0;
 `;
 
-const SectionTitle = styled.Text`
-  color: ${({ theme }) => theme.activeTint};
+interface SectionTitleProps {
+  danger?: boolean;
+}
+
+const SectionTitle = styled.Text<SectionTitleProps>`
+  color: ${({ danger }) => (danger ? theme.danger : theme.activeTint)};
 `;
 
 const BottomMargin = styled.View`
