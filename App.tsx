@@ -43,7 +43,6 @@ export default class App extends Component<void, State> {
 
     firebase.auth().onAuthStateChanged(async user => {
       if (user) {
-        console.log("hello");
         this.setAuthHeaders(user);
       } else {
         await AsyncStorage.clear();

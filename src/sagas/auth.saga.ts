@@ -10,7 +10,7 @@ import {
 } from "constants";
 import firebase from "firebase";
 import axios from "axios";
-import { getCurrentUser } from "utils";
+import { getCurrentUser, navigation } from "utils";
 
 export default function* authSaga() {
   yield all([takeEvery(AUTH_TYPES.SIGN_IN, signIn)]);
@@ -86,8 +86,9 @@ function* deleteUser() {
     userId: currentUser.uid
   });
 
-  yield AsyncStorage.clear();
+  yield call(navigation.reset);
 
   yield put({ type: GET_INITIAL_STATE });
-  //yield firebase.auth().signOut();
+
+  yield AsyncStorage.clear();
 }
