@@ -1,5 +1,5 @@
 import { call, put, takeLeading, all } from "redux-saga/effects";
-import { RUN_TYPES } from "actions";
+import { RUN_TYPES, setDetails } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
 import { saveRunSuccess, saveRunFailure } from "actions";
 import {
@@ -18,30 +18,30 @@ function* saveRun({ payload }: any) {
     const currentUser = getCurrentUser();
 
     let requestUrl = RUNNING_AARHUS_FUNCTIONS_URL;
-    let body;
+    let body = {
+      ...payload,
+      userId: currentUser.uid
+    };
 
     if (payload.id) {
       requestUrl += "/editRun";
-      body = {
-        ...payload,
-        runId: payload.id
-      };
+      body = { ...body, runId: payload.id };
     } else {
       requestUrl += "/createRun";
-      body = {
-        ...payload,
-        userId: currentUser.uid
-      };
     }
 
     const { data } = yield axios.post(requestUrl, body);
 
-    const runsWithParticipationStatus = addParticipationStatusToRuns(
+    const runWithParticipationStatus = addParticipationStatusToRuns(
       [data],
       getCurrentUser().uid
-    );
+    )[0];
 
-    yield put(saveRunSuccess(runsWithParticipationStatus));
+    console.log(runWithParticipationStatus);
+
+    yield put(setDetails(runWithParticipationStatus));
+    yield put(saveRunSuccess(runWithParticipationStatus));
+
     yield call(navigation.goBack);
   } catch (error) {
     yield put(saveRunFailure());

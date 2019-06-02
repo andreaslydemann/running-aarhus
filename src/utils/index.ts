@@ -8,3 +8,4 @@ export * from "./getLanguage";
 export * from "./addParticipationStatusToRuns";
 export * from "./getRunsWithUpdatedParticipation";
 export * from "./getRunsWithUpdatedCancellation";
+export * from "./getRunsWithUpdatedRun";

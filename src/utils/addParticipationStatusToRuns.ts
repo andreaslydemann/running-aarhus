@@ -1,9 +1,15 @@
-export function addParticipationStatusToRuns(runs: any, userId: string) {
-  return runs.map((run: any) => {
+import { RunModel, UserModel } from "../types/models";
+
+export function addParticipationStatusToRuns(
+  runs: RunModel[],
+  userId: string
+): RunModel[] {
+  return runs.map((run: RunModel) => {
     const { participants } = run;
+
     const participating =
       participants.findIndex(
-        (participant: any) => participant.id === userId
+        (participant: UserModel) => participant.id === userId
       ) !== -1;
 
     return { participating, ...run };
