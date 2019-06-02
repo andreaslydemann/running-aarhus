@@ -13,9 +13,20 @@ export async function getAddressOfCoordinate(coordinate: Coordinate) {
     `${REVERSE_GEOCODE_URL}&lat=${latitude}&lon=${longitude}&zoom=18&addressdetails=1";`
   );
 
-  return `${address.house_number ? address.house_number + " " : ""}${
-    address.road ? address.road + ", " : ""
-  }${address.suburb ? address.suburb + ", " : ""}${
-    address.postcode ? address.postcode : ""
-  }`;
+  const road = address.road
+    ? address.road + (address.house_number ? ` ${address.house_number}` : "")
+    : null;
+
+  const addressParts = [road, address.suburb, address.postcode];
+
+  const filteredParts = addressParts.filter((part: any) => !!part);
+  let fullAddress = "";
+
+  for (let i = 0; i < filteredParts.length; i++) {
+    fullAddress += filteredParts[i];
+
+    if (filteredParts.length - 1 !== i) fullAddress += ", ";
+  }
+
+  return fullAddress;
 }
