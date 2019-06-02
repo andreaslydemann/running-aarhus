@@ -1,6 +1,7 @@
 import { Action } from "actions/common";
 import { AuthState } from "types/states";
 import { AUTH_TYPES } from "actions";
+import { GET_INITIAL_STATE } from "constants";
 
 let initialState: AuthState = {
   token: ""
@@ -8,6 +9,8 @@ let initialState: AuthState = {
 
 export default function(state: AuthState = initialState, action: Action<any>) {
   switch (action.type) {
+    case GET_INITIAL_STATE:
+      return initialState;
     case AUTH_TYPES.SIGN_IN_SUCCESS:
       return { token: action.payload };
     case AUTH_TYPES.SIGN_IN_FAILURE:

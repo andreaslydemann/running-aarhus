@@ -5,7 +5,8 @@ import { Facebook } from "expo";
 import {
   FACEBOOK_TOKEN,
   FACEBOOK_APP_ID,
-  RUNNING_AARHUS_FUNCTIONS_URL
+  RUNNING_AARHUS_FUNCTIONS_URL,
+  GET_INITIAL_STATE
 } from "constants";
 import firebase from "firebase";
 import axios from "axios";
@@ -85,7 +86,8 @@ function* deleteUser() {
     userId: currentUser.uid
   });
 
-  //yield firebase.auth().signOut();
-
   yield AsyncStorage.clear();
+
+  yield put({ type: GET_INITIAL_STATE });
+  //yield firebase.auth().signOut();
 }

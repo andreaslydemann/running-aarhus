@@ -4,6 +4,7 @@ import { RUN_TYPES } from "actions";
 import { calculateEndDateTime } from "utils";
 import { RouteDetails } from "../types/common";
 import { RunModel } from "../types/models";
+import { GET_INITIAL_STATE } from "constants";
 
 const initialState: RunState = {
   id: "",
@@ -122,6 +123,8 @@ function setRun(state: RunState, run: RunModel) {
 
 export default function(state: RunState = initialState, action: Action<any>) {
   switch (action.type) {
+    case GET_INITIAL_STATE:
+      return initialState;
     case RUN_TYPES.SAVE_RUN:
       return { ...state, loading: true };
     case RUN_TYPES.SAVE_RUN_SUCCESS:

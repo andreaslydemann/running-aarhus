@@ -1,6 +1,7 @@
 import { Action } from "actions/common";
 import { DetailsState } from "types/states";
 import { DETAILS_TYPES } from "actions/details.actions";
+import { GET_INITIAL_STATE } from "constants";
 
 const initialState: DetailsState = {
   error: false,
@@ -43,6 +44,8 @@ export default function(
   action: Action<any>
 ) {
   switch (action.type) {
+    case GET_INITIAL_STATE:
+      return initialState;
     case DETAILS_TYPES.PARTICIPATION_REQUEST:
       return { ...state, loading: true, error: false, success: false };
     case DETAILS_TYPES.PARTICIPATION_SUCCESS:

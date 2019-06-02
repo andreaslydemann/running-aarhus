@@ -3,6 +3,7 @@ import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
 import { DETAILS_TYPES, RUN_TYPES, SCHEDULE_TYPES } from "actions";
 import { getRunsWithUpdatedCancellation, getRunsWithUpdatedRun } from "utils";
+import { GET_INITIAL_STATE } from "constants";
 
 const initialState: ScheduleState = {
   error: false,
@@ -46,6 +47,8 @@ export default function(
   action: Action<any>
 ) {
   switch (action.type) {
+    case GET_INITIAL_STATE:
+      return initialState;
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS:
       return { ...state, loading: true };
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_SUCCESS:

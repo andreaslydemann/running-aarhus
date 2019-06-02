@@ -1,6 +1,6 @@
 import { Action } from "actions/common";
 import { DETAILS_TYPES, PLANNING_TYPES, RUN_TYPES } from "actions";
-import { PlanningState, ScheduleState } from "types/states";
+import { PlanningState } from "types/states";
 import { Item } from "types/common";
 import { RunModel } from "types/models";
 import {
@@ -8,6 +8,7 @@ import {
   getRunsWithUpdatedParticipation,
   getRunsWithUpdatedRun
 } from "utils";
+import { GET_INITIAL_STATE } from "constants";
 
 const initialState: PlanningState = {
   error: false,
@@ -76,6 +77,8 @@ export default function(
   action: Action<any>
 ) {
   switch (action.type) {
+    case GET_INITIAL_STATE:
+      return initialState;
     case PLANNING_TYPES.GET_UPCOMING_RUNS:
       return { ...state, loading: true };
     case PLANNING_TYPES.GET_UPCOMING_RUNS_SUCCESS:
