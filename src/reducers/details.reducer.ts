@@ -64,7 +64,12 @@ export default function(
     case DETAILS_TYPES.CANCEL_RUN_REQUEST:
       return { ...state, success: false, error: false };
     case DETAILS_TYPES.CANCEL_RUN_SUCCESS:
-      return { ...state, error: false, success: true };
+      return {
+        ...state,
+        run: { ...state.run, cancelled: true },
+        success: true,
+        error: false
+      };
     case DETAILS_TYPES.CANCEL_RUN_FAILURE:
       return { ...state, success: false, error: true };
     default:

@@ -27,7 +27,6 @@ import { StatusModal, statusModalTypes } from "./common/StatusModal";
 
 interface State {
   dialogVisible: boolean;
-  recentlyCancelled: boolean;
 }
 
 interface PropsConnectedDispatcher {
@@ -48,8 +47,7 @@ interface Props extends DetailsState, PropsConnectedDispatcher {
 
 class RunDetailsScreen extends Component<Props, State> {
   state = {
-    dialogVisible: false,
-    recentlyCancelled: false
+    dialogVisible: false
   };
 
   openActionSheet = () => {
@@ -109,8 +107,7 @@ class RunDetailsScreen extends Component<Props, State> {
               onPress={() => {
                 this.setState(
                   {
-                    dialogVisible: false,
-                    recentlyCancelled: true
+                    dialogVisible: false
                   },
                   () => {
                     cancelRun(run.id);
@@ -130,7 +127,6 @@ class RunDetailsScreen extends Component<Props, State> {
 
   render() {
     const isPastRun = this.props.navigation.getParam("isPastRun");
-    const { recentlyCancelled } = this.state;
     const { error, success, loading, run } = this.props;
 
     const {
@@ -156,7 +152,7 @@ class RunDetailsScreen extends Component<Props, State> {
       .locale(getLanguage())
       .format("LLLL");
 
-    const showMoreButton = !(cancelled || recentlyCancelled || isPastRun);
+    const showMoreButton = !(cancelled || isPastRun);
 
     return (
       <Wrapper>
@@ -227,7 +223,7 @@ class RunDetailsScreen extends Component<Props, State> {
             </ButtonWrapper>
           </Row>
 
-          {!(isPastRun || run.cancelled) && (
+          {!(isPastRun || cancelled) && (
             <ButtonWrapper>
               {loading ? (
                 <Spinner color={theme.activeTint} size="large" />
@@ -269,9 +265,7 @@ const mapStateToProps = ({
   details
 }: {
   details: DetailsState;
-}): DetailsState => {
-  return details;
-};
+}): DetailsState => details;
 
 export default connectActionSheet(
   connect(
