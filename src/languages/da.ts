@@ -1,5 +1,6 @@
 export const da = {
   cancelled: "Aflyst",
+  completed: "Gennemført",
   currentLocation: "Nuværende placering",
   pastTitle: "Historik",
   editRunTitle: "Redigér løb",

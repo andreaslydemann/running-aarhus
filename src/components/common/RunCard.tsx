@@ -6,6 +6,22 @@ import { MONTHS } from "constants";
 import i18n from "i18n-js";
 import moment from "moment";
 
+function getLabelText(
+  cancelled: boolean,
+  completed: boolean,
+  participating: boolean
+): string {
+  if (cancelled) {
+    return i18n.t("cancelled");
+  } else if (completed) {
+    return i18n.t("completed");
+  } else if (participating) {
+    return i18n.t("signedUp");
+  } else {
+    return i18n.t("signUp");
+  }
+}
+
 export default ({ data }: { data: any }) => {
   const {
     startDateTime,
@@ -20,6 +36,9 @@ export default ({ data }: { data: any }) => {
   const startTime = moment(startDateTime).format("HH.mm");
   const endTime = moment(new Date(endDateTime)).format("HH.mm");
 
+  const completed = startDate <= new Date();
+  const labelText = getLabelText(cancelled, completed, participating);
+
   return (
     <Wrapper>
       <Row>
@@ -32,16 +51,7 @@ export default ({ data }: { data: any }) => {
             {endTime ? " - " + endTime : null}
           </Day>
         </View>
-        <Label
-          numberOfLines={2}
-          text={
-            cancelled
-              ? i18n.t("cancelled")
-              : participating
-              ? i18n.t("signedUp")
-              : i18n.t("signUp")
-          }
-        />
+        <Label numberOfLines={2} text={labelText} />
       </Row>
       <Desc bold>{title}</Desc>
       <Desc numberOfLines={1}>{meetingPoint}</Desc>

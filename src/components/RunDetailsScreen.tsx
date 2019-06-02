@@ -41,6 +41,7 @@ interface Props extends DetailsState, PropsConnectedDispatcher {
   showActionSheetWithOptions: (options: any, callback: any) => void;
   navigation: {
     navigate: (screen: string, params?: any) => void;
+    getParam: (param: string) => any;
     goBack: (nullArg?: null) => void;
   };
 }
@@ -128,8 +129,10 @@ class RunDetailsScreen extends Component<Props, State> {
   };
 
   render() {
+    const isPastRun = this.props.navigation.getParam("isPastRun");
     const { recentlyCancelled } = this.state;
     const { error, success, loading, run } = this.props;
+
     const {
       startDateTime,
       title,
@@ -153,7 +156,7 @@ class RunDetailsScreen extends Component<Props, State> {
       .locale(getLanguage())
       .format("LLLL");
 
-    const showMoreButton = !(cancelled || recentlyCancelled);
+    const showMoreButton = !(cancelled || recentlyCancelled || isPastRun);
 
     return (
       <Wrapper>
@@ -224,25 +227,25 @@ class RunDetailsScreen extends Component<Props, State> {
             </ButtonWrapper>
           </Row>
 
-          <ButtonWrapper>
-            {loading ? (
-              <Spinner color={theme.activeTint} size="large" />
-            ) : participating ? (
-              <StyledButton
-                disabled={run.cancelled}
-                type={"destructive"}
-                title="Cancel"
-                onPress={() => this.props.cancelParticipation(this.props.run)}
-              />
-            ) : (
-              <StyledButton
-                disabled={run.cancelled}
-                type={"submit"}
-                title="Join"
-                onPress={() => this.props.saveParticipation(this.props.run)}
-              />
-            )}
-          </ButtonWrapper>
+          {!(isPastRun || run.cancelled) && (
+            <ButtonWrapper>
+              {loading ? (
+                <Spinner color={theme.activeTint} size="large" />
+              ) : participating ? (
+                <StyledButton
+                  type={"destructive"}
+                  title="Cancel"
+                  onPress={() => this.props.cancelParticipation(this.props.run)}
+                />
+              ) : (
+                <StyledButton
+                  type={"submit"}
+                  title="Join"
+                  onPress={() => this.props.saveParticipation(this.props.run)}
+                />
+              )}
+            </ButtonWrapper>
+          )}
         </ScrollWrapper>
 
         <StatusModal type={statusModalTypes.SUCCESS} isVisible={success} />

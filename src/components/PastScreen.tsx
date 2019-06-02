@@ -54,7 +54,7 @@ class PastScreen extends React.Component<Props, State> {
 
   runSelected = (run: any) => {
     this.props.setDetails(run);
-    this.props.navigation.navigate("RunDetailsScreen");
+    this.props.navigation.navigate("RunDetailsScreen", { isPastRun: true });
   };
 
   refreshRuns = () => {

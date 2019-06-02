@@ -1,5 +1,6 @@
 export const en = {
   cancelled: "Cancelled",
+  completed: "Completed",
   currentLocation: "Current location",
   pastTitle: "Past",
   editRunTitle: "Edit run",
