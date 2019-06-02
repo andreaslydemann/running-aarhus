@@ -33,6 +33,7 @@ function toggleParticipation(state: DetailsState) {
   return {
     error: false,
     loading: false,
+    success: true,
     run: { ...state.run, participating: !state.run.participating }
   };
 }
@@ -43,14 +44,15 @@ export default function(
 ) {
   switch (action.type) {
     case DETAILS_TYPES.PARTICIPATION_REQUEST:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: false, success: false };
     case DETAILS_TYPES.PARTICIPATION_SUCCESS:
       return toggleParticipation(state);
     case DETAILS_TYPES.PARTICIPATION_FAILURE:
       return {
         ...state,
         loading: false,
-        error: true
+        error: true,
+        success: false
       };
     case DETAILS_TYPES.SET_DETAILS:
       return {
@@ -64,7 +66,7 @@ export default function(
     case DETAILS_TYPES.CANCEL_RUN_SUCCESS:
       return { ...state, error: false, success: true };
     case DETAILS_TYPES.CANCEL_RUN_FAILURE:
-      return { ...state, error: true };
+      return { ...state, success: false, error: true };
     default:
       return state;
   }

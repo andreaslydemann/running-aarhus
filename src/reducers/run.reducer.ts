@@ -14,9 +14,7 @@ const initialState: RunState = {
   description: "",
   paceEnabled: false,
   pace: 6.0,
-  routeDetails: null,
-  userId: "",
-  cancelled: false
+  routeDetails: null
 };
 
 function updateEndDateTime(
@@ -89,25 +87,46 @@ function togglePace(state: RunState) {
 }
 
 function setRun(state: RunState, run: RunModel) {
-  const { coordinates, meetingPoint, distance, endDateTime, ...rest } = run;
+  const {
+    participating,
+    participants,
+    cancelled,
+    createdBy,
+    coordinates,
+    meetingPoint,
+    distance,
+    endDateTime,
+    pace,
+    startDateTime,
+    ...rest
+  } = run;
 
   const routeDetails = {
     coordinates,
     meetingPoint,
     distance,
-    endDateTime
+    endDateTime: new Date(endDateTime)
   };
 
-  return { ...state, routeDetails, ...rest };
+  return {
+    ...state,
+    pace,
+    paceEnabled: !!pace,
+    startDateTime: new Date(startDateTime),
+    routeDetails,
+    error: false,
+    loading: false,
+    ...rest
+  };
 }
 
 export default function(state: RunState = initialState, action: Action<any>) {
   switch (action.type) {
-    case RUN_TYPES.CREATE_RUN:
+    case RUN_TYPES.SAVE_RUN:
       return { ...state, loading: true };
-    case RUN_TYPES.CREATE_RUN_SUCCESS:
+    case RUN_TYPES.SAVE_RUN_SUCCESS:
       return { ...state, loading: false };
-    case RUN_TYPES.CREATE_RUN_FAILURE:
+    case RUN_TYPES.SAVE_RUN_FAILURE:
       return { ...state, error: true, loading: false };
     case RUN_TYPES.SET_START_DATE_TIME:
       return setStartDateTime(state, action.payload);

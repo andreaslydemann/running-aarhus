@@ -1,7 +1,7 @@
 import { call, put, takeLeading, all } from "redux-saga/effects";
 import { RUN_TYPES } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
-import { createRunSuccess, createRunFailure } from "actions";
+import { saveRunSuccess, saveRunFailure } from "actions";
 import {
   addParticipationStatusToRuns,
   getCurrentUser,
@@ -10,31 +10,40 @@ import {
 import axios from "axios";
 
 export default function* runSaga() {
-  yield all([takeLeading(RUN_TYPES.CREATE_RUN, createRun)]);
+  yield all([takeLeading(RUN_TYPES.SAVE_RUN, saveRun)]);
 }
 
-function* createRun({ payload }: any) {
+function* saveRun({ payload }: any) {
   try {
     const currentUser = getCurrentUser();
 
-    const run = {
-      ...payload,
-      userId: currentUser.uid
-    };
+    let requestUrl = RUNNING_AARHUS_FUNCTIONS_URL;
+    let body;
 
-    const { data } = yield axios.post(
-      `${RUNNING_AARHUS_FUNCTIONS_URL}/createRun`,
-      run
-    );
+    if (payload.id) {
+      requestUrl += "/editRun";
+      body = {
+        ...payload,
+        runId: payload.id
+      };
+    } else {
+      requestUrl += "/createRun";
+      body = {
+        ...payload,
+        userId: currentUser.uid
+      };
+    }
+
+    const { data } = yield axios.post(requestUrl, body);
 
     const runsWithParticipationStatus = addParticipationStatusToRuns(
       [data],
       getCurrentUser().uid
     );
 
-    yield put(createRunSuccess(runsWithParticipationStatus));
+    yield put(saveRunSuccess(runsWithParticipationStatus));
     yield call(navigation.goBack);
   } catch (error) {
-    yield put(createRunFailure());
+    yield put(saveRunFailure());
   }
 }

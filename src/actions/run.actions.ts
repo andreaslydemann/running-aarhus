@@ -3,9 +3,9 @@ import { RouteDetails } from "types/common";
 import { RunModel } from "../types/models";
 
 export const RUN_TYPES = {
-  CREATE_RUN: "CREATE_RUN",
-  CREATE_RUN_SUCCESS: "CREATE_RUN_SUCCESS",
-  CREATE_RUN_FAILURE: "CREATE_RUN_FAILURE",
+  SAVE_RUN: "SAVE_RUN",
+  SAVE_RUN_SUCCESS: "SAVE_RUN_SUCCESS",
+  SAVE_RUN_FAILURE: "SAVE_RUN_FAILURE",
   SET_START_DATE_TIME: "SET_START_DATE_TIME",
   SET_TITLE: "SET_TITLE",
   SET_DESCRIPTION: "SET_DESCRIPTION",
@@ -16,23 +16,23 @@ export const RUN_TYPES = {
   SET_RUN: "SET_RUN"
 };
 
-export const createRun = (run: any): Action<any> => {
+export const saveRun = (run: any): Action<any> => {
   return {
-    type: RUN_TYPES.CREATE_RUN,
+    type: RUN_TYPES.SAVE_RUN,
     payload: run
   };
 };
 
-export const createRunSuccess = (run: RunModel): Action<RunModel> => {
+export const saveRunSuccess = (run: RunModel): Action<RunModel> => {
   return {
-    type: RUN_TYPES.CREATE_RUN_SUCCESS,
+    type: RUN_TYPES.SAVE_RUN_SUCCESS,
     payload: run
   };
 };
 
-export const createRunFailure = (): Action<void> => {
+export const saveRunFailure = (): Action<void> => {
   return {
-    type: RUN_TYPES.CREATE_RUN_FAILURE
+    type: RUN_TYPES.SAVE_RUN_FAILURE
   };
 };
 

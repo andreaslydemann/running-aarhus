@@ -24,7 +24,7 @@ import moment from "moment";
 import "moment/min/locales";
 
 interface PropsConnectedState {
-  isEditRun: boolean;
+  id: string;
   startDateTime: Date;
   title: string;
   description: string;
@@ -42,7 +42,7 @@ interface PropsConnectedDispatcher {
   increasePace: () => Action<void>;
   decreasePace: () => Action<void>;
   setRoute: (routeDetails: RouteDetails) => Action<any>;
-  createRun: (run: any) => Action<any>;
+  saveRun: (run: any) => Action<any>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -65,6 +65,7 @@ class SetRunScreen extends React.Component<Props> {
         key={"datepicker"}
         locale={language}
         date={this.props.startDateTime}
+        onDateChange={() => {}}
         getDateStr={date => {
           if (this.props.startDateTime !== date) {
             this.props.setStartDateTime(date);
@@ -161,16 +162,18 @@ class SetRunScreen extends React.Component<Props> {
     ];
   }
 
-  onSetRun() {
+  setRun() {
     const {
       title,
       description,
       pace,
       startDateTime,
-      routeDetails
+      routeDetails,
+      id
     } = this.props;
 
-    this.props.createRun({
+    this.props.saveRun({
+      id,
       title,
       description,
       pace,
@@ -181,13 +184,13 @@ class SetRunScreen extends React.Component<Props> {
 
   render(): JSX.Element {
     let {
+      id,
       routeDetails,
       pace,
       paceEnabled,
       title,
       description,
-      startDateTime,
-      isEditRun
+      startDateTime
     } = this.props;
     let meetingPoint: string = "";
     let coordinates: Coordinate[] = [];
@@ -201,9 +204,7 @@ class SetRunScreen extends React.Component<Props> {
       <Wrapper>
         <Header
           navigateBack={() => this.props.navigation.goBack(null)}
-          ScreenTitle={
-            isEditRun ? i18n.t("editRunTitle") : i18n.t("createRunTitle")
-          }
+          ScreenTitle={!!id ? i18n.t("editRunTitle") : i18n.t("createRunTitle")}
           isModal={true}
         />
 
@@ -265,7 +266,7 @@ class SetRunScreen extends React.Component<Props> {
           disabled={
             !(this.props.routeDetails && this.props.title) || this.props.loading
           }
-          onPress={() => this.onSetRun()}
+          onPress={() => this.setRun()}
           title={"Gem"}
         />
 
@@ -281,14 +282,14 @@ class SetRunScreen extends React.Component<Props> {
 
 const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
   return {
+    id: run.id,
     startDateTime: run.startDateTime,
     title: run.title,
     description: run.description,
     paceEnabled: run.paceEnabled,
     pace: run.pace,
     routeDetails: run.routeDetails,
-    loading: run.loading,
-    isEditRun: !!run.id
+    loading: run.loading
   };
 };
 
