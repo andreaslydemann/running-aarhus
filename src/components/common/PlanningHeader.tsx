@@ -33,7 +33,7 @@ export default class extends Component<Props> {
         <MiddleItem onPress={this.props.onMiddleItemPress}>
           <Icon
             name={`${THEME_PREFIX}-add-circle-outline`}
-            size={36}
+            size={35}
             color={theme.activeTint}
           />
         </MiddleItem>

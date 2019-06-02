@@ -15,3 +15,4 @@ export { default as StatusModal } from "./StatusModal";
 export { default as InfoCard } from "./InfoCard";
 export { default as PromotionCard } from "./PromotionCard";
 export { default as ProfileInfo } from "./ProfileInfo";
+export { default as StatsHeader } from "./StatsHeader";

@@ -5,7 +5,8 @@ import {
   ScreenBackground,
   PushableWrapper,
   RunCard,
-  InfoCard
+  InfoCard,
+  StatsHeader
 } from "components/common";
 import { styled } from "theme";
 import { FlatList, RefreshControl } from "react-native";
@@ -90,6 +91,11 @@ class PastScreen extends React.Component<Props, State> {
     if (pastRuns.length) {
       return (
         <PastList
+          ListHeaderComponent={
+            <BottomMargin>
+              <StatsHeader numberOfRuns={pastRuns.length} />
+            </BottomMargin>
+          }
           data={pastRuns}
           keyExtractor={(item: any) => item.id}
           renderItem={({ item }) => (
