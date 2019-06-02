@@ -73,7 +73,7 @@ class ScheduleScreen extends React.Component<Props, State> {
                   meetingPoint: "Station Allé, Aarhus C",
                   startDateTime: "Monday 27/6 - 17:30"
                 }}
-                navigateToDetails={() => console.log("hello")}
+                navigateToDetails={() => {}}
               />
             </BottomMargin>
           ) : null

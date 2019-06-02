@@ -51,7 +51,7 @@ export default class extends Component<Props> {
 }
 
 const Wrapper = styled.View`
-  padding: 0 25px;
+  padding: 0 20px;
   overflow: visible;
   height: 80px;
 `;
@@ -69,6 +69,6 @@ const BackgroundText = styled(Animated.createAnimatedComponent(Text))`
   right: 0;
   top: -20px;
   font-size: 100px;
-  color: #77A6B0;
+  color: #77a6b0;
   font-weight: bold;
 `;

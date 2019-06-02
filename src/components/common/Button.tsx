@@ -35,7 +35,7 @@ export default ({
   </TouchableWrapper>
 );
 
-function getColorsOfType(type: string) {
+function getColorsOfType(type?: string) {
   switch (type) {
     case "destructive":
       return theme.dangerGradient;

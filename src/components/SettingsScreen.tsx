@@ -1,4 +1,4 @@
-import { AsyncStorage, Linking } from "react-native";
+import { AsyncStorage, Linking, Text } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import React from "react";
 import i18n from "i18n-js";
@@ -6,16 +6,77 @@ import { ScreenTitle, ScreenBackground, Section } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
 import { styled, THEME_PREFIX } from "theme";
 import firebase from "firebase";
+import Dialog, {
+  DialogButton,
+  DialogContent,
+  DialogFooter,
+  DialogTitle,
+  ScaleAnimation
+} from "react-native-popup-dialog";
+import { connect } from "react-redux";
+import * as actions from "actions";
 // import * as StoreReview from "react-native-store-review";
+
+interface State {
+  dialogVisible: boolean;
+}
 
 interface Props {
   navigation: { navigate: (screen: string) => void };
+  deleteUser: () => void;
 }
 
-export default class SettingsScreen extends React.Component<Props> {
+class SettingsScreen extends React.Component<Props, State> {
+  state = {
+    dialogVisible: false
+  };
+
   signOut = async () => {
     await AsyncStorage.clear();
     await firebase.auth().signOut();
+  };
+
+  renderDialog = () => {
+    const { deleteUser } = this.props;
+
+    return (
+      <Dialog
+        onTouchOutside={() => {
+          this.setState({ dialogVisible: false });
+        }}
+        width={0.89}
+        visible={this.state.dialogVisible}
+        dialogAnimation={new ScaleAnimation()}
+        dialogTitle={<DialogTitle title={"Confirm"} hasTitleBar={false} />}
+        footer={
+          <DialogFooter>
+            <DialogButton
+              text={i18n.t("optionNo")}
+              onPress={() => {
+                this.setState({ dialogVisible: false });
+              }}
+            />
+            <DialogButton
+              text={i18n.t("optionYes")}
+              onPress={() => {
+                this.setState(
+                  {
+                    dialogVisible: false
+                  },
+                  () => {
+                    deleteUser();
+                  }
+                );
+              }}
+            />
+          </DialogFooter>
+        }
+      >
+        <DialogContent style={{ alignItems: "center" }}>
+          <Text>Are you sure you want to delete your user?</Text>
+        </DialogContent>
+      </Dialog>
+    );
   };
 
   render(): JSX.Element {
@@ -60,7 +121,14 @@ export default class SettingsScreen extends React.Component<Props> {
                 </Section>
               </BottomMargin>
 
-              <Section top bottom touchable onPress={this.signOut}>
+              <Section
+                top
+                touchable
+                onPress={() => this.setState({ dialogVisible: true })}
+              >
+                <SectionTitle>Delete user</SectionTitle>
+              </Section>
+              <Section bottom touchable onPress={this.signOut}>
                 <SectionTitle>{i18n.t("signOut")}</SectionTitle>
               </Section>
             </SectionsWrapper>
@@ -68,10 +136,17 @@ export default class SettingsScreen extends React.Component<Props> {
             <Credits>{i18n.t("credits")}</Credits>
           </ScrollWrapper>
         </ContentWrapper>
+
+        {this.renderDialog()}
       </Wrapper>
     );
   }
 }
+
+export default connect(
+  null,
+  actions
+)(SettingsScreen as React.ComponentClass<Props>);
 
 const Wrapper = styled(ScreenBackground)`
   flex: 1;

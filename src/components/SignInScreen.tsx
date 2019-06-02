@@ -43,9 +43,10 @@ class SignInScreen extends React.Component<Props> {
 
         <FacebookButtonWrapper>
           <PushableWrapper onPress={this.signIn}>
-            <FacebookLogo source={require("../../assets/facebook-logo.png")} />
+            <FacebookButton
+              source={require("../../assets/facebook-button.png")}
+            />
           </PushableWrapper>
-          <Heading>Facebook</Heading>
 
           <Divider />
 
@@ -73,7 +74,7 @@ export default connect(
 )(SignInScreen as React.ComponentClass<Props>);
 
 const FacebookButtonWrapper = styled.View`
-  flex: 0.65;
+  flex: 0.55;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -82,7 +83,7 @@ const FacebookButtonWrapper = styled.View`
 const LogoWrapper = styled.View`
   justify-content: flex-end;
   align-items: center;
-  flex: 0.35;
+  flex: 0.45;
 `;
 
 const Divider = styled.View`
@@ -95,7 +96,7 @@ const Divider = styled.View`
 const Heading = styled.Text`
   font-weight: bold;
   margin-top: 40;
-  font-size: 18;
+  font-size: 28;
   color: ${({ theme }) => theme.activeTint};
 `;
 
@@ -110,11 +111,12 @@ const Wrapper = styled(ScreenBackground)`
 `;
 
 const RunningAarhusLogo = styled.Image`
-  width: 180px;
-  height: 180px;
+  width: 230px;
+  height: 230px;
 `;
 
-const FacebookLogo = styled.Image`
-  width: 140px;
-  height: 140px;
+const FacebookButton = styled.Image`
+  width: 300px;
+  height: 60px;
+  border-radius: 5px;
 `;

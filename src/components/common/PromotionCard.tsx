@@ -12,12 +12,7 @@ export default ({ run, navigateToDetails }: any) => {
         start={[0.0, 0.25]}
         end={[0.5, 1.0]}
       >
-        <BackgroundImage
-          source={{
-            uri:
-              "https://cdn.pixabay.com/photo/2014/04/03/10/50/run-311447_960_720.png"
-          }}
-        />
+        <BackgroundImage source={require("../../../assets/runner.png")} />
         <ContentWrapper>
           <View>
             <RunTitle>{run.title}</RunTitle>

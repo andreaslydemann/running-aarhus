@@ -9,9 +9,11 @@ import {
 } from "constants";
 import firebase from "firebase";
 import axios from "axios";
+import { getCurrentUser } from "utils";
 
 export default function* authSaga() {
   yield all([takeEvery(AUTH_TYPES.SIGN_IN, signIn)]);
+  yield all([takeEvery(AUTH_TYPES.DELETE_USER, deleteUser)]);
 }
 
 function* signIn() {
@@ -48,10 +50,11 @@ function* firebaseSignIn(token: string) {
         pictureUrl: picture
       };
 
-      yield axios.post(
-        `${RUNNING_AARHUS_FUNCTIONS_URL}/saveUserInfo`,
-        userInfo
-      );
+      const idToken = yield getCurrentUser().getIdToken();
+
+      yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/saveUser`, userInfo, {
+        headers: { Authorization: "Bearer " + idToken }
+      });
     }
   } catch (error) {
     return yield put(signInFailure());
@@ -73,4 +76,16 @@ function* startFacebookSignInFlow() {
   }
 
   yield call(firebaseSignIn, token);
+}
+
+function* deleteUser() {
+  const currentUser = yield getCurrentUser();
+
+  yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/deleteUser`, {
+    userId: currentUser.uid
+  });
+
+  //yield firebase.auth().signOut();
+
+  yield AsyncStorage.clear();
 }
