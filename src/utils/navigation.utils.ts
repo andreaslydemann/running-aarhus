@@ -1,8 +1,4 @@
-import {
-  NavigationActions,
-  NavigationParams,
-  StackActions
-} from "react-navigation";
+import { NavigationActions, NavigationParams } from "react-navigation";
 
 let _navigator: any;
 
@@ -23,19 +19,8 @@ function goBack() {
   _navigator.dispatch(NavigationActions.back());
 }
 
-function reset() {
-  _navigator.dispatch(
-    StackActions.reset({
-      index: 0,
-      key: undefined,
-      actions: [NavigationActions.navigate({ routeName: "Auth" })]
-    })
-  );
-}
-
 export const navigation = {
   setNavigator,
   navigate,
-  goBack,
-  reset
+  goBack
 };

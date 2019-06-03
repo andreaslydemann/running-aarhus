@@ -54,7 +54,7 @@ function* firebaseSignIn(token: string) {
       const idToken = yield getCurrentUser().getIdToken();
 
       yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/saveUser`, userInfo, {
-        headers: { Authorization: "Bearer " + idToken }
+        headers: { token: idToken }
       });
     }
   } catch (error) {

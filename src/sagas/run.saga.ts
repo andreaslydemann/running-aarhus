@@ -37,8 +37,6 @@ function* saveRun({ payload }: any) {
       getCurrentUser().uid
     )[0];
 
-    console.log(runWithParticipationStatus);
-
     yield put(setDetails(runWithParticipationStatus));
     yield put(saveRunSuccess(runWithParticipationStatus));
 

@@ -37,6 +37,8 @@ function* changeParticipation({ payload }: any) {
     ? `${RUNNING_AARHUS_FUNCTIONS_URL}/saveParticipation`
     : `${RUNNING_AARHUS_FUNCTIONS_URL}/cancelParticipation`;
 
+  console.log(body);
+
   try {
     yield axios.post(requestUrl, body);
   } catch (error) {

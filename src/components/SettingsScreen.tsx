@@ -103,7 +103,6 @@ class SettingsScreen extends React.Component<Props, State> {
                   bottom
                   touchable
                   onPress={() => {
-                    console.log("open link");
                     /*if (StoreReview.isAvailable) {
                     StoreReview.requestReview();
                   } else {
