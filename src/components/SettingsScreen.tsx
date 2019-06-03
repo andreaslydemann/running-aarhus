@@ -37,8 +37,6 @@ class SettingsScreen extends React.Component<Props, State> {
   };
 
   renderDialog = () => {
-    const { deleteUser } = this.props;
-
     return (
       <Dialog
         onTouchOutside={() => {
@@ -53,7 +51,9 @@ class SettingsScreen extends React.Component<Props, State> {
             <DialogButton
               text={i18n.t("optionNo")}
               onPress={() => {
-                this.setState({ dialogVisible: false });
+                this.setState({
+                  dialogVisible: false
+                });
               }}
             />
             <DialogButton
@@ -64,7 +64,9 @@ class SettingsScreen extends React.Component<Props, State> {
                     dialogVisible: false
                   },
                   () => {
-                    deleteUser();
+                    setTimeout(() => {
+                      this.props.deleteUser();
+                    }, 1000);
                   }
                 );
               }}
@@ -170,6 +172,7 @@ interface SectionTitleProps {
 
 const SectionTitle = styled.Text<SectionTitleProps>`
   color: ${({ danger }) => (danger ? theme.danger : theme.activeTint)};
+  font-weight: ${({ danger }) => (danger ? "bold" : "normal")};
 `;
 
 const BottomMargin = styled.View`

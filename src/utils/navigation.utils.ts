@@ -10,7 +10,7 @@ function setNavigator(navigatorRef: any) {
   _navigator = navigatorRef;
 }
 
-function navigate(routeName: string, params: NavigationParams) {
+function navigate(routeName: string, params?: NavigationParams) {
   _navigator.dispatch(
     NavigationActions.navigate({
       routeName,
@@ -27,7 +27,7 @@ function reset() {
   _navigator.dispatch(
     StackActions.reset({
       index: 0,
-      key: null,
+      key: undefined,
       actions: [NavigationActions.navigate({ routeName: "Auth" })]
     })
   );

@@ -82,11 +82,15 @@ function* startFacebookSignInFlow() {
 function* deleteUser() {
   const currentUser = yield getCurrentUser();
 
-  yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/deleteUser`, {
-    userId: currentUser.uid
-  });
+  try {
+    yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/deleteUser`, {
+      userId: currentUser.uid
+    });
+  } catch (error) {
+    return console.log(error);
+  }
 
-  yield call(navigation.reset);
+  yield call(navigation.navigate, "Auth");
 
   yield put({ type: GET_INITIAL_STATE });
 

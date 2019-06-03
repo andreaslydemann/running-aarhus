@@ -40,7 +40,7 @@ function* changeParticipation({ payload }: any) {
   try {
     yield axios.post(requestUrl, body);
   } catch (error) {
-    yield put(participationFailure());
+    return yield put(participationFailure());
   }
 
   const updatedRun = { ...run, participating: !run.participating };
@@ -54,7 +54,7 @@ function* cancelRun({ payload: runId = "" }: Action<string>) {
   try {
     yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/cancelRun`, { runId });
   } catch (error) {
-    yield put(cancelRunFailure());
+    return yield put(cancelRunFailure());
   }
 
   yield put(cancelRunSuccess(runId));
