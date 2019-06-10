@@ -33,5 +33,9 @@ export const da = {
   sep: "September",
   oct: "Oktober",
   nov: "November",
-  dec: "December"
+  dec: "December",
+  days: "dage",
+  minutes: "minutter",
+  hours: "timer",
+  seconds: "sekunder"
 };

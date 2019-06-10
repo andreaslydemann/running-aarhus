@@ -8,7 +8,8 @@ import {
   RunCard,
   Button,
   PlanningHeader,
-  InfoCard
+  InfoCard,
+  PromotionCard
 } from "components/common";
 import { styled, theme } from "theme";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
@@ -79,6 +80,8 @@ class PlanningScreen extends React.Component<Props, State> {
       selectedItem
     } = this.props;
     const { refreshing } = this.state;
+    const showPromotionCard = true;
+    const showingUpcomingRuns = selectedItem === Item.Left;
 
     return (
       <PlanningList
@@ -90,9 +93,21 @@ class PlanningScreen extends React.Component<Props, State> {
               onRightItemPress={() => this.props.setSelectedItem(Item.Right)}
               selectedItem={selectedItem}
             />
+            {showingUpcomingRuns && showPromotionCard ? (
+              <TopMargin>
+                <PromotionCard
+                  run={{
+                    title: "Running Challenge",
+                    meetingPoint: "Station Allé, Aarhus C",
+                    startDateTime: "Monday 27/6 - 17:30"
+                  }}
+                  navigateToDetails={() => {}}
+                />
+              </TopMargin>
+            ) : null}
           </BottomMargin>
         }
-        data={selectedItem === Item.Left ? upcomingRuns : myRuns}
+        data={showingUpcomingRuns ? upcomingRuns : myRuns}
         keyExtractor={(item: any) => item.id}
         renderItem={({ item }) => (
           <BottomMargin>
@@ -103,7 +118,7 @@ class PlanningScreen extends React.Component<Props, State> {
         )}
         ListFooterComponent={() => (
           <>
-            {selectedItem === Item.Left && upcomingRuns.length ? (
+            {showingUpcomingRuns && upcomingRuns.length ? (
               loading && !refreshing ? (
                 <Spinner color={theme.activeTint} size="large" />
               ) : (
@@ -211,6 +226,10 @@ const Spinner = styled.ActivityIndicator`
 
 const BottomMargin = styled.View`
   margin-bottom: 30px;
+`;
+
+const TopMargin = styled.View`
+  margin-top: 30px;
 `;
 
 const Padding = styled.ScrollView`

@@ -16,3 +16,4 @@ export { default as InfoCard } from "./InfoCard";
 export { default as PromotionCard } from "./PromotionCard";
 export { default as ProfileInfo } from "./ProfileInfo";
 export { default as StatsHeader } from "./StatsHeader";
+export { default as CountdownCard } from "./CountdownCard";

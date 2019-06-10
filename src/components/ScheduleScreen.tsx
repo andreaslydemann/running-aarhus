@@ -7,7 +7,8 @@ import {
   PushableWrapper,
   RunCard,
   InfoCard,
-  PromotionCard
+  PromotionCard,
+  CountdownCard
 } from "components/common";
 import { styled } from "theme";
 import { Action } from "actions/common";
@@ -60,23 +61,13 @@ class ScheduleScreen extends React.Component<Props, State> {
   renderList(): JSX.Element {
     const { scheduledRuns, loading } = this.props;
     const { refreshing } = this.state;
-    const showPromotionCard = true;
 
     return (
       <ScheduleList
         ListHeaderComponent={
-          showPromotionCard ? (
-            <BottomMargin>
-              <PromotionCard
-                run={{
-                  title: "Running Challenge",
-                  meetingPoint: "Station Allé, Aarhus C",
-                  startDateTime: "Monday 27/6 - 17:30"
-                }}
-                navigateToDetails={() => {}}
-              />
-            </BottomMargin>
-          ) : null
+          <BottomMargin>
+            <CountdownCard runDate={scheduledRuns[0].startDateTime} />
+          </BottomMargin>
         }
         data={scheduledRuns}
         keyExtractor={(item: any) => item.id}

@@ -33,5 +33,9 @@ export const en = {
   sep: "September",
   oct: "October",
   nov: "November",
-  dec: "December"
+  dec: "December",
+  days: "days",
+  minutes: "minutes",
+  hours: "hours",
+  seconds: "seconds"
 };
