@@ -93,6 +93,15 @@ class PlanningScreen extends React.Component<Props, State> {
               onRightItemPress={() => this.props.setSelectedItem(Item.Right)}
               selectedItem={selectedItem}
             />
+            {!showingUpcomingRuns && myRuns.length === 0 && (
+              <TopMargin>
+                <InfoCard
+                  title="No runs found"
+                  subtitle="Create a new run"
+                  showTextOnly={true}
+                />
+              </TopMargin>
+            )}
             {showingUpcomingRuns && showPromotionCard ? (
               <TopMargin>
                 <PromotionCard

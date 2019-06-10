@@ -152,7 +152,7 @@ class RunDetailsScreen extends Component<Props, State> {
       .locale(getLanguage())
       .format("LLLL");
 
-    const isOwnRun = createdBy ? createdBy.id === getCurrentUser().uid : false;
+    const isOwnRun = createdBy && createdBy.id === getCurrentUser().uid;
     const showMoreButton = isOwnRun && !(cancelled || isPastRun);
 
     return (
