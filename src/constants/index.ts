@@ -20,21 +20,6 @@ const TABBAR_ICONS = {
   Settings: "ios-options"
 };
 
-const MONTHS = [
-  "jan",
-  "feb",
-  "mar",
-  "apr",
-  "may",
-  "jun",
-  "jul",
-  "aug",
-  "oct",
-  "sep",
-  "nov",
-  "dec"
-];
-
 const REVERSE_GEOCODE_URL =
   "http://nominatim.openstreetmap.org/reverse?format=json";
 
@@ -52,7 +37,6 @@ const LINE_COLORS = [
 const GET_INITIAL_STATE = "GET_INITIAL_STATE";
 
 export {
-  MONTHS,
   TABBAR_ICONS,
   TABS,
   FACEBOOK_TOKEN,

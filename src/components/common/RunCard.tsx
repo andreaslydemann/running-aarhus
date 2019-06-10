@@ -2,7 +2,7 @@ import React from "react";
 import { styled } from "theme";
 import Label from "./Label";
 import { View } from "react-native";
-import { MONTHS } from "constants";
+import { getLanguage } from "utils";
 import i18n from "i18n-js";
 import moment from "moment";
 
@@ -32,9 +32,16 @@ export default ({ data }: { data: any }) => {
     cancelled
   } = data;
 
-  const startDate = new Date(startDateTime);
-  const startTime = moment(startDateTime).format("HH.mm");
-  const endTime = moment(new Date(endDateTime)).format("HH.mm");
+  const startDateTimeMoment = moment(new Date(startDateTime)).locale(
+    getLanguage()
+  );
+  const startDate = startDateTimeMoment.format("LL");
+  const startTime = startDateTimeMoment.format("LT");
+  const endTime = endDateTime
+    ? moment(new Date(endDateTime))
+        .locale(getLanguage())
+        .format("LT")
+    : null;
 
   const completed = startDate <= new Date();
   const labelText = getLabelText(cancelled, completed, participating);
@@ -43,9 +50,7 @@ export default ({ data }: { data: any }) => {
     <Wrapper>
       <Row>
         <View>
-          <Day>
-            {startDate.getDate()} {i18n.t(MONTHS[startDate.getMonth()])}
-          </Day>
+          <Day>{startDate}</Day>
           <Day>
             {startTime}
             {endTime ? " - " + endTime : null}

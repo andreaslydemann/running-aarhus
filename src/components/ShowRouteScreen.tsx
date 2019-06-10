@@ -4,7 +4,7 @@ import { MapView } from "expo";
 import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
 import { getColorsOfCoordinates } from "utils";
-import { Header, RouteSummary, ScreenBackground } from "./common";
+import { Header, ScreenBackground } from "./common";
 import i18n from "i18n-js";
 
 // @ts-ignore
@@ -15,7 +15,7 @@ const LATITUDE = 56.1501;
 const LONGITUDE = 10.1861;
 const LATITUDE_DELTA = 0.1222;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
-const DEFAULT_PADDING = { top: 120, right: 40, bottom: 40, left: 40 };
+const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
 const START_MARKER_COLOR = "#238C23";
 const END_MARKER_COLOR = "#00007f";
 
@@ -69,10 +69,6 @@ class ShowRouteScreen extends Component<Props> {
     const { navigation } = this.props;
 
     const coordinates = this.props.navigation.getParam("coordinates");
-    const meetingPoint = this.props.navigation.getParam("meetingPoint");
-    const distance = this.props.navigation.getParam("distance");
-    const endDateTime = this.props.navigation.getParam("endDateTime");
-    const pace = this.props.navigation.getParam("pace");
 
     const startMarker = {
       coordinate: coordinates[0],
@@ -125,22 +121,6 @@ class ShowRouteScreen extends Component<Props> {
               strokeWidth={2}
             />
           </StyledMapView>
-
-          <MapOverlay>
-            <TextWrapper
-              borderColor={"transparent"}
-              backgroundColor={theme.primary}
-            >
-              <RouteSummary
-                routeDetails={{
-                  meetingPoint,
-                  endDateTime,
-                  distance
-                }}
-                showEndDateTime={!!pace}
-              />
-            </TextWrapper>
-          </MapOverlay>
         </MapViewWrapper>
       </Wrapper>
     );
@@ -158,23 +138,6 @@ const StyledMapView = styled(MapView)`
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
   padding: 44px 0 0 0;
-`;
-
-const MapOverlay = styled.View`
-  width: 100%;
-  position: absolute;
-`;
-
-interface TextWrapperProps {
-  borderColor: string;
-  backgroundColor: string;
-}
-
-const TextWrapper = styled.View<TextWrapperProps>`
-  border-color: ${props => props.borderColor};
-  border-bottom-width: 1px;
-  background-color: ${props => props.backgroundColor};
-  padding: 15px 15px;
 `;
 
 export default ShowRouteScreen;

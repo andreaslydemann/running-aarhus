@@ -147,10 +147,14 @@ class RunDetailsScreen extends Component<Props, State> {
       endDateTime: run.endDateTime
     };
 
-    const startDate = new Date(startDateTime);
-    const startTimeString = moment(startDate)
+    const startDate = moment(new Date(startDateTime))
       .locale(getLanguage())
-      .format("LLLL");
+      .format("LLL");
+    const endTime = run.endDateTime
+      ? moment(new Date(run.endDateTime))
+          .locale(getLanguage())
+          .format("LT")
+      : null;
 
     const isOwnRun = createdBy && createdBy.id === getCurrentUser().uid;
     const showMoreButton = isOwnRun && !(cancelled || isPastRun);
@@ -166,8 +170,11 @@ class RunDetailsScreen extends Component<Props, State> {
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
           <DetailsWrapper>
             <BottomMargin>
-              <SectionTitle>Date</SectionTitle>
-              <InfoText>{startTimeString}</InfoText>
+              <SectionTitle>Date and time</SectionTitle>
+              <InfoText>
+                {startDate}
+                {endTime ? " - " + endTime : null}
+              </InfoText>
             </BottomMargin>
             <BottomMargin>
               <SectionTitle>Distance</SectionTitle>
@@ -215,8 +222,7 @@ class RunDetailsScreen extends Component<Props, State> {
                 icon={`${THEME_PREFIX}-map`}
                 onPress={() => {
                   this.props.navigation.navigate("ShowRouteScreen", {
-                    ...routeDetails,
-                    pace
+                    coordinates: routeDetails.coordinates
                   });
                 }}
               />
