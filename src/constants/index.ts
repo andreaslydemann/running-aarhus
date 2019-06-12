@@ -36,6 +36,18 @@ const LINE_COLORS = [
 
 const GET_INITIAL_STATE = "GET_INITIAL_STATE";
 
+const RUN_TYPES = {
+  SCHEDULE: "SCHEDULE",
+  PLANNING: "PLANNING",
+  PAST: "PAST"
+};
+
+const DETAILS_REDUCERS = {
+  SCHEDULE: "scheduleDetails",
+  PLANNING: "planningDetails",
+  PAST: "pastDetails"
+};
+
 export {
   TABBAR_ICONS,
   TABS,
@@ -46,5 +58,7 @@ export {
   REVERSE_GEOCODE_URL,
   SPACING_COLOR,
   LINE_COLORS,
-  GET_INITIAL_STATE
+  GET_INITIAL_STATE,
+  DETAILS_REDUCERS,
+  RUN_TYPES
 };

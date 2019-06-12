@@ -13,4 +13,6 @@ export default function* sagas() {
   yield fork(planningSaga);
   yield fork(pastSaga);
   yield fork(detailsSaga);
+  yield fork(detailsSaga);
+  yield fork(detailsSaga);
 }

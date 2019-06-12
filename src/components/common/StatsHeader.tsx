@@ -7,7 +7,7 @@ interface Props {
 
 export default ({ numberOfRuns = 0 }: Props) => (
   <Wrapper>
-    <ItemText>Completed runs: {numberOfRuns}</ItemText>
+    <ItemText>{numberOfRuns} runs completed</ItemText>
   </Wrapper>
 );
 
@@ -22,7 +22,7 @@ const Wrapper = styled.View`
 const ItemText = styled.Text`
   text-align: center;
   flex: 1;
-  font-size: 18px;
+  font-size: 20px;
   font-weight: bold;
   color: ${({ theme }) => theme.activeTint};
 `;

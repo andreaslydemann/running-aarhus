@@ -33,7 +33,7 @@ export default class extends Component<Props> {
         <MiddleItem onPress={this.props.onMiddleItemPress}>
           <Icon
             name={`${THEME_PREFIX}-add-circle-outline`}
-            size={35}
+            size={36}
             color={theme.activeTint}
           />
         </MiddleItem>
@@ -66,7 +66,7 @@ const MiddleItem = styled.TouchableOpacity`
 `;
 
 const Icon = styled(Ionicons)`
-  margin-top: 3px;
+  margin-top: 4px;
 `;
 
 interface ItemTextProps {
@@ -74,6 +74,7 @@ interface ItemTextProps {
 }
 
 const ItemText = styled.Text<ItemTextProps>`
+  font-size: 16px;
   font-weight: ${props => (props.isSelected ? "bold" : "normal")};
   color: ${props => (props.isSelected ? theme.action : theme.activeTint)};
 `;

@@ -14,68 +14,77 @@ export const DETAILS_TYPES = {
   SET_DETAILS: "SET_DETAILS"
 };
 
-export const saveParticipation = (run: RunModel) => {
+export const saveParticipation = (run: RunModel, runType: string) => {
   return {
-    type: DETAILS_TYPES.SAVE_PARTICIPATION,
-    payload: { run, participate: true }
+    type: `${runType}_${DETAILS_TYPES.SAVE_PARTICIPATION}`,
+    payload: { run, participate: true, runType }
   };
 };
 
-export const cancelParticipation = (run: RunModel) => {
+export const cancelParticipation = (run: RunModel, runType: string) => {
   return {
-    type: DETAILS_TYPES.CANCEL_PARTICIPATION,
-    payload: { run, participate: false }
+    type: `${runType}_${DETAILS_TYPES.CANCEL_PARTICIPATION}`,
+    payload: { run, participate: false, runType }
   };
 };
 
-export const participationRequest = (): Action<void> => {
+export const participationRequest = (runType: string): Action<void> => {
   return {
-    type: DETAILS_TYPES.PARTICIPATION_REQUEST
+    type: `${runType}_${DETAILS_TYPES.PARTICIPATION_REQUEST}`
   };
 };
 
-export const participationSuccess = (run: RunModel): Action<RunModel> => {
+export const participationSuccess = (
+  run: RunModel,
+  runType: string
+): Action<RunModel> => {
   return {
-    type: DETAILS_TYPES.PARTICIPATION_SUCCESS,
+    type: `${runType}_${DETAILS_TYPES.PARTICIPATION_SUCCESS}`,
     payload: run
   };
 };
 
-export const participationFailure = (): Action<void> => {
+export const participationFailure = (runType: string): Action<void> => {
   return {
-    type: DETAILS_TYPES.PARTICIPATION_FAILURE
+    type: `${runType}_${DETAILS_TYPES.PARTICIPATION_FAILURE}`
   };
 };
 
-export const setDetails = (run: RunModel): Action<RunModel> => {
+export const setDetails = (
+  run: RunModel,
+  runType: string
+): Action<RunModel> => {
   return {
-    type: DETAILS_TYPES.SET_DETAILS,
+    type: `${runType}_${DETAILS_TYPES.SET_DETAILS}`,
     payload: run
   };
 };
 
-export const cancelRun = (runId: string): Action<string> => {
+export const cancelRun = (runId: string, runType: string): Action<any> => {
   return {
-    type: DETAILS_TYPES.CANCEL_RUN,
+    type: `${runType}_${DETAILS_TYPES.CANCEL_RUN}`,
+    payload: { runId, runType }
+  };
+};
+
+export const cancelRunRequest = (runType: string): Action<void> => {
+  return {
+    type: `${runType}_${DETAILS_TYPES.CANCEL_RUN_REQUEST}`
+  };
+};
+
+export const cancelRunSuccess = (
+  runId: string,
+  runType: string
+): Action<string> => {
+  return {
+    type: `${runType}_${DETAILS_TYPES.CANCEL_RUN_SUCCESS}`,
     payload: runId
   };
 };
 
-export const cancelRunRequest = (): Action<void> => {
+export const cancelRunFailure = (runType: string): Action<string> => {
   return {
-    type: DETAILS_TYPES.CANCEL_RUN_REQUEST
-  };
-};
-
-export const cancelRunSuccess = (runId: string): Action<string> => {
-  return {
-    type: DETAILS_TYPES.CANCEL_RUN_SUCCESS,
-    payload: runId
-  };
-};
-
-export const cancelRunFailure = (): Action<string> => {
-  return {
-    type: DETAILS_TYPES.CANCEL_RUN_FAILURE
+    type: `${runType}_${DETAILS_TYPES.CANCEL_RUN_FAILURE}`
   };
 };

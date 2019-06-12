@@ -9,7 +9,7 @@ const initialState: PastState = {
   pastRuns: []
 };
 
-export default function(state: PastState = initialState, action: Action<any>) {
+export default (state: PastState = initialState, action: Action<any>) => {
   switch (action.type) {
     case GET_INITIAL_STATE:
       return initialState;
@@ -20,4 +20,4 @@ export default function(state: PastState = initialState, action: Action<any>) {
     default:
       return state;
   }
-}
+};

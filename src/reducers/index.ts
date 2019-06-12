@@ -6,6 +6,7 @@ import scheduleReducer from "./schedule.reducer";
 import planningReducer from "./planning.reducer";
 import pastReducer from "./past.reducer";
 import detailsReducer from "./details.reducer";
+import { RUN_TYPES } from "constants";
 
 const reducers = combineReducers<RootState>({
   auth: authReducer,
@@ -13,7 +14,9 @@ const reducers = combineReducers<RootState>({
   schedule: scheduleReducer,
   planning: planningReducer,
   past: pastReducer,
-  details: detailsReducer
+  scheduleDetails: detailsReducer(RUN_TYPES.SCHEDULE),
+  planningDetails: detailsReducer(RUN_TYPES.PLANNING),
+  pastDetails: detailsReducer(RUN_TYPES.PAST)
 });
 
 export default reducers;

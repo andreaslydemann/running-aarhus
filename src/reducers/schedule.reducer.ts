@@ -42,10 +42,7 @@ function updateRun(state: ScheduleState, run: RunModel) {
   return { ...state, scheduledRuns: updatedRuns };
 }
 
-export default function(
-  state: ScheduleState = initialState,
-  action: Action<any>
-) {
+export default (state: ScheduleState = initialState, action: Action<any>) => {
   switch (action.type) {
     case GET_INITIAL_STATE:
       return initialState;
@@ -62,4 +59,4 @@ export default function(
     default:
       return state;
   }
-}
+};

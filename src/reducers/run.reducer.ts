@@ -121,7 +121,7 @@ function setRun(state: RunState, run: RunModel) {
   };
 }
 
-export default function(state: RunState = initialState, action: Action<any>) {
+export default (state: RunState = initialState, action: Action<any>) => {
   switch (action.type) {
     case GET_INITIAL_STATE:
       return initialState;
@@ -150,4 +150,4 @@ export default function(state: RunState = initialState, action: Action<any>) {
     default:
       return state;
   }
-}
+};

@@ -43,7 +43,7 @@ export default ({ data }: { data: any }) => {
         .format("LT")
     : null;
 
-  const completed = startDate <= new Date();
+  const completed = new Date(startDateTime) <= new Date();
   const labelText = getLabelText(cancelled, completed, participating);
 
   return (

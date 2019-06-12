@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Dimensions } from "react-native";
 import { MapView } from "expo";
-import { styled, theme } from "theme";
+import { styled } from "theme";
 import { Coordinate } from "types/common";
 import { getColorsOfCoordinates } from "utils";
 import { Header, ScreenBackground } from "./common";

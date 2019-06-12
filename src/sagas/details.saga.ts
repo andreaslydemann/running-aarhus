@@ -8,21 +8,34 @@ import {
   cancelRunFailure,
   cancelRunSuccess
 } from "actions";
-import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
+import { RUNNING_AARHUS_FUNCTIONS_URL, RUN_TYPES } from "constants";
 import { getCurrentUser } from "utils";
 import axios from "axios";
-import { Action } from "../actions/common";
+
+function getActionTypes(actionType: string): string[] {
+  return Object.keys(RUN_TYPES).map(
+    runType => `${RUN_TYPES[runType]}_${actionType}`
+  );
+}
 
 export default function* detailsSaga() {
   yield all([
-    takeEvery(DETAILS_TYPES.SAVE_PARTICIPATION, changeParticipation),
-    takeEvery(DETAILS_TYPES.CANCEL_PARTICIPATION, changeParticipation),
-    takeEvery(DETAILS_TYPES.CANCEL_RUN, cancelRun)
+    takeEvery(
+      getActionTypes(DETAILS_TYPES.SAVE_PARTICIPATION),
+      changeParticipation
+    ),
+    takeEvery(
+      getActionTypes(DETAILS_TYPES.CANCEL_PARTICIPATION),
+      changeParticipation
+    ),
+    takeEvery(getActionTypes(DETAILS_TYPES.CANCEL_RUN), cancelRun)
   ]);
 }
 
 function* changeParticipation({ payload }: any) {
-  const { participate, run } = payload;
+  const { participate, run, runType } = payload;
+
+  console.log(runType);
 
   const currentUser = getCurrentUser();
 
@@ -31,7 +44,7 @@ function* changeParticipation({ payload }: any) {
     runId: run.id
   };
 
-  yield put(participationRequest());
+  yield put(participationRequest(runType));
 
   const requestUrl = participate
     ? `${RUNNING_AARHUS_FUNCTIONS_URL}/saveParticipation`
@@ -40,22 +53,23 @@ function* changeParticipation({ payload }: any) {
   try {
     yield axios.post(requestUrl, body);
   } catch (error) {
-    return yield put(participationFailure());
+    return yield put(participationFailure(runType));
   }
 
   const updatedRun = { ...run, participating: !run.participating };
 
-  yield put(participationSuccess(updatedRun));
+  yield put(participationSuccess(updatedRun, runType));
 }
 
-function* cancelRun({ payload: runId = "" }: Action<string>) {
-  yield put(cancelRunRequest());
+function* cancelRun({ payload }: any) {
+  const { runId = "", runType } = payload;
+  yield put(cancelRunRequest(runType));
 
   try {
     yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/cancelRun`, { runId });
   } catch (error) {
-    return yield put(cancelRunFailure());
+    return yield put(cancelRunFailure(runType));
   }
 
-  yield put(cancelRunSuccess(runId));
+  yield put(cancelRunSuccess(runId, runType));
 }

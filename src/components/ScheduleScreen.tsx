@@ -7,7 +7,6 @@ import {
   PushableWrapper,
   RunCard,
   InfoCard,
-  PromotionCard,
   CountdownCard
 } from "components/common";
 import { styled } from "theme";
@@ -18,6 +17,8 @@ import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
 import { navigation } from "utils";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
+import { RunRequest } from "types/common";
+import { DETAILS_REDUCERS, RUN_TYPES } from "constants";
 
 interface PropsConnectedState {
   scheduledRuns: RunModel[];
@@ -26,8 +27,11 @@ interface PropsConnectedState {
 }
 
 interface PropsConnectedDispatcher {
+  getUpcomingRuns: (numberOfRuns: number, offset: string) => Action<RunRequest>;
+  getMyRuns: () => Action<RunRequest>;
+  getPastRuns: () => Action<void>;
   getScheduledRuns: () => Action<void>;
-  setDetails: (run: RunModel) => Action<RunModel>;
+  setDetails: (run: RunModel, runType: string) => Action<RunModel>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -46,11 +50,18 @@ class ScheduleScreen extends React.Component<Props, State> {
   componentDidMount() {
     navigation.setNavigator(this.props.navigation);
     this.props.getScheduledRuns();
+    this.props.getUpcomingRuns(5, "");
+    this.props.getMyRuns();
+    this.props.getPastRuns();
   }
 
   runSelected = (run: any) => {
-    this.props.setDetails(run);
-    this.props.navigation.navigate("RunDetailsScreen");
+    this.props.setDetails(run, RUN_TYPES.SCHEDULE);
+
+    this.props.navigation.navigate("RunDetailsScreen", {
+      reducer: DETAILS_REDUCERS.SCHEDULE,
+      runType: RUN_TYPES.SCHEDULE
+    });
   };
 
   refreshRuns = () => {

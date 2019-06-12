@@ -19,6 +19,7 @@ import { PlanningState } from "types/states";
 import { RunModel } from "types/models";
 import { Item, RunRequest } from "types/common";
 import { Action } from "actions/common";
+import { DETAILS_REDUCERS, RUN_TYPES } from "constants";
 
 interface PropsConnectedState {
   error: boolean;
@@ -31,7 +32,7 @@ interface PropsConnectedState {
 interface PropsConnectedDispatcher {
   getUpcomingRuns: (numberOfRuns: number, offset: string) => Action<RunRequest>;
   getMyRuns: () => Action<RunRequest>;
-  setDetails: (run: RunModel) => Action<RunModel>;
+  setDetails: (run: RunModel, runType: string) => Action<RunModel>;
   setSelectedItem: (item: Item) => Action<Item>;
 }
 
@@ -48,11 +49,6 @@ class PlanningScreen extends React.Component<Props, State> {
     refreshing: false
   };
 
-  componentDidMount() {
-    this.props.getUpcomingRuns(5, "");
-    this.props.getMyRuns();
-  }
-
   refreshRuns = () => {
     this.setState({ refreshing: true });
     this.props.getUpcomingRuns(this.props.upcomingRuns.length, "");
@@ -67,8 +63,11 @@ class PlanningScreen extends React.Component<Props, State> {
   };
 
   runSelected = (run: any) => {
-    this.props.setDetails(run);
-    this.props.navigation.navigate("RunDetailsScreen");
+    this.props.setDetails(run, RUN_TYPES.PLANNING);
+    this.props.navigation.navigate("RunDetailsScreen", {
+      reducer: DETAILS_REDUCERS.PLANNING,
+      runType: RUN_TYPES.PLANNING
+    });
   };
 
   renderList(): JSX.Element {

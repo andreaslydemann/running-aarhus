@@ -1,18 +1,21 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import { styled } from "theme";
 import i18n from "i18n-js";
 
 interface Props {
-  runDate?: string;
+  runDate: string;
 }
 
-export default class extends Component<Props> {
+interface CountdownCard {
+  timer: number;
+}
+
+class CountdownCard extends Component<Props> {
   state = {
     timeLeft: 0
   };
 
   componentDidMount() {
-    console.log(this.props.runDate);
     this.updateTimeLeft();
     if (this.props.runDate) {
       this.timer = setInterval(() => {
@@ -28,7 +31,9 @@ export default class extends Component<Props> {
   }
 
   updateTimeLeft() {
-    const timeLeft = new Date(this.props.runDate) - new Date();
+    const timeLeft = Math.abs(
+      (new Date(this.props.runDate) as any) - (new Date() as any)
+    );
     this.setState({ timeLeft });
   }
 
@@ -42,7 +47,7 @@ export default class extends Component<Props> {
 
     return (
       <Wrapper>
-        <Title>Time until next run:</Title>
+        <Title>Next run starts in</Title>
         <TimeWrapper>
           <UnitWrapper>
             <Number>{NoData ? "-" : days}</Number>
@@ -66,6 +71,8 @@ export default class extends Component<Props> {
   }
 }
 
+export default CountdownCard;
+
 const Wrapper = styled.View`
   background: ${({ theme }) => theme.primary};
   border-radius: 15px;
@@ -88,18 +95,18 @@ const UnitWrapper = styled.View`
 const Number = styled.Text`
   font-size: 26px;
   font-weight: bold;
-  color: white;
+  color: ${({ theme }) => theme.activeTint};
 `;
 
 const Unit = styled.Text`
   font-size: 12px;
   font-weight: bold;
-  color: #aaa;
+  color: ${({ theme }) => theme.inactiveTint};
 `;
 
 const Title = styled.Text`
-  font-size: 12px;
+  font-size: 20px;
   font-weight: bold;
-  color: #aaa;
+  color: ${({ theme }) => theme.activeTint};
   margin-bottom: 10px;
 `;

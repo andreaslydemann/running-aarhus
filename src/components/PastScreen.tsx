@@ -16,7 +16,8 @@ import { PastState } from "../types/states";
 import { connect } from "react-redux";
 import * as actions from "../actions";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
-import firebase from "firebase";
+import { DETAILS_REDUCERS, RUN_TYPES } from "constants";
+//import firebase from "firebase";
 
 interface PropsConnectedState {
   pastRuns: RunModel[];
@@ -26,7 +27,7 @@ interface PropsConnectedState {
 
 interface PropsConnectedDispatcher {
   getPastRuns: () => Action<void>;
-  setDetails: (run: RunModel) => Action<RunModel>;
+  setDetails: (run: RunModel, runType: string) => Action<RunModel>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
@@ -42,19 +43,21 @@ class PastScreen extends React.Component<Props, State> {
     refreshing: false
   };
 
-  async componentDidMount() {
-    this.props.getPastRuns();
-
+  /*async componentDidMount() {
     const user = firebase.auth().currentUser;
     if (user) {
       const token = await user.getIdToken();
       console.log(token);
     }
-  }
+  }*/
 
   runSelected = (run: any) => {
-    this.props.setDetails(run);
-    this.props.navigation.navigate("RunDetailsScreen", { isPastRun: true });
+    this.props.setDetails(run, RUN_TYPES.PAST);
+    this.props.navigation.navigate("RunDetailsScreen", {
+      isPastRun: true,
+      reducer: DETAILS_REDUCERS.PAST,
+      runType: RUN_TYPES.PAST
+    });
   };
 
   refreshRuns = () => {

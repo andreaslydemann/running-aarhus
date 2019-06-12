@@ -11,5 +11,7 @@ export interface RootState {
   schedule: ScheduleState;
   planning: PlanningState;
   past: PastState;
-  details: DetailsState;
+  scheduleDetails: DetailsState;
+  planningDetails: DetailsState;
+  pastDetails: DetailsState;
 }

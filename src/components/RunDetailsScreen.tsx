@@ -14,7 +14,7 @@ import Dialog, {
   ScaleAnimation
 } from "react-native-popup-dialog";
 import { Ionicons } from "@expo/vector-icons";
-import { DetailsState } from "types/states";
+import { DetailsState, RootState } from "types/states";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { connect } from "react-redux";
 import * as actions from "../actions";
@@ -30,9 +30,9 @@ interface State {
 }
 
 interface PropsConnectedDispatcher {
-  saveParticipation: (run: RunModel) => void;
-  cancelParticipation: (run: RunModel) => void;
-  cancelRun: (runId: string) => void;
+  saveParticipation: (run: RunModel, runType: string) => void;
+  cancelParticipation: (run: RunModel, runType: string) => void;
+  cancelRun: (runId: string, runType: string) => void;
   setRun: (run: RunModel) => void;
 }
 
@@ -83,7 +83,8 @@ class RunDetailsScreen extends Component<Props, State> {
   };
 
   renderDialog = () => {
-    const { cancelRun, run } = this.props;
+    const { cancelRun, run, navigation } = this.props;
+    const runType = navigation.getParam("runType");
 
     return (
       <Dialog
@@ -110,7 +111,7 @@ class RunDetailsScreen extends Component<Props, State> {
                     dialogVisible: false
                   },
                   () => {
-                    cancelRun(run.id);
+                    cancelRun(run.id, runType);
                   }
                 );
               }}
@@ -126,8 +127,10 @@ class RunDetailsScreen extends Component<Props, State> {
   };
 
   render() {
-    const isPastRun = this.props.navigation.getParam("isPastRun");
-    const { error, success, loading, run } = this.props;
+    const { error, success, loading, run, navigation } = this.props;
+
+    const isPastRun = navigation.getParam("isPastRun");
+    const runType = navigation.getParam("runType");
 
     const {
       startDateTime,
@@ -163,7 +166,7 @@ class RunDetailsScreen extends Component<Props, State> {
       <Wrapper>
         <Header
           ScreenTitle={(cancelled ? "Cancelled: " : "") + title}
-          navigateBack={() => this.props.navigation.goBack(null)}
+          navigateBack={() => navigation.goBack(null)}
           showMoreButton={showMoreButton}
           onMoreButtonPress={this.openActionSheet}
         />
@@ -209,7 +212,7 @@ class RunDetailsScreen extends Component<Props, State> {
               <StyledButton
                 icon={`${THEME_PREFIX}-people`}
                 onPress={() =>
-                  this.props.navigation.navigate("ParticipantsScreen", {
+                  navigation.navigate("ParticipantsScreen", {
                     participants
                   })
                 }
@@ -221,7 +224,7 @@ class RunDetailsScreen extends Component<Props, State> {
                 disabled={!routeDetails}
                 icon={`${THEME_PREFIX}-map`}
                 onPress={() => {
-                  this.props.navigation.navigate("ShowRouteScreen", {
+                  navigation.navigate("ShowRouteScreen", {
                     coordinates: routeDetails.coordinates
                   });
                 }}
@@ -238,13 +241,17 @@ class RunDetailsScreen extends Component<Props, State> {
                 <StyledButton
                   type={"destructive"}
                   title="Cancel"
-                  onPress={() => this.props.cancelParticipation(this.props.run)}
+                  onPress={() =>
+                    this.props.cancelParticipation(this.props.run, runType)
+                  }
                 />
               ) : (
                 <StyledButton
                   type={"submit"}
                   title="Join"
-                  onPress={() => this.props.saveParticipation(this.props.run)}
+                  onPress={() =>
+                    this.props.saveParticipation(this.props.run, runType)
+                  }
                 />
               )}
             </ButtonWrapper>
@@ -268,11 +275,11 @@ class RunDetailsScreen extends Component<Props, State> {
   }
 }
 
-const mapStateToProps = ({
-  details
-}: {
-  details: DetailsState;
-}): DetailsState => details;
+const mapStateToProps = (state: RootState, ownProps: Props) => {
+  const reducer = ownProps.navigation.getParam("reducer");
+
+  return state[reducer];
+};
 
 export default connectActionSheet(
   connect(
