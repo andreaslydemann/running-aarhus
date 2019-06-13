@@ -1,5 +1,5 @@
 import { call, put, takeLeading, all } from "redux-saga/effects";
-import { RUN_TYPES, setDetails } from "actions";
+import { resetRun, RUN_TYPES, setDetails } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
 import { saveRunSuccess, saveRunFailure } from "actions";
 import {
@@ -17,15 +17,17 @@ function* saveRun({ payload }: any) {
   try {
     const currentUser = getCurrentUser();
 
+    const { runType, run } = payload;
+
     let requestUrl = RUNNING_AARHUS_FUNCTIONS_URL;
     let body = {
-      ...payload,
+      ...run,
       userId: currentUser.uid
     };
 
-    if (payload.id) {
+    if (run.id) {
       requestUrl += "/editRun";
-      body = { ...body, runId: payload.id };
+      body.runId = run.id;
     } else {
       requestUrl += "/createRun";
     }
@@ -37,8 +39,12 @@ function* saveRun({ payload }: any) {
       getCurrentUser().uid
     )[0];
 
-    yield put(setDetails(runWithParticipationStatus));
+    if (runType) {
+      yield put(setDetails(runWithParticipationStatus, runType));
+    }
+
     yield put(saveRunSuccess(runWithParticipationStatus));
+    yield put(resetRun());
 
     yield call(navigation.goBack);
   } catch (error) {

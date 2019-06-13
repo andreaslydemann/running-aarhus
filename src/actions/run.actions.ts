@@ -2,6 +2,7 @@ import { RouteDetails, Action } from "types/common";
 import { RunModel } from "../types/models";
 
 export const RUN_TYPES = {
+  RESET_RUN: "RESET_RUN",
   SAVE_RUN: "SAVE_RUN",
   SAVE_RUN_SUCCESS: "SAVE_RUN_SUCCESS",
   SAVE_RUN_FAILURE: "SAVE_RUN_FAILURE",
@@ -15,10 +16,16 @@ export const RUN_TYPES = {
   SET_RUN: "SET_RUN"
 };
 
-export const saveRun = (run: any): Action<any> => {
+export const resetRun = (): Action<void> => {
+  return {
+    type: RUN_TYPES.RESET_RUN
+  };
+};
+
+export const saveRun = (run: any, runType?: string): Action<any> => {
   return {
     type: RUN_TYPES.SAVE_RUN,
-    payload: run
+    payload: { run, runType }
   };
 };
 

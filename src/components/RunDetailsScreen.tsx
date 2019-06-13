@@ -51,6 +51,8 @@ class RunDetailsScreen extends Component<Props, State> {
   };
 
   openActionSheet = () => {
+    const runType = this.props.navigation.getParam("runType");
+
     const options = [
       i18n.t("optionEditRun"),
       i18n.t("optionCancelRun"),
@@ -70,7 +72,7 @@ class RunDetailsScreen extends Component<Props, State> {
         switch (buttonIndex) {
           case 0:
             this.props.setRun(this.props.run);
-            this.props.navigation.navigate("SetRunScreen");
+            this.props.navigation.navigate("SetRunScreen", { runType });
             break;
           case 1:
             this.setState({ dialogVisible: true });

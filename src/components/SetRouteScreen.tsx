@@ -346,6 +346,7 @@ const StyledMapView = styled(MapView)`
 
 const MapOverlay = styled.View`
   position: absolute;
+  width: 100%;
 `;
 
 const Wrapper = styled(ScreenBackground)`

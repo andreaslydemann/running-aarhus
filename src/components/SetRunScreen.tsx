@@ -41,11 +41,13 @@ interface PropsConnectedDispatcher {
   increasePace: () => Action<void>;
   decreasePace: () => Action<void>;
   setRoute: (routeDetails: RouteDetails) => Action<any>;
-  saveRun: (run: any) => Action<any>;
+  saveRun: (run: any, runType: string) => Action<any>;
+  resetRun: () => Action<void>;
 }
 
 interface Props extends PropsConnectedState, PropsConnectedDispatcher {
   navigation: {
+    getParam: (param: string) => any;
     goBack: (nullArg?: null) => void;
     navigate: (screen: string, params?: any) => void;
   };
@@ -165,7 +167,7 @@ class SetRunScreen extends React.Component<Props> {
     ];
   }
 
-  setRun() {
+  saveRun = () => {
     const {
       title,
       description,
@@ -175,15 +177,25 @@ class SetRunScreen extends React.Component<Props> {
       id
     } = this.props;
 
-    this.props.saveRun({
-      id,
-      title,
-      description,
-      pace,
-      startDateTime,
-      ...routeDetails
-    });
-  }
+    const runType = this.props.navigation.getParam("runType");
+
+    this.props.saveRun(
+      {
+        id,
+        title,
+        description,
+        pace,
+        startDateTime,
+        ...routeDetails
+      },
+      runType
+    );
+  };
+
+  navigateBack = () => {
+    this.props.resetRun();
+    this.props.navigation.goBack(null);
+  };
 
   render(): JSX.Element {
     let {
@@ -206,7 +218,7 @@ class SetRunScreen extends React.Component<Props> {
     return (
       <Wrapper>
         <Header
-          navigateBack={() => this.props.navigation.goBack(null)}
+          navigateBack={this.navigateBack}
           ScreenTitle={!!id ? i18n.t("editRunTitle") : i18n.t("createRunTitle")}
           isModal={true}
         />
@@ -269,7 +281,7 @@ class SetRunScreen extends React.Component<Props> {
           disabled={
             !(this.props.routeDetails && this.props.title) || this.props.loading
           }
-          onPress={() => this.setRun()}
+          onPress={this.saveRun}
           title={i18n.t("save")}
         />
 

@@ -124,6 +124,8 @@ export default (state: RunState = initialState, action: Action<any>) => {
   switch (action.type) {
     case GET_INITIAL_STATE:
       return initialState;
+    case RUN_TYPES.RESET_RUN:
+      return initialState;
     case RUN_TYPES.SAVE_RUN:
       return { ...state, loading: true };
     case RUN_TYPES.SAVE_RUN_SUCCESS:
