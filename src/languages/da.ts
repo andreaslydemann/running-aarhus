@@ -73,5 +73,6 @@ export const da = {
   missingScheduledRunsTitle: "Ingen løb blev fundet",
   missingScheduledRunsSubtitle: "Tilmeld dig et løb",
   runsFetchingErrorTitle: "Hentning af løb fejlede",
-  runsFetchingErrorSubtitle: "Prøv igen senere"
+  runsFetchingErrorSubtitle: "Prøv igen senere",
+  errorOccurred: "Fejl opstået"
 };

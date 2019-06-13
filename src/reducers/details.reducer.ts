@@ -5,7 +5,8 @@ import { GET_INITIAL_STATE } from "constants";
 
 const initialState: DetailsState = {
   error: false,
-  loading: false,
+  participationLoading: false,
+  cancellationLoading: false,
   success: false,
   run: {
     id: "",
@@ -33,7 +34,7 @@ const initialState: DetailsState = {
 function toggleParticipation(state: DetailsState) {
   return {
     error: false,
-    loading: false,
+    participationLoading: false,
     success: true,
     run: { ...state.run, participating: !state.run.participating }
   };
@@ -47,13 +48,18 @@ export default (runType: string) => (
     case GET_INITIAL_STATE:
       return initialState;
     case `${runType}_${DETAILS_TYPES.PARTICIPATION_REQUEST}`:
-      return { ...state, loading: true, error: false, success: false };
+      return {
+        ...state,
+        participationLoading: true,
+        error: false,
+        success: false
+      };
     case `${runType}_${DETAILS_TYPES.PARTICIPATION_SUCCESS}`:
       return toggleParticipation(state);
     case `${runType}_${DETAILS_TYPES.PARTICIPATION_FAILURE}`:
       return {
         ...state,
-        loading: false,
+        participationLoading: false,
         error: true,
         success: false
       };
@@ -62,19 +68,31 @@ export default (runType: string) => (
         run: action.payload,
         success: false,
         error: false,
-        loading: false
+        participationLoading: false,
+        cancellationLoading: false
       };
     case `${runType}_${DETAILS_TYPES.CANCEL_RUN_REQUEST}`:
-      return { ...state, success: false, error: false };
+      return {
+        ...state,
+        cancellationLoading: true,
+        success: false,
+        error: false
+      };
     case `${runType}_${DETAILS_TYPES.CANCEL_RUN_SUCCESS}`:
       return {
         ...state,
         run: { ...state.run, cancelled: true },
+        cancellationLoading: false,
         success: true,
         error: false
       };
     case `${runType}_${DETAILS_TYPES.CANCEL_RUN_FAILURE}`:
-      return { ...state, success: false, error: true };
+      return {
+        ...state,
+        cancellationLoading: false,
+        success: false,
+        error: true
+      };
     default:
       return state;
   }

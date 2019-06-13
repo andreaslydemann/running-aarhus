@@ -2,7 +2,8 @@ import { RunModel } from "../models";
 
 export type DetailsState = {
   run: RunModel;
-  loading: boolean;
+  participationLoading: boolean;
+  cancellationLoading: boolean;
   success: boolean;
   error: boolean;
 };

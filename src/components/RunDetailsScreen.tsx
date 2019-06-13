@@ -132,7 +132,14 @@ class RunDetailsScreen extends Component<Props, State> {
   };
 
   render() {
-    const { error, success, loading, run, navigation } = this.props;
+    const {
+      error,
+      success,
+      participationLoading,
+      cancellationLoading,
+      run,
+      navigation
+    } = this.props;
 
     const isPastRun = navigation.getParam("isPastRun");
     const runType = navigation.getParam("runType");
@@ -244,7 +251,7 @@ class RunDetailsScreen extends Component<Props, State> {
 
           {!(isPastRun || cancelled) && (
             <ButtonWrapper>
-              {loading ? (
+              {participationLoading ? (
                 <Spinner color={theme.activeTint} size="large" />
               ) : participating ? (
                 <StyledButton
@@ -275,8 +282,14 @@ class RunDetailsScreen extends Component<Props, State> {
           height={135}
           width={115}
           textNumberOfLines={2}
-          text={"Fejl opstået"}
+          text={i18n.t("errorOccurred")}
         />
+        {cancellationLoading && (
+          <StatusModal
+            type={statusModalTypes.LOADING}
+            isVisible={cancellationLoading}
+          />
+        )}
 
         {this.renderDialog()}
       </Wrapper>

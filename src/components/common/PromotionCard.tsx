@@ -31,7 +31,7 @@ export default ({ run, navigateToDetails }: any) => {
 
 const Wrapper = styled(LinearGradient)`
   flex: 1;
-  border-radius: 10px;
+  border-radius: 15px;
 `;
 
 interface TitleProps {

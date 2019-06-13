@@ -97,6 +97,10 @@ class SetRunScreen extends React.Component<Props> {
           },
           dateText: {
             color: theme.activeTint
+          },
+          btnTextConfirm: {
+            color: theme.action,
+            fontWeight: "bold"
           }
         }}
       />

@@ -184,7 +184,7 @@ const BottomMargin = styled.View`
 `;
 
 const Credits = styled.Text`
-  color: #aaa;
+  color: ${({ theme }) => theme.inactiveTint};
   text-align: center;
   margin-bottom: 22px;
 `;
