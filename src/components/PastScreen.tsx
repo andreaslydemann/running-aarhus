@@ -10,11 +10,11 @@ import {
 } from "components/common";
 import { styled } from "theme";
 import { FlatList, RefreshControl } from "react-native";
-import { RunModel } from "../types/models";
-import { Action } from "../actions/common";
-import { PastState } from "../types/states";
+import { RunModel } from "types/models";
+import { Action } from "types/common";
+import { PastState } from "types/states";
 import { connect } from "react-redux";
-import * as actions from "../actions";
+import * as actions from "actions";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 import { DETAILS_REDUCERS, RUN_TYPES } from "constants";
 //import firebase from "firebase";

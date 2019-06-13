@@ -1,7 +1,6 @@
-import { Action } from "actions/common";
 import { DETAILS_TYPES, PLANNING_TYPES, RUN_TYPES } from "actions";
 import { PlanningState } from "types/states";
-import { Item } from "types/common";
+import { Item, Action } from "types/common";
 import { RunModel } from "types/models";
 import {
   getRunsWithUpdatedCancellation,

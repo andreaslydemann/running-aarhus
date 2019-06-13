@@ -1,3 +1,8 @@
+export type Action<T> = {
+  type: any;
+  payload?: T;
+};
+
 export type Coordinate = {
   latitude: number;
   longitude: number;

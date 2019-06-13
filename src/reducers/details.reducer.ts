@@ -1,5 +1,5 @@
-import { Action } from "actions/common";
 import { DetailsState } from "types/states";
+import { Action } from "types/common";
 import { DETAILS_TYPES } from "actions/details.actions";
 import { GET_INITIAL_STATE } from "constants";
 

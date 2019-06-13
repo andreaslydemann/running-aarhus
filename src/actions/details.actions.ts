@@ -1,5 +1,5 @@
-import { Action } from "./common";
-import { RunModel } from "../types/models";
+import { Action } from "types/common";
+import { RunModel } from "types/models";
 
 export const DETAILS_TYPES = {
   SAVE_PARTICIPATION: "SAVE_PARTICIPATION",

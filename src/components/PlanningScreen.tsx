@@ -17,8 +17,7 @@ import { connect } from "react-redux";
 import * as actions from "actions";
 import { PlanningState } from "types/states";
 import { RunModel } from "types/models";
-import { Item, RunRequest } from "types/common";
-import { Action } from "actions/common";
+import { Item, RunRequest, Action } from "types/common";
 import { DETAILS_REDUCERS, RUN_TYPES } from "constants";
 
 interface PropsConnectedState {

@@ -1,4 +1,4 @@
-import { Action } from "./common";
+import { Action } from "types/common";
 
 export const PAST_TYPES = {
   GET_PAST_RUNS: "GET_PAST_RUNS",

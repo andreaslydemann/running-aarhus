@@ -1,8 +1,7 @@
 import { put, takeEvery, all } from "redux-saga/effects";
 import { PLANNING_TYPES, getUpcomingRunsSuccess } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
-import { RunRequest } from "types/common";
-import { Action } from "actions/common";
+import { RunRequest, Action } from "types/common";
 import axios from "axios";
 import { getCurrentUser, addParticipationStatusToRuns } from "utils";
 

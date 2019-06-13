@@ -1,5 +1,5 @@
-import { Action } from "actions/common";
 import { PastState } from "types/states";
+import { Action } from "types/common";
 import { PAST_TYPES } from "actions";
 import { GET_INITIAL_STATE } from "constants";
 

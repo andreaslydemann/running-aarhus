@@ -1,5 +1,5 @@
-import { Action } from "actions/common";
 import { AuthState } from "types/states";
+import { Action } from "types/common";
 import { AUTH_TYPES } from "actions";
 import { GET_INITIAL_STATE } from "constants";
 

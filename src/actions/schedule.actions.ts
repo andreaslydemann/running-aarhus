@@ -1,4 +1,4 @@
-import { Action } from "./common";
+import { Action } from "types/common";
 
 export const SCHEDULE_TYPES = {
   GET_SCHEDULED_RUNS: "GET_SCHEDULED_RUNS",

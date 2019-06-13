@@ -10,14 +10,13 @@ import {
   CountdownCard
 } from "components/common";
 import { styled } from "theme";
-import { Action } from "actions/common";
 import * as actions from "actions";
 import { connect } from "react-redux";
 import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
 import { navigation } from "utils";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
-import { RunRequest } from "types/common";
+import { RunRequest, Action } from "types/common";
 import { DETAILS_REDUCERS, RUN_TYPES } from "constants";
 
 interface PropsConnectedState {

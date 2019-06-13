@@ -1,4 +1,4 @@
-import { Action } from "./common";
+import { Action } from "types/common";
 
 export const AUTH_TYPES = {
   SIGN_IN: "SIGN_IN",

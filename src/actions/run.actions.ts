@@ -1,5 +1,4 @@
-import { Action } from "./common";
-import { RouteDetails } from "types/common";
+import { RouteDetails, Action } from "types/common";
 import { RunModel } from "../types/models";
 
 export const RUN_TYPES = {

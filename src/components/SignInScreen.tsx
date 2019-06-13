@@ -1,6 +1,6 @@
-import { Action } from "actions/common";
 import * as actions from "actions";
 import { AuthState } from "types/states";
+import { Action } from "types/common";
 import React from "react";
 import { connect } from "react-redux";
 import { styled } from "theme";

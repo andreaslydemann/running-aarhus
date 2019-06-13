@@ -1,6 +1,6 @@
-import { Action } from "actions/common";
 import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
+import { Action } from "types/common";
 import { DETAILS_TYPES, RUN_TYPES, SCHEDULE_TYPES } from "actions";
 import { getRunsWithUpdatedCancellation, getRunsWithUpdatedRun } from "utils";
 import { GET_INITIAL_STATE } from "constants";

@@ -1,9 +1,8 @@
-import { Action } from "actions/common";
 import { RunState } from "types/states";
 import { RUN_TYPES } from "actions";
 import { calculateEndDateTime } from "utils";
-import { RouteDetails } from "../types/common";
-import { RunModel } from "../types/models";
+import { RouteDetails, Action } from "types/common";
+import { RunModel } from "types/models";
 import { GET_INITIAL_STATE } from "constants";
 
 const initialState: RunState = {

@@ -1,6 +1,5 @@
-import { Action } from "./common";
-import { Item, RunRequest } from "types/common";
-import { RunModel } from "../types/models";
+import { Item, RunRequest, Action } from "types/common";
+import { RunModel } from "types/models";
 
 export const PLANNING_TYPES = {
   GET_UPCOMING_RUNS: "GET_UPCOMING_RUNS",
