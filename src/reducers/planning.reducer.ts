@@ -76,13 +76,15 @@ export default (state: PlanningState = initialState, action: Action<any>) => {
     case GET_INITIAL_STATE:
       return initialState;
     case PLANNING_TYPES.GET_UPCOMING_RUNS:
-      return { ...state, loading: true };
+      return { ...state, error: false, loading: true };
     case PLANNING_TYPES.GET_UPCOMING_RUNS_SUCCESS:
       return setUpcomingRuns(
         state,
         action.payload.runs,
         action.payload.filterMyRuns
       );
+    case PLANNING_TYPES.GET_UPCOMING_RUNS_FAILURE:
+      return { ...state, error: true, loading: false };
     case PLANNING_TYPES.SET_SELECTED_ITEM:
       return { ...state, selectedItem: action.payload };
     case DETAILS_TYPES.PARTICIPATION_SUCCESS:

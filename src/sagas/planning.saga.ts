@@ -1,5 +1,9 @@
 import { put, takeEvery, all } from "redux-saga/effects";
-import { PLANNING_TYPES, getUpcomingRunsSuccess } from "actions";
+import {
+  PLANNING_TYPES,
+  getUpcomingRunsSuccess,
+  getUpcomingRunsFailure
+} from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
 import { RunRequest, Action } from "types/common";
 import axios from "axios";
@@ -11,7 +15,7 @@ export default function* planningSaga() {
 
 function* getUpcomingRuns({ payload }: Action<RunRequest>) {
   try {
-    if (!payload) return; //yield put(getUpcomingRunsFailure());
+    if (!payload) return yield put(getUpcomingRunsFailure());
 
     const { numberOfRuns, offset, filterMyRuns } = payload;
 
@@ -32,7 +36,6 @@ function* getUpcomingRuns({ payload }: Action<RunRequest>) {
       getUpcomingRunsSuccess(runsWithParticipationStatus, !!filterMyRuns)
     );
   } catch (error) {
-    console.log(error);
-    //return yield put(signInFailure());
+    yield put(getUpcomingRunsFailure());
   }
 }

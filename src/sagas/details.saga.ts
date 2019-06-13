@@ -35,8 +35,6 @@ export default function* detailsSaga() {
 function* changeParticipation({ payload }: any) {
   const { participate, run, runType } = payload;
 
-  console.log(runType);
-
   const currentUser = getCurrentUser();
 
   const body = {
