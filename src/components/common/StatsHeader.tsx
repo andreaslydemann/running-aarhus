@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from "theme";
+import i18n from "i18n-js";
 
 interface Props {
   numberOfRuns?: number;
@@ -7,7 +8,9 @@ interface Props {
 
 export default ({ numberOfRuns = 0 }: Props) => (
   <Wrapper>
-    <ItemText>{numberOfRuns} runs completed</ItemText>
+    <ItemText>
+      {numberOfRuns} {i18n.t("runsCompleted")}
+    </ItemText>
   </Wrapper>
 );
 

@@ -56,7 +56,7 @@ class SetRunScreen extends React.Component<Props> {
     const language = getLanguage();
     return [
       <Subtitle
-        titleText={"Date and time"}
+        titleText={i18n.t("dateAndTime")}
         showInfoIcon={false}
         key={"subtitle"}
       />,
@@ -79,8 +79,8 @@ class SetRunScreen extends React.Component<Props> {
         format="LLLL"
         minDate={new Date()}
         style={{ width: "95%" }}
-        cancelBtnText={"Cancel"}
-        confirmBtnText={"Ok"}
+        cancelBtnText={i18n.t("datePickerCancel")}
+        confirmBtnText={i18n.t("datePickerOk")}
         iconComponent={
           <Ionicons
             size={22}
@@ -118,12 +118,10 @@ class SetRunScreen extends React.Component<Props> {
         titleText={"Pace"}
         showInfoIcon={true}
         dialogTitle={"Pace"}
-        dialogText={
-          "The pace is the average tempo which, in combination with the set route, is used to estimate the time that the run will be finished."
-        }
+        dialogText={i18n.t("paceDescription")}
       />,
       <Section top touchable={false} key={"section1"}>
-        <SectionTitle>Use average tempo</SectionTitle>
+        <SectionTitle>{i18n.t("enablePace")}</SectionTitle>
         <Switch
           value={this.props.paceEnabled}
           onValueChange={() => this.props.togglePace()}
@@ -144,7 +142,9 @@ class SetRunScreen extends React.Component<Props> {
           <Ionicons name={`${THEME_PREFIX}-remove`} size={18} color="#fff" />
         </PaceButtonWrapper>
         <PaceTextWrapper>
-          <SectionTitle>{this.props.pace} min/km</SectionTitle>
+          <SectionTitle>
+            {this.props.pace} {i18n.t("paceUnit")}
+          </SectionTitle>
         </PaceTextWrapper>
         <PaceButtonWrapper
           disabled={!this.props.paceEnabled}
@@ -211,19 +211,19 @@ class SetRunScreen extends React.Component<Props> {
           <BottomMargin>{this.renderDatePicker()}</BottomMargin>
 
           <BottomMargin>
-            <Subtitle titleText={"Title"} showInfoIcon={false} />
+            <Subtitle titleText={i18n.t("title")} showInfoIcon={false} />
             <TextInput
               value={title}
-              placeholder={"Intervals 2x5"}
+              placeholder={i18n.t("titlePlaceholder")}
               onChangeText={title => this.props.setTitle(title)}
             />
           </BottomMargin>
 
           <BottomMargin>
-            <Subtitle titleText={"Description"} showInfoIcon={false} />
+            <Subtitle titleText={i18n.t("description")} showInfoIcon={false} />
             <TextInput
               value={description}
-              placeholder={"Provide some information about this run"}
+              placeholder={i18n.t("descriptionPlaceholder")}
               onChangeText={description =>
                 this.props.setDescription(description)
               }
@@ -233,7 +233,7 @@ class SetRunScreen extends React.Component<Props> {
 
           <BottomMargin>{this.renderPaceSwitch()}</BottomMargin>
 
-          <Subtitle titleText={"Route"} showInfoIcon={false} />
+          <Subtitle titleText={i18n.t("showRouteTitle")} showInfoIcon={false} />
           <Section
             top
             bottom={!routeDetails}
@@ -249,7 +249,7 @@ class SetRunScreen extends React.Component<Props> {
               })
             }
           >
-            <SectionTitle>Set route</SectionTitle>
+            <SectionTitle>{i18n.t("setRouteTitle")}</SectionTitle>
           </Section>
           {routeDetails && (
             <Section bottom>
@@ -266,7 +266,7 @@ class SetRunScreen extends React.Component<Props> {
             !(this.props.routeDetails && this.props.title) || this.props.loading
           }
           onPress={() => this.setRun()}
-          title={"Gem"}
+          title={i18n.t("save")}
         />
 
         <LoadingModal

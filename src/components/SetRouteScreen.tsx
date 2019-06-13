@@ -298,10 +298,7 @@ class SetRouteScreen extends React.Component<Props, State> {
               borderColor={theme.inactiveTint}
               backgroundColor={theme.activeTint}
             >
-              <HelpText>
-                Start- og slut-markøren for ruten sættes ved at holde din finger
-                et sted på kortet.
-              </HelpText>
+              <HelpText>{i18n.t("routeHelpText")}</HelpText>
             </TextWrapper>
             {(this.state.startMarker || this.state.endMarker) && (
               <UndoButton
@@ -332,7 +329,7 @@ class SetRouteScreen extends React.Component<Props, State> {
 
             this.props.navigation.goBack();
           }}
-          title={"Gem"}
+          title={i18n.t("save")}
         />
       </Wrapper>
     );

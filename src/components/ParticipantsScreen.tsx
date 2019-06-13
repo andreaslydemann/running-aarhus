@@ -36,8 +36,8 @@ export default class ParticipantsScreen extends Component<Props> {
             />
           ) : (
             <InfoCard
-              title="No participants yet"
-              subtitle="Sign up to this run"
+              title={i18n.t("missingParticipantsTitle")}
+              subtitle={i18n.t("missingParticipantsSubtitle")}
               showTextOnly={true}
             />
           )}

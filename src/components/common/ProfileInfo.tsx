@@ -3,6 +3,7 @@ import moment from "moment";
 import { styled } from "theme";
 import { UserModel } from "types/models";
 import { getLanguage } from "utils";
+import i18n from "i18n-js";
 
 interface Props {
   user: UserModel;
@@ -29,7 +30,9 @@ export default ({ user }: Props) => {
         <SectionTitle>
           {user.firstName} {user.lastName}
         </SectionTitle>
-        <InfoText>User since {creationDate}</InfoText>
+        <InfoText>
+          {i18n.t("userSince")} {creationDate}
+        </InfoText>
       </TextWrapper>
     </Wrapper>
   );

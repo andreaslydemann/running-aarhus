@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { styled, theme, THEME_PREFIX } from "../../theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Item } from "types/common";
+import i18n from "i18n-js";
 
 interface Props {
   onLeftItemPress: () => void;
@@ -27,7 +28,7 @@ export default class extends Component<Props> {
       <Wrapper>
         <OuterItem onPress={() => this.handleOuterPress(Item.Left)}>
           <ItemText isSelected={this.props.selectedItem === Item.Left}>
-            All runs
+            {i18n.t("allRuns")}
           </ItemText>
         </OuterItem>
         <MiddleItem onPress={this.props.onMiddleItemPress}>
@@ -39,7 +40,7 @@ export default class extends Component<Props> {
         </MiddleItem>
         <OuterItem onPress={() => this.handleOuterPress(Item.Right)}>
           <ItemText isSelected={this.props.selectedItem === Item.Right}>
-            My runs
+            {i18n.t("myRuns")}
           </ItemText>
         </OuterItem>
       </Wrapper>

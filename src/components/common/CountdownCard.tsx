@@ -43,26 +43,26 @@ class CountdownCard extends Component<Props> {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-    const NoData = timeLeft <= 0;
+    const noData = timeLeft <= 0;
 
     return (
       <Wrapper>
-        <Title>Next run starts in</Title>
+        <Title>{i18n.t("nextRunStartsIn")}</Title>
         <TimeWrapper>
           <UnitWrapper>
-            <Number>{NoData ? "-" : days}</Number>
+            <Number>{noData ? "-" : days}</Number>
             <Unit>{i18n.t("days")}</Unit>
           </UnitWrapper>
           <UnitWrapper>
-            <Number>{NoData ? "-" : hours % 24}</Number>
+            <Number>{noData ? "-" : hours % 24}</Number>
             <Unit>{i18n.t("hours")}</Unit>
           </UnitWrapper>
           <UnitWrapper>
-            <Number>{NoData ? "-" : minutes % 60}</Number>
+            <Number>{noData ? "-" : minutes % 60}</Number>
             <Unit>{i18n.t("minutes")}</Unit>
           </UnitWrapper>
           <UnitWrapper>
-            <Number>{NoData ? "-" : seconds % 60}</Number>
+            <Number>{noData ? "-" : seconds % 60}</Number>
             <Unit>{i18n.t("seconds")}</Unit>
           </UnitWrapper>
         </TimeWrapper>

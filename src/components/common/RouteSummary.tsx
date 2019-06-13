@@ -2,6 +2,7 @@ import React from "react";
 import { RouteDetails } from "types/common";
 import { styled } from "theme";
 import moment from "moment";
+import i18n from "i18n-js";
 
 const Wrapper = styled.View`
   width: 100%;
@@ -36,17 +37,20 @@ const RouteSummary = ({ routeDetails, showEndDateTime }: Props) => {
   return (
     <Wrapper>
       <DetailsTextWrapper>
-        <DetailsField>Mødested: </DetailsField>
+        <DetailsField>{i18n.t("meetingPoint")}: </DetailsField>
         <DetailsText numberOfLines={1}>{meetingPoint}</DetailsText>
       </DetailsTextWrapper>
       <DetailsTextWrapper>
-        <DetailsField>Afstand: </DetailsField>
+        <DetailsField>{i18n.t("distance")}: </DetailsField>
         <DetailsText numberOfLines={1}>{distance} km</DetailsText>
       </DetailsTextWrapper>
       {showEndDateTime ? (
         <DetailsTextWrapper>
-          <DetailsField>Sluttidspunkt: </DetailsField>
-          <DetailsText>kl. {endTime}</DetailsText>
+          <DetailsField>{i18n.t("endTime")}: </DetailsField>
+          <DetailsText>
+            {i18n.t("timeUnit")}
+            {endTime}
+          </DetailsText>
         </DetailsTextWrapper>
       ) : null}
     </Wrapper>

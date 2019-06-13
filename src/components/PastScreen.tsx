@@ -73,8 +73,8 @@ class PastScreen extends React.Component<Props, State> {
       return (
         <Padding>
           <InfoCard
-            title="Error while fetching runs"
-            subtitle="Try again later"
+            title={i18n.t("runsFetchingErrorTitle")}
+            subtitle={i18n.t("runsFetchingErrorSubtitle")}
             onPress={this.refreshRuns}
             loading={loading}
           />
@@ -122,8 +122,8 @@ class PastScreen extends React.Component<Props, State> {
     return (
       <Padding>
         <InfoCard
-          title="No past runs"
-          subtitle="Sign up to a run"
+          title={i18n.t("missingPastRunsTitle")}
+          subtitle={i18n.t("missingPastRunsSubtitle")}
           showTextOnly={true}
         />
       </Padding>

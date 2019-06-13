@@ -94,7 +94,12 @@ class RunDetailsScreen extends Component<Props, State> {
         width={0.89}
         visible={this.state.dialogVisible}
         dialogAnimation={new ScaleAnimation()}
-        dialogTitle={<DialogTitle title={"Confirm"} hasTitleBar={false} />}
+        dialogTitle={
+          <DialogTitle
+            title={i18n.t("cancelRunDialogTitle")}
+            hasTitleBar={false}
+          />
+        }
         footer={
           <DialogFooter>
             <DialogButton
@@ -120,7 +125,7 @@ class RunDetailsScreen extends Component<Props, State> {
         }
       >
         <DialogContent style={{ alignItems: "center" }}>
-          <Text>Are you sure you want to cancel this run?</Text>
+          <Text>{i18n.t("cancelRunDialogDescription")}</Text>
         </DialogContent>
       </Dialog>
     );
@@ -165,7 +170,7 @@ class RunDetailsScreen extends Component<Props, State> {
     return (
       <Wrapper>
         <Header
-          ScreenTitle={(cancelled ? "Cancelled: " : "") + title}
+          ScreenTitle={(cancelled ? i18n.t("cancelled") + ": " : "") + title}
           navigateBack={() => navigation.goBack(null)}
           showMoreButton={showMoreButton}
           onMoreButtonPress={this.openActionSheet}
@@ -173,23 +178,27 @@ class RunDetailsScreen extends Component<Props, State> {
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
           <DetailsWrapper>
             <BottomMargin>
-              <SectionTitle>Date and time</SectionTitle>
+              <SectionTitle>{i18n.t("dateAndTime")}</SectionTitle>
               <InfoText>
                 {startDate}
                 {endTime ? " - " + endTime : null}
               </InfoText>
             </BottomMargin>
             <BottomMargin>
-              <SectionTitle>Distance</SectionTitle>
-              <InfoText>{routeDetails.distance} km</InfoText>
+              <SectionTitle>{i18n.t("distance")}</SectionTitle>
+              <InfoText>
+                {routeDetails.distance} {i18n.t("distanceUnit")}
+              </InfoText>
             </BottomMargin>
             {pace && (
               <BottomMargin>
-                <SectionTitle>Pace</SectionTitle>
-                <InfoText>{pace} min/km</InfoText>
+                <SectionTitle>{i18n.t("pace")}</SectionTitle>
+                <InfoText>
+                  {pace} {i18n.t("paceUnit")}
+                </InfoText>
               </BottomMargin>
             )}
-            <SectionTitle>Meeting point</SectionTitle>
+            <SectionTitle>{i18n.t("meetingPoint")}</SectionTitle>
             <InfoText>{routeDetails.meetingPoint}</InfoText>
           </DetailsWrapper>
 
@@ -217,7 +226,7 @@ class RunDetailsScreen extends Component<Props, State> {
                   })
                 }
               />
-              <ButtonLabel>Participants</ButtonLabel>
+              <ButtonLabel>{i18n.t("participants")}</ButtonLabel>
             </ButtonWrapper>
             <ButtonWrapper>
               <StyledButton
@@ -229,7 +238,7 @@ class RunDetailsScreen extends Component<Props, State> {
                   });
                 }}
               />
-              <ButtonLabel>Route</ButtonLabel>
+              <ButtonLabel>{i18n.t("route")}</ButtonLabel>
             </ButtonWrapper>
           </Row>
 
@@ -240,7 +249,7 @@ class RunDetailsScreen extends Component<Props, State> {
               ) : participating ? (
                 <StyledButton
                   type={"destructive"}
-                  title="Cancel"
+                  title={i18n.t("cancel")}
                   onPress={() =>
                     this.props.cancelParticipation(this.props.run, runType)
                   }
@@ -248,7 +257,7 @@ class RunDetailsScreen extends Component<Props, State> {
               ) : (
                 <StyledButton
                   type={"submit"}
-                  title="Join"
+                  title={i18n.t("join")}
                   onPress={() =>
                     this.props.saveParticipation(this.props.run, runType)
                   }

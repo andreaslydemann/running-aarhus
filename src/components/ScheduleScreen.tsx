@@ -107,8 +107,8 @@ class ScheduleScreen extends React.Component<Props, State> {
       return (
         <Padding>
           <InfoCard
-            title="Error while fetching runs"
-            subtitle="Try again later"
+            title={i18n.t("runsFetchingErrorTitle")}
+            subtitle={i18n.t("runsFetchingErrorSubtitle")}
             onPress={this.refreshRuns}
             loading={loading}
           />
@@ -132,8 +132,8 @@ class ScheduleScreen extends React.Component<Props, State> {
     return (
       <Padding>
         <InfoCard
-          title="Your schedule is empty"
-          subtitle="Sign up to a run"
+          title={i18n.t("missingScheduledRunsTitle")}
+          subtitle={i18n.t("missingScheduledRunsSubtitle")}
           showTextOnly={true}
         />
       </Padding>

@@ -45,7 +45,12 @@ class SettingsScreen extends React.Component<Props, State> {
         width={0.89}
         visible={this.state.dialogVisible}
         dialogAnimation={new ScaleAnimation()}
-        dialogTitle={<DialogTitle title={"Confirm"} hasTitleBar={false} />}
+        dialogTitle={
+          <DialogTitle
+            title={i18n.t("deleteUserDialogTitle")}
+            hasTitleBar={false}
+          />
+        }
         footer={
           <DialogFooter>
             <DialogButton
@@ -75,7 +80,7 @@ class SettingsScreen extends React.Component<Props, State> {
         }
       >
         <DialogContent style={{ alignItems: "center" }}>
-          <Text>Are you sure you want to delete your user?</Text>
+          <Text>{i18n.t("deleteUserDialogDescription")}</Text>
         </DialogContent>
       </Dialog>
     );
@@ -96,7 +101,7 @@ class SettingsScreen extends React.Component<Props, State> {
                     Linking.openURL("https://twitter.com/andreaslydemann")
                   }
                 >
-                  <SectionTitle>Say hi 👋</SectionTitle>
+                  <SectionTitle>{i18n.t("twitterLinking")}</SectionTitle>
                   <Ionicons name="logo-twitter" size={23} color="#fff" />
                 </Section>
                 <Section
@@ -113,7 +118,7 @@ class SettingsScreen extends React.Component<Props, State> {
                 }}*/
                   }}
                 >
-                  <SectionTitle>Give your feedback</SectionTitle>
+                  <SectionTitle>{i18n.t("giveFeedback")}</SectionTitle>
                   <Ionicons
                     name={`${THEME_PREFIX}-appstore`}
                     size={23}

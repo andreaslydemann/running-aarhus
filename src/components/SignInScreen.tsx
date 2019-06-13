@@ -5,6 +5,7 @@ import React from "react";
 import { connect } from "react-redux";
 import { styled } from "theme";
 import { ScreenBackground, PushableWrapper } from "./common";
+import i18n from "i18n-js";
 
 interface PropsConnectedState {
   token: string;
@@ -37,7 +38,7 @@ class SignInScreen extends React.Component<Props> {
     return (
       <Wrapper>
         <LogoWrapper>
-          <Heading>Running Aarhus</Heading>
+          <Heading>{i18n.t("appTitle")}</Heading>
           <RunningAarhusLogo source={require("../../assets/logo.png")} />
         </LogoWrapper>
 
@@ -50,8 +51,7 @@ class SignInScreen extends React.Component<Props> {
 
           <Divider />
 
-          <StyledText>Please login with Facebook</StyledText>
-          <StyledText>using the button above.</StyledText>
+          <LoginText>{i18n.t("loginWithFacebook")}</LoginText>
         </FacebookButtonWrapper>
       </Wrapper>
     );
@@ -100,9 +100,11 @@ const Heading = styled.Text`
   color: ${({ theme }) => theme.activeTint};
 `;
 
-const StyledText = styled.Text`
-  color: white;
+const LoginText = styled.Text`
+  text-align: center;
+  color: ${({ theme }) => theme.activeTint};
   margin-horizontal: 8px;
+  width: 60%;
 `;
 
 const Wrapper = styled(ScreenBackground)`

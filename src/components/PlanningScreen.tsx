@@ -94,8 +94,8 @@ class PlanningScreen extends React.Component<Props, State> {
             {!showingUpcomingRuns && myRuns.length === 0 && (
               <TopMargin>
                 <InfoCard
-                  title="No runs found"
-                  subtitle="Create a new run"
+                  title={i18n.t("missingRunsTitle")}
+                  subtitle={i18n.t("missingRunsSubtitle")}
                   showTextOnly={true}
                 />
               </TopMargin>
@@ -106,7 +106,7 @@ class PlanningScreen extends React.Component<Props, State> {
                   run={{
                     title: "Running Challenge",
                     meetingPoint: "Station Allé, Aarhus C",
-                    startDateTime: "Monday 27/6 - 17:30"
+                    startDateTime: "27/6 - 17:30"
                   }}
                   navigateToDetails={() => {}}
                 />
@@ -130,7 +130,7 @@ class PlanningScreen extends React.Component<Props, State> {
                 <Spinner color={theme.activeTint} size="large" />
               ) : (
                 <LoadMoreButton
-                  title="Load more"
+                  title={i18n.t("loadMore")}
                   onPress={this.loadMore}
                   disabled={loading}
                 />
@@ -156,8 +156,8 @@ class PlanningScreen extends React.Component<Props, State> {
       return (
         <Padding>
           <InfoCard
-            title="Error while fetching runs"
-            subtitle="Try again later"
+            title={i18n.t("runsFetchingErrorTitle")}
+            subtitle={i18n.t("runsFetchingErrorSubtitle")}
             onPress={this.refreshRuns}
             loading={loading}
           />
