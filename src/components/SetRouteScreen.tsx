@@ -306,7 +306,11 @@ class SetRouteScreen extends React.Component<Props, State> {
                   !this.state.endMarker ? this.undoLine() : this.resetState()
                 }
               >
-                {!this.state.endMarker ? <Text>Undo</Text> : <Text>Clear</Text>}
+                {!this.state.endMarker ? (
+                  <Text>{i18n.t("undo")}</Text>
+                ) : (
+                  <Text>{i18n.t("clear")}</Text>
+                )}
               </UndoButton>
             )}
           </MapOverlay>

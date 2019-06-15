@@ -1,20 +1,27 @@
 import { call, put, takeEvery, all } from "redux-saga/effects";
-import { AUTH_TYPES, signInSuccess, signInFailure } from "actions";
+import {
+  AUTH_TYPES,
+  signInSuccess,
+  signInFailure,
+  getInitialState
+} from "actions";
 import { AsyncStorage } from "react-native";
 import { Facebook } from "expo";
 import {
   FACEBOOK_TOKEN,
   FACEBOOK_APP_ID,
-  RUNNING_AARHUS_FUNCTIONS_URL,
-  GET_INITIAL_STATE
+  RUNNING_AARHUS_FUNCTIONS_URL
 } from "constants";
 import firebase from "firebase";
 import axios from "axios";
 import { getCurrentUser, navigation } from "utils";
 
 export default function* authSaga() {
-  yield all([takeEvery(AUTH_TYPES.SIGN_IN, signIn)]);
-  yield all([takeEvery(AUTH_TYPES.DELETE_USER, deleteUser)]);
+  yield all([
+    takeEvery(AUTH_TYPES.SIGN_IN, signIn),
+    takeEvery(AUTH_TYPES.SIGN_OUT, signOut),
+    takeEvery(AUTH_TYPES.DELETE_USER, deleteUser)
+  ]);
 }
 
 function* signIn() {
@@ -25,6 +32,14 @@ function* signIn() {
   } else {
     yield call(startFacebookSignInFlow);
   }
+}
+
+function* signOut() {
+  yield put(getInitialState());
+
+  yield AsyncStorage.clear();
+
+  yield firebase.auth().signOut();
 }
 
 function* firebaseSignIn(token: string) {
@@ -91,8 +106,7 @@ function* deleteUser() {
   }
 
   yield call(navigation.navigate, "Auth");
-
-  yield put({ type: GET_INITIAL_STATE });
+  yield put(getInitialState());
 
   yield AsyncStorage.clear();
 }

@@ -7,7 +7,7 @@ export const da = {
   createRunTitle: "Opret løb",
   participantsTitle: "Deltagere",
   planningTitle: "Planlæg",
-  setRouteTitle: "Vælg rute",
+  setRouteTitle: "Angiv rute",
   showRouteTitle: "Rute",
   scheduleTitle: "Tidsplan",
   settingsTitle: "Indstillinger",
@@ -74,5 +74,7 @@ export const da = {
   missingScheduledRunsSubtitle: "Deltag i et løb",
   runsFetchingErrorTitle: "Hentning af løb fejlede",
   runsFetchingErrorSubtitle: "Prøv igen senere",
-  errorOccurred: "Fejl opstået"
+  errorOccurred: "Fejl opstået",
+  undo: "Fortryd",
+  clear: "Ryd"
 };

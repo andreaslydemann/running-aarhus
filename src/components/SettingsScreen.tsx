@@ -1,11 +1,10 @@
-import { AsyncStorage, Linking, Text } from "react-native";
+import { Linking, Text } from "react-native";
 import { SafeAreaView } from "react-navigation";
 import React from "react";
 import i18n from "i18n-js";
 import { ScreenTitle, ScreenBackground, Section } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
 import { theme, styled, THEME_PREFIX } from "theme";
-import firebase from "firebase";
 import Dialog, {
   DialogButton,
   DialogContent,
@@ -24,16 +23,12 @@ interface State {
 interface Props {
   navigation: { navigate: (screen: string) => void };
   deleteUser: () => void;
+  signOut: () => void;
 }
 
 class SettingsScreen extends React.Component<Props, State> {
   state = {
     dialogVisible: false
-  };
-
-  signOut = async () => {
-    await AsyncStorage.clear();
-    await firebase.auth().signOut();
   };
 
   renderDialog = () => {
@@ -134,7 +129,7 @@ class SettingsScreen extends React.Component<Props, State> {
               >
                 <SectionTitle danger>{i18n.t("deleteUser")}</SectionTitle>
               </Section>
-              <Section bottom touchable onPress={this.signOut}>
+              <Section bottom touchable onPress={() => this.props.signOut()}>
                 <SectionTitle>{i18n.t("signOut")}</SectionTitle>
               </Section>
             </SectionsWrapper>
