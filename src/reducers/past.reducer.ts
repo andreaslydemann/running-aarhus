@@ -13,7 +13,7 @@ export default (state: PastState = initialState, action: Action<any>) => {
     case PAST_TYPES.GET_INITIAL_STATE:
       return initialState;
     case PAST_TYPES.GET_PAST_RUNS:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: false };
     case PAST_TYPES.GET_PAST_RUNS_SUCCESS:
       return { ...state, pastRuns: action.payload, loading: false };
     case PAST_TYPES.GET_PAST_RUNS_FAILURE:

@@ -84,11 +84,11 @@ class PastScreen extends React.Component<Props, State> {
       );
     }
 
-    if (loading && !refreshing) {
+    if (loading && !pastRuns.length) {
       return (
         <StatusModal
           type={statusModalTypes.LOADING}
-          isVisible={loading && !refreshing}
+          isVisible={loading && !pastRuns.length}
         />
       );
     }

@@ -46,7 +46,7 @@ export default (state: ScheduleState = initialState, action: Action<any>) => {
     case SCHEDULE_TYPES.GET_INITIAL_STATE:
       return initialState;
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS:
-      return { ...state, loading: true };
+      return { ...state, loading: true, error: false };
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
       return { ...state, scheduledRuns: action.payload, loading: false };
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_FAILURE:

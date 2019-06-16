@@ -101,7 +101,6 @@ class ScheduleScreen extends React.Component<Props, State> {
 
   renderContent(): JSX.Element {
     const { error, loading, scheduledRuns } = this.props;
-    const { refreshing } = this.state;
 
     if (error) {
       return (
@@ -118,11 +117,11 @@ class ScheduleScreen extends React.Component<Props, State> {
       );
     }
 
-    if (loading && !refreshing) {
+    if (loading && !scheduledRuns.length) {
       return (
         <StatusModal
           type={statusModalTypes.LOADING}
-          isVisible={loading && !refreshing}
+          isVisible={loading && !scheduledRuns.length}
         />
       );
     }
@@ -142,22 +141,11 @@ class ScheduleScreen extends React.Component<Props, State> {
   }
 
   render(): JSX.Element {
-    const { error } = this.props;
-
     return (
       <Wrapper>
         <ScreenTitle title={i18n.t("scheduleTitle")} />
 
         {this.renderContent()}
-
-        <StatusModal
-          type={statusModalTypes.ERROR}
-          isVisible={error}
-          height={135}
-          width={115}
-          textNumberOfLines={2}
-          text={i18n.t("errorOccurred")}
-        />
       </Wrapper>
     );
   }
