@@ -30,10 +30,13 @@ export const saveRun = (run: any, runType?: string): Action<any> => {
   };
 };
 
-export const saveRunSuccess = (run: RunModel): Action<RunModel> => {
+export const saveRunSuccess = (
+  run: RunModel,
+  isNewRun: boolean
+): Action<any> => {
   return {
     type: RUN_TYPES.SAVE_RUN_SUCCESS,
-    payload: run
+    payload: { run, isNewRun }
   };
 };
 

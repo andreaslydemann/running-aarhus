@@ -63,9 +63,13 @@ function updateCancellation(state: PlanningState, runId: string) {
   return { ...state, upcomingRuns: updatedUpcomingRuns, myRuns: updatedMyRuns };
 }
 
-function updateRun(state: PlanningState, run: RunModel) {
-  const updatedUpcomingRuns = getRunsWithUpdatedRun(state.upcomingRuns, run);
-  const updatedMyRuns = getRunsWithUpdatedRun(state.myRuns, run);
+function updateRun(state: PlanningState, run: RunModel, isNewRun: boolean) {
+  const updatedUpcomingRuns = isNewRun
+    ? [...state.upcomingRuns, run]
+    : getRunsWithUpdatedRun(state.upcomingRuns, run);
+  const updatedMyRuns = isNewRun
+    ? [...state.myRuns, run]
+    : getRunsWithUpdatedRun(state.myRuns, run);
 
   return { ...state, upcomingRuns: updatedUpcomingRuns, myRuns: updatedMyRuns };
 }
@@ -91,7 +95,7 @@ export default (state: PlanningState = initialState, action: Action<any>) => {
     case DETAILS_TYPES.UPDATE_CANCELLATION:
       return updateCancellation(state, action.payload);
     case RUN_TYPES.SAVE_RUN_SUCCESS:
-      return updateRun(state, action.payload);
+      return updateRun(state, action.payload.run, action.payload.isNewRun);
     default:
       return state;
   }

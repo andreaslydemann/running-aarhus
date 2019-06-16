@@ -35,8 +35,10 @@ function updateCancellation(state: ScheduleState, runId: string) {
   return { ...state, scheduledRuns: updatedScheduledRuns };
 }
 
-function updateRun(state: ScheduleState, run: RunModel) {
-  const updatedRuns = getRunsWithUpdatedRun(state.scheduledRuns, run);
+function updateRun(state: ScheduleState, run: RunModel, isNewRun: boolean) {
+  const updatedRuns = isNewRun
+    ? [...state.scheduledRuns, run]
+    : getRunsWithUpdatedRun(state.scheduledRuns, run);
 
   return { ...state, scheduledRuns: updatedRuns };
 }
@@ -56,7 +58,7 @@ export default (state: ScheduleState = initialState, action: Action<any>) => {
     case DETAILS_TYPES.UPDATE_CANCELLATION:
       return updateCancellation(state, action.payload);
     case RUN_TYPES.SAVE_RUN_SUCCESS:
-      return updateRun(state, action.payload);
+      return updateRun(state, action.payload.run, action.payload.isNewRun);
     default:
       return state;
   }

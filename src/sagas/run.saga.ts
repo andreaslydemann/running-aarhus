@@ -25,11 +25,13 @@ function* saveRun({ payload }: any) {
       userId: currentUser.uid
     };
 
-    if (run.id) {
+    const isNewRun = !run.id;
+
+    if (isNewRun) {
+      requestUrl += "/createRun";
+    } else {
       requestUrl += "/editRun";
       body.runId = run.id;
-    } else {
-      requestUrl += "/createRun";
     }
 
     const { data } = yield axios.post(requestUrl, body);
@@ -43,7 +45,7 @@ function* saveRun({ payload }: any) {
       yield put(setDetails(runWithParticipationStatus, runType));
     }
 
-    yield put(saveRunSuccess(runWithParticipationStatus));
+    yield put(saveRunSuccess(runWithParticipationStatus, isNewRun));
     yield put(resetRun());
 
     yield call(navigation.goBack);
