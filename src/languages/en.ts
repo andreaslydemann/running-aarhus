@@ -76,5 +76,6 @@ export const en = {
   runsFetchingErrorSubtitle: "Try again later",
   errorOccurred: "Error occurred",
   undo: "Undo",
-  clear: "Clear"
+  clear: "Clear",
+  retry: "Retry"
 };

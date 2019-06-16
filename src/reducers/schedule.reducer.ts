@@ -49,6 +49,8 @@ export default (state: ScheduleState = initialState, action: Action<any>) => {
       return { ...state, loading: true };
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
       return { ...state, scheduledRuns: action.payload, loading: false };
+    case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_FAILURE:
+      return { ...state, loading: false, error: true };
     case DETAILS_TYPES.UPDATE_PARTICIPATION:
       return updateParticipation(state, action.payload);
     case DETAILS_TYPES.UPDATE_CANCELLATION:

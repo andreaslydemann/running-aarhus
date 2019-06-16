@@ -1,7 +1,7 @@
 import { put, takeEvery, all } from "redux-saga/effects";
 import { SCHEDULE_TYPES } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
-import { getScheduledRunsSuccess } from "actions";
+import { getScheduledRunsSuccess, getScheduledRunsFailure } from "actions";
 import { addParticipationStatusToRuns, getCurrentUser } from "utils";
 import axios from "axios";
 
@@ -26,6 +26,6 @@ function* getScheduledRuns() {
 
     yield put(getScheduledRunsSuccess(runsWithParticipationStatus));
   } catch (error) {
-    //return yield put(signInFailure());
+    yield put(getScheduledRunsFailure());
   }
 }

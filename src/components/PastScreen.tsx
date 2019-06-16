@@ -77,6 +77,8 @@ class PastScreen extends React.Component<Props, State> {
             subtitle={i18n.t("runsFetchingErrorSubtitle")}
             onPress={this.refreshRuns}
             loading={loading}
+            showButton={true}
+            buttonText={i18n.t("retry")}
           />
         </Padding>
       );
@@ -124,7 +126,6 @@ class PastScreen extends React.Component<Props, State> {
         <InfoCard
           title={i18n.t("missingPastRunsTitle")}
           subtitle={i18n.t("missingPastRunsSubtitle")}
-          showTextOnly={true}
         />
       </Padding>
     );

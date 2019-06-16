@@ -21,6 +21,12 @@ export const getScheduledRunsSuccess = (runs: any): Action<any> => {
   };
 };
 
+export const getScheduledRunsFailure = (): Action<any> => {
+  return {
+    type: SCHEDULE_TYPES.GET_SCHEDULED_RUNS_FAILURE
+  };
+};
+
 export const setScheduledRun = (run: any) => {
   return {
     type: SCHEDULE_TYPES.SET_SCHEDULED_RUN,

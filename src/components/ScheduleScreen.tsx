@@ -111,6 +111,8 @@ class ScheduleScreen extends React.Component<Props, State> {
             subtitle={i18n.t("runsFetchingErrorSubtitle")}
             onPress={this.refreshRuns}
             loading={loading}
+            showButton={true}
+            buttonText={i18n.t("retry")}
           />
         </Padding>
       );
@@ -134,7 +136,6 @@ class ScheduleScreen extends React.Component<Props, State> {
         <InfoCard
           title={i18n.t("missingScheduledRunsTitle")}
           subtitle={i18n.t("missingScheduledRunsSubtitle")}
-          showTextOnly={true}
         />
       </Padding>
     );
@@ -155,7 +156,7 @@ class ScheduleScreen extends React.Component<Props, State> {
           height={135}
           width={115}
           textNumberOfLines={2}
-          text={"Fejl opstået"}
+          text={i18n.t("errorOccurred")}
         />
       </Wrapper>
     );

@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import { styled, theme, THEME_PREFIX } from "theme";
+import { styled, theme } from "theme";
 import { Animated, View, Easing, ActivityIndicator } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import Button from "./Button";
 
 interface Props {
   title: string;
   subtitle: string;
-  showTextOnly?: boolean;
+  showButton?: boolean;
+  buttonText?: string;
   onPress?: () => void;
   loading?: boolean;
 }
@@ -26,7 +26,14 @@ export default class extends Component<Props> {
   }
 
   render() {
-    const { title, subtitle, onPress, loading, showTextOnly } = this.props;
+    const {
+      title,
+      subtitle,
+      onPress,
+      loading,
+      showButton,
+      buttonText
+    } = this.props;
     const { appearAnim } = this.state;
 
     return (
@@ -43,22 +50,14 @@ export default class extends Component<Props> {
           ]
         }}
       >
-        {!showTextOnly && (
-          <Ionicons
-            name={`${THEME_PREFIX}-information-circle-outline`}
-            size={40}
-            color="white"
-          />
-        )}
-
         <Title>{title}</Title>
         <Subtitle>{subtitle}</Subtitle>
-        {!showTextOnly && (
+        {showButton && (
           <ButtonWrapper>
             {loading ? (
               <ActivityIndicator color={theme.activeTint} size="large" />
             ) : (
-              <Button title="Retry" onPress={onPress} disabled={loading} />
+              <Button title={buttonText} onPress={onPress} disabled={loading} />
             )}
           </ButtonWrapper>
         )}

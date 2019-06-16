@@ -72,9 +72,10 @@ export const da = {
   missingPastRunsSubtitle: "Deltag i dit første løb",
   missingScheduledRunsTitle: "Ingen løb blev fundet",
   missingScheduledRunsSubtitle: "Deltag i et løb",
-  runsFetchingErrorTitle: "Hentning af løb fejlede",
+  runsFetchingErrorTitle: "Indlæsning af løb fejlede",
   runsFetchingErrorSubtitle: "Prøv igen senere",
   errorOccurred: "Fejl opstået",
   undo: "Fortryd",
-  clear: "Ryd"
+  clear: "Ryd",
+  retry: "Prøv igen"
 };

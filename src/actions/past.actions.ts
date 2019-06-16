@@ -21,6 +21,12 @@ export const getPastRunsSuccess = (runs: any): Action<any> => {
   };
 };
 
+export const getPastRunsFailure = (): Action<any> => {
+  return {
+    type: PAST_TYPES.GET_PAST_RUNS_FAILURE
+  };
+};
+
 export const setPastRun = (run: any) => {
   return {
     type: PAST_TYPES.SET_PAST_RUN,

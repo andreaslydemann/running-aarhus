@@ -1,7 +1,7 @@
 import { put, takeEvery, all } from "redux-saga/effects";
 import { PAST_TYPES } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
-import { getPastRunsSuccess } from "actions";
+import { getPastRunsSuccess, getPastRunsFailure } from "actions";
 import { addParticipationStatusToRuns, getCurrentUser } from "utils";
 import axios from "axios";
 
@@ -26,6 +26,6 @@ function* getPastRuns() {
 
     yield put(getPastRunsSuccess(runsWithParticipationStatus));
   } catch (error) {
-    //return yield put(signInFailure());
+    yield put(getPastRunsFailure());
   }
 }

@@ -96,7 +96,6 @@ class PlanningScreen extends React.Component<Props, State> {
                 <InfoCard
                   title={i18n.t("missingRunsTitle")}
                   subtitle={i18n.t("missingRunsSubtitle")}
-                  showTextOnly={true}
                 />
               </TopMargin>
             )}
@@ -160,6 +159,8 @@ class PlanningScreen extends React.Component<Props, State> {
             subtitle={i18n.t("runsFetchingErrorSubtitle")}
             onPress={this.refreshRuns}
             loading={loading}
+            showButton={true}
+            buttonText={i18n.t("retry")}
           />
         </Padding>
       );
@@ -192,7 +193,7 @@ class PlanningScreen extends React.Component<Props, State> {
           height={135}
           width={115}
           textNumberOfLines={2}
-          text={"Fejl opstået"}
+          text={i18n.t("errorOccurred")}
         />
       </Wrapper>
     );

@@ -38,7 +38,6 @@ export default class ParticipantsScreen extends Component<Props> {
             <InfoCard
               title={i18n.t("missingParticipantsTitle")}
               subtitle={i18n.t("missingParticipantsSubtitle")}
-              showTextOnly={true}
             />
           )}
         </ScrollWrapper>
