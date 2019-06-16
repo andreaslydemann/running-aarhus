@@ -2,6 +2,7 @@ import { Item, RunRequest, Action } from "types/common";
 import { RunModel } from "types/models";
 
 export const PLANNING_TYPES = {
+  GET_INITIAL_STATE: "GET_INITIAL_STATE",
   GET_UPCOMING_RUNS: "GET_UPCOMING_RUNS",
   GET_UPCOMING_RUNS_SUCCESS: "GET_UPCOMING_RUNS_SUCCESS",
   GET_UPCOMING_RUNS_FAILURE: "GET_UPCOMING_RUNS_FAILURE",

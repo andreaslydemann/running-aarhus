@@ -46,6 +46,8 @@ const DETAILS_REDUCERS = {
   PAST: "pastDetails"
 };
 
+const GET_INITIAL_STATE = "GET_INITIAL_STATE";
+
 export {
   TABBAR_ICONS,
   TABS,
@@ -57,5 +59,6 @@ export {
   SPACING_COLOR,
   LINE_COLORS,
   DETAILS_REDUCERS,
-  RUN_TYPES
+  RUN_TYPES,
+  GET_INITIAL_STATE
 };

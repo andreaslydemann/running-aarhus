@@ -7,7 +7,6 @@ import {
   getRunsWithUpdatedParticipation,
   getRunsWithUpdatedRun
 } from "utils";
-import { GET_INITIAL_STATE } from "constants";
 
 const initialState: PlanningState = {
   error: false,
@@ -73,7 +72,7 @@ function updateRun(state: PlanningState, run: RunModel) {
 
 export default (state: PlanningState = initialState, action: Action<any>) => {
   switch (action.type) {
-    case GET_INITIAL_STATE:
+    case PLANNING_TYPES.GET_INITIAL_STATE:
       return initialState;
     case PLANNING_TYPES.GET_UPCOMING_RUNS:
       return { ...state, error: false, loading: true };
@@ -87,9 +86,9 @@ export default (state: PlanningState = initialState, action: Action<any>) => {
       return { ...state, error: true, loading: false };
     case PLANNING_TYPES.SET_SELECTED_ITEM:
       return { ...state, selectedItem: action.payload };
-    case DETAILS_TYPES.PARTICIPATION_SUCCESS:
+    case DETAILS_TYPES.UPDATE_PARTICIPATION:
       return updateParticipation(state, action.payload);
-    case DETAILS_TYPES.CANCEL_RUN_SUCCESS:
+    case DETAILS_TYPES.UPDATE_CANCELLATION:
       return updateCancellation(state, action.payload);
     case RUN_TYPES.SAVE_RUN_SUCCESS:
       return updateRun(state, action.payload);

@@ -3,7 +3,6 @@ import { RunModel } from "types/models";
 import { Action } from "types/common";
 import { DETAILS_TYPES, RUN_TYPES, SCHEDULE_TYPES } from "actions";
 import { getRunsWithUpdatedCancellation, getRunsWithUpdatedRun } from "utils";
-import { GET_INITIAL_STATE } from "constants";
 
 const initialState: ScheduleState = {
   error: false,
@@ -44,15 +43,15 @@ function updateRun(state: ScheduleState, run: RunModel) {
 
 export default (state: ScheduleState = initialState, action: Action<any>) => {
   switch (action.type) {
-    case GET_INITIAL_STATE:
+    case SCHEDULE_TYPES.GET_INITIAL_STATE:
       return initialState;
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS:
       return { ...state, loading: true };
     case SCHEDULE_TYPES.GET_SCHEDULED_RUNS_SUCCESS:
       return { ...state, scheduledRuns: action.payload, loading: false };
-    case DETAILS_TYPES.PARTICIPATION_SUCCESS:
+    case DETAILS_TYPES.UPDATE_PARTICIPATION:
       return updateParticipation(state, action.payload);
-    case DETAILS_TYPES.CANCEL_RUN_SUCCESS:
+    case DETAILS_TYPES.UPDATE_CANCELLATION:
       return updateCancellation(state, action.payload);
     case RUN_TYPES.SAVE_RUN_SUCCESS:
       return updateRun(state, action.payload);

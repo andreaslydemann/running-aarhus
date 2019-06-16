@@ -6,7 +6,9 @@ import {
   participationSuccess,
   cancelRunRequest,
   cancelRunFailure,
-  cancelRunSuccess
+  cancelRunSuccess,
+  updateParticipation,
+  updateCancellation
 } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL, RUN_TYPES } from "constants";
 import { getCurrentUser } from "utils";
@@ -57,6 +59,7 @@ function* changeParticipation({ payload }: any) {
   const updatedRun = { ...run, participating: !run.participating };
 
   yield put(participationSuccess(updatedRun, runType));
+  yield put(updateParticipation(updatedRun));
 }
 
 function* cancelRun({ payload }: any) {
@@ -70,4 +73,5 @@ function* cancelRun({ payload }: any) {
   }
 
   yield put(cancelRunSuccess(runId, runType));
+  yield put(updateCancellation(runId));
 }

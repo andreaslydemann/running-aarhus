@@ -2,6 +2,7 @@ import { RouteDetails, Action } from "types/common";
 import { RunModel } from "../types/models";
 
 export const RUN_TYPES = {
+  GET_INITIAL_STATE: "GET_INITIAL_STATE",
   RESET_RUN: "RESET_RUN",
   SAVE_RUN: "SAVE_RUN",
   SAVE_RUN_SUCCESS: "SAVE_RUN_SUCCESS",

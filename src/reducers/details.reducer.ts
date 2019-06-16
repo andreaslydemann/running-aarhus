@@ -1,7 +1,6 @@
 import { DetailsState } from "types/states";
 import { Action } from "types/common";
 import { DETAILS_TYPES } from "actions/details.actions";
-import { GET_INITIAL_STATE } from "constants";
 
 const initialState: DetailsState = {
   error: false,
@@ -45,7 +44,7 @@ export default (runType: string) => (
   action: Action<any>
 ) => {
   switch (action.type) {
-    case GET_INITIAL_STATE:
+    case DETAILS_TYPES.GET_INITIAL_STATE:
       return initialState;
     case `${runType}_${DETAILS_TYPES.PARTICIPATION_REQUEST}`:
       return {
