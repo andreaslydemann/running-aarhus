@@ -107,7 +107,6 @@ class ScheduleScreen extends React.Component<Props, State> {
         <Padding>
           <InfoCard
             title={i18n.t("runsFetchingErrorTitle")}
-            subtitle={i18n.t("runsFetchingErrorSubtitle")}
             onPress={this.refreshRuns}
             loading={loading}
             showButton={true}

@@ -73,7 +73,6 @@ export const en = {
   missingScheduledRunsTitle: "No runs were found",
   missingScheduledRunsSubtitle: "Sign up to a run",
   runsFetchingErrorTitle: "Error while fetching runs",
-  runsFetchingErrorSubtitle: "Try again later",
   errorOccurred: "Error occurred",
   undo: "Undo",
   clear: "Clear",

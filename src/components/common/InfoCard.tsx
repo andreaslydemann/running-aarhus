@@ -5,7 +5,7 @@ import Button from "./Button";
 
 interface Props {
   title: string;
-  subtitle: string;
+  subtitle?: string;
   showButton?: boolean;
   buttonText?: string;
   onPress?: () => void;
@@ -51,7 +51,9 @@ export default class extends Component<Props> {
         }}
       >
         <Title>{title}</Title>
-        <Subtitle>{subtitle}</Subtitle>
+
+        {subtitle && <Subtitle>{subtitle}</Subtitle>}
+
         {showButton && (
           <ButtonWrapper>
             {loading ? (
@@ -82,11 +84,12 @@ const Title = styled.Text`
 
 const Subtitle = styled.Text`
   color: ${({ theme }) => theme.activeTint};
-  font-size: 15px;
+  font-size: 18px;
   margin: 10px 0 20px 0;
 `;
 
 const ButtonWrapper = styled.View`
+  margin-vertical: 15px;
   height: 60px;
   justify-content: center;
 `;
