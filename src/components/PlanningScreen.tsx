@@ -149,7 +149,7 @@ class PlanningScreen extends React.Component<Props, State> {
   }
 
   renderContent(): JSX.Element {
-    const { error, loading, upcomingRuns } = this.props;
+    const { error, loading, upcomingRuns, myRuns } = this.props;
 
     if (error) {
       return (
