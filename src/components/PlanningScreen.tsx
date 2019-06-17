@@ -165,11 +165,11 @@ class PlanningScreen extends React.Component<Props, State> {
       );
     }
 
-    if (loading && !upcomingRuns.length) {
+    if (loading && !upcomingRuns.length && !myRuns.length) {
       return (
         <StatusModal
           type={statusModalTypes.LOADING}
-          isVisible={loading && !upcomingRuns.length}
+          isVisible={loading && !upcomingRuns.length && !myRuns.length}
         />
       );
     }
