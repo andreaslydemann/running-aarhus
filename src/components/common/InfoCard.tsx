@@ -72,7 +72,7 @@ const Wrapper = styled(Animated.createAnimatedComponent(View))`
   background-color: ${({ theme }) => theme.primary};
   border-radius: 15px
   align-items: center;
-  padding: 20px;
+  padding: 13px;
 `;
 
 const Title = styled.Text`
