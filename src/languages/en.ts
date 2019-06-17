@@ -62,6 +62,8 @@ export const en = {
   twitterLinking: "Say hi 👋",
   loginWithFacebook: "Please login with Facebook using the button above.",
   appTitle: "Running Aarhus",
+  appTitlePart1: "Running",
+  appTitlePart2: "Aarhus",
   loadMore: "Load more",
   userSince: "User since",
   missingParticipantsTitle: "No participants yet",

@@ -62,6 +62,8 @@ export const da = {
   twitterLinking: "Sig hej 👋",
   loginWithFacebook: "Brug ovenstående knap for at logge ind med Facebook.",
   appTitle: "Running Aarhus",
+  appTitlePart1: "Running",
+  appTitlePart2: "Aarhus",
   loadMore: "Indlæs flere",
   userSince: "Bruger siden",
   missingParticipantsTitle: "Ingen deltagere endnu",

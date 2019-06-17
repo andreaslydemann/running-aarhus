@@ -3,8 +3,8 @@ import { AuthState } from "types/states";
 import { Action } from "types/common";
 import React from "react";
 import { connect } from "react-redux";
-import { styled } from "theme";
-import { ScreenBackground, PushableWrapper } from "./common";
+import { styled, theme } from "theme";
+import { ScreenBackground, PushableWrapper, LetterSpacedText } from "./common";
 import i18n from "i18n-js";
 
 interface PropsConnectedState {
@@ -38,8 +38,20 @@ class SignInScreen extends React.Component<Props> {
     return (
       <Wrapper>
         <LogoWrapper>
-          <Heading>{i18n.t("appTitle")}</Heading>
-          <RunningAarhusLogo source={require("../../assets/logo.png")} />
+          <RunningAarhusLogo source={require("../../assets/runner.png")} />
+
+          <TitleWrapper>
+            <LetterSpacedText
+              spacing={15}
+              viewStyle={titleViewStyle}
+              textStyle={titleTextStyle}
+            >
+              {i18n.t("appTitlePart1").toUpperCase()}
+            </LetterSpacedText>
+            <LetterSpacedText spacing={25} textStyle={subtitleTextStyle}>
+              {i18n.t("appTitlePart2").toUpperCase()}
+            </LetterSpacedText>
+          </TitleWrapper>
         </LogoWrapper>
 
         <FacebookButtonWrapper>
@@ -73,6 +85,21 @@ export default connect(
   actions
 )(SignInScreen as React.ComponentClass<Props>);
 
+const titleViewStyle = {
+  marginTop: 20
+};
+
+const titleTextStyle = {
+  color: theme.activeTint,
+  fontWeight: "bold",
+  fontSize: 26
+};
+
+const subtitleTextStyle = {
+  color: theme.activeTint,
+  fontSize: 20
+};
+
 const FacebookButtonWrapper = styled.View`
   flex: 0.55;
   width: 100%;
@@ -82,8 +109,13 @@ const FacebookButtonWrapper = styled.View`
 
 const LogoWrapper = styled.View`
   justify-content: flex-end;
-  align-items: center;
+  align-self: center;
   flex: 0.45;
+`;
+
+const TitleWrapper = styled.View`
+  justify-content: center;
+  align-items: center;
 `;
 
 const Divider = styled.View`
@@ -93,10 +125,18 @@ const Divider = styled.View`
   width: 80%;
 `;
 
-const Heading = styled.Text`
+const Title = styled.Text`
+  letter-spacing: 30;
   font-weight: bold;
-  margin-top: 40;
+  margin-top: 20;
   font-size: 28;
+  color: ${({ theme }) => theme.activeTint};
+`;
+
+const Subtitle = styled.Text`
+  align-items: center;
+  letter-spacing: 30;
+  font-size: 20;
   color: ${({ theme }) => theme.activeTint};
 `;
 
@@ -113,8 +153,8 @@ const Wrapper = styled(ScreenBackground)`
 `;
 
 const RunningAarhusLogo = styled.Image`
-  width: 230px;
-  height: 230px;
+  width: 207px;
+  height: 180px;
 `;
 
 const FacebookButton = styled.Image`
