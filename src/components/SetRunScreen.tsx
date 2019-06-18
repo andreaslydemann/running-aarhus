@@ -126,7 +126,7 @@ class SetRunScreen extends React.Component<Props> {
         dialogTitle={"Pace"}
         dialogText={i18n.t("paceDescription")}
       />,
-      <Section top touchable={false} key={"section1"}>
+      <Section topPart touchable={false} key={"section1"}>
         <SectionTitle>{i18n.t("enablePace")}</SectionTitle>
         <Switch
           value={this.props.paceEnabled}
@@ -134,7 +134,7 @@ class SetRunScreen extends React.Component<Props> {
         />
       </Section>,
       <Section
-        bottom
+        bottomPart
         disabled={!this.props.paceEnabled}
         touchable={false}
         style={{ justifyContent: "space-around" }}
@@ -251,8 +251,8 @@ class SetRunScreen extends React.Component<Props> {
 
           <Subtitle titleText={i18n.t("showRouteTitle")} showInfoIcon={false} />
           <Section
-            top
-            bottom={!routeDetails}
+            topPart
+            bottomPart={!routeDetails}
             touchable
             onPress={() =>
               this.props.navigation.navigate("SetRouteScreen", {
@@ -268,7 +268,7 @@ class SetRunScreen extends React.Component<Props> {
             <SectionTitle>{i18n.t("setRouteTitle")}</SectionTitle>
           </Section>
           {routeDetails && (
-            <Section bottom>
+            <Section bottomPart>
               <RouteSummary
                 routeDetails={routeDetails}
                 showEndDateTime={paceEnabled}

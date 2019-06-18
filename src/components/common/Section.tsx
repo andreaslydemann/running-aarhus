@@ -3,8 +3,8 @@ import { styled } from "theme";
 import { TouchableOpacity } from "react-native";
 
 interface ButtonProps {
-  top?: boolean;
-  bottom?: boolean;
+  topPart?: boolean;
+  bottomPart?: boolean;
   disabled?: boolean;
   touchable?: boolean;
   onPress?: () => void;
@@ -13,8 +13,8 @@ interface ButtonProps {
 }
 
 export default ({
-  top,
-  bottom,
+  topPart,
+  bottomPart,
   disabled = false,
   touchable = false,
   children,
@@ -23,7 +23,12 @@ export default ({
 }: ButtonProps) => {
   const renderContent = () => {
     return (
-      <Content top={top} bottom={bottom} disabled={disabled} style={style}>
+      <Content
+        topPart={topPart}
+        bottomPart={bottomPart}
+        disabled={disabled}
+        style={style}
+      >
         {children}
       </Content>
     );
@@ -41,12 +46,12 @@ const Content = styled.View<ButtonProps>`
   min-height: 70;
   padding: 20px;
   ${props =>
-    props.top &&
+    props.topPart &&
     `
       border-top-right-radius: 6px;
       border-top-left-radius: 6px;
     `} ${props =>
-    props.bottom &&
+    props.bottomPart &&
     `
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;

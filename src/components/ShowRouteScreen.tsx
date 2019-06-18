@@ -39,12 +39,6 @@ interface ShowRouteScreen {
 }
 
 class ShowRouteScreen extends Component<Props> {
-  componentDidMount() {
-    const coordinates = this.props.navigation.getParam("coordinates");
-
-    this.focusOnRoute(coordinates);
-  }
-
   focusOnRoute(coordinates: Coordinate[]) {
     const latitudes = coordinates.map(line => line.latitude);
     const minLatitude = Math.min(...latitudes);
@@ -101,6 +95,7 @@ class ShowRouteScreen extends Component<Props> {
               this.map = ref;
             }}
             initialRegion={region}
+            onLayout={() => this.focusOnRoute(coordinates)}
           >
             {startMarker && (
               <Marker

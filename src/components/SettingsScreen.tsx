@@ -90,7 +90,7 @@ class SettingsScreen extends React.Component<Props, State> {
             <SectionsWrapper>
               <BottomMargin>
                 <Section
-                  top
+                  topPart
                   touchable
                   onPress={() =>
                     Linking.openURL("https://twitter.com/andreaslydemann")
@@ -100,7 +100,7 @@ class SettingsScreen extends React.Component<Props, State> {
                   <Ionicons name="logo-twitter" size={23} color="#fff" />
                 </Section>
                 <Section
-                  bottom
+                  bottomPart
                   touchable
                   onPress={() => {
                     /*if (StoreReview.isAvailable) {
@@ -123,13 +123,17 @@ class SettingsScreen extends React.Component<Props, State> {
               </BottomMargin>
 
               <Section
-                top
+                topPart
                 touchable
                 onPress={() => this.setState({ dialogVisible: true })}
               >
                 <SectionTitle danger>{i18n.t("deleteUser")}</SectionTitle>
               </Section>
-              <Section bottom touchable onPress={() => this.props.signOut()}>
+              <Section
+                bottomPart
+                touchable
+                onPress={() => this.props.signOut()}
+              >
                 <SectionTitle>{i18n.t("signOut")}</SectionTitle>
               </Section>
             </SectionsWrapper>
@@ -151,6 +155,7 @@ export default connect(
 
 const Wrapper = styled(ScreenBackground)`
   flex: 1;
+  padding: 44px 0 0 0;
 `;
 
 const ScrollWrapper = styled.ScrollView`

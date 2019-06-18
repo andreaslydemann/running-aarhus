@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, Platform } from "react-native";
 import { styled, theme } from "theme";
 
 interface Props {
@@ -53,6 +53,8 @@ interface TextInputProps {
 }
 
 const StyledInput = styled.TextInput<TextInputProps>`
+  text-align-vertical: ${props =>
+    props.isTextArea && Platform.OS === "android" ? "top" : "center"};
   border-color: ${({ theme }) => theme.primary};
   background-color: ${({ theme }) => theme.primary};
   flex: 1;
