@@ -199,7 +199,7 @@ class RunDetailsScreen extends Component<Props, State> {
                 {routeDetails.distance} {i18n.t("distanceUnit")}
               </InfoText>
             </BottomMargin>
-            {pace && (
+            {pace !== null && (
               <BottomMargin>
                 <SectionTitle>{i18n.t("pace")}</SectionTitle>
                 <InfoText>

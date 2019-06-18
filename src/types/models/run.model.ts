@@ -5,7 +5,7 @@ export type RunModel = {
   id: string;
   title: string;
   description: string;
-  pace: number;
+  pace: number | null;
   distance: number;
   meetingPoint: string;
   coordinates: Coordinate[];

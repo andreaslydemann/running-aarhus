@@ -11,7 +11,7 @@ const initialState: DetailsState = {
     id: "",
     title: "",
     description: "",
-    pace: 0,
+    pace: null,
     distance: 0,
     meetingPoint: "",
     coordinates: [],
@@ -34,6 +34,7 @@ function toggleParticipation(state: DetailsState) {
   return {
     error: false,
     participationLoading: false,
+    cancellationLoading: false,
     success: true,
     run: { ...state.run, participating: !state.run.participating }
   };

@@ -28,7 +28,7 @@ interface PropsConnectedState {
   title: string;
   description: string;
   paceEnabled: boolean;
-  pace: number;
+  pace: number | null;
   routeDetails: RouteDetails | null;
   loading: boolean;
 }
@@ -172,6 +172,7 @@ class SetRunScreen extends React.Component<Props> {
       title,
       description,
       pace,
+      paceEnabled,
       startDateTime,
       routeDetails,
       id
@@ -184,7 +185,7 @@ class SetRunScreen extends React.Component<Props> {
         id,
         title,
         description,
-        pace,
+        pace: paceEnabled ? pace : null,
         startDateTime,
         ...routeDetails
       },

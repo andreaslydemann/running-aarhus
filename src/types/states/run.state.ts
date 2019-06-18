@@ -8,6 +8,6 @@ export type RunState = {
   title: string;
   description: string;
   paceEnabled: boolean;
-  pace: number;
+  pace: number | null;
   routeDetails: RouteDetails | null;
 };
