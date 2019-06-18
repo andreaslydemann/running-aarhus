@@ -327,16 +327,18 @@ const DetailsWrapper = styled.View`
 
 const SectionTitle = styled.Text`
   color: ${({ theme }) => theme.activeTint};
+  font-size: 15px;
   font-weight: bold;
 `;
 
 const InfoText = styled.Text`
   color: ${({ theme }) => theme.activeTint};
-  font-size: 16px;
+  font-size: 15px;
 `;
 
 const DescText = styled.Text`
   color: ${({ theme }) => theme.activeTint};
+  font-size: 15px;
   text-align: justify;
   margin-horizontal: 5px;
   margin-bottom: 35px;
@@ -365,7 +367,7 @@ const ButtonWrapper = styled.View`
 `;
 
 const BottomMargin = styled.View`
-  margin-bottom: 18px;
+  margin-bottom: 20px;
 `;
 
 const Icon = styled(Ionicons)`
