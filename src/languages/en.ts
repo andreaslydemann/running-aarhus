@@ -53,7 +53,7 @@ export const en = {
   endTime: "End time",
   timeUnit: "",
   distanceUnit: "km",
-  runsCompleted: "runs completed",
+  completedRuns: "Completed runs:",
   cancelRunDialogTitle: "Confirm",
   cancelRunDialogDescription: "Are you sure you want to cancel this run?",
   deleteUserDialogTitle: "Confirm",
