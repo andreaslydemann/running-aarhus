@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { styled, theme, THEME_PREFIX } from "../../theme";
+import { styled, theme, THEME_PREFIX } from "theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Item } from "types/common";
 import i18n from "i18n-js";
@@ -32,11 +32,13 @@ export default class extends Component<Props> {
           </ItemText>
         </OuterItem>
         <MiddleItem onPress={this.props.onMiddleItemPress}>
-          <Icon
-            name={`${THEME_PREFIX}-add-circle-outline`}
-            size={36}
-            color={theme.activeTint}
-          />
+          <IconWrapper>
+            <Icon
+              name={`${THEME_PREFIX}-add-circle-outline`}
+              color={theme.activeTint}
+              size={36}
+            />
+          </IconWrapper>
         </MiddleItem>
         <OuterItem onPress={() => this.handleOuterPress(Item.Right)}>
           <ItemText isSelected={this.props.selectedItem === Item.Right}>
@@ -63,11 +65,17 @@ const OuterItem = styled.TouchableOpacity`
 
 const MiddleItem = styled.TouchableOpacity`
   flex: 0.2;
+`;
+
+const IconWrapper = styled.View`
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
   align-items: center;
 `;
 
 const Icon = styled(Ionicons)`
-  margin-top: 4px;
+  padding: 3px 0 2px 0;
 `;
 
 interface ItemTextProps {
