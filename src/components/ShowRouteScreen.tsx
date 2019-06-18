@@ -82,57 +82,46 @@ class ShowRouteScreen extends Component<Props> {
     };
 
     return (
-      <Wrapper>
+      <ScreenBackground>
         <Header
           navigateBack={() => navigation.goBack()}
           ScreenTitle={i18n.t("showRouteTitle")}
           isModal={true}
         />
-        <MapViewWrapper>
-          <StyledMapView
-            provider={PROVIDER_DEFAULT}
-            ref={(ref: any) => {
-              this.map = ref;
-            }}
-            initialRegion={region}
-            onLayout={() => this.focusOnRoute(coordinates)}
-          >
-            {startMarker && (
-              <Marker
-                coordinate={startMarker.coordinate}
-                pinColor={startMarker.color}
-              />
-            )}
-            {endMarker && (
-              <Marker
-                coordinate={endMarker.coordinate}
-                pinColor={endMarker.color}
-              />
-            )}
-            <Polyline
-              coordinates={coordinates}
-              strokeColor="rgba(0,0,0,0.5)"
-              strokeColors={getColorsOfCoordinates(coordinates)}
-              strokeWidth={2}
+        <StyledMapView
+          provider={PROVIDER_DEFAULT}
+          ref={(ref: any) => {
+            this.map = ref;
+          }}
+          initialRegion={region}
+          onLayout={() => this.focusOnRoute(coordinates)}
+        >
+          {startMarker && (
+            <Marker
+              coordinate={startMarker.coordinate}
+              pinColor={startMarker.color}
             />
-          </StyledMapView>
-        </MapViewWrapper>
-      </Wrapper>
+          )}
+          {endMarker && (
+            <Marker
+              coordinate={endMarker.coordinate}
+              pinColor={endMarker.color}
+            />
+          )}
+          <Polyline
+            coordinates={coordinates}
+            strokeColor="rgba(0,0,0,0.5)"
+            strokeColors={getColorsOfCoordinates(coordinates)}
+            strokeWidth={2}
+          />
+        </StyledMapView>
+      </ScreenBackground>
     );
   }
 }
 
-const MapViewWrapper = styled.View`
-  flex: 1;
-`;
-
 const StyledMapView = styled(MapView)`
   flex: 1;
-`;
-
-const Wrapper = styled(ScreenBackground)`
-  flex: 1;
-  padding: 44px 0 0 0;
 `;
 
 export default ShowRouteScreen;

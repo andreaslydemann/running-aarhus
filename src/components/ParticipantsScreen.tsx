@@ -19,7 +19,7 @@ export default class ParticipantsScreen extends Component<Props> {
     ) as UserModel[];
 
     return (
-      <Wrapper>
+      <ScreenBackground>
         <Header
           navigateBack={() => this.props.navigation.goBack(null)}
           ScreenTitle={i18n.t("participantsTitle")}
@@ -41,15 +41,10 @@ export default class ParticipantsScreen extends Component<Props> {
             />
           )}
         </ScrollWrapper>
-      </Wrapper>
+      </ScreenBackground>
     );
   }
 }
-
-const Wrapper = styled(ScreenBackground)`
-  flex: 1;
-  padding: 44px 0 0 0;
-`;
 
 const ScrollWrapper = styled.ScrollView`
   padding: 0 20px;

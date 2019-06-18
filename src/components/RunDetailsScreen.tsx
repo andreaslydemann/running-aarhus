@@ -177,7 +177,7 @@ class RunDetailsScreen extends Component<Props, State> {
     const showMoreButton = isOwnRun && !(cancelled || isPastRun);
 
     return (
-      <Wrapper>
+      <ScreenBackground>
         <Header
           ScreenTitle={(cancelled ? i18n.t("cancelled") + ": " : "") + title}
           navigateBack={() => navigation.goBack(null)}
@@ -294,7 +294,7 @@ class RunDetailsScreen extends Component<Props, State> {
         )}
 
         {this.renderDialog()}
-      </Wrapper>
+      </ScreenBackground>
     );
   }
 }
@@ -311,11 +311,6 @@ export default connectActionSheet(
     actions
   )(RunDetailsScreen as React.ComponentClass<Props>)
 );
-
-const Wrapper = styled(ScreenBackground)`
-  padding: 44px 0 0 0;
-  flex: 1;
-`;
 
 const ScrollWrapper = styled.ScrollView`
   padding: 0 20px;

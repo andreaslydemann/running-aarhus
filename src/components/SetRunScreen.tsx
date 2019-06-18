@@ -216,7 +216,7 @@ class SetRunScreen extends React.Component<Props> {
     }
 
     return (
-      <Wrapper>
+      <ScreenBackground>
         <Header
           navigateBack={this.navigateBack}
           ScreenTitle={!!id ? i18n.t("editRunTitle") : i18n.t("createRunTitle")}
@@ -290,7 +290,7 @@ class SetRunScreen extends React.Component<Props> {
           isVisible={this.props.loading}
           showAsOverlay={true}
         />
-      </Wrapper>
+      </ScreenBackground>
     );
   }
 }
@@ -325,11 +325,6 @@ const PaceButtonWrapper = styled.TouchableOpacity`
 
 const BottomMargin = styled.View`
   margin-bottom: 40px;
-`;
-
-const Wrapper = styled(ScreenBackground)`
-  flex: 1;
-  padding: 44px 0 0 0;
 `;
 
 const ScrollWrapper = styled.ScrollView`

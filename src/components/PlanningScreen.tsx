@@ -179,11 +179,11 @@ class PlanningScreen extends React.Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <Wrapper>
+      <ScreenBackground>
         <ScreenTitle title={i18n.t("planningTitle")} />
 
         {this.renderContent()}
-      </Wrapper>
+      </ScreenBackground>
     );
   }
 }
@@ -206,11 +206,6 @@ export default connect(
   mapStateToProps,
   actions
 )(PlanningScreen as React.ComponentClass<Props>);
-
-const Wrapper = styled(ScreenBackground)`
-  flex: 1;
-  padding: 44px 0 0 0;
-`;
 
 const LoadMoreButton = styled(Button)`
   margin: 0px 20% 30px 20%;

@@ -1,5 +1,4 @@
 import { Linking, Text } from "react-native";
-import { SafeAreaView } from "react-navigation";
 import React from "react";
 import i18n from "i18n-js";
 import { ScreenTitle, ScreenBackground, Section } from "components/common";
@@ -83,27 +82,26 @@ class SettingsScreen extends React.Component<Props, State> {
 
   render(): JSX.Element {
     return (
-      <Wrapper>
-        <ContentWrapper>
-          <ScreenTitle title={i18n.t("settingsTitle")} />
-          <ScrollWrapper>
-            <SectionsWrapper>
-              <BottomMargin>
-                <Section
-                  topPart
-                  touchable
-                  onPress={() =>
-                    Linking.openURL("https://twitter.com/andreaslydemann")
-                  }
-                >
-                  <SectionTitle>{i18n.t("twitterLinking")}</SectionTitle>
-                  <Ionicons name="logo-twitter" size={23} color="#fff" />
-                </Section>
-                <Section
-                  bottomPart
-                  touchable
-                  onPress={() => {
-                    /*if (StoreReview.isAvailable) {
+      <ScreenBackground>
+        <ScreenTitle title={i18n.t("settingsTitle")} />
+        <ScrollWrapper>
+          <SectionsWrapper>
+            <BottomMargin>
+              <Section
+                topPart
+                touchable
+                onPress={() =>
+                  Linking.openURL("https://twitter.com/andreaslydemann")
+                }
+              >
+                <SectionTitle>{i18n.t("twitterLinking")}</SectionTitle>
+                <Ionicons name="logo-twitter" size={23} color="#fff" />
+              </Section>
+              <Section
+                bottomPart
+                touchable
+                onPress={() => {
+                  /*if (StoreReview.isAvailable) {
                     StoreReview.requestReview();
                   } else {
                     Linking.openURL(
@@ -111,39 +109,34 @@ class SettingsScreen extends React.Component<Props, State> {
                     );
                   }
                 }}*/
-                  }}
-                >
-                  <SectionTitle>{i18n.t("giveFeedback")}</SectionTitle>
-                  <Ionicons
-                    name={`${THEME_PREFIX}-appstore`}
-                    size={23}
-                    color="#fff"
-                  />
-                </Section>
-              </BottomMargin>
-
-              <Section
-                topPart
-                touchable
-                onPress={() => this.setState({ dialogVisible: true })}
+                }}
               >
-                <SectionTitle danger>{i18n.t("deleteUser")}</SectionTitle>
+                <SectionTitle>{i18n.t("giveFeedback")}</SectionTitle>
+                <Ionicons
+                  name={`${THEME_PREFIX}-appstore`}
+                  size={23}
+                  color="#fff"
+                />
               </Section>
-              <Section
-                bottomPart
-                touchable
-                onPress={() => this.props.signOut()}
-              >
-                <SectionTitle>{i18n.t("signOut")}</SectionTitle>
-              </Section>
-            </SectionsWrapper>
+            </BottomMargin>
 
-            <Credits>{i18n.t("credits")}</Credits>
-          </ScrollWrapper>
-        </ContentWrapper>
+            <Section
+              topPart
+              touchable
+              onPress={() => this.setState({ dialogVisible: true })}
+            >
+              <SectionTitle danger>{i18n.t("deleteUser")}</SectionTitle>
+            </Section>
+            <Section bottomPart touchable onPress={() => this.props.signOut()}>
+              <SectionTitle>{i18n.t("signOut")}</SectionTitle>
+            </Section>
+          </SectionsWrapper>
+
+          <Credits>{i18n.t("credits")}</Credits>
+        </ScrollWrapper>
 
         {this.renderDialog()}
-      </Wrapper>
+      </ScreenBackground>
     );
   }
 }
@@ -153,17 +146,8 @@ export default connect(
   actions
 )(SettingsScreen as React.ComponentClass<Props>);
 
-const Wrapper = styled(ScreenBackground)`
-  flex: 1;
-  padding: 44px 0 0 0;
-`;
-
 const ScrollWrapper = styled.ScrollView`
   padding: 0 20px;
-`;
-
-const ContentWrapper = styled(SafeAreaView)`
-  flex: 1;
 `;
 
 const SectionsWrapper = styled.View`

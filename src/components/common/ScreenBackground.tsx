@@ -1,5 +1,6 @@
 import React from "react";
 import { LinearGradient } from "expo";
+import { SafeAreaView } from "react-navigation";
 import { theme } from "theme";
 
 export default ({ children, style }: { children: any; style?: any }) => (
@@ -7,8 +8,13 @@ export default ({ children, style }: { children: any; style?: any }) => (
     colors={[theme.darkShade, theme.darkAccent]}
     start={[0.0, 0.25]}
     end={[0.5, 1.0]}
-    style={style}
+    style={[style, { flex: 1 }]}
   >
-    {children}
+    <SafeAreaView
+      forceInset={{ top: "always", bottom: "never" }}
+      style={{ flex: 1 }}
+    >
+      {children}
+    </SafeAreaView>
   </LinearGradient>
 );

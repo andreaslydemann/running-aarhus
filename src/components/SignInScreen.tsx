@@ -36,7 +36,7 @@ class SignInScreen extends React.Component<Props> {
 
   render(): JSX.Element {
     return (
-      <Wrapper>
+      <ScreenBackground>
         <LogoWrapper>
           <RunningAarhusLogo source={require("../../assets/runner.png")} />
 
@@ -65,7 +65,7 @@ class SignInScreen extends React.Component<Props> {
 
           <LoginText>{i18n.t("loginWithFacebook")}</LoginText>
         </FacebookButtonWrapper>
-      </Wrapper>
+      </ScreenBackground>
     );
   }
 }
@@ -101,7 +101,7 @@ const subtitleTextStyle = {
 };
 
 const FacebookButtonWrapper = styled.View`
-  flex: 0.55;
+  flex: 1;
   width: 100%;
   justify-content: center;
   align-items: center;
@@ -110,7 +110,7 @@ const FacebookButtonWrapper = styled.View`
 const LogoWrapper = styled.View`
   justify-content: flex-end;
   align-self: center;
-  flex: 0.45;
+  flex: 1;
 `;
 
 const TitleWrapper = styled.View`
@@ -125,31 +125,11 @@ const Divider = styled.View`
   width: 80%;
 `;
 
-const Title = styled.Text`
-  letter-spacing: 30;
-  font-weight: bold;
-  margin-top: 20;
-  font-size: 28;
-  color: ${({ theme }) => theme.activeTint};
-`;
-
-const Subtitle = styled.Text`
-  align-items: center;
-  letter-spacing: 30;
-  font-size: 20;
-  color: ${({ theme }) => theme.activeTint};
-`;
-
 const LoginText = styled.Text`
   text-align: center;
   color: ${({ theme }) => theme.activeTint};
   margin-horizontal: 8px;
   width: 60%;
-`;
-
-const Wrapper = styled(ScreenBackground)`
-  flex: 1;
-  padding: 44px 0 0 0;
 `;
 
 const RunningAarhusLogo = styled.Image`

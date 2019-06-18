@@ -55,7 +55,8 @@ const Content = styled.View<ButtonProps>`
     `
       border-bottom-left-radius: 6px;
       border-bottom-right-radius: 6px;
-    `} margin-top: 2px;
+    `} 
+  margin-top: 2px;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;

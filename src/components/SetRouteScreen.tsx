@@ -235,7 +235,7 @@ class SetRouteScreen extends React.Component<Props, State> {
     const endDateTime = calculateEndDateTime(startDateTime, pace, distance);
 
     return (
-      <Wrapper>
+      <ScreenBackground>
         <Header
           navigateBack={() => navigation.goBack()}
           ScreenTitle={i18n.t("setRouteTitle")}
@@ -335,7 +335,7 @@ class SetRouteScreen extends React.Component<Props, State> {
           }}
           title={i18n.t("save")}
         />
-      </Wrapper>
+      </ScreenBackground>
     );
   }
 }
@@ -351,11 +351,6 @@ const StyledMapView = styled(MapView)`
 const MapOverlay = styled.View`
   position: absolute;
   width: 100%;
-`;
-
-const Wrapper = styled(ScreenBackground)`
-  flex: 1;
-  padding: 44px 0 0 0;
 `;
 
 const UndoButton = styled.TouchableOpacity`

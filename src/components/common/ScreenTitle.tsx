@@ -51,7 +51,7 @@ export default class extends Component<Props> {
 }
 
 const Wrapper = styled.View`
-  padding: 0 20px;
+  padding-horizontal: 20px;
   overflow: visible;
   height: 80px;
 `;
