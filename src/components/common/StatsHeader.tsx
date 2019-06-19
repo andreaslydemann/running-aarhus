@@ -8,9 +8,7 @@ interface Props {
 
 export default ({ numberOfRuns = 0 }: Props) => (
   <Wrapper>
-    <ItemText>
-      {i18n.t("completedRuns")} {numberOfRuns}
-    </ItemText>
+    <ItemText>{i18n.t("completedRuns", { count: numberOfRuns })}</ItemText>
   </Wrapper>
 );
 

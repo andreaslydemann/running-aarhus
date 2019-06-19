@@ -53,7 +53,10 @@ export const da = {
   endTime: "Sluttidspunkt",
   timeUnit: "kl. ",
   distanceUnit: "km",
-  completedRuns: "Gennemførte løb:",
+  completedRuns: {
+    one: "1 løb gennemført",
+    other: "{{count}} løb gennemført"
+  },
   cancelRunDialogTitle: "Bekræft",
   cancelRunDialogDescription: "Er du sikker på, at du vil aflyse dette løb?",
   deleteUserDialogTitle: "Bekræft",
