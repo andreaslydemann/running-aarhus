@@ -4,14 +4,14 @@ import { View, Text } from "react-native";
 interface LetterSpacedTextProps {
   children: string;
   spacing: number;
-  viewStyle: any;
-  textStyle: any;
+  viewStyle?: any;
+  textStyle?: any;
 }
 
 interface LetterProps {
   children: string;
   spacing: number;
-  textStyle: any;
+  textStyle?: any;
 }
 
 export default (props: LetterSpacedTextProps) => {

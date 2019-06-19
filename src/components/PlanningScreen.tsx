@@ -100,6 +100,7 @@ class PlanningScreen extends React.Component<Props, State> {
             )}
           </BottomMargin>
         }
+        extraData={this.props}
         data={showingUpcomingRuns ? upcomingRuns : myRuns}
         keyExtractor={(item: any) => item.id}
         renderItem={({ item }: any) => (

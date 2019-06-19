@@ -25,11 +25,11 @@ export default ({ data }: { data: any }) => {
       start={[0.0, 0.25]}
       end={[0.5, 1.0]}
     >
-      <BackgroundImage source={require("../../../assets/runner.png")} />
       <ContentWrapper>
-        <View>
-          <RunTitle>{title}</RunTitle>
-        </View>
+        <RunTitle>{title}</RunTitle>
+        <ImageWrapper>
+          <BackgroundImage source={require("../../../assets/runner.png")} />
+        </ImageWrapper>
         <View>
           <Title large adjustsFontSizeToFit numberOfLines={1}>
             {meetingPoint}
@@ -45,7 +45,6 @@ export default ({ data }: { data: any }) => {
 };
 
 const Wrapper = styled(LinearGradient)`
-  flex: 1;
   border-radius: 15px;
   height: 300px;
 `;
@@ -67,16 +66,19 @@ const RunTitle = styled(Title)`
 `;
 
 const BackgroundImage = styled.Image`
-  position: absolute;
-  width: 60%;
-  height: 60%;
-  top: 20%;
-  left: 20%;
+  width: 207px;
+  height: 180px;
+  top: 10px;
+  left: 10px;
   opacity: 0.2;
+`;
+
+const ImageWrapper = styled.View`
+  justify-content: center;
+  align-items: center;
 `;
 
 const ContentWrapper = styled.View`
   padding: 20px;
-  flex: 1;
   justify-content: space-between;
 `;

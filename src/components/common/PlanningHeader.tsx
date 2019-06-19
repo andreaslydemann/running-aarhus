@@ -28,7 +28,7 @@ export default class extends Component<Props> {
       <Wrapper>
         <OuterItem onPress={() => this.handleOuterPress(Item.Left)}>
           <ItemText isSelected={this.props.selectedItem === Item.Left}>
-            {i18n.t("allRuns")}
+            {i18n.t("allRuns").toUpperCase()}
           </ItemText>
         </OuterItem>
         <MiddleItem onPress={this.props.onMiddleItemPress}>
@@ -42,7 +42,7 @@ export default class extends Component<Props> {
         </MiddleItem>
         <OuterItem onPress={() => this.handleOuterPress(Item.Right)}>
           <ItemText isSelected={this.props.selectedItem === Item.Right}>
-            {i18n.t("myRuns")}
+            {i18n.t("myRuns").toUpperCase()}
           </ItemText>
         </OuterItem>
       </Wrapper>
@@ -83,7 +83,7 @@ interface ItemTextProps {
 }
 
 const ItemText = styled.Text<ItemTextProps>`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: ${props => (props.isSelected ? "bold" : "normal")};
   color: ${props => (props.isSelected ? theme.action : theme.activeTint)};
 `;
