@@ -78,7 +78,6 @@ class PlanningScreen extends React.Component<Props, State> {
       selectedItem
     } = this.props;
     const { refreshing } = this.state;
-    const showPromotionCard = true;
     const showingUpcomingRuns = selectedItem === Item.Left;
 
     return (
@@ -99,26 +98,18 @@ class PlanningScreen extends React.Component<Props, State> {
                 />
               </TopMargin>
             )}
-            {showingUpcomingRuns && showPromotionCard ? (
-              <TopMargin>
-                <PromotionCard
-                  run={{
-                    title: "Running Challenge",
-                    meetingPoint: "Station Allé, Aarhus C",
-                    startDateTime: "27/6 - 17:30"
-                  }}
-                  navigateToDetails={() => {}}
-                />
-              </TopMargin>
-            ) : null}
           </BottomMargin>
         }
         data={showingUpcomingRuns ? upcomingRuns : myRuns}
         keyExtractor={(item: any) => item.id}
-        renderItem={({ item }) => (
+        renderItem={({ item }: any) => (
           <BottomMargin>
             <PushableWrapper onPress={() => this.runSelected(item)}>
-              <RunCard data={item} />
+              {item.promoted ? (
+                <PromotionCard data={item} />
+              ) : (
+                <RunCard data={item} />
+              )}
             </PushableWrapper>
           </BottomMargin>
         )}

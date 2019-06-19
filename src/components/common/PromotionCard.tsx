@@ -2,36 +2,52 @@ import React from "react";
 import { styled } from "theme";
 import { LinearGradient } from "expo";
 import { View } from "react-native";
-import PushableWrapper from "./PushableWrapper";
+import moment from "moment";
+import { getLanguage } from "utils";
 
-export default ({ run, navigateToDetails }: any) => {
+export default ({ data }: { data: any }) => {
+  const { startDateTime, endDateTime, meetingPoint, title } = data;
+
+  const startDateTimeMoment = moment(new Date(startDateTime)).locale(
+    getLanguage()
+  );
+  const startDate = startDateTimeMoment.format("LL");
+  const startTime = startDateTimeMoment.format("LT");
+  const endTime = endDateTime
+    ? moment(new Date(endDateTime))
+        .locale(getLanguage())
+        .format("LT")
+    : null;
+
   return (
-    <PushableWrapper style={{ height: 300 }} onPress={navigateToDetails}>
-      <Wrapper
-        colors={["#54A3CC", "#1481BA"]}
-        start={[0.0, 0.25]}
-        end={[0.5, 1.0]}
-      >
-        <BackgroundImage source={require("../../../assets/runner.png")} />
-        <ContentWrapper>
-          <View>
-            <RunTitle>{run.title}</RunTitle>
-          </View>
-          <View>
-            <Title large adjustsFontSizeToFit numberOfLines={1}>
-              {run.meetingPoint}
-            </Title>
-            <Title>{run.startDateTime}</Title>
-          </View>
-        </ContentWrapper>
-      </Wrapper>
-    </PushableWrapper>
+    <Wrapper
+      colors={["#54A3CC", "#1481BA"]}
+      start={[0.0, 0.25]}
+      end={[0.5, 1.0]}
+    >
+      <BackgroundImage source={require("../../../assets/runner.png")} />
+      <ContentWrapper>
+        <View>
+          <RunTitle>{title}</RunTitle>
+        </View>
+        <View>
+          <Title large adjustsFontSizeToFit numberOfLines={1}>
+            {meetingPoint}
+          </Title>
+          <Title>
+            {startDate} {startTime}
+            {endTime ? " - " + endTime : null}
+          </Title>
+        </View>
+      </ContentWrapper>
+    </Wrapper>
   );
 };
 
 const Wrapper = styled(LinearGradient)`
   flex: 1;
   border-radius: 15px;
+  height: 300px;
 `;
 
 interface TitleProps {

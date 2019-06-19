@@ -7,7 +7,8 @@ import {
   PushableWrapper,
   RunCard,
   InfoCard,
-  CountdownCard
+  CountdownCard,
+  PromotionCard
 } from "components/common";
 import { styled } from "theme";
 import * as actions from "actions";
@@ -81,10 +82,14 @@ class ScheduleScreen extends React.Component<Props, State> {
         }
         data={scheduledRuns}
         keyExtractor={(item: any) => item.id}
-        renderItem={({ item }) => (
+        renderItem={({ item }: any) => (
           <BottomMargin>
             <PushableWrapper onPress={() => this.runSelected(item)}>
-              <RunCard data={item} />
+              {item.promoted ? (
+                <PromotionCard data={item} />
+              ) : (
+                <RunCard data={item} />
+              )}
             </PushableWrapper>
           </BottomMargin>
         )}

@@ -6,7 +6,8 @@ import {
   PushableWrapper,
   RunCard,
   InfoCard,
-  StatsHeader
+  StatsHeader,
+  PromotionCard
 } from "components/common";
 import { styled } from "theme";
 import { FlatList, RefreshControl } from "react-native";
@@ -102,10 +103,14 @@ class PastScreen extends React.Component<Props, State> {
           }
           data={pastRuns}
           keyExtractor={(item: any) => item.id}
-          renderItem={({ item }) => (
+          renderItem={({ item }: any) => (
             <BottomMargin>
               <PushableWrapper onPress={() => this.runSelected(item)}>
-                <RunCard data={item} />
+                {item.promoted ? (
+                  <PromotionCard data={item} />
+                ) : (
+                  <RunCard data={item} />
+                )}
               </PushableWrapper>
             </BottomMargin>
           )}
