@@ -81,5 +81,6 @@ export const en = {
   errorOccurred: "Error occurred",
   undo: "Undo",
   clear: "Clear",
-  retry: "Retry"
+  retry: "Retry",
+  startDateTimeInvalid: "Date is invalid. Pick a future date."
 };

@@ -8,6 +8,7 @@ export const RUN_TYPES = {
   SAVE_RUN_SUCCESS: "SAVE_RUN_SUCCESS",
   SAVE_RUN_FAILURE: "SAVE_RUN_FAILURE",
   SET_START_DATE_TIME: "SET_START_DATE_TIME",
+  START_DATE_TIME_FAILURE: "START_DATE_TIME_FAILURE",
   SET_TITLE: "SET_TITLE",
   SET_DESCRIPTION: "SET_DESCRIPTION",
   TOGGLE_PACE: "TOGGLE_PACE",
@@ -50,6 +51,12 @@ export const setStartDateTime = (dateTime: Date) => {
   return {
     type: RUN_TYPES.SET_START_DATE_TIME,
     payload: dateTime
+  };
+};
+
+export const startDateTimeFailure = () => {
+  return {
+    type: RUN_TYPES.START_DATE_TIME_FAILURE
   };
 };
 

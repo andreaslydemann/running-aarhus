@@ -8,6 +8,7 @@ const initialState: RunState = {
   id: "",
   error: false,
   loading: false,
+  startDateTimeError: false,
   startDateTime: new Date(),
   title: "",
   description: "",
@@ -51,13 +52,15 @@ function increasePace(state: RunState) {
 }
 
 function decreasePace(state: RunState) {
-  if (state.pace <= 0) {
+  const pace = state.pace;
+
+  if (pace === null || pace <= 0) {
     return state;
   }
 
-  const pace = Math.round((state.pace - 0.05) * 100) / 100;
+  const newPace = Math.round((pace - 0.05) * 100) / 100;
   const routeDetails = updateEndDateTime(
-    pace,
+    newPace,
     state.startDateTime,
     state.routeDetails
   );
@@ -72,7 +75,7 @@ function setStartDateTime(state: RunState, startDateTime: Date) {
     state.routeDetails
   );
 
-  return { ...state, startDateTime, routeDetails };
+  return { ...state, startDateTime, routeDetails, startDateTimeError: false };
 }
 
 function togglePace(state: RunState) {
@@ -109,12 +112,13 @@ function setRun(state: RunState, run: RunModel) {
 
   return {
     ...state,
-    pace,
+    pace: pace ? pace : state.pace,
     paceEnabled: !!pace,
     startDateTime: new Date(startDateTime),
     routeDetails,
     error: false,
     loading: false,
+    startDateTimeError: false,
     ...rest
   };
 }
@@ -126,13 +130,19 @@ export default (state: RunState = initialState, action: Action<any>) => {
     case RUN_TYPES.RESET_RUN:
       return initialState;
     case RUN_TYPES.SAVE_RUN:
-      return { ...state, loading: true };
+      return { ...state, error: false, loading: true };
     case RUN_TYPES.SAVE_RUN_SUCCESS:
-      return { ...state, loading: false };
+      return {
+        ...state,
+        loading: false,
+        startDateTimeError: false
+      };
     case RUN_TYPES.SAVE_RUN_FAILURE:
       return { ...state, error: true, loading: false };
     case RUN_TYPES.SET_START_DATE_TIME:
       return setStartDateTime(state, action.payload);
+    case RUN_TYPES.START_DATE_TIME_FAILURE:
+      return { ...state, loading: false, startDateTimeError: true };
     case RUN_TYPES.SET_TITLE:
       return { ...state, title: action.payload };
     case RUN_TYPES.SET_DESCRIPTION:

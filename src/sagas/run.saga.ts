@@ -1,5 +1,5 @@
 import { call, put, takeLeading, all } from "redux-saga/effects";
-import { resetRun, RUN_TYPES, setDetails } from "actions";
+import { resetRun, RUN_TYPES, setDetails, startDateTimeFailure } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
 import { saveRunSuccess, saveRunFailure } from "actions";
 import {
@@ -13,20 +13,20 @@ export default function* runSaga() {
   yield all([takeLeading(RUN_TYPES.SAVE_RUN, saveRun)]);
 }
 
-function* saveRun({ payload }: any) {
+function* saveRun({ payload: { runType, run } }: any) {
   try {
-    const currentUser = getCurrentUser();
+    if (run.startDateTime <= new Date()) {
+      return yield put(startDateTimeFailure());
+    }
 
-    const { runType, run } = payload;
-
-    let requestUrl = RUNNING_AARHUS_FUNCTIONS_URL;
     let body = {
       ...run,
-      userId: currentUser.uid
+      userId: getCurrentUser().uid
     };
 
     const isNewRun = !run.id;
 
+    let requestUrl = RUNNING_AARHUS_FUNCTIONS_URL;
     if (isNewRun) {
       requestUrl += "/createRun";
     } else {

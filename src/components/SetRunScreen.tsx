@@ -31,6 +31,7 @@ interface PropsConnectedState {
   pace: number | null;
   routeDetails: RouteDetails | null;
   loading: boolean;
+  startDateTimeError: boolean;
 }
 
 interface PropsConnectedDispatcher {
@@ -206,7 +207,8 @@ class SetRunScreen extends React.Component<Props> {
       paceEnabled,
       title,
       description,
-      startDateTime
+      startDateTime,
+      startDateTimeError
     } = this.props;
     let meetingPoint: string = "";
     let coordinates: Coordinate[] = [];
@@ -225,7 +227,12 @@ class SetRunScreen extends React.Component<Props> {
         />
 
         <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
-          <BottomMargin>{this.renderDatePicker()}</BottomMargin>
+          <BottomMargin>
+            {this.renderDatePicker()}
+            {startDateTimeError && (
+              <ErrorText>{i18n.t("startDateTimeInvalid")}</ErrorText>
+            )}
+          </BottomMargin>
 
           <BottomMargin>
             <Subtitle titleText={i18n.t("title")} showInfoIcon={false} />
@@ -280,7 +287,9 @@ class SetRunScreen extends React.Component<Props> {
 
         <SubmitButton
           disabled={
-            !(this.props.routeDetails && this.props.title) || this.props.loading
+            !(this.props.routeDetails && this.props.title) ||
+            this.props.loading ||
+            this.props.startDateTimeError
           }
           onPress={this.saveRun}
           title={i18n.t("save")}
@@ -305,7 +314,8 @@ const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
     paceEnabled: run.paceEnabled,
     pace: run.pace,
     routeDetails: run.routeDetails,
-    loading: run.loading
+    loading: run.loading,
+    startDateTimeError: run.startDateTimeError
   };
 };
 
@@ -338,4 +348,12 @@ const SectionTitle = styled.Text`
 
 const LoadingModal = styled(StatusModal)`
   margin-bottom: 80px;
+`;
+
+const ErrorText = styled.Text`
+  color: ${({ theme }) => theme.danger};
+  font-weight: bold;
+  font-size: 14px;
+  padding-top: 3px;
+  padding-left: 10px;
 `;

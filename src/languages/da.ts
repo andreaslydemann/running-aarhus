@@ -81,5 +81,6 @@ export const da = {
   errorOccurred: "Fejl opstået",
   undo: "Fortryd",
   clear: "Ryd",
-  retry: "Prøv igen"
+  retry: "Prøv igen",
+  startDateTimeInvalid: "Dato er ugyldig. Vælg en fremtidig dato."
 };
