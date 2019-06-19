@@ -116,7 +116,7 @@ export class StatusModal extends PureComponent<Props, any> {
     isLoadingModal ? this.animateLoading() : this.animateSuccessOrError();
 
     const containerStyle = {
-      backgroundColor: showAsOverlay ? "rgba(0,0,0,0.2)" : "transparent",
+      backgroundColor: "transparent",
       position: "absolute",
       justifyContent: "center",
       alignItems: "center",

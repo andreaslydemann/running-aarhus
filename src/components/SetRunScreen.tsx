@@ -31,6 +31,7 @@ interface PropsConnectedState {
   pace: number | null;
   routeDetails: RouteDetails | null;
   loading: boolean;
+  error: boolean;
   startDateTimeError: boolean;
 }
 
@@ -208,7 +209,9 @@ class SetRunScreen extends React.Component<Props> {
       title,
       description,
       startDateTime,
-      startDateTimeError
+      startDateTimeError,
+      loading,
+      error
     } = this.props;
     let meetingPoint: string = "";
     let coordinates: Coordinate[] = [];
@@ -286,19 +289,24 @@ class SetRunScreen extends React.Component<Props> {
         </ScrollWrapper>
 
         <SubmitButton
-          disabled={
-            !(this.props.routeDetails && this.props.title) ||
-            this.props.loading ||
-            this.props.startDateTimeError
-          }
+          disabled={!(routeDetails && title) || loading || startDateTimeError}
           onPress={this.saveRun}
           title={i18n.t("save")}
         />
 
         <LoadingModal
           type={statusModalTypes.LOADING}
-          isVisible={this.props.loading}
+          isVisible={loading}
           showAsOverlay={true}
+        />
+
+        <StatusModal
+          type={statusModalTypes.ERROR}
+          isVisible={error}
+          height={135}
+          width={115}
+          textNumberOfLines={2}
+          text={i18n.t("errorOccurred")}
         />
       </ScreenBackground>
     );
@@ -315,6 +323,7 @@ const mapStateToProps = ({ run }: { run: RunState }): PropsConnectedState => {
     pace: run.pace,
     routeDetails: run.routeDetails,
     loading: run.loading,
+    error: run.error,
     startDateTimeError: run.startDateTimeError
   };
 };
