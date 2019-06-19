@@ -84,6 +84,6 @@ interface ItemTextProps {
 
 const ItemText = styled.Text<ItemTextProps>`
   font-size: 14px;
-  font-weight: ${props => (props.isSelected ? "bold" : "normal")};
+  font-weight: ${props => (props.isSelected ? "bold" : "bold")};
   color: ${props => (props.isSelected ? theme.action : theme.activeTint)};
 `;

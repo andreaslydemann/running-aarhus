@@ -13,7 +13,7 @@ export const PLANNING_TYPES = {
 export const getMyRuns = () => {
   return {
     type: PLANNING_TYPES.GET_UPCOMING_RUNS,
-    payload: { numberOfRuns: 5, offset: "", filterMyRuns: true }
+    payload: { numberOfRuns: 50, offset: "", filterMyRuns: true }
   };
 };
 
