@@ -58,13 +58,13 @@ const Wrapper = styled.View`
 `;
 
 const OuterItem = styled.TouchableOpacity`
-  flex: 0.4;
+  flex: 0.35;
   justify-content: center;
   align-items: center;
 `;
 
 const MiddleItem = styled.TouchableOpacity`
-  flex: 0.2;
+  flex: 0.3;
 `;
 
 const IconWrapper = styled.View`
