@@ -2,11 +2,7 @@ import { call, put, takeLeading, all } from "redux-saga/effects";
 import { resetRun, RUN_TYPES, setDetails, startDateTimeFailure } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL } from "constants";
 import { saveRunSuccess, saveRunFailure } from "actions";
-import {
-  addParticipationStatusToRuns,
-  getCurrentUser,
-  navigation
-} from "utils";
+import { addParticipationStatusToRuns, getAuthUser, navigation } from "utils";
 import axios from "axios";
 
 export default function* runSaga() {
@@ -21,7 +17,7 @@ function* saveRun({ payload: { runType, run } }: any) {
 
     let body = {
       ...run,
-      userId: getCurrentUser().uid
+      userId: getAuthUser().uid
     };
 
     const isNewRun = !run.id;
@@ -38,7 +34,7 @@ function* saveRun({ payload: { runType, run } }: any) {
 
     const runWithParticipationStatus = addParticipationStatusToRuns(
       [data],
-      getCurrentUser().uid
+      getAuthUser().uid
     )[0];
 
     if (runType) {

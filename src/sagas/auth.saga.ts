@@ -1,6 +1,7 @@
 import { call, put, takeEvery, all } from "redux-saga/effects";
 import {
   AUTH_TYPES,
+  getCurrentUserSuccess,
   signInSuccess,
   signInFailure,
   getInitialState
@@ -14,12 +15,13 @@ import {
 } from "constants";
 import firebase from "firebase";
 import axios from "axios";
-import { getCurrentUser, navigation } from "utils";
+import { getAuthUser, navigation } from "utils";
 
 export default function* authSaga() {
   yield all([
     takeEvery(AUTH_TYPES.SIGN_IN, signIn),
     takeEvery(AUTH_TYPES.SIGN_OUT, signOut),
+    takeEvery(AUTH_TYPES.GET_CURRENT_USER, getCurrentUser),
     takeEvery(AUTH_TYPES.DELETE_USER, deleteUser)
   ]);
 }
@@ -66,7 +68,7 @@ function* firebaseSignIn(token: string) {
         pictureUrl: picture
       };
 
-      const idToken = yield getCurrentUser().getIdToken();
+      const idToken = yield getAuthUser().getIdToken();
 
       yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/saveUser`, userInfo, {
         headers: { token: idToken }
@@ -94,12 +96,23 @@ function* startFacebookSignInFlow() {
   yield call(firebaseSignIn, token);
 }
 
-function* deleteUser() {
-  const currentUser = yield getCurrentUser();
+function* getCurrentUser() {
+  try {
+    const userId = getAuthUser().uid;
+    const { data } = yield axios.get(
+      `${RUNNING_AARHUS_FUNCTIONS_URL}/getUser?userId=${userId}`
+    );
 
+    yield put(getCurrentUserSuccess(data));
+  } catch (error) {
+    return console.log(error);
+  }
+}
+
+function* deleteUser() {
   try {
     yield axios.post(`${RUNNING_AARHUS_FUNCTIONS_URL}/deleteUser`, {
-      userId: currentUser.uid
+      userId: getAuthUser().uid
     });
   } catch (error) {
     return console.log(error);

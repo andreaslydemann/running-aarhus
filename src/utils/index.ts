@@ -1,5 +1,5 @@
 export * from "./distance.utils";
-export * from "./getCurrentUser";
+export * from "./getAuthUser";
 export * from "./getAddressOfCoordinate";
 export * from "./calculateEndDateTime";
 export * from "./getColorsOfCoordinates";

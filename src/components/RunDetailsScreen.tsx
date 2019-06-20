@@ -20,7 +20,7 @@ import { connect } from "react-redux";
 import * as actions from "../actions";
 import i18n from "i18n-js";
 import moment from "moment";
-import { getLanguage, getCurrentUser } from "utils";
+import { getLanguage, getAuthUser } from "utils";
 import { RunModel } from "types/models";
 import { Text } from "react-native";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
@@ -173,7 +173,7 @@ class RunDetailsScreen extends Component<Props, State> {
           .format("LT")
       : null;
 
-    const isOwnRun = createdBy && createdBy.id === getCurrentUser().uid;
+    const isOwnRun = createdBy && createdBy.id === getAuthUser().uid;
     const showMoreButton = isOwnRun && !(cancelled || isPastRun);
 
     return (

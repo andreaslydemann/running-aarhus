@@ -11,7 +11,7 @@ import {
   updateCancellation
 } from "actions";
 import { RUNNING_AARHUS_FUNCTIONS_URL, RUN_TYPES } from "constants";
-import { getCurrentUser } from "utils";
+import { getAuthUser } from "utils";
 import axios from "axios";
 
 function getActionTypes(actionType: string): string[] {
@@ -37,13 +37,6 @@ export default function* detailsSaga() {
 function* changeParticipation({ payload }: any) {
   const { participate, run, runType } = payload;
 
-  const currentUser = getCurrentUser();
-
-  const body = {
-    userId: currentUser.uid,
-    runId: run.id
-  };
-
   yield put(participationRequest(runType));
 
   const requestUrl = participate
@@ -51,6 +44,11 @@ function* changeParticipation({ payload }: any) {
     : `${RUNNING_AARHUS_FUNCTIONS_URL}/cancelParticipation`;
 
   try {
+    const body = {
+      userId: getAuthUser().uid,
+      runId: run.id
+    };
+
     yield axios.post(requestUrl, body);
   } catch (error) {
     return yield put(participationFailure(runType));

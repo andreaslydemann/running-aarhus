@@ -27,6 +27,7 @@ interface PropsConnectedState {
 }
 
 interface PropsConnectedDispatcher {
+  getCurrentUser: () => void;
   getUpcomingRuns: (numberOfRuns: number, offset: string) => Action<RunRequest>;
   getMyRuns: () => Action<RunRequest>;
   getPastRuns: () => Action<void>;
@@ -49,6 +50,7 @@ class ScheduleScreen extends React.Component<Props, State> {
 
   componentDidMount() {
     navigation.setNavigator(this.props.navigation);
+    this.props.getCurrentUser();
     this.props.getScheduledRuns();
     this.props.getUpcomingRuns(5, "");
     this.props.getMyRuns();
