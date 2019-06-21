@@ -1,15 +1,12 @@
-import { RunModel } from "../types/models";
+import { RunModel } from "types/models";
 
 export function getRunsWithUpdatedParticipation(
   runs: RunModel[],
-  runId: string
+  newRun: RunModel
 ) {
   return runs.map(run => {
-    if (run.id !== runId) return run;
+    if (run.id !== newRun.id) return run;
 
-    return {
-      ...run,
-      participating: !run.participating
-    };
+    return newRun;
   });
 }

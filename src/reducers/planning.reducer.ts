@@ -44,11 +44,11 @@ function setUpcomingRuns(
   }
 }
 
-function updateParticipation(state: PlanningState, { id }: RunModel) {
-  const updatedMyRuns = getRunsWithUpdatedParticipation(state.myRuns, id);
+function updateParticipation(state: PlanningState, run: RunModel) {
+  const updatedMyRuns = getRunsWithUpdatedParticipation(state.myRuns, run);
   const updatedUpcomingRuns = getRunsWithUpdatedParticipation(
     state.upcomingRuns,
-    id
+    run
   );
 
   return { ...state, upcomingRuns: updatedUpcomingRuns, myRuns: updatedMyRuns };

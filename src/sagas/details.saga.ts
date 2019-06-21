@@ -1,4 +1,4 @@
-import { put, takeEvery, all } from "redux-saga/effects";
+import { put, takeEvery, all, select } from "redux-saga/effects";
 import {
   DETAILS_TYPES,
   participationFailure,
@@ -13,6 +13,7 @@ import {
 import { RUNNING_AARHUS_FUNCTIONS_URL, RUN_TYPES } from "constants";
 import { getAuthUser } from "utils";
 import axios from "axios";
+import { RunModel, UserModel } from "../types/models";
 
 function getActionTypes(actionType: string): string[] {
   return Object.keys(RUN_TYPES).map(
@@ -54,10 +55,31 @@ function* changeParticipation({ payload }: any) {
     return yield put(participationFailure(runType));
   }
 
-  const updatedRun = { ...run, participating: !run.participating };
+  const currentUser = yield select(state => state.auth.currentUser);
+  const updatedRun = updateParticipationInRun(run, currentUser);
 
   yield put(participationSuccess(updatedRun, runType));
   yield put(updateParticipation(updatedRun));
+}
+
+function updateParticipationInRun(run: RunModel, currentUser: UserModel) {
+  const index = run.participants.findIndex(
+    (participant: any) => participant.id === currentUser.id
+  );
+
+  let newParticipants = run.participants.slice();
+
+  if (index !== -1) {
+    newParticipants.splice(index, 1);
+  } else {
+    newParticipants.splice(index, 0, currentUser);
+  }
+
+  return {
+    ...run,
+    participating: !run.participating,
+    participants: newParticipants
+  };
 }
 
 function* cancelRun({ payload }: any) {

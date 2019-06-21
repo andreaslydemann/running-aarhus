@@ -1,6 +1,7 @@
 import { DetailsState } from "types/states";
 import { Action } from "types/common";
 import { DETAILS_TYPES } from "actions/details.actions";
+import { RunModel } from "../types/models";
 
 const initialState: DetailsState = {
   error: false,
@@ -30,13 +31,17 @@ const initialState: DetailsState = {
   }
 };
 
-function toggleParticipation(state: DetailsState) {
+function toggleParticipation(state: DetailsState, updatedRun: RunModel) {
   return {
     error: false,
     participationLoading: false,
     cancellationLoading: false,
     success: true,
-    run: { ...state.run, participating: !state.run.participating }
+    run: {
+      ...state.run,
+      participating: updatedRun.participating,
+      participants: updatedRun.participants
+    }
   };
 }
 
@@ -55,7 +60,7 @@ export default (runType: string) => (
         success: false
       };
     case `${runType}_${DETAILS_TYPES.PARTICIPATION_SUCCESS}`:
-      return toggleParticipation(state);
+      return toggleParticipation(state, action.payload);
     case `${runType}_${DETAILS_TYPES.PARTICIPATION_FAILURE}`:
       return {
         ...state,
