@@ -50,16 +50,21 @@ function* changeParticipation({ payload }: any) {
       runId: run.id
     };
 
+    const currentUser = yield select(state => state.auth.currentUser);
+
+    if (!currentUser) {
+      throw Error("Current user not found.");
+    }
+
     yield axios.post(requestUrl, body);
+
+    const updatedRun = updateParticipationInRun(run, currentUser);
+
+    yield put(participationSuccess(updatedRun, runType));
+    yield put(updateParticipation(updatedRun));
   } catch (error) {
     return yield put(participationFailure(runType));
   }
-
-  const currentUser = yield select(state => state.auth.currentUser);
-  const updatedRun = updateParticipationInRun(run, currentUser);
-
-  yield put(participationSuccess(updatedRun, runType));
-  yield put(updateParticipation(updatedRun));
 }
 
 function updateParticipationInRun(run: RunModel, currentUser: UserModel) {
