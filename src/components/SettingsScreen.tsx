@@ -95,7 +95,7 @@ class SettingsScreen extends React.Component<Props, State> {
                 }
               >
                 <SectionTitle>{i18n.t("twitterLinking")}</SectionTitle>
-                <Ionicons name="logo-twitter" size={23} color="#fff" />
+                <Ionicons name="logo-twitter" size={22} color="#fff" />
               </Section>
               <Section
                 bottomPart
@@ -114,7 +114,7 @@ class SettingsScreen extends React.Component<Props, State> {
                 <SectionTitle>{i18n.t("giveFeedback")}</SectionTitle>
                 <Ionicons
                   name={`${THEME_PREFIX}-appstore`}
-                  size={23}
+                  size={22}
                   color="#fff"
                 />
               </Section>

@@ -29,7 +29,7 @@ export default ({
     disabled={disabled}
   >
     <Wrapper colors={getColorsOfType(type)} start={[0.0, 0.0]} end={[1.0, 0.0]}>
-      {icon && <Ionicons name={icon} size={25} color={theme.activeTint} />}
+      {icon && <Ionicons name={icon} size={26} color={theme.activeTint} />}
       {title && <Title fontSize={fontSize}>{title}</Title>}
     </Wrapper>
   </TouchableWrapper>
