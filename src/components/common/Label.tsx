@@ -17,7 +17,6 @@ export default ({
 const Wrapper = styled(LinearGradient)`
   border-radius: 10px;
   padding: 10px 15px;
-  margin: 0 10px;
 `;
 
 const LabelText = styled.Text`

@@ -1,7 +1,7 @@
 import React from "react";
+import { View } from "react-native";
 import { styled } from "theme";
 import { LinearGradient } from "expo";
-import { View } from "react-native";
 import moment from "moment";
 import { getLanguage } from "utils";
 
@@ -31,13 +31,13 @@ export default ({ data }: { data: any }) => {
           <BackgroundImage source={require("../../../assets/runner.png")} />
         </ImageWrapper>
         <View>
-          <Title large adjustsFontSizeToFit numberOfLines={1}>
+          <Text large adjustsFontSizeToFit numberOfLines={1}>
             {meetingPoint}
-          </Title>
-          <Title>
+          </Text>
+          <Text>
             {startDate} {startTime}
             {endTime ? " - " + endTime : null}
-          </Title>
+          </Text>
         </View>
       </ContentWrapper>
     </Wrapper>
@@ -53,14 +53,14 @@ interface TitleProps {
   large?: boolean;
 }
 
-const Title = styled.Text<TitleProps>`
+const Text = styled.Text<TitleProps>`
   color: white;
   font-weight: bold;
   font-size: ${({ large }) => (large ? 18 : 14)}px;
   align-self: flex-end;
 `;
 
-const RunTitle = styled(Title)`
+const RunTitle = styled(Text)`
   align-self: flex-start;
   font-size: 24px;
 `;
@@ -68,14 +68,13 @@ const RunTitle = styled(Title)`
 const BackgroundImage = styled.Image`
   width: 207px;
   height: 180px;
-  top: 10px;
-  left: 10px;
   opacity: 0.2;
 `;
 
 const ImageWrapper = styled.View`
   justify-content: center;
   align-items: center;
+  margin-vertical: 5px;
 `;
 
 const ContentWrapper = styled.View`

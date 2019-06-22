@@ -68,7 +68,6 @@ const Wrapper = styled.View`
   background: ${({ theme }) => theme.primary};
   border-radius: 15px;
   padding: 20px;
-  padding-right: 15px;
 `;
 
 const Day = styled.Text`
