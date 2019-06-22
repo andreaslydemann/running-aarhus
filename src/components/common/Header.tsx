@@ -32,7 +32,7 @@ export default ({
           color={theme.activeTint}
         />
       </IconWrapper>
-      <Title>{ScreenTitle}</Title>
+      <Title numberOfLines={1}>{ScreenTitle}</Title>
       {showMoreButton && (
         <IconWrapper onPress={onMoreButtonPress}>
           <Ionicons
