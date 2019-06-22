@@ -122,7 +122,7 @@ const Divider = styled.View`
   border-bottom-color: ${({ theme }) => theme.inactiveTint};
   border-bottom-width: 1px;
   margin-vertical: 20px;
-  width: 80%;
+  width: 300px;
 `;
 
 const LoginText = styled.Text`
