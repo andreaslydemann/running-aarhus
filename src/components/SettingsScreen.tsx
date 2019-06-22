@@ -13,13 +13,20 @@ import Dialog, {
 } from "react-native-popup-dialog";
 import { connect } from "react-redux";
 import * as actions from "actions";
+import { AuthState } from "types/states";
+import { StatusModal, statusModalTypes } from "./common/StatusModal";
 // import * as StoreReview from "react-native-store-review";
+
+interface PropsConnectedState {
+  loading: boolean;
+  error: boolean;
+}
 
 interface State {
   dialogVisible: boolean;
 }
 
-interface Props {
+interface Props extends PropsConnectedState {
   navigation: { navigate: (screen: string) => void };
   deleteUser: () => void;
   signOut: () => void;
@@ -81,6 +88,8 @@ class SettingsScreen extends React.Component<Props, State> {
   };
 
   render(): JSX.Element {
+    const { loading, error } = this.props;
+
     return (
       <ScreenBackground>
         <ScreenTitle title={i18n.t("settingsTitle")} />
@@ -136,13 +145,39 @@ class SettingsScreen extends React.Component<Props, State> {
         </ScrollWrapper>
 
         {this.renderDialog()}
+
+        <StatusModal
+          type={statusModalTypes.LOADING}
+          isVisible={loading}
+          showAsOverlay={true}
+        />
+
+        <StatusModal
+          type={statusModalTypes.ERROR}
+          isVisible={error}
+          height={135}
+          width={115}
+          textNumberOfLines={2}
+          text={i18n.t("errorOccurred")}
+        />
       </ScreenBackground>
     );
   }
 }
 
+const mapStateToProps = ({
+  auth
+}: {
+  auth: AuthState;
+}): PropsConnectedState => {
+  return {
+    loading: auth.loading,
+    error: auth.error
+  };
+};
+
 export default connect(
-  null,
+  mapStateToProps,
   actions
 )(SettingsScreen as React.ComponentClass<Props>);
 

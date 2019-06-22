@@ -23,12 +23,14 @@ export default ({
     ? `${THEME_PREFIX}-close`
     : `${THEME_PREFIX}-arrow-round-back`;
 
+  const isAndroid = Platform.OS === "android";
+
   return (
-    <Wrapper>
+    <Wrapper isAndroid={isAndroid}>
       <IconWrapper onPress={navigateBack}>
         <Ionicons
           name={iconName}
-          size={Platform.OS === "ios" ? 40 : 26}
+          size={isAndroid ? 26 : 40}
           color={theme.activeTint}
         />
       </IconWrapper>
@@ -46,10 +48,15 @@ export default ({
   );
 };
 
-const Wrapper = styled.View`
+interface WrapperProps {
+  isAndroid: boolean;
+}
+
+const Wrapper = styled.View<WrapperProps>`
   align-items: center;
   flex-direction: row;
-  margin-top: 0px;
+  margin-top: ${props => (props.isAndroid ? "14px" : "0px")};
+  margin-bottom: ${props => (props.isAndroid ? "14px" : "6px")};
 `;
 
 const Title = styled.Text`

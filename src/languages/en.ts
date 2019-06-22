@@ -72,7 +72,7 @@ export const en = {
   missingParticipantsTitle: "No participants yet",
   missingParticipantsSubtitle: "Be the first to sign up",
   missingRunsTitle: "No runs were found",
-  missingRunsSubtitle: "Be the first to create a run",
+  missingRunsSubtitle: "Create a run to get started",
   missingPastRunsTitle: "No runs were found",
   missingPastRunsSubtitle: "Sign up to your first run",
   missingScheduledRunsTitle: "No runs were found",

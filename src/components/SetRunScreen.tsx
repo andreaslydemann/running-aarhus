@@ -229,7 +229,7 @@ class SetRunScreen extends React.Component<Props> {
           isModal={true}
         />
 
-        <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
+        <ScrollWrapper contentContainerStyle={{ paddingVertical: 20 }}>
           <BottomMargin>
             {this.renderDatePicker()}
             {startDateTimeError && (

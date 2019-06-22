@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Animated, Easing, Text } from "react-native";
+import { Animated, Easing, Platform, Text } from "react-native";
 import { styled } from "theme";
 
 interface Props {
@@ -52,6 +52,7 @@ export default class extends Component<Props> {
 
 const Wrapper = styled.View`
   padding-horizontal: 20px;
+  margin-bottom: ${() => (Platform.OS === "android" ? "10px" : "0px")};
   overflow: visible;
   height: 80px;
 `;

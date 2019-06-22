@@ -72,7 +72,7 @@ export const da = {
   missingParticipantsTitle: "Ingen deltagere endnu",
   missingParticipantsSubtitle: "Vær den første til at deltage",
   missingRunsTitle: "Ingen løb blev fundet",
-  missingRunsSubtitle: "Vær den først til at oprette et løb",
+  missingRunsSubtitle: "Oret et løb for at komme i gang",
   missingPastRunsTitle: "Ingen løb blev fundet",
   missingPastRunsSubtitle: "Deltag i dit første løb",
   missingScheduledRunsTitle: "Ingen løb blev fundet",

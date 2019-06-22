@@ -205,7 +205,7 @@ const LoadMoreButton = styled(Button)`
 
 const Spinner = styled.ActivityIndicator`
   margin-top: 10px;
-  margin-bottom: 50px;
+  margin-bottom: 41px;
 `;
 
 const BottomMargin = styled.View`

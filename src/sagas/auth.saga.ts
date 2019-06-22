@@ -4,7 +4,8 @@ import {
   getCurrentUserSuccess,
   signInSuccess,
   signInFailure,
-  getInitialState
+  getInitialState,
+  deleteUserFailure
 } from "actions";
 import { AsyncStorage } from "react-native";
 import { Facebook } from "expo";
@@ -21,8 +22,8 @@ export default function* authSaga() {
   yield all([
     takeEvery(AUTH_TYPES.SIGN_IN, signIn),
     takeEvery(AUTH_TYPES.SIGN_OUT, signOut),
-    takeEvery(AUTH_TYPES.GET_CURRENT_USER, getCurrentUser),
-    takeEvery(AUTH_TYPES.DELETE_USER, deleteUser)
+    takeEvery(AUTH_TYPES.GET_CURRENT_USER_REQUEST, getCurrentUser),
+    takeEvery(AUTH_TYPES.DELETE_USER_REQUEST, deleteUser)
   ]);
 }
 
@@ -34,6 +35,8 @@ function* signIn() {
   } else {
     yield call(startFacebookSignInFlow);
   }
+
+  yield call(getCurrentUser);
 }
 
 function* signOut() {
@@ -99,6 +102,7 @@ function* startFacebookSignInFlow() {
 function* getCurrentUser() {
   try {
     const userId = getAuthUser().uid;
+
     const { data } = yield axios.get(
       `${RUNNING_AARHUS_FUNCTIONS_URL}/getUser?userId=${userId}`
     );
@@ -115,7 +119,7 @@ function* deleteUser() {
       userId: getAuthUser().uid
     });
   } catch (error) {
-    return console.log(error);
+    yield put(deleteUserFailure());
   }
 
   yield call(navigation.navigate, "Auth");

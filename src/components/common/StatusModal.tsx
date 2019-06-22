@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { Animated } from "react-native";
+import { Animated, Platform } from "react-native";
 import { styled, theme, THEME_PREFIX } from "theme";
 import { Ionicons } from "@expo/vector-icons";
 
@@ -53,6 +53,8 @@ export class StatusModal extends PureComponent<Props, any> {
   }
 
   renderIcon() {
+    const iconSize = Platform.OS === "android" ? 46 : 76;
+
     switch (this.props.type) {
       case statusModalTypes.LOADING:
         return <Spinner color={theme.activeTint} size={"large"} />;
@@ -60,7 +62,7 @@ export class StatusModal extends PureComponent<Props, any> {
         return (
           <Ionicons
             name={`${THEME_PREFIX}-checkmark`}
-            size={76}
+            size={iconSize}
             color={theme.activeTint}
           />
         );
@@ -68,7 +70,7 @@ export class StatusModal extends PureComponent<Props, any> {
         return (
           <Ionicons
             name={`${THEME_PREFIX}-close`}
-            size={76}
+            size={iconSize}
             color={theme.activeTint}
           />
         );

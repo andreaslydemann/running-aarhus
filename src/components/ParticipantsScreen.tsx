@@ -26,7 +26,7 @@ export default class ParticipantsScreen extends Component<Props> {
           isModal={true}
         />
 
-        <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
+        <ScrollWrapper contentContainerStyle={{ paddingVertical: 20 }}>
           {participants.length ? (
             <FlatList
               data={participants}

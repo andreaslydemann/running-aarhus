@@ -184,7 +184,7 @@ class RunDetailsScreen extends Component<Props, State> {
           showMoreButton={showMoreButton}
           onMoreButtonPress={this.openActionSheet}
         />
-        <ScrollWrapper contentContainerStyle={{ paddingVertical: 30 }}>
+        <ScrollWrapper contentContainerStyle={{ paddingVertical: 20 }}>
           <DetailsWrapper>
             <BottomMargin>
               <SectionTitle>{i18n.t("dateAndTime")}</SectionTitle>
