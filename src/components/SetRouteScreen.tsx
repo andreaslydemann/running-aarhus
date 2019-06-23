@@ -21,8 +21,6 @@ const LONGITUDE = 10.1861;
 const LATITUDE_DELTA = 0.1222;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const DEFAULT_PADDING = { top: 200, right: 40, bottom: 40, left: 40 };
-const START_MARKER_COLOR = "#238C23";
-const END_MARKER_COLOR = "#00007f";
 
 interface State {
   region: {
@@ -82,12 +80,12 @@ class SetRouteScreen extends React.Component<Props, State> {
 
     const startMarker = {
       coordinate: coordinates[0],
-      color: START_MARKER_COLOR
+      color: theme.action
     };
 
     const endMarker = {
       coordinate: coordinates[coordinates.length - 1],
-      color: END_MARKER_COLOR
+      color: theme.danger
     };
 
     this.setState(
@@ -138,7 +136,7 @@ class SetRouteScreen extends React.Component<Props, State> {
         {
           startMarker: {
             coordinate: e.nativeEvent.coordinate,
-            color: START_MARKER_COLOR
+            color: theme.action
           },
           coordinates: [e.nativeEvent.coordinate]
         },
@@ -157,7 +155,7 @@ class SetRouteScreen extends React.Component<Props, State> {
         {
           endMarker: {
             coordinate: e.nativeEvent.coordinate,
-            color: END_MARKER_COLOR
+            color: theme.danger
           },
           coordinates: [...coordinates, e.nativeEvent.coordinate]
         },
@@ -209,7 +207,7 @@ class SetRouteScreen extends React.Component<Props, State> {
   onStartMarkerPress(e: any) {
     const { endMarker, coordinates } = this.state;
 
-    if (endMarker || coordinates.length <= 1) {
+    if (endMarker) {
       return;
     }
 
@@ -218,7 +216,7 @@ class SetRouteScreen extends React.Component<Props, State> {
         startMarker: null,
         endMarker: {
           coordinate: e.nativeEvent.coordinate,
-          color: END_MARKER_COLOR
+          color: theme.danger
         },
         coordinates: [...coordinates, e.nativeEvent.coordinate]
       },
@@ -233,6 +231,9 @@ class SetRouteScreen extends React.Component<Props, State> {
 
     const distance = getDistanceOfCoordinates(this.state.coordinates);
     const endDateTime = calculateEndDateTime(startDateTime, pace, distance);
+
+    const { width, height } = Dimensions.get("window");
+    console.log(width, height);
 
     return (
       <ScreenBackground>
@@ -256,7 +257,7 @@ class SetRouteScreen extends React.Component<Props, State> {
               <Marker
                 coordinate={this.state.startMarker.coordinate}
                 pinColor={this.state.startMarker.color}
-                onSelect={(e: any) => this.onStartMarkerPress(e)}
+                onPress={(e: any) => this.onStartMarkerPress(e)}
               />
             )}
             {this.state.endMarker && (

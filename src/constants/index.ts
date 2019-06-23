@@ -26,12 +26,12 @@ const REVERSE_GEOCODE_URL =
 const SPACING_COLOR = "#00000000";
 
 const LINE_COLORS = [
-  "#238C23",
-  "#537f35",
-  "#a6b267",
-  "#e59c5d",
-  "#6b5d8c",
-  "#00007f"
+  "#1481BA",
+  "#3570A0",
+  "#576086",
+  "#794F6D",
+  "#9B3F53",
+  "#BD2F3A"
 ];
 
 const RUN_TYPES = {

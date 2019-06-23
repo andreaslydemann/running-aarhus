@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Dimensions } from "react-native";
 import { MapView } from "expo";
-import { styled } from "theme";
+import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
 import { getColorsOfCoordinates } from "utils";
 import { Header, ScreenBackground } from "./common";
@@ -16,8 +16,6 @@ const LONGITUDE = 10.1861;
 const LATITUDE_DELTA = 0.1222;
 const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
 const DEFAULT_PADDING = { top: 40, right: 40, bottom: 40, left: 40 };
-const START_MARKER_COLOR = "#238C23";
-const END_MARKER_COLOR = "#00007f";
 
 interface Props {
   navigation: {
@@ -66,12 +64,12 @@ class ShowRouteScreen extends Component<Props> {
 
     const startMarker = {
       coordinate: coordinates[0],
-      color: START_MARKER_COLOR
+      color: theme.action
     };
 
     const endMarker = {
       coordinate: coordinates[coordinates.length - 1],
-      color: END_MARKER_COLOR
+      color: theme.danger
     };
 
     const region = {
