@@ -64,7 +64,7 @@ class ShowRouteScreen extends Component<Props> {
 
     const startMarker = {
       coordinate: coordinates[0],
-      color: theme.action
+      color: theme.submit
     };
 
     const endMarker = {
@@ -108,7 +108,7 @@ class ShowRouteScreen extends Component<Props> {
           )}
           <Polyline
             coordinates={coordinates}
-            strokeColor="rgba(0,0,0,0.5)"
+            strokeColor={theme.stroke}
             strokeColors={getColorsOfCoordinates(coordinates)}
             strokeWidth={2}
           />

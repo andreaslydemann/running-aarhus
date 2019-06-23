@@ -14,12 +14,23 @@ export const theme = {
   info: "#E8F1F2",
   success: "#258874",
   warning: "#F77F00",
-  submitGradient: ["#258874", "#185A4D"], // #1D6A5A
+  submit: "#258874",
+  submitGradient: ["#258874", "#185A4D"],
   danger: "#BD2F3A",
-  dangerGradient: ["#BD2F3A", "#7E2027"], // #93252D
+  dangerGradient: ["#BD2F3A", "#7E2027"],
   action: "#1481BA",
-  actionGradient: ["#1481BA", "#0F5E88"], // #116A99
-  actionShadow: "#0e3d5b"
+  actionGradient: ["#1481BA", "#0F5E88"],
+  actionShadow: "#0e3d5b",
+  stroke: "rgba(0,0,0,0.5)",
+  strokeGradient: [
+    "#258874",
+    "#437668",
+    "#61645C",
+    "#805251",
+    "#9E4045",
+    "#BD2F3A"
+  ],
+  strokeSpacing: "#00000000"
 };
 
 export type Theme = typeof theme;

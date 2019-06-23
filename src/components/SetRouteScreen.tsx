@@ -80,7 +80,7 @@ class SetRouteScreen extends React.Component<Props, State> {
 
     const startMarker = {
       coordinate: coordinates[0],
-      color: theme.action
+      color: theme.submit
     };
 
     const endMarker = {
@@ -136,7 +136,7 @@ class SetRouteScreen extends React.Component<Props, State> {
         {
           startMarker: {
             coordinate: e.nativeEvent.coordinate,
-            color: theme.action
+            color: theme.submit
           },
           coordinates: [e.nativeEvent.coordinate]
         },
@@ -268,7 +268,7 @@ class SetRouteScreen extends React.Component<Props, State> {
             )}
             <Polyline
               coordinates={this.state.coordinates}
-              strokeColor="rgba(0,0,0,0.5)"
+              strokeColor={theme.stroke}
               strokeColors={
                 this.state.endMarker
                   ? getColorsOfCoordinates(this.state.coordinates)
@@ -359,7 +359,7 @@ const UndoButton = styled.TouchableOpacity`
   shadow-opacity: 0.2;
   shadow-radius: 5px;
   shadow-offset: 0px 0px;
-  background-color: white;
+  background-color: ${({ theme }) => theme.activeTint};
   top: 10px;
   right: 10;
   width: 80px;

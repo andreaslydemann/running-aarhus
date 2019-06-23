@@ -23,17 +23,6 @@ const TABBAR_ICONS = {
 const REVERSE_GEOCODE_URL =
   "http://nominatim.openstreetmap.org/reverse?format=json";
 
-const SPACING_COLOR = "#00000000";
-
-const LINE_COLORS = [
-  "#1481BA",
-  "#3570A0",
-  "#576086",
-  "#794F6D",
-  "#9B3F53",
-  "#BD2F3A"
-];
-
 const RUN_TYPES = {
   SCHEDULE: "SCHEDULE",
   PLANNING: "PLANNING",
@@ -56,8 +45,6 @@ export {
   FIREBASE_ACCOUNT,
   RUNNING_AARHUS_FUNCTIONS_URL,
   REVERSE_GEOCODE_URL,
-  SPACING_COLOR,
-  LINE_COLORS,
   DETAILS_REDUCERS,
   RUN_TYPES,
   GET_INITIAL_STATE
