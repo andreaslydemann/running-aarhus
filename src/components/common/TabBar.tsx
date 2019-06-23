@@ -31,7 +31,7 @@ const TabBar = ({
           bottom: "always"
         }}
       >
-        <View style={{ height: 60 }} />
+        <View style={{ height: 50 }} />
       </SafeAreaView>
       <View pointerEvents="box-none" style={styles.content}>
         {routes.map((route: any, routeIndex: any) => {
@@ -51,7 +51,7 @@ const TabBar = ({
             >
               {renderIcon({ route, focused: isRouteActive, tintColor })}
 
-              <Text style={{ color: tintColor, fontSize: 12 }}>
+              <Text style={{ color: tintColor, fontSize: 10 }}>
                 {i18n.t(getLabelText({ route }))}
               </Text>
             </TouchableOpacity>
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     width: "100%",
     justifyContent: "flex-end",
-    minHeight: 60
+    minHeight: 50
   },
   fakeBackground: {
     position: "absolute",
