@@ -52,15 +52,13 @@ function increasePace(state: RunState) {
 }
 
 function decreasePace(state: RunState) {
-  const pace = state.pace;
-
-  if (pace === null || pace <= 0) {
+  if (state.pace <= 0) {
     return state;
   }
 
-  const newPace = Math.round((pace - 0.05) * 100) / 100;
+  const pace = Math.round((state.pace - 0.05) * 100) / 100;
   const routeDetails = updateEndDateTime(
-    newPace,
+    pace,
     state.startDateTime,
     state.routeDetails
   );
