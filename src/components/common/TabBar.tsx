@@ -49,7 +49,9 @@ const TabBar = ({
                 onTabLongPress({ route });
               }}
             >
-              {renderIcon({ route, focused: isRouteActive, tintColor })}
+              <View style={{ height: 24 }}>
+                {renderIcon({ route, focused: isRouteActive, tintColor })}
+              </View>
 
               <Text style={{ color: tintColor, fontSize: 10 }}>
                 {i18n.t(getLabelText({ route }))}
@@ -64,10 +66,9 @@ const TabBar = ({
 
 const styles = StyleSheet.create({
   container: {
-    bottom: 0,
     width: "100%",
-    justifyContent: "flex-end",
-    minHeight: 50
+    justifyContent: "center",
+    height: 50
   },
   fakeBackground: {
     position: "absolute",
