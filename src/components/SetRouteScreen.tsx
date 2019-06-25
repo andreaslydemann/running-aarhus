@@ -1,6 +1,6 @@
 import React from "react";
 import { Text, Dimensions } from "react-native";
-import { MapView } from "expo";
+import MapView from "react-native-maps";
 import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
 import {

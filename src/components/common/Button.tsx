@@ -1,6 +1,6 @@
 import React from "react";
 import { styled } from "theme";
-import { LinearGradient } from "expo";
+import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { theme } from "theme";
 

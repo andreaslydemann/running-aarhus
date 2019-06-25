@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Dimensions } from "react-native";
-import { MapView } from "expo";
+import MapView from "react-native-maps";
 import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
 import { getColorsOfCoordinates } from "utils";

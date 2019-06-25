@@ -1,7 +1,7 @@
 import React from "react";
 import { View } from "react-native";
 import { styled } from "theme";
-import { LinearGradient } from "expo";
+import { LinearGradient } from "expo-linear-gradient";
 import moment from "moment";
 import { getLanguage } from "utils";
 
