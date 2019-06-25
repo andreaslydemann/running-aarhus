@@ -38,7 +38,7 @@ class SignInScreen extends React.Component<Props> {
     return (
       <ScreenBackground>
         <LogoWrapper>
-          <RunningAarhusLogo source={require("../../assets/runner.png")} />
+          <Logo source={require("../../assets/runner.png")} />
 
           <TitleWrapper>
             <LetterSpacedText
@@ -132,9 +132,9 @@ const LoginText = styled.Text`
   width: 60%;
 `;
 
-const RunningAarhusLogo = styled.Image`
-  width: 207px;
-  height: 180px;
+const Logo = styled.Image`
+  width: 200px;
+  height: 200px;
 `;
 
 const FacebookButton = styled.Image`

@@ -14,7 +14,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#002B39"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -24,7 +24,7 @@
     },
     "ios": {
       "bundleIdentifier": "com.andreaslydemann.runningaarhus",
-      "supportsTablet": true
+      "supportsTablet": false
     },
     "description": "",
     "githubUrl": "https://github.com/andreaslydemann/running-aarhus"

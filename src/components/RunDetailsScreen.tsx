@@ -13,7 +13,6 @@ import Dialog, {
   DialogButton,
   ScaleAnimation
 } from "react-native-popup-dialog";
-import { Ionicons } from "@expo/vector-icons";
 import { DetailsState, RootState } from "types/states";
 import { connectActionSheet } from "@expo/react-native-action-sheet";
 import { connect } from "react-redux";
@@ -211,11 +210,7 @@ class RunDetailsScreen extends Component<Props, State> {
             <InfoText>{routeDetails.meetingPoint}</InfoText>
           </DetailsWrapper>
 
-          <Icon
-            name={`${THEME_PREFIX}-walk`}
-            size={40}
-            color={theme.activeTint}
-          />
+          <Runner source={require("../../assets/runner.png")} />
 
           {description ? <DescText>{description}</DescText> : null}
 
@@ -370,11 +365,6 @@ const BottomMargin = styled.View`
   margin-bottom: 20px;
 `;
 
-const Icon = styled(Ionicons)`
-  align-self: center;
-  margin-vertical: 20px;
-`;
-
 const Spinner = styled.ActivityIndicator`
   margin: 10px;
 `;
@@ -382,4 +372,11 @@ const Spinner = styled.ActivityIndicator`
 const ProfileWrapper = styled.View`
   margin-top: 10px;
   margin-bottom: 45px;
+`;
+
+const Runner = styled.Image`
+  margin-vertical: 30px;
+  align-self: center;
+  width: 35px;
+  height: 35px;
 `;

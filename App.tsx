@@ -56,7 +56,6 @@ export default class App extends Component<void, State> {
     const imageAssets = cacheImages([
       require("./assets/facebook-button.png"),
       require("./assets/runner.png"),
-      require("./assets/logo.png"),
       require("./assets/icon.png")
     ]);
 

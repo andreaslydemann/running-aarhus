@@ -51,7 +51,7 @@ const ScrollWrapper = styled.ScrollView`
 `;
 
 const Divider = styled.View`
-  border-bottom-color: ${({ theme }) => theme.darkAccent};
+  border-bottom-color: ${({ theme }) => theme.darkShade};
   border-bottom-width: 1px;
   margin-vertical: 10px;
   width: 100%;

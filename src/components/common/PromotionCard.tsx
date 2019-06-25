@@ -66,15 +66,15 @@ const RunTitle = styled(Text)`
 `;
 
 const BackgroundImage = styled.Image`
-  width: 207px;
-  height: 180px;
+  width: 160px;
+  height: 160px;
   opacity: 0.2;
 `;
 
 const ImageWrapper = styled.View`
   justify-content: center;
   align-items: center;
-  margin-vertical: 5px;
+  margin-vertical: 16px;
 `;
 
 const ContentWrapper = styled.View`
