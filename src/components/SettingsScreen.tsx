@@ -8,7 +8,7 @@ import {
   Text
 } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
-import { theme, styled, THEME_PREFIX } from "theme";
+import { theme, styled } from "theme";
 import Dialog, {
   DialogButton,
   DialogContent,
