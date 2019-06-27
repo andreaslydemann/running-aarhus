@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Dimensions } from "react-native";
+import { Text, Dimensions, Platform } from "react-native";
 import MapView from "react-native-maps";
 import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
@@ -275,7 +275,9 @@ class SetRouteScreen extends React.Component<Props, State> {
                   ? getColorsOfCoordinates(this.state.coordinates)
                   : undefined
               }
-              strokeWidth={this.state.endMarker ? 2 : 1}
+              strokeWidth={
+                this.state.endMarker ? 2 : Platform.OS === "ios" ? 1 : 2
+              }
               lineDashPattern={!this.state.endMarker ? [20, 5] : null}
             />
           </StyledMapView>
