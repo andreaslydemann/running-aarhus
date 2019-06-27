@@ -11,6 +11,7 @@ export const theme = {
   darkAccent: "#043C47",
   activeTint: "#FFFFFF",
   inactiveTint: "#809DA2",
+  dimmedTint: "rgba(255,255,255,0.16)",
   info: "#E8F1F2",
   success: "#258874",
   warning: "#F77F00",
