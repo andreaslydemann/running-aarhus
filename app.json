@@ -16,6 +16,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#002636"
     },
+    "facebookScheme": "fb2292488901028008",
+    "facebookAppId": "2292488901028008",
+    "facebookDisplayName": "Running Aarhus",
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -23,8 +26,17 @@
       "fallbackToCacheTimeout": 0
     },
     "ios": {
+      "supportsTablet": false,
       "bundleIdentifier": "com.andreaslydemann.runningaarhus",
-      "supportsTablet": false
+      "icon": "./assets/icon.png",
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": [
+          "fbapi",
+          "fb-messenger-share-api",
+          "fbauth2",
+          "fbshareextension"
+        ]
+      }
     },
     "android": {
       "package": "com.andreaslydemann.runningaarhus"
