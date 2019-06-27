@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { styled, theme } from "theme";
 import { Animated, View, Easing, ActivityIndicator } from "react-native";
+import Text from "./Text";
 import Button from "./Button";
 
 interface Props {
@@ -75,14 +76,14 @@ const Wrapper = styled(Animated.createAnimatedComponent(View))`
   padding: 13px;
 `;
 
-const Title = styled.Text`
+const Title = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   font-weight: bold;
   font-size: 20px;
   margin: 15px 0 10px 0;
 `;
 
-const Subtitle = styled.Text`
+const Subtitle = styled(Text)`
   color: ${({ theme }) => theme.inactiveTint};
   font-size: 16px;
   margin: 10px 0 15px 0;

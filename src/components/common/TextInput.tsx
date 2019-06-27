@@ -1,6 +1,7 @@
 import React from "react";
 import { View, Platform } from "react-native";
 import { styled, theme } from "theme";
+import Text from "./Text";
 
 interface Props {
   value: string;
@@ -62,7 +63,7 @@ const StyledInput = styled.TextInput<TextInputProps>`
   height: ${props => (props.isTextArea ? "100px" : "36px")};
 `;
 
-const ErrorText = styled.Text`
+const ErrorText = styled(Text)`
   color: ${({ theme }) => theme.danger};
   font-weight: bold;
   font-size: 14px;

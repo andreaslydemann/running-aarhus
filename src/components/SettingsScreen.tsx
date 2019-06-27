@@ -1,7 +1,12 @@
-import { Linking, Text } from "react-native";
+import { Linking } from "react-native";
 import React from "react";
 import i18n from "i18n-js";
-import { ScreenTitle, ScreenBackground, Section } from "components/common";
+import {
+  ScreenTitle,
+  ScreenBackground,
+  Section,
+  Text
+} from "components/common";
 import { Ionicons } from "@expo/vector-icons";
 import { theme, styled, THEME_PREFIX } from "theme";
 import Dialog, {
@@ -193,7 +198,7 @@ interface SectionTitleProps {
   danger?: boolean;
 }
 
-const SectionTitle = styled.Text<SectionTitleProps>`
+const SectionTitle = styled(Text)<SectionTitleProps>`
   color: ${({ danger }) => (danger ? theme.danger : theme.activeTint)};
   font-weight: ${({ danger }) => (danger ? "bold" : "normal")};
 `;
@@ -202,7 +207,7 @@ const BottomMargin = styled.View`
   margin-bottom: 20px;
 `;
 
-const Credits = styled.Text`
+const Credits = styled(Text)`
   color: ${({ theme }) => theme.inactiveTint};
   text-align: center;
   margin-bottom: 22px;

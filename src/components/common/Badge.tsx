@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "theme";
 import { LinearGradient } from "expo-linear-gradient";
+import Text from "./Text";
 
 export default ({
   text,
@@ -19,7 +20,7 @@ const Wrapper = styled(LinearGradient)`
   padding: 10px 15px;
 `;
 
-const BadgeText = styled.Text`
+const BadgeText = styled(Text)`
   color: #fff;
   font-weight: bold;
 `;

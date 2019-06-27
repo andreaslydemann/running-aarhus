@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import { Animated, Platform } from "react-native";
 import { styled, theme, THEME_PREFIX } from "theme";
 import { Ionicons } from "@expo/vector-icons";
+import Text from "./Text";
 
 interface Props {
   text?: string;
@@ -177,7 +178,7 @@ const Wrapper = styled.View<WrapperProps>`
   border-width: 1px;
 `;
 
-const StyledText = styled.Text`
+const StyledText = styled(Text)`
   margin-bottom: 8px;
   color: ${({ theme }) => theme.activeTint};
   font-size: 14px;

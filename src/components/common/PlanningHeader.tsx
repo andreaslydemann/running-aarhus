@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { styled, theme, THEME_PREFIX } from "theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Item } from "types/common";
+import Text from "./Text";
 import i18n from "i18n-js";
 
 interface Props {
@@ -82,7 +83,7 @@ interface ItemTextProps {
   isSelected: boolean;
 }
 
-const ItemText = styled.Text<ItemTextProps>`
+const ItemText = styled(Text)<ItemTextProps>`
   font-size: 14px;
   font-weight: ${props => (props.isSelected ? "bold" : "bold")};
   color: ${props => (props.isSelected ? theme.action : theme.activeTint)};

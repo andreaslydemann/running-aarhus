@@ -1,5 +1,6 @@
 import React from "react";
 import { RouteDetails } from "types/common";
+import Text from "./Text";
 import { styled } from "theme";
 import moment from "moment";
 import i18n from "i18n-js";
@@ -12,12 +13,12 @@ const DetailsTextWrapper = styled.View`
   flex-direction: row;
 `;
 
-const DetailsField = styled.Text`
+const DetailsField = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   font-weight: bold;
 `;
 
-const DetailsText = styled.Text`
+const DetailsText = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   flex: 1;
 `;

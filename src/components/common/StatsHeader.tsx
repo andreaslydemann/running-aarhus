@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "theme";
 import i18n from "i18n-js";
+import Text from "./Text";
 
 interface Props {
   numberOfRuns?: number;
@@ -20,7 +21,7 @@ const Wrapper = styled.View`
   padding: 10px;
 `;
 
-const ItemText = styled.Text`
+const ItemText = styled(Text)`
   text-align: center;
   flex: 1;
   font-size: 20px;

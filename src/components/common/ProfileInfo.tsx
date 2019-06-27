@@ -1,6 +1,7 @@
 import React from "react";
 import moment from "moment";
 import { styled } from "theme";
+import Text from "./Text";
 import { UserModel } from "types/models";
 import { getLanguage } from "utils";
 import i18n from "i18n-js";
@@ -55,13 +56,13 @@ const TextWrapper = styled.View`
   margin-left: 12px;
 `;
 
-const SectionTitle = styled.Text`
+const SectionTitle = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   font-size: 16px;
   font-weight: bold;
 `;
 
-const InfoText = styled.Text`
+const InfoText = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   font-size: 15px;
 `;

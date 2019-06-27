@@ -4,7 +4,8 @@ import {
   Header,
   Button,
   ScreenBackground,
-  ProfileInfo
+  ProfileInfo,
+  Text
 } from "components/common";
 import Dialog, {
   DialogTitle,
@@ -21,7 +22,6 @@ import i18n from "i18n-js";
 import moment from "moment";
 import { getLanguage, getAuthUser } from "utils";
 import { RunModel } from "types/models";
-import { Text } from "react-native";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 
 interface State {
@@ -320,18 +320,18 @@ const DetailsWrapper = styled.View`
   justify-content: flex-end;
 `;
 
-const SectionTitle = styled.Text`
+const SectionTitle = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   font-size: 15px;
   font-weight: bold;
 `;
 
-const InfoText = styled.Text`
+const InfoText = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   font-size: 15px;
 `;
 
-const DescText = styled.Text`
+const DescText = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   font-size: 15px;
   text-align: justify;
@@ -351,7 +351,7 @@ const StyledButton = styled(Button)`
   width: 100%;
 `;
 
-const ButtonLabel = styled.Text`
+const ButtonLabel = styled(Text)`
   color: ${({ theme }) => theme.inactiveTint};
   margin: 3px;
 `;

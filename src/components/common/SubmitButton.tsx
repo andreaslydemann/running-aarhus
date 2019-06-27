@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "theme";
 import { LinearGradient } from "expo-linear-gradient";
 import { theme } from "theme";
+import Text from "./Text";
 
 interface Props {
   title: string;
@@ -43,7 +44,7 @@ const Wrapper = styled(LinearGradient)`
   flex-direction: row;
 `;
 
-const Title = styled.Text`
+const Title = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   margin-bottom: 20px;
   font-size: 22;

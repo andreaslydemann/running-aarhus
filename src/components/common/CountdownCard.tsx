@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { styled } from "theme";
+import Text from "./Text";
 import i18n from "i18n-js";
 
 interface Props {
@@ -92,19 +93,19 @@ const UnitWrapper = styled.View`
   justify-content: center;
 `;
 
-const Number = styled.Text`
+const Number = styled(Text)`
   font-size: 26px;
   font-weight: bold;
   color: ${({ theme }) => theme.activeTint};
 `;
 
-const Unit = styled.Text`
+const Unit = styled(Text)`
   font-size: 12px;
   font-weight: bold;
   color: ${({ theme }) => theme.inactiveTint};
 `;
 
-const Title = styled.Text`
+const Title = styled(Text)`
   font-size: 20px;
   font-weight: bold;
   color: ${({ theme }) => theme.activeTint};

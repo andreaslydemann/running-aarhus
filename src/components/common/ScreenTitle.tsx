@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Animated, Easing, Platform, Text } from "react-native";
+import { Animated, Easing, Platform, Text as RNText } from "react-native";
+import Text from "./Text";
 import { styled } from "theme";
 
 interface Props {
@@ -57,14 +58,14 @@ const Wrapper = styled.View`
   height: 80px;
 `;
 
-const MainText = styled.Text`
+const MainText = styled(Text)`
   font-size: 30px;
   color: #fff;
   font-weight: bold;
   margin-top: 15px;
 `;
 
-const BackgroundText = styled(Animated.createAnimatedComponent(Text))`
+const BackgroundText = styled(Animated.createAnimatedComponent(RNText))`
   position: absolute;
   left: 25px;
   right: 0;

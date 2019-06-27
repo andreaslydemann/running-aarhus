@@ -1,6 +1,7 @@
 import React from "react";
 import { styled } from "theme";
 import Badge from "./Badge";
+import Text from "./Text";
 import { View } from "react-native";
 import { getLanguage } from "utils";
 import i18n from "i18n-js";
@@ -70,7 +71,7 @@ const Wrapper = styled.View`
   padding: 20px;
 `;
 
-const Day = styled.Text`
+const Day = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   font-weight: bold;
   font-size: 13px;
@@ -87,7 +88,7 @@ interface DescProps {
   bold?: boolean;
 }
 
-const Desc = styled.Text<DescProps>`
+const Desc = styled(Text)<DescProps>`
   color: ${({ theme }) => theme.activeTint};
   font-size: 15px;
   ${({ bold }) => bold && "font-weight: bold;"} margin-top: 5px;

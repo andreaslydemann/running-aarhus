@@ -1,5 +1,6 @@
 import React from "react";
 import { styled } from "theme";
+import Text from "./Text";
 import { LinearGradient } from "expo-linear-gradient";
 import { Ionicons } from "@expo/vector-icons";
 import { theme } from "theme";
@@ -73,7 +74,7 @@ interface TitleProps {
   fontSize: number;
 }
 
-const Title = styled.Text<TitleProps>`
+const Title = styled(Text)<TitleProps>`
   color: ${({ theme }) => theme.activeTint};
   font-size: ${props => props.fontSize};
   font-weight: bold;

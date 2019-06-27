@@ -7,7 +7,8 @@ import {
   RouteSummary,
   Section,
   SubmitButton,
-  Subtitle
+  Subtitle,
+  Text
 } from "components/common";
 import { styled, theme, THEME_PREFIX } from "theme";
 import { Switch } from "react-native";
@@ -351,7 +352,7 @@ const ScrollWrapper = styled.ScrollView`
   padding: 0 20px;
 `;
 
-const SectionTitle = styled.Text`
+const SectionTitle = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
 `;
 
@@ -359,7 +360,7 @@ const LoadingModal = styled(StatusModal)`
   margin-bottom: 80px;
 `;
 
-const ErrorText = styled.Text`
+const ErrorText = styled(Text)`
   color: ${({ theme }) => theme.danger};
   font-weight: bold;
   font-size: 14px;

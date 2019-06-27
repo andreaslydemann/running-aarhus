@@ -369,7 +369,7 @@ const UndoButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-const HelpText = styled.Text`
+const HelpText = styled(Text)`
   color: ${({ theme }) => theme.primary};
 `;
 

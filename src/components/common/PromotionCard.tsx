@@ -3,6 +3,7 @@ import { View } from "react-native";
 import { styled } from "theme";
 import { LinearGradient } from "expo-linear-gradient";
 import moment from "moment";
+import Text from "./Text";
 import { getLanguage } from "utils";
 
 export default ({ data }: { data: any }) => {
@@ -31,13 +32,13 @@ export default ({ data }: { data: any }) => {
           <BackgroundImage source={require("../../../assets/runner.png")} />
         </ImageWrapper>
         <View>
-          <Text large adjustsFontSizeToFit numberOfLines={1}>
+          <PromotionText large numberOfLines={1}>
             {meetingPoint}
-          </Text>
-          <Text>
+          </PromotionText>
+          <PromotionText>
             {startDate} {startTime}
             {endTime ? " - " + endTime : null}
-          </Text>
+          </PromotionText>
         </View>
       </ContentWrapper>
     </Wrapper>
@@ -53,14 +54,14 @@ interface TitleProps {
   large?: boolean;
 }
 
-const Text = styled.Text<TitleProps>`
+const PromotionText = styled(Text)<TitleProps>`
   color: white;
   font-weight: bold;
   font-size: ${({ large }) => (large ? 18 : 14)}px;
   align-self: flex-end;
 `;
 
-const RunTitle = styled(Text)`
+const RunTitle = styled(PromotionText)`
   align-self: flex-start;
   font-size: 24px;
 `;

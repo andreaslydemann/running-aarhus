@@ -3,6 +3,7 @@ import { styled, theme } from "theme";
 import { Ionicons } from "@expo/vector-icons";
 import { Platform } from "react-native";
 import { THEME_PREFIX } from "theme";
+import Text from "./Text";
 
 interface Props {
   isModal?: boolean;
@@ -59,7 +60,7 @@ const Wrapper = styled.View<WrapperProps>`
   margin-bottom: ${props => (props.isAndroid ? "14px" : "6px")};
 `;
 
-const Title = styled.Text`
+const Title = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
   font-size: 20px;
   font-weight: bold;

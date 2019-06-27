@@ -1,7 +1,8 @@
 import { styled, THEME_PREFIX } from "theme";
 import { Ionicons } from "@expo/vector-icons";
-import { TouchableOpacity, View, Text, YellowBox } from "react-native";
+import { TouchableOpacity, View, YellowBox } from "react-native";
 import React, { Component } from "react";
+import Text from "./Text";
 import Dialog, {
   DialogTitle,
   DialogContent,
@@ -85,7 +86,7 @@ const SubtitleIcon = styled(Ionicons)`
   justify-content: flex-end;
 `;
 
-const SubtitleText = styled.Text`
+const SubtitleText = styled(Text)`
   flex: 1;
   font-size: 18px;
   color: #fff;

@@ -4,7 +4,12 @@ import { Action } from "types/common";
 import React from "react";
 import { connect } from "react-redux";
 import { styled, theme } from "theme";
-import { ScreenBackground, PushableWrapper, LetterSpacedText } from "./common";
+import {
+  ScreenBackground,
+  PushableWrapper,
+  LetterSpacedText,
+  Text
+} from "./common";
 import i18n from "i18n-js";
 
 interface PropsConnectedState {
@@ -125,7 +130,7 @@ const Divider = styled.View`
   width: 300px;
 `;
 
-const LoginText = styled.Text`
+const LoginText = styled(Text)`
   text-align: center;
   color: ${({ theme }) => theme.activeTint};
   margin-horizontal: 8px;
