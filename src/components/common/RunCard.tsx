@@ -1,12 +1,12 @@
 import React from "react";
 import { styled } from "theme";
-import Label from "./Label";
+import Badge from "./Badge";
 import { View } from "react-native";
 import { getLanguage } from "utils";
 import i18n from "i18n-js";
 import moment from "moment";
 
-function getLabelText(
+function getBadgeText(
   cancelled: boolean,
   completed: boolean,
   participating: boolean
@@ -44,7 +44,7 @@ export default ({ data }: { data: any }) => {
     : null;
 
   const completed = new Date(startDateTime) <= new Date();
-  const labelText = getLabelText(cancelled, completed, participating);
+  const badgeText = getBadgeText(cancelled, completed, participating);
 
   return (
     <Wrapper>
@@ -56,7 +56,7 @@ export default ({ data }: { data: any }) => {
             {endTime ? " - " + endTime : null}
           </Day>
         </View>
-        <Label numberOfLines={2} text={labelText} />
+        <Badge numberOfLines={2} text={badgeText} />
       </Row>
       <Desc bold>{title}</Desc>
       <Desc numberOfLines={1}>{meetingPoint}</Desc>

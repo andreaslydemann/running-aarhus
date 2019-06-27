@@ -10,7 +10,7 @@ export default ({
   numberOfLines: number;
 }) => (
   <Wrapper colors={["#1481BA", "#0F5E88"]} start={[0.0, 0.0]} end={[1.0, 0.0]}>
-    <LabelText numberOfLines={numberOfLines}>{text}</LabelText>
+    <BadgeText numberOfLines={numberOfLines}>{text}</BadgeText>
   </Wrapper>
 );
 
@@ -19,7 +19,7 @@ const Wrapper = styled(LinearGradient)`
   padding: 10px 15px;
 `;
 
-const LabelText = styled.Text`
+const BadgeText = styled.Text`
   color: #fff;
   font-weight: bold;
 `;
