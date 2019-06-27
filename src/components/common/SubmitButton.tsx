@@ -46,7 +46,7 @@ const Wrapper = styled(LinearGradient)`
 
 const Title = styled(Text)`
   color: ${({ theme }) => theme.activeTint};
-  margin-bottom: 20px;
+  margin-bottom: 13px;
   font-size: 22;
   font-weight: bold;
   margin-left: 10px;
