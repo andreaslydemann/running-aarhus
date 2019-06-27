@@ -47,13 +47,13 @@ class SignInScreen extends React.Component<Props> {
 
           <TitleWrapper>
             <LetterSpacedText
-              spacing={15}
+              spacing={14}
               viewStyle={titleViewStyle}
               textStyle={titleTextStyle}
             >
               {i18n.t("appTitlePart1").toUpperCase()}
             </LetterSpacedText>
-            <LetterSpacedText spacing={25} textStyle={subtitleTextStyle}>
+            <LetterSpacedText spacing={20} textStyle={subtitleTextStyle}>
               {i18n.t("appTitlePart2").toUpperCase()}
             </LetterSpacedText>
           </TitleWrapper>
@@ -91,7 +91,8 @@ export default connect(
 )(SignInScreen as React.ComponentClass<Props>);
 
 const titleViewStyle = {
-  marginTop: 20
+  marginTop: 20,
+  marginBottom: 4
 };
 
 const titleTextStyle = {
@@ -102,7 +103,7 @@ const titleTextStyle = {
 
 const subtitleTextStyle = {
   color: theme.activeTint,
-  fontSize: 20
+  fontSize: 26
 };
 
 const FacebookButtonWrapper = styled.View`
