@@ -103,6 +103,7 @@ class SettingsScreen extends React.Component<Props, State> {
             <BottomMargin>
               <Section
                 topPart
+                bottomPart
                 touchable
                 onPress={() =>
                   Linking.openURL("https://twitter.com/andreaslydemann")
@@ -110,27 +111,6 @@ class SettingsScreen extends React.Component<Props, State> {
               >
                 <SectionTitle>{i18n.t("twitterLinking")}</SectionTitle>
                 <Ionicons name="logo-twitter" size={22} color="#fff" />
-              </Section>
-              <Section
-                bottomPart
-                touchable
-                onPress={() => {
-                  /*if (StoreReview.isAvailable) {
-                    StoreReview.requestReview();
-                  } else {
-                    Linking.openURL(
-                      "https://itunes.apple.com/us/app/appid
-                    );
-                  }
-                }}*/
-                }}
-              >
-                <SectionTitle>{i18n.t("giveFeedback")}</SectionTitle>
-                <Ionicons
-                  name={`${THEME_PREFIX}-appstore`}
-                  size={22}
-                  color="#fff"
-                />
               </Section>
             </BottomMargin>
 
