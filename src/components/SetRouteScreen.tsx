@@ -72,35 +72,6 @@ class SetRouteScreen extends React.Component<Props, State> {
     };
   }
 
-  componentDidMount() {
-    const coordinates = this.props.navigation.getParam("coordinates");
-    const meetingPoint = this.props.navigation.getParam("meetingPoint");
-
-    if (!(coordinates.length && meetingPoint)) return;
-
-    const startMarker = {
-      coordinate: coordinates[0],
-      color: theme.submit
-    };
-
-    const endMarker = {
-      coordinate: coordinates[coordinates.length - 1],
-      color: theme.danger
-    };
-
-    this.setState(
-      {
-        meetingPoint,
-        coordinates,
-        startMarker,
-        endMarker
-      },
-      () => {
-        this.focusOnRoute();
-      }
-    );
-  }
-
   resetState() {
     this.setState({
       region: {
@@ -224,6 +195,35 @@ class SetRouteScreen extends React.Component<Props, State> {
     );
   }
 
+  onMapLayout() {
+    const coordinates = this.props.navigation.getParam("coordinates");
+    const meetingPoint = this.props.navigation.getParam("meetingPoint");
+
+    if (!(coordinates.length && meetingPoint)) return;
+
+    const startMarker = {
+      coordinate: coordinates[0],
+      color: theme.submit
+    };
+
+    const endMarker = {
+      coordinate: coordinates[coordinates.length - 1],
+      color: theme.danger
+    };
+
+    this.setState(
+      {
+        meetingPoint,
+        coordinates,
+        startMarker,
+        endMarker
+      },
+      () => {
+        this.focusOnRoute();
+      }
+    );
+  }
+
   render() {
     const { navigation } = this.props;
     const pace = navigation.getParam("pace");
@@ -252,6 +252,7 @@ class SetRouteScreen extends React.Component<Props, State> {
             initialRegion={this.state.region}
             onPress={e => this.onDrawLine(e)}
             onLongPress={e => this.setMarker(e)}
+            onLayout={() => this.onMapLayout()}
           >
             {this.state.startMarker && (
               <Marker
