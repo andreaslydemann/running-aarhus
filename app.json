@@ -26,9 +26,10 @@
       "fallbackToCacheTimeout": 0
     },
     "ios": {
-      "supportsTablet": false,
+      "buildNumber": "2",
       "bundleIdentifier": "com.andreaslydemann.runningaarhus",
       "icon": "./assets/icon.png",
+      "supportsTablet": false,
       "infoPlist": {
         "LSApplicationQueriesSchemes": [
           "fbapi",
