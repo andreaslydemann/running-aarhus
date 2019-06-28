@@ -26,7 +26,7 @@
       "fallbackToCacheTimeout": 0
     },
     "ios": {
-      "buildNumber": "3",
+      "buildNumber": "4",
       "bundleIdentifier": "com.andreaslydemann.runningaarhus",
       "icon": "./assets/icon.png",
       "supportsTablet": true,
