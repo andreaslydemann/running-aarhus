@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, Dimensions, Platform } from "react-native";
+import { Dimensions, Platform } from "react-native";
 import MapView from "react-native-maps";
 import { styled, theme } from "theme";
 import { Coordinate } from "types/common";
@@ -9,7 +9,7 @@ import {
   getDistanceOfCoordinates,
   getColorsOfCoordinates
 } from "utils";
-import { Header, RouteSummary, ScreenBackground, SubmitButton } from "./common";
+import { Header, RouteSummary, ScreenBackground, SubmitButton, Text } from "./common";
 import i18n from "i18n-js";
 
 // @ts-ignore
