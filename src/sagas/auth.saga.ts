@@ -89,7 +89,7 @@ function* startFacebookSignInFlow() {
   let { type, token } = yield call(
     Facebook.logInWithReadPermissionsAsync,
     FACEBOOK_APP_ID,
-    { permissions: ["email", "public_profile"] }
+    { permissions: ["email", "public_profile"], behavior: "web" }
   );
 
   if (type === "cancel") {
