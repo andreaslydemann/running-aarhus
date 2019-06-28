@@ -9,7 +9,13 @@ import {
   getDistanceOfCoordinates,
   getColorsOfCoordinates
 } from "utils";
-import { Header, RouteSummary, ScreenBackground, SubmitButton, Text } from "./common";
+import {
+  Header,
+  RouteSummary,
+  ScreenBackground,
+  SubmitButton,
+  Text
+} from "./common";
 import i18n from "i18n-js";
 
 // @ts-ignore

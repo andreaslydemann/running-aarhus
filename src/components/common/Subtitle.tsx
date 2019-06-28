@@ -100,5 +100,6 @@ const SubtitleWrapper = styled.View`
 
 const IconWrapper = styled.View`
   flex: 0.1;
-  justify-content: flex-end;
+  align-items: flex-end;
+  padding-right: 10px;
 `;

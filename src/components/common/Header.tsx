@@ -28,7 +28,10 @@ export default ({
 
   return (
     <Wrapper isAndroid={isAndroid}>
-      <IconWrapper onPress={navigateBack}>
+      <IconWrapper
+        style={{ alignItems: "flex-start", paddingLeft: 30 }}
+        onPress={navigateBack}
+      >
         <Ionicons
           name={iconName}
           size={isAndroid ? 26 : 40}
@@ -37,7 +40,10 @@ export default ({
       </IconWrapper>
       <Title numberOfLines={1}>{ScreenTitle}</Title>
       {showMoreButton && (
-        <IconWrapper onPress={onMoreButtonPress}>
+        <IconWrapper
+          style={{ alignItems: "flex-end", paddingRight: 30 }}
+          onPress={onMoreButtonPress}
+        >
           <Ionicons
             name={`${THEME_PREFIX}-more`}
             size={26}
@@ -69,7 +75,6 @@ const Title = styled(Text)`
 `;
 
 const IconWrapper = styled.TouchableOpacity`
-  width: 20%;
-  align-items: center;
   justify-content: center;
+  width: 20%;
 `;

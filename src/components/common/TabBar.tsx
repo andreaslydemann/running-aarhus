@@ -1,7 +1,7 @@
 import React from "react";
 import { TouchableOpacity, View, StyleSheet } from "react-native";
 import { SafeAreaView } from "react-navigation";
-import Text from './Text';
+import Text from "./Text";
 import i18n from "i18n-js";
 
 const TabBar = ({

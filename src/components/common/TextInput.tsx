@@ -3,6 +3,9 @@ import { View, Platform } from "react-native";
 import { styled, theme } from "theme";
 import Text from "./Text";
 
+// @ts-ignore
+const isPad = Platform.isPad;
+
 interface Props {
   value: string;
   onChangeText: (text: string) => void;
@@ -29,7 +32,7 @@ const TextInput = (props: Props) => {
           placeholderTextColor={theme.inactiveTint}
           multiline={isTextArea}
           onChangeText={onChangeText}
-          numberOfLines={isTextArea ? 5 : 1}
+          numberOfLines={isTextArea ? (isPad ? 10 : 5) : 1}
           isTextArea={isTextArea}
         />
       </Wrapper>
@@ -60,7 +63,7 @@ const StyledInput = styled.TextInput<TextInputProps>`
   background-color: ${({ theme }) => theme.primary};
   flex: 1;
   color: #fff;
-  height: ${props => (props.isTextArea ? "100px" : "36px")};
+  height: ${props => (props.isTextArea ? (isPad ? "200px" : "100px") : "36px")};
 `;
 
 const ErrorText = styled(Text)`
