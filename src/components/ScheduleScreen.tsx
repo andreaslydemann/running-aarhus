@@ -15,7 +15,7 @@ import * as actions from "actions";
 import { connect } from "react-redux";
 import { ScheduleState } from "types/states";
 import { RunModel } from "types/models";
-import { navigation } from "utils";
+import { navigation, sortRunsByDate } from "utils";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 import { RunRequest, Action } from "types/common";
 import { DETAILS_REDUCERS, RUN_TYPES } from "constants";
@@ -75,14 +75,16 @@ class ScheduleScreen extends React.Component<Props, State> {
     const { scheduledRuns, loading } = this.props;
     const { refreshing } = this.state;
 
+    const sortedRuns = sortRunsByDate(scheduledRuns);
+
     return (
       <ScheduleList
         ListHeaderComponent={
           <BottomMargin>
-            <CountdownCard runDate={scheduledRuns[0].startDateTime} />
+            <CountdownCard runDate={sortedRuns[0].startDateTime} />
           </BottomMargin>
         }
-        data={scheduledRuns}
+        data={sortedRuns}
         keyExtractor={(item: any) => item.id}
         renderItem={({ item }: any) => (
           <BottomMargin>

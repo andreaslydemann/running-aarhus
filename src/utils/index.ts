@@ -9,3 +9,4 @@ export * from "./addParticipationStatusToRuns";
 export * from "./getRunsWithUpdatedParticipation";
 export * from "./getRunsWithUpdatedCancellation";
 export * from "./getRunsWithUpdatedRun";
+export * from "./sortRunsByDate";

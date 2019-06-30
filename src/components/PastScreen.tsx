@@ -18,6 +18,7 @@ import { connect } from "react-redux";
 import * as actions from "actions";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
 import { DETAILS_REDUCERS, RUN_TYPES } from "constants";
+import { sortRunsByDate } from "utils";
 //import firebase from "firebase";
 
 interface PropsConnectedState {
@@ -101,7 +102,7 @@ class PastScreen extends React.Component<Props, State> {
               <StatsHeader numberOfRuns={pastRuns.length} />
             </BottomMargin>
           }
-          data={pastRuns}
+          data={sortRunsByDate(pastRuns)}
           keyExtractor={(item: any) => item.id}
           renderItem={({ item }: any) => (
             <BottomMargin>

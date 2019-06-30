@@ -19,6 +19,7 @@ import { PlanningState } from "types/states";
 import { RunModel } from "types/models";
 import { Item, RunRequest, Action } from "types/common";
 import { DETAILS_REDUCERS, RUN_TYPES } from "constants";
+import { sortRunsByDate } from "utils";
 
 interface PropsConnectedState {
   error: boolean;
@@ -101,7 +102,11 @@ class PlanningScreen extends React.Component<Props, State> {
           </BottomMargin>
         }
         extraData={this.props}
-        data={showingUpcomingRuns ? upcomingRuns : myRuns}
+        data={
+          showingUpcomingRuns
+            ? sortRunsByDate(upcomingRuns)
+            : sortRunsByDate(myRuns)
+        }
         keyExtractor={(item: any) => item.id}
         renderItem={({ item }: any) => (
           <BottomMargin>
