@@ -1,12 +1,6 @@
 import * as React from "react";
 import { Text as TextBase, Platform, StyleSheet } from "react-native";
 
-interface Props {
-  children: any;
-  style?: any;
-  numberOfLines?: number;
-}
-
 export const DEFAULT_STYLE = {
   ...Platform.select({
     android: {
@@ -21,10 +15,8 @@ const styles = StyleSheet.create({
   }
 });
 
-const Text = ({ children, style, numberOfLines }: Props) => (
-  <TextBase style={[styles.text, style]} numberOfLines={numberOfLines}>
-    {children}
-  </TextBase>
+const Text = (props: any) => (
+  <TextBase style={[styles.text, props.style]} {...props} />
 );
 
 export default Text;
