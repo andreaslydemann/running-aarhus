@@ -63,6 +63,7 @@ export const da = {
   deleteUserDialogDescription: "Er du sikker på, at du vil slette din bruger?",
   giveFeedback: "Giv din feedback",
   twitterLinking: "Sig hej 👋",
+  storeLinking: "Giv feedback",
   loginWithFacebook: "Brug ovenstående knap for at logge ind med Facebook.",
   appTitle: "Running Aarhus",
   appTitlePart1: "Running",

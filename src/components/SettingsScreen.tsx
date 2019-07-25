@@ -8,7 +8,7 @@ import {
   Text
 } from "components/common";
 import { Ionicons } from "@expo/vector-icons";
-import { theme, styled } from "theme";
+import { theme, styled, THEME_PREFIX } from "theme";
 import Dialog, {
   DialogButton,
   DialogContent,
@@ -20,7 +20,7 @@ import { connect } from "react-redux";
 import * as actions from "actions";
 import { AuthState } from "types/states";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
-// import * as StoreReview from "react-native-store-review";
+import { StoreReview } from "expo";
 
 interface PropsConnectedState {
   loading: boolean;
@@ -40,6 +40,17 @@ interface Props extends PropsConnectedState {
 class SettingsScreen extends React.Component<Props, State> {
   state = {
     dialogVisible: false
+  };
+
+  onFeedbackButtonPress = () => {
+    if (StoreReview.isSupported()) {
+      StoreReview.requestReview();
+    } else {
+      const url = StoreReview.storeUrl();
+      if (url) {
+        Linking.openURL(url);
+      }
+    }
   };
 
   renderDialog = () => {
@@ -103,7 +114,6 @@ class SettingsScreen extends React.Component<Props, State> {
             <BottomMargin>
               <Section
                 topPart
-                bottomPart
                 touchable
                 onPress={() =>
                   Linking.openURL("https://twitter.com/andreaslydemann")
@@ -111,6 +121,18 @@ class SettingsScreen extends React.Component<Props, State> {
               >
                 <SectionTitle>{i18n.t("twitterLinking")}</SectionTitle>
                 <Ionicons name="logo-twitter" size={22} color="#fff" />
+              </Section>
+              <Section
+                bottomPart
+                touchable
+                onPress={this.onFeedbackButtonPress}
+              >
+                <SectionTitle>{i18n.t("storeLinking")}</SectionTitle>
+                <Ionicons
+                  name={`${THEME_PREFIX}-appstore`}
+                  size={22}
+                  color="#fff"
+                />
               </Section>
             </BottomMargin>
 

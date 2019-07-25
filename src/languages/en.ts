@@ -63,6 +63,7 @@ export const en = {
   deleteUserDialogDescription: "Are you sure you want to delete your user?",
   giveFeedback: "Give your feedback",
   twitterLinking: "Say hi 👋",
+  storeLinking: "Give feedback",
   loginWithFacebook: "Please login with Facebook using the button above.",
   appTitle: "Running Aarhus",
   appTitlePart1: "Running",
