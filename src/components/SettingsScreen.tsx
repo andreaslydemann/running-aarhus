@@ -1,4 +1,4 @@
-import { Linking } from "react-native";
+import { Linking, Alert } from "react-native";
 import React from "react";
 import i18n from "i18n-js";
 import {
@@ -43,11 +43,22 @@ class SettingsScreen extends React.Component<Props, State> {
   };
 
   onFeedbackButtonPress = () => {
+    let storeUrl = StoreReview.storeUrl();
+
+    if (storeUrl) {
+      Alert.alert(storeUrl);
+    } else {
+      Alert.alert("No storeUrl");
+    }
+
     if (StoreReview.isSupported()) {
+      Alert.alert("supported");
       StoreReview.requestReview();
     } else {
+      Alert.alert("it wasnt supported");
       const url = StoreReview.storeUrl();
       if (url) {
+        Alert.alert("opening url with linking");
         Linking.openURL(url);
       }
     }
