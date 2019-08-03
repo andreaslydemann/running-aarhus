@@ -3,12 +3,12 @@
     "name": "Running Aarhus",
     "slug": "running-aarhus",
     "privacy": "public",
-    "sdkVersion": "33.0.0",
+    "sdkVersion": "34.0.0",
     "platforms": [
       "ios",
       "android"
     ],
-    "version": "1.1.0",
+    "version": "1.1.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -26,12 +26,12 @@
       "fallbackToCacheTimeout": 0
     },
     "ios": {
-      "buildNumber": "7",
+      "buildNumber": "1",
       "bundleIdentifier": "com.andreaslydemann.runningaarhus",
       "icon": "./assets/icon.png",
       "supportsTablet": true,
       "infoPlist": {
-        "NSLocationWhenInUseUsageDescription": "Allow Running Aarhus to show your current location",
+        "NSLocationWhenInUseUsageDescription": "Allow Running Aarhus to display your location on the map",
         "LSApplicationQueriesSchemes": [
           "fbapi",
           "fb-messenger-share-api",
@@ -42,7 +42,7 @@
       "appStoreUrl": "https://itunes.apple.com/us/app/running-aarhus/id1470246963"
     },
     "android": {
-      "versionCode": 6,
+      "versionCode": 1,
       "package": "com.andreaslydemann.runningaarhus",
       "playStoreUrl": "https://play.google.com/store/apps/details?id=com.andreaslydemann.runningaarhus"
     },

@@ -8,7 +8,7 @@ import {
   deleteUserFailure
 } from "actions";
 import { AsyncStorage } from "react-native";
-import { Facebook } from "expo";
+import * as Facebook from "expo-facebook";
 import {
   FACEBOOK_TOKEN,
   FACEBOOK_APP_ID,
