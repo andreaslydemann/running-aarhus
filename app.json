@@ -36,15 +36,14 @@
           "fbapi",
           "fb-messenger-share-api",
           "fbauth2",
-          "fbshareextension"
+          "fbshareextension",
+          "itms-apps"
         ]
-      },
-      "appStoreUrl": "https://apps.apple.com/us/app/running-aarhus/id1470246963"
+      }
     },
     "android": {
       "versionCode": 1,
-      "package": "com.andreaslydemann.runningaarhus",
-      "playStoreUrl": "https://play.google.com/store/apps/details?id=com.andreaslydemann.runningaarhus"
+      "package": "com.andreaslydemann.runningaarhus"
     },
     "description": "",
     "githubUrl": "https://github.com/andreaslydemann/running-aarhus"

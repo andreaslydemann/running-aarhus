@@ -1,4 +1,4 @@
-import { Linking } from "react-native";
+import { Linking, Platform } from "react-native";
 import React from "react";
 import i18n from "i18n-js";
 import {
@@ -20,7 +20,7 @@ import { connect } from "react-redux";
 import * as actions from "actions";
 import { AuthState } from "types/states";
 import { StatusModal, statusModalTypes } from "./common/StatusModal";
-import { StoreReview } from "expo";
+import { APP_STORE_URL, PLAY_STORE_URL } from "constants";
 
 interface PropsConnectedState {
   loading: boolean;
@@ -42,15 +42,11 @@ class SettingsScreen extends React.Component<Props, State> {
     dialogVisible: false
   };
 
-  onFeedbackButtonPress = () => {
-    if (StoreReview.isSupported()) {
-      StoreReview.requestReview();
-    } else {
-      const url = StoreReview.storeUrl();
+  onFeedbackButtonPress = async () => {
+    const url = Platform.OS === "ios" ? APP_STORE_URL : PLAY_STORE_URL;
 
-      if (url) {
-        Linking.openURL(url);
-      }
+    if (await Linking.canOpenURL(url)) {
+      await Linking.openURL(url);
     }
   };
 
